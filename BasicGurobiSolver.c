@@ -8,6 +8,7 @@
 #include "gurobi_c.h"
 
 int main() {
+
 	GRBenv *env = NULL;
 	GRBmodel *model = NULL;
 	int error = 0;

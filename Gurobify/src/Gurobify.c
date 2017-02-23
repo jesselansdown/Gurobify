@@ -20,7 +20,22 @@ Obj TestCommand(Obj self)
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
 {
     /* simply return the first parameter */
-    return param;
+    if( ! IS_PLIST( param ) ){
+        ErrorMayQuit( "Param is not a list!", 0, 0 );
+    }
+    if( ! IS_INTOBJ(param2) ){
+        ErrorMayQuit( "Param2 is not an integer!", 0, 0);
+    }
+    int index = INT_INTOBJ(param2);
+    int length = LEN_PLIST( param );
+    if (index > length){
+        ErrorMayQuit("Param2 is larger than the size of param!", 0, 0);
+    }
+    Obj a = ELM_PLIST( param, index );
+    int b = INT_INTOBJ(a);
+    Obj return_val = INTOBJ_INT( b );
+
+    return return_val;
 }
 
 
