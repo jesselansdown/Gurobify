@@ -6,13 +6,17 @@
 #include "gurobi_c.h"
 
 
-Obj GurobiSolve(Obj self)
+Obj GurobiSolve(Obj self, Obj lp_file)
 {
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
+    //TODO: Check that lp_file is actually a string
+    char *lp_file_name = CSTR_STRING(lp_file);
     int error = 0;
+    // We are not interested in a log file, so the second argument is NULL
     error = GRBloadenv(&env, NULL);
-    error = GRBreadmodel(env, "/Users/jesselansdown/GitHub/Gurobify/lp_file.lp", &model);
+    error = GRBreadmodel(env, lp_file_name, &model);
+    //TODO: check that the model was read correctly
     error = GRBoptimize(model);
     return 0;
 }
@@ -49,7 +53,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommand, 0, ""),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 1, "lp_file"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
