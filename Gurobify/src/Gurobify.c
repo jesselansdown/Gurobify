@@ -6,7 +6,7 @@
 #include "gurobi_c.h"
 
 
-Obj TestCommand(Obj self)
+Obj GurobiSolve(Obj self)
 {
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
