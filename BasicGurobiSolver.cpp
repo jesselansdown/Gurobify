@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
 	GRBEnv env = GRBEnv();
-	GRBModel model = GRBModel(env, "lp_file.lp");
+	GRBModel model = GRBModel(env, "/Users/jesselansdown/GitHub/Gurobify/lp_file.lp");
 	model.optimize();
 	cout << "Optimal solution: " << model.get(GRB_DoubleAttr_ObjVal) << endl;
 	return 0;
