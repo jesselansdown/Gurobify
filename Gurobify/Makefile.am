@@ -12,8 +12,8 @@ GAPINSTALLLIB = $(BINARCHDIR)/Gurobify.so
 lib_LTLIBRARIES = Gurobify.la
 
 Gurobify_la_SOURCES = src/Gurobify.c
-Gurobify_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H
-Gurobify_la_LDFLAGS = -module -avoid-version
+Gurobify_la_CPPFLAGS = $(GAP_CPPFLAGS) -DCONFIG_H $(GUROBI_CPPFLAGS)
+Gurobify_la_LDFLAGS = $(GUROBI_LDPATH) -lgurobi70 -module -avoid-version -lm
 if SYS_IS_CYGWIN
 Gurobify_la_LDFLAGS += -no-undefined -version-info 0:0:0 
 Gurobify_la_LDFLAGS += -Wl,$(GAPROOT)/bin/$(GAPARCH)/gap.dll

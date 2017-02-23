@@ -3,11 +3,18 @@
  */
 
 #include "src/compiled.h"          /* GAP headers */
+#include "gurobi_c.h"
 
 
 Obj TestCommand(Obj self)
 {
-    return INTOBJ_INT(42);
+    GRBenv *env = NULL;
+    GRBmodel *model = NULL;
+    int error = 0;
+    error = GRBloadenv(&env, NULL);
+    error = GRBreadmodel(env, "/Users/jesselansdown/GitHub/Gurobify/lp_file.lp", &model);
+    error = GRBoptimize(model);
+    return 0;
 }
 
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
@@ -30,7 +37,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommand, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
-	{ 0 } /* Finish with an empty entry */
+  { 0 } /* Finish with an empty entry */
 
 };
 

@@ -50,6 +50,17 @@ dnl ## Detect pointer size to distinguish 32 and 64 bit builds
 dnl ##
 AC_CHECK_SIZEOF([void **])
 
+AC_ARG_WITH([gurobi],
+    [AC_HELP_STRING([--with-gurobi=<path>], [specify root of Gurobi installation])],
+    [GUROBI="$with_gurobi"],
+)
+GUROBI_CPPFLAGS="-I$GUROBI/include"
+GUROBI_LDPATH="$GUROBI/lib"
+GUROBI_LDFLAGS="-L$GUROBI_LDPATH"
+AC_SUBST(GUROBI_LDPATH)
+AC_SUBST(GUROBI_LDFLAGS)
+AC_SUBST(GUROBI_CPPFLAGS)
+
 dnl ##
 dnl ## Detect Windows resp. Cygwin
 dnl ##
