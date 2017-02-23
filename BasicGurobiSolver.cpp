@@ -3,7 +3,7 @@
 // Author: Jesse Lansdown
 //
 // To compile run the following command
-// g++ -m64 -g -o G\(AP\)urobi G\(AP\)urobi.cpp -I /Library/gurobi701/mac64/include/ /Library/gurobi701/mac64/lib/libgurobi_c++.a /Library/gurobi701/mac64/lib/libgurobi70.so -lpthread -lm
+// g++ -m64 -g -o BasicGurobiSolver BasicGurobiSolver.cpp -I /Library/gurobi701/mac64/include/ /Library/gurobi701/mac64/lib/libgurobi_c++.a /Library/gurobi701/mac64/lib/libgurobi70.so -lpthread -lm
 
 #include "gurobi_c++.h"
 using namespace std;
