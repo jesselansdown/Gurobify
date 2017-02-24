@@ -6,4 +6,4 @@
 
 #! @Description
 #!   Insert documentation for you function here
-DeclareGlobalFunction( "Gurobify_Example" );
+DeclareGlobalFunction( "GurobifySolve" );
