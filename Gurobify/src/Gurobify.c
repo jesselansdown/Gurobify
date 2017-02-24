@@ -12,17 +12,13 @@
 Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj CutOffON, Obj CutOffValue, Obj ConsoleOutputON)
 {
 
-	//TODO: make output to screen optional - how to convert boolean values from gap to C?
-	//TODO: Return the actual solution to the problem
 	//TODO: Add option of additional constraints
-	//TODO: Add time limit paramter
 	//TODO: Add numeric focus parameter - infact, all parameters?
 
 
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
     GRBenv *modelenv = NULL;
-
 
     int optimstatus;
 	double objval;
