@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file)
+Obj GurobiSolve(Obj self, Obj lp_file, Obj ConsoleOutputON)
 {
 
 	//TODO: make output to screen optional - how to convert boolean values from gap to C?
@@ -35,9 +35,15 @@ Obj GurobiSolve(Obj self, Obj lp_file)
     if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
     
+    if (ConsoleOutputON != True && ConsoleOutputON != False){
+    	ErrorMayQuit( "Error: ConsoleOutputON requires a true false switch.", 0, 0 );
+    }
+    else{
+    	if (ConsoleOutputON != True){
+	   		error = GRBsetintparam(env, "LogToConsole", 0);
+    	}
+	}
 
-    error = GRBsetintparam(env, "LogToConsole", 0);
-    
     error = GRBreadmodel(env, lp_file_name, &model);
 
 
@@ -128,7 +134,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 1, "lp_file"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 2, "lp_file, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
