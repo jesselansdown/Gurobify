@@ -1,2 +1,3 @@
 BasicGurobiSolver
 lp_file.lp
+infeasible.lp

@@ -70,19 +70,20 @@ Obj GurobiSolve(Obj self, Obj lp_file)
     int i;
     for (i = 0; i < number_of_variables; i = i+1 ){
 		SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
+//		SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
     }
 
-	Obj results = NEW_PLIST( T_PLIST , 2);
-	SET_LEN_PLIST( results , 2 );
+	Obj results = NEW_PLIST( T_PLIST , 3);
+	SET_LEN_PLIST( results , 3 );
 	SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
-	SET_ELM_PLIST(results, 2, INTOBJ_INT(objval));			//TODO: This should be a float? In the case it isnt a MIP
-
+	SET_ELM_PLIST(results, 2, NEW_MACFLOAT(objval));			//TODO: Check if can return an integer first, otherwise return a float
+	SET_ELM_PLIST(results, 3, solution);
 	//TODO: how to make nested plists?
 
 	GRBfreemodel(model);
 	GRBfreeenv(env);
 
-    return solution;
+    return results;
 }
 
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
