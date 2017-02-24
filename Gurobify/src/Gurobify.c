@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj ConsoleOutputON)
+Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj CutOffON, Obj CutOffValue, Obj ConsoleOutputON)
 {
 
 	//TODO: make output to screen optional - how to convert boolean values from gap to C?
@@ -36,16 +36,18 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj 
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
     
     if (ConsoleOutputON != True && ConsoleOutputON != False){
-    	ErrorMayQuit( "Error: ConsoleOutputON requires a true false switch.", 0, 0 );
+    	ErrorMayQuit( "Error: ConsoleOutputON requires a true/false switch.", 0, 0 );
     }
     else{
     	if (ConsoleOutputON != True){
 	   		error = GRBsetintparam(env, "LogToConsole", 0);
+			   	if (error)
+			        ErrorMayQuit( "Error: LogToConsole not updated correctly.", 0, 0 );
     	}
 	}
 
     if ( (TimeLimitON != True) && (TimeLimitON != False) ) {
-    	ErrorMayQuit( "Error: TimeLimitON requires a true false switch.", 0, 0 );
+    	ErrorMayQuit( "Error: TimeLimitON requires a true/false switch.", 0, 0 );
     }
     else{
     	if (TimeLimitON == True ){
@@ -54,13 +56,31 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj 
 			}
 			else{
 			   	error = GRBsetdblparam(env, "TimeLimit", VAL_MACFLOAT(TimeLimitValue) );
+			   	if (error)
+			        ErrorMayQuit( "Error: TimeLimit not updated correctly.", 0, 0 );
+			}
+    	}
+	}
+
+	if ( (CutOffON != True) && (CutOffON != False) ) {
+    	ErrorMayQuit( "Error: CutOffON requires a true/false switch.", 0, 0 );
+    }
+    else{
+    	if (CutOffON == True ){
+    		if (IS_INTOBJ(CutOffValue) || ! IS_MACFLOAT(CutOffValue)){
+    	    	ErrorMayQuit( "Error: CutOffValue requires a double.", 0, 0 );
+			}
+			else{
+			   	error = GRBsetdblparam(env, GRB_DBL_PAR_CUTOFF, VAL_MACFLOAT(CutOffValue) );
+			   	if (error)
+			        ErrorMayQuit( "Error: Cutoff not updated correctly.", 0, 0 );
 			}
     	}
 	}
 
 
 
-
+	error = GRBsetdblparam(env, GRB_DBL_PAR_CUTOFF, 2.0 );
 
 
 
@@ -155,7 +175,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 4, "lp_file,  TimeLimitON, TimeLimitValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 6, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
