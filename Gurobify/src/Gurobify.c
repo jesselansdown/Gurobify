@@ -57,16 +57,32 @@ Obj GurobiSolve(Obj self, Obj lp_file)
     if (error)
         ErrorMayQuit( "Error: unable to obtain optimal value", 0, 0 );
 
+    int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
+    double sol[number_of_variables];
+    error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, number_of_variables, sol);		//TODO: check for errors
+    
+    Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+																	// When number of variables is replaced by
+																	// the actual number it gives no warning and
+																	// causes no trouble
+    int i;
+    for (i = 0; i < number_of_variables; i = i+1 ){
+		SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
+    }
 
 	Obj results = NEW_PLIST( T_PLIST , 2);
 	SET_LEN_PLIST( results , 2 );
 	SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
-	SET_ELM_PLIST(results, 2, INTOBJ_INT(objval));			//TODO: This should be a float?
-  
+	SET_ELM_PLIST(results, 2, INTOBJ_INT(objval));			//TODO: This should be a float? In the case it isnt a MIP
+
+	//TODO: how to make nested plists?
+
 	GRBfreemodel(model);
 	GRBfreeenv(env);
 
-    return results;
+    return solution;
 }
 
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
