@@ -9,12 +9,28 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj CutOffON, Obj CutOffValue, Obj ConsoleOutputON)
+Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 {
 
 	//TODO: Add option of additional constraints
 	//TODO: Add numeric focus parameter - infact, all parameters?
+	int number_of_arguments = 7;
 
+	if( ! IS_PLIST( ParameterArguments ) ){
+        ErrorMayQuit( "Error: arguments is not a list!", 0, 0 );
+    }
+	int length = LEN_PLIST( ParameterArguments );
+    if (length != number_of_arguments){
+        ErrorMayQuit("Error: wrong number of parameter-arguments!", 0, 0);
+    }
+
+    Obj TimeLimitON = ELM_PLIST( ParameterArguments, 1 );
+    Obj TimeLimitValue = ELM_PLIST( ParameterArguments, 2 );
+    Obj BestObjStopON = ELM_PLIST( ParameterArguments, 3 );
+    Obj BestObjStopValue = ELM_PLIST( ParameterArguments, 4 );
+    Obj CutOffON = ELM_PLIST( ParameterArguments, 5 );
+    Obj CutOffValue = ELM_PLIST( ParameterArguments, 6 );
+    Obj ConsoleOutputON = ELM_PLIST( ParameterArguments, 7 );
 
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
@@ -57,6 +73,23 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj 
 			}
     	}
 	}
+
+	if ( (BestObjStopON != True) && (BestObjStopON != False) ) {
+    	ErrorMayQuit( "Error: BestObjStopON requires a true/false switch.", 0, 0 );
+    }
+    else{
+    	if (BestObjStopON == True ){
+    		if (IS_INTOBJ(BestObjStopValue) || ! IS_MACFLOAT(BestObjStopValue)){
+    	    	ErrorMayQuit( "Error: CutOffValue requires a double.", 0, 0 );
+			}
+			else{
+			   	error = GRBsetdblparam(env, "BestObjStop", VAL_MACFLOAT(BestObjStopValue) );
+			   	if (error)
+			        ErrorMayQuit( "Error: BestObjStop not updated correctly.", 0, 0 );
+			}
+    	}
+	}
+
 
 	if ( (CutOffON != True) && (CutOffON != False) ) {
     	ErrorMayQuit( "Error: CutOffON requires a true/false switch.", 0, 0 );
@@ -171,7 +204,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 6, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
