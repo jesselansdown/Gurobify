@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file, Obj ConsoleOutputON)
+Obj GurobiSolve(Obj self, Obj lp_file, Obj TimeLimitON, Obj TimeLimitValue, Obj ConsoleOutputON)
 {
 
 	//TODO: make output to screen optional - how to convert boolean values from gap to C?
@@ -43,6 +43,27 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ConsoleOutputON)
 	   		error = GRBsetintparam(env, "LogToConsole", 0);
     	}
 	}
+
+    if ( (TimeLimitON != True) && (TimeLimitON != False) ) {
+    	ErrorMayQuit( "Error: TimeLimitON requires a true false switch.", 0, 0 );
+    }
+    else{
+    	if (TimeLimitON == True ){
+    		if (IS_INTOBJ(TimeLimitValue) || ! IS_MACFLOAT(TimeLimitValue)){
+    	    	ErrorMayQuit( "Error: TimeLimitValue requires a double.", 0, 0 );
+			}
+			else{
+			   	error = GRBsetdblparam(env, "TimeLimit", VAL_MACFLOAT(TimeLimitValue) );
+			}
+    	}
+	}
+
+
+
+
+
+
+
 
     error = GRBreadmodel(env, lp_file_name, &model);
 
@@ -134,7 +155,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 2, "lp_file, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 4, "lp_file,  TimeLimitON, TimeLimitValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
