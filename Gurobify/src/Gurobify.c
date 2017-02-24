@@ -52,34 +52,44 @@ Obj GurobiSolve(Obj self, Obj lp_file)
     error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &optimstatus);
     if (error)
         ErrorMayQuit( "Error: unable to obtain optimisation status", 0, 0 );
-
-    error = GRBgetdblattr(model, GRB_DBL_ATTR_OBJVAL, &objval);			//TODO: First check that the optimstatus returned a success
-    if (error)
-        ErrorMayQuit( "Error: unable to obtain optimal value", 0, 0 );
-
-    int number_of_variables;
-    error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
-    double sol[number_of_variables];
-    error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, number_of_variables, sol);		//TODO: check for errors
-    
-    Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																	// When number of variables is replaced by
-																	// the actual number it gives no warning and
-																	// causes no trouble
-    int i;
-    for (i = 0; i < number_of_variables; i = i+1 ){
-		SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
-//		SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
-    }
-
+	
 	Obj results = NEW_PLIST( T_PLIST , 3);
 	SET_LEN_PLIST( results , 3 );
-	SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
-	SET_ELM_PLIST(results, 2, NEW_MACFLOAT(objval));			//TODO: Check if can return an integer first, otherwise return a float
-	SET_ELM_PLIST(results, 3, solution);
-	//TODO: how to make nested plists?
+    
+    if (optimstatus == GRB_OPTIMAL){
+	    error = GRBgetdblattr(model, GRB_DBL_ATTR_OBJVAL, &objval);			//TODO: First check that the optimstatus returned a success
+	    if (error)
+	        ErrorMayQuit( "Error: unable to obtain optimal value", 0, 0 );
 
+	    int number_of_variables;
+	    error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
+	    double sol[number_of_variables];
+	    error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, number_of_variables, sol);		//TODO: check for errors
+	    
+	    Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+		SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+																		// When number of variables is replaced by
+																		// the actual number it gives no warning and
+																		// causes no trouble
+	    int i;
+	    for (i = 0; i < number_of_variables; i = i+1 ){
+			SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
+	//		SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
+	    }
+
+		SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
+		SET_ELM_PLIST(results, 2, NEW_MACFLOAT(objval));			//TODO: Check if can return an integer first, otherwise return a float
+		SET_ELM_PLIST(results, 3, solution);
+	}
+	else{
+		Obj unsure = NEW_STRING(3);
+		C_NEW_STRING_CONST(unsure, "?");
+		Obj empty_solution = NEW_PLIST( T_PLIST , 0);
+		SET_LEN_PLIST( empty_solution , 0);
+		SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
+		SET_ELM_PLIST(results, 2, unsure);			//TODO: Check if can return an integer first, otherwise return a float
+		SET_ELM_PLIST(results, 3, empty_solution);
+	}
 	GRBfreemodel(model);
 	GRBfreeenv(env);
 
