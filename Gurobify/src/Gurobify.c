@@ -12,15 +12,17 @@
 Obj GurobiSolve(Obj self, Obj lp_file)
 {
 
-	//TODO: Add option of suppressing the output to the screen during optimization
+	//TODO: make output to screen optional - how to convert boolean values from gap to C?
 	//TODO: Return the actual solution to the problem
 	//TODO: Add option of additional constraints
 	//TODO: Add time limit paramter
 	//TODO: Add numeric focus parameter - infact, all parameters?
-	
+
 
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
+    GRBenv *modelenv = NULL;
+
 
     int optimstatus;
 	double objval;
@@ -30,14 +32,17 @@ Obj GurobiSolve(Obj self, Obj lp_file)
     char *lp_file_name = CSTR_STRING(lp_file);
 
     error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
-    if (error || env == NULL) {
+    if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
-    }
+    
 
+    error = GRBsetintparam(env, "LogToConsole", 0);
+    
     error = GRBreadmodel(env, lp_file_name, &model);
 
+
     if (error)
-        ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );    
+        ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
 
     error = GRBoptimize(model);
 
