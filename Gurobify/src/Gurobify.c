@@ -14,7 +14,7 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 
 	//TODO: Add option of additional constraints
 	//TODO: Add numeric focus parameter - infact, all parameters?
-	int number_of_arguments = 7;
+	int number_of_arguments = 9;
 
 	if( ! IS_PLIST( ParameterArguments ) ){
         ErrorMayQuit( "Error: arguments is not a list!", 0, 0 );
@@ -28,9 +28,11 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     Obj TimeLimitValue = ELM_PLIST( ParameterArguments, 2 );
     Obj BestObjStopON = ELM_PLIST( ParameterArguments, 3 );
     Obj BestObjStopValue = ELM_PLIST( ParameterArguments, 4 );
-    Obj CutOffON = ELM_PLIST( ParameterArguments, 5 );
-    Obj CutOffValue = ELM_PLIST( ParameterArguments, 6 );
-    Obj ConsoleOutputON = ELM_PLIST( ParameterArguments, 7 );
+    Obj NumericFocusON = ELM_PLIST( ParameterArguments, 5 );
+    Obj NumericFocusValue = ELM_PLIST( ParameterArguments, 6 );
+    Obj CutOffON = ELM_PLIST( ParameterArguments, 7 );
+    Obj CutOffValue = ELM_PLIST( ParameterArguments, 8 );
+    Obj ConsoleOutputON = ELM_PLIST( ParameterArguments, 9 );
 
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
@@ -90,6 +92,21 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     	}
 	}
 
+	if ( (NumericFocusON != True) && (NumericFocusON != False) ) {
+    	ErrorMayQuit( "Error: NumericFocusON requires a true/false switch.", 0, 0 );
+    }
+    else{
+    	if (NumericFocusON == True ){
+    		if (! IS_INTOBJ(NumericFocusValue) ){
+    	    	ErrorMayQuit( "Error: NumericFocus requires a integer.", 0, 0 );
+			}
+			else{
+			   	error = GRBsetintparam(env, "NumericFocus", INT_INTOBJ(NumericFocusValue) );
+			   	if (error)
+			        ErrorMayQuit( "Error: NumericFocus not updated correctly.", 0, 0 );
+			}
+    	}
+    }
 
 	if ( (CutOffON != True) && (CutOffON != False) ) {
     	ErrorMayQuit( "Error: CutOffON requires a true/false switch.", 0, 0 );
