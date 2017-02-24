@@ -82,7 +82,7 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     else{
     	if (BestObjStopON == True ){
     		if (IS_INTOBJ(BestObjStopValue) || ! IS_MACFLOAT(BestObjStopValue)){
-    	    	ErrorMayQuit( "Error: CutOffValue requires a double.", 0, 0 );
+    	    	ErrorMayQuit( "Error: BestObjStop requires a double.", 0, 0 );
 			}
 			else{
 			   	error = GRBsetdblparam(env, "BestObjStop", VAL_MACFLOAT(BestObjStopValue) );
