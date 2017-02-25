@@ -6,4 +6,15 @@
 
 #! @Description
 #!   Insert documentation for you function here
+#!
+#! Takes the following optional arguments:
+#!
+#! TimeLimit
+#! BestObjBound
+#! ToConsole
+#! ToConsole
+#! NumericFocus
+#! Cutoff
+#! ToConsole
+
 DeclareGlobalFunction( "GurobifySolve" );

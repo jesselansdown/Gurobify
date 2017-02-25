@@ -32,13 +32,13 @@ function( file_name )
 		BestObjStopValue := best_obj_bound;
 	fi;
 
-	numeric_focus := ValueOption("ToConsole");
+	numeric_focus := ValueOption("NumericFocus");
 	if not numeric_focus = fail then
 		NumericFocusON := true;
 		NumericFocusValue := numeric_focus;
 	fi;
 
-	cut_off := ValueOption("ToConsole");
+	cut_off := ValueOption("Cutoff");
 	if not cut_off = fail then
 		CutOffON := true;
 		CutOffValue := cut_off;
