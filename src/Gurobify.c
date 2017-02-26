@@ -9,7 +9,8 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
+Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
+					Obj AdditionalConstraintRHSValue, Obj ParameterArguments )
 {
 
 	//TODO: Add option of additional constraints
@@ -148,6 +149,83 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
         ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
 
 //-------------------------------------------------------------------------------------
+// Adding additional constraints
+
+	int i;
+	int number_of_variables;
+	error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
+
+	if ( (AdditionalConstraintsON != True) && (AdditionalConstraintsON != False) ) {
+    	ErrorMayQuit( "Error: AdditionalConstraintsON requires a true/false switch.", 0, 0 );
+    }
+	else{
+    	if (AdditionalConstraintsON == True ){
+
+			if ( ! IS_PLIST(AdditionalConstraintEquations))
+			    ErrorMayQuit( "Error: AdditionalConstraintEquations must be a matrix.", 0, 0 );
+
+    		int constraint_index[number_of_variables];
+			double constraint_value[number_of_variables];
+			int non_zero_constraints = 0;
+			int index = 0;
+			int j = 0;
+			double rhs;
+
+		    for (i = 0; i < LEN_PLIST(AdditionalConstraintEquations); i = i+1 ){
+
+				Obj rhsObj = ELM_PLIST(AdditionalConstraintRHSValue, i+1);				
+				if (IS_MACFLOAT(rhsObj)){
+					rhs = VAL_MACFLOAT(rhsObj);
+				}
+				else{
+			    	ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be a double.", 0, 0 );
+				}
+
+				Obj CurrentEquation = ELM_PLIST(AdditionalConstraintEquations, i+1);
+				if (! IS_PLIST(CurrentEquation))
+			    	ErrorMayQuit( "Error: AdditionalConstraintEquations must be a matrix.", 0, 0 );
+
+			    if ( LEN_PLIST(CurrentEquation) != number_of_variables)
+			    	ErrorMayQuit( "Error: AdditionalConstraintEquations has incorrect dimensions!", 0, 0 );
+
+		    	non_zero_constraints = 0;
+		    	index = 0;
+		    	for (j = 0; j < number_of_variables; j = j+1){
+					Obj CurrentEntry = ELM_PLIST(CurrentEquation, j+1);
+					if ( ! IS_MACFLOAT(CurrentEntry))
+						ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
+						//Also check that this allows integer values?
+
+		    		if ( VAL_MACFLOAT(CurrentEntry) != 0){
+						constraint_index[index] = j;
+						constraint_value[index] = VAL_MACFLOAT(CurrentEntry);
+						non_zero_constraints = non_zero_constraints + 1;
+						index = index + 1;
+		    		}
+
+		    	}
+		    	if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), "<", 1) == 0 ){
+					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
+						if (error)
+							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+		    	}
+				else if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), ">", 1) == 0 ){
+					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
+						if (error)
+							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+				}
+				else if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), "=", 1) == 0 ){
+					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
+						if (error)
+							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+				}
+				else
+					ErrorMayQuit( "Error: wrong type of constraint sense. must be <,> or = ", 0, 0 );
+		    }
+    	}
+	}
+
+//-------------------------------------------------------------------------------------
 // Optimise the model
 
     error = GRBoptimize(model);
@@ -170,8 +248,6 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 	    if (error)
 	        ErrorMayQuit( "Error: unable to obtain optimal value", 0, 0 );
 
-	    int number_of_variables;
-	    error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
 	    double sol[number_of_variables];
 	    error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, number_of_variables, sol);		//TODO: check for errors
 	    
@@ -180,7 +256,6 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 																		// When number of variables is replaced by
 																		// the actual number it gives no warning and
 																		// causes no trouble
-	    int i;
 	    for (i = 0; i < number_of_variables; i = i+1 ){
 			SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
 	//		SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
@@ -239,7 +314,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 6, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
