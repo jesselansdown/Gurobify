@@ -18,8 +18,11 @@ GurobifySolve( file_name : OptionVariable1 := 7; OptionVariable2 := 3; OptionVar
 GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable2 := 3; OptionVariable4 := 100.9);
 
 	where	mat is a matrix of additional constraints
-			sense is "<", ">" or "=" corresponding to each row of mat
-			rhs is the value on the right hand side of the expression for each row of mat
+				eg [[1,0,1], [0,1,1], [1,1,0]]
+			sense is a list of "<", ">" or "=" corresponding to each row of mat eg.
+				["=", "=", "<"] (note that gurobi doesn't distinguish between <= and <)
+			rhs is a list of the values on the right hand side of the expression for each row of mat
+				eg [1,1, 2.5]
 
 	in both instances, it is possible to add as many option variables as desired from the following
 	list (written exactly as expressed below).More information in these options can be found in
