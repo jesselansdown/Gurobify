@@ -10,13 +10,21 @@ make
 To load package in GAP:
 LoadPackage( "Gurobify");
 To solve an lp file:
-GurobiSolve(file_name, TimeLimitOn, TimeLimitValue, ConsoleOutputON);
-where file_name is the name of the lp file as a string, with the path if it is not in the current GAP working directory
-TimeLimitON is a true false switch to activate the time_limit option of gurobi
-TimeLimitValue gives the value of the time limit if TimeLimitON is true
-ConsoleOutputOn is a true/false switch to turn the gurobi console logging on or off
 
-Additionally, there is a wrapper function which can be used with options values.
-GurobifySolve( file_name : TimeLimit := x, ToConsole := y);
-where TimeLimit is an option value that switches on the time limit and sets it to the value x (which must be a double)
-ToConsole turns console logging on when y = true
+GurobifySolve( file_name : OptionVariable1 := 7; OptionVariable2 := 3; OptionVariable4 := 100.9);
+
+	where file_name is the name of the lp_file (and path if not in the current GAP working directory)
+
+GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable2 := 3; OptionVariable4 := 100.9);
+
+	where	mat is a matrix of additional constraints
+			sense is "<", ">" or "=" corresponding to each row of mat
+			rhs is the value on the right hand side of the expression for each row of mat
+
+	in both instances, it is possible to add as many option variables as desired from the following list (written exactly as expressed below).
+	More information in these options can be found in the Gurobi documentation
+	
+		TimeLimit (Takes a floating value. Default is no time limit.)
+		BestObjBound (Takes a floating value. Default is no best object bound.)
+		NumericFocus (Takes an integer between 0 and 3. Default is 0.)
+		LogToConsole (Takes either true or false. Default is false.)
