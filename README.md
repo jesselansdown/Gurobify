@@ -21,10 +21,12 @@ GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable
 			sense is "<", ">" or "=" corresponding to each row of mat
 			rhs is the value on the right hand side of the expression for each row of mat
 
-	in both instances, it is possible to add as many option variables as desired from the following list (written exactly as expressed below).
-	More information in these options can be found in the Gurobi documentation
+	in both instances, it is possible to add as many option variables as desired from the following
+	list (written exactly as expressed below).More information in these options can be found in
+	the Gurobi documentation
 	
 		TimeLimit (Takes a floating value. Default is no time limit.)
 		BestObjBound (Takes a floating value. Default is no best object bound.)
 		NumericFocus (Takes an integer between 0 and 3. Default is 0.)
+		Cutoff (Takes a floating value. Default is no cut off.)
 		LogToConsole (Takes either true or false. Default is false.)
