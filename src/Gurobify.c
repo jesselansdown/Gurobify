@@ -170,15 +170,23 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj Addition
 			int index = 0;
 			int j = 0;
 			double rhs;
+			double currentVal;
+			int currentValAsInt;
 
 		    for (i = 0; i < LEN_PLIST(AdditionalConstraintEquations); i = i+1 ){
 
 				Obj rhsObj = ELM_PLIST(AdditionalConstraintRHSValue, i+1);				
-				if (IS_MACFLOAT(rhsObj)){
-					rhs = VAL_MACFLOAT(rhsObj);
+				if (IS_MACFLOAT(rhsObj) ||  IS_INTOBJ(rhsObj) ){
+					if (IS_INTOBJ(rhsObj)){
+						currentValAsInt = INT_INTOBJ(rhsObj);
+						rhs = (double) currentValAsInt;
+					}
+					else{
+						rhs = VAL_MACFLOAT(rhsObj);
+					}
 				}
 				else{
-			    	ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be a double.", 0, 0 );
+			    	ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be an integer or a double.", 0, 0 );
 				}
 
 				Obj CurrentEquation = ELM_PLIST(AdditionalConstraintEquations, i+1);
@@ -192,13 +200,21 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj Addition
 		    	index = 0;
 		    	for (j = 0; j < number_of_variables; j = j+1){
 					Obj CurrentEntry = ELM_PLIST(CurrentEquation, j+1);
-					if ( ! IS_MACFLOAT(CurrentEntry))
+					if ( ! (IS_MACFLOAT(CurrentEntry) ||  IS_INTOBJ(CurrentEntry) ) )
 						ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
-						//Also check that this allows integer values?
+					else{
+						if (IS_INTOBJ(CurrentEntry)){
+							currentValAsInt = INT_INTOBJ(CurrentEntry);
+							currentVal = (double) currentValAsInt;
+						}
+						else{
+							currentVal = VAL_MACFLOAT(CurrentEntry);
+						}
+					}
 
-		    		if ( VAL_MACFLOAT(CurrentEntry) != 0){
+		    		if ( currentVal != 0){
 						constraint_index[index] = j;
-						constraint_value[index] = VAL_MACFLOAT(CurrentEntry);
+						constraint_value[index] = currentVal;
 						non_zero_constraints = non_zero_constraints + 1;
 						index = index + 1;
 		    		}
