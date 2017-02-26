@@ -14,14 +14,20 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 
 	//TODO: Add option of additional constraints
 	//TODO: Add numeric focus parameter - infact, all parameters?
+
+
+//-------------------------------------------------------------------------------------
+// Define each of the additional parameters.
+
+
 	int number_of_arguments = 9;
 
 	if( ! IS_PLIST( ParameterArguments ) ){
-        ErrorMayQuit( "Error: arguments is not a list!", 0, 0 );
+        ErrorMayQuit( "Error: additional-parameters is not a list!", 0, 0 );
     }
 	int length = LEN_PLIST( ParameterArguments );
     if (length != number_of_arguments){
-        ErrorMayQuit("Error: wrong number of parameter-arguments!", 0, 0);
+        ErrorMayQuit("Error: wrong number of additional-parameter!", 0, 0);
     }
 
     Obj TimeLimitON = ELM_PLIST( ParameterArguments, 1 );
@@ -34,6 +40,9 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     Obj CutOffValue = ELM_PLIST( ParameterArguments, 8 );
     Obj ConsoleOutputON = ELM_PLIST( ParameterArguments, 9 );
 
+//-------------------------------------------------------------------------------------
+// Set up the environment.
+
     GRBenv *env = NULL;
     GRBmodel *model = NULL;
     GRBenv *modelenv = NULL;
@@ -42,13 +51,14 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 	double objval;
     int error = 0;
 
-    //TODO: Check that lp_file is actually a string
-    char *lp_file_name = CSTR_STRING(lp_file);
-
     error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
     if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
     
+
+//-------------------------------------------------------------------------------------
+// Enact each of the additional parameters
+
     if (ConsoleOutputON != True && ConsoleOutputON != False){
     	ErrorMayQuit( "Error: ConsoleOutputON requires a true/false switch.", 0, 0 );
     }
@@ -124,12 +134,12 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     	}
 	}
 
+//-------------------------------------------------------------------------------------
+// Set up the model
 
 
-	error = GRBsetdblparam(env, GRB_DBL_PAR_CUTOFF, 2.0 );
-
-
-
+    //TODO: Check that lp_file is actually a string
+    char *lp_file_name = CSTR_STRING(lp_file);
 
     error = GRBreadmodel(env, lp_file_name, &model);
 
@@ -137,10 +147,16 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
     if (error)
         ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
 
+//-------------------------------------------------------------------------------------
+// Optimise the model
+
     error = GRBoptimize(model);
 
     if (error)
         ErrorMayQuit( "Error: model was not able to be optimized", 0, 0 );
+
+//-------------------------------------------------------------------------------------
+// Evaluate the outcome of the optimisation
 
     error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &optimstatus);
     if (error)
@@ -188,6 +204,8 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj ParameterArguments )
 
     return results;
 }
+
+
 
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
 {
