@@ -17,4 +17,5 @@
 #! Cutoff
 #! ToConsole
 
-DeclareGlobalFunction( "GurobifySolve" );
+DeclareOperation( "GurobifySolve",
+	[ IsString] );
