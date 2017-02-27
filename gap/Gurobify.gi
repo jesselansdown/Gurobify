@@ -32,7 +32,7 @@ InstallMethod( GurobifySolve, "",
 			TimeLimitValue := time_limit;
 		fi;
 
-		best_obj_bound := ValueOption("BestObjBound");
+		best_obj_bound := ValueOption("BestObjStop");
 		if not best_obj_bound = fail then
 			BestObjStopON := true;
 			BestObjStopValue := best_obj_bound;
@@ -88,7 +88,7 @@ InstallOtherMethod( GurobifySolve, "",
 			TimeLimitValue := time_limit;
 		fi;
 
-		best_obj_bound := ValueOption("BestObjBound");
+		best_obj_bound := ValueOption("BestObjStop");
 		if not best_obj_bound = fail then
 			BestObjStopON := true;
 			BestObjStopValue := best_obj_bound;
