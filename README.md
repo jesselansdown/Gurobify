@@ -1,6 +1,12 @@
 # Gurobify
 Gurobify provides an interface to Gurobi from GAP.
 
+Requirements:
+Gurobi 7.0
+AutoTools (Can be installed on a mac using homebrew: 
+	brew install autoconf
+	brew install automake)
+
 To install the Gurobify package, move it to the pkg directory of the GAP installation directory.
 Inside the Gurobify directory run:
 ./autogen.sh (Requires AutoTools installed)
@@ -33,3 +39,7 @@ GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable
 		NumericFocus (Takes an integer between 0 and 3. Default is 0.)
 		Cutoff (Takes a floating value. Default is no cut off.)
 		LogToConsole (Takes either true or false. Default is false.)
+		
+The output is in the form
+[ Gurobi optimization status code, objective value, solution ]
+Refer to the gurobi documentation for the meanings of the optimization status codes.
