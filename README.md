@@ -35,7 +35,7 @@ GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable
 	the Gurobi documentation
 	
 		TimeLimit (Takes a floating value. Default is no time limit.)
-		BestObjBound (Takes a floating value. Default is no best object bound.)
+		BestObjStop (Takes a floating value. Default is no best object bound.)
 		NumericFocus (Takes an integer between 0 and 3. Default is 0.)
 		Cutoff (Takes a floating value. Default is no cut off.)
 		LogToConsole (Takes either true or false. Default is false.)
