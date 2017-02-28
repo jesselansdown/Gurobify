@@ -9,24 +9,75 @@
 #include <stdio.h>
 
 
+static GRBenv *env = NULL;
+
+
+Obj TheTypeGurobiModel;
+
+void SET_MODEL(Obj o, GRBmodel* p) {
+    ADDR_OBJ(o)[0] = (Obj)p;
+}
+
+GRBmodel* GET_MODEL(Obj o) {
+    return (GRBmodel*)(ADDR_OBJ(o)[0]);
+}
+
+#define IS_MODEL(o) (TNUM_OBJ(o) == T_GUROBI)
+
+UInt T_GUROBI = 0;
+
+Obj NewModel(GRBmodel* C)
+{
+    Obj o;
+    o = NewBag(T_GUROBI, 1 * sizeof(Obj));
+    SET_MODEL(o, C);
+    return o;
+}
+
+/* Free function */
+void GurobiFreeFunc(Obj o)
+{
+    GRBfreemodel(GET_MODEL(o));
+}
+
+/* Type object function for the object */
+Obj GurobiTypeFunc(Obj o)
+{
+    return TheTypeGurobiModel;
+}
+
+Obj GurobiCopyFunc(Obj o, Int mut)
+{
+    // Cone objects are mathematically immutable, so
+    // we don't need to do anything,
+    return o;
+}
+
+void GurobiCleanFunc(Obj o)
+{
+}
+
+Int GurobiIsMutableObjFuncs(Obj o)
+{
+    // Cone objects are mathematically immutable.
+    return 0L;
+}
+
+
+
+
 Obj GurobiReadLP(Obj self, Obj lp_file )
 {
 
 //-------------------------------------------------------------------------------------
 // Set up the environment.
 
-    GRBenv *env = NULL;
     GRBmodel *model = NULL;
-    GRBenv *modelenv = NULL;
-
-    int optimstatus;
-	double objval;
-	int i;
     int error = 0;
 
     error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
     if (error || env == NULL)
-        ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
+        ErrorMayQuit( "Error: failed to load the environment.", 0, 0 );
 
 //-------------------------------------------------------------------------------------
 // Set up the model
@@ -36,6 +87,31 @@ Obj GurobiReadLP(Obj self, Obj lp_file )
     error = GRBreadmodel(env, lp_file_name, &model);
     if (error)
         ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
+
+    return NewModel(model);
+}
+
+
+
+Obj GurobiSolveModel(Obj self, Obj GAPmodel )
+{
+
+//-------------------------------------------------------------------------------------
+// Set up the environment.
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+    GRBmodel *model = GET_MODEL(GAPmodel);
+
+    int optimstatus;
+	double objval;
+	int i;
+    int error = 0;
+
+    error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
+    if (error || env == NULL)
+        ErrorMayQuit( "Error: failed to load the environment.", 0, 0 );
 
 //-------------------------------------------------------------------------------------
 // Optimise the model
@@ -88,12 +164,9 @@ Obj GurobiReadLP(Obj self, Obj lp_file )
 		SET_ELM_PLIST(results, 2, unsure);			//TODO: Check if can return an integer first, otherwise return a float
 		SET_ELM_PLIST(results, 3, empty_solution);
 	}
-	GRBfreemodel(model);
-	GRBfreeenv(env);
 
     return results;
 }
-
 
 
 Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
@@ -129,6 +202,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
@@ -143,7 +217,25 @@ static Int InitKernel( StructInitInfo *module )
     /* init filters and functions                                          */
     InitHdlrFuncsFromTable( GVarFuncs );
 
-    /* return success                                                      */
+	
+    InitCopyGVar( "TheTypeGurobiModel", &TheTypeGurobiModel );
+
+    int error = 0;
+    error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
+    if (error || env == NULL)
+        ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
+    /* return success*/
+
+
+	T_GUROBI = RegisterPackageTNUM("GurobiModel", GurobiTypeFunc);
+
+    InitMarkFuncBags(T_GUROBI, &MarkNoSubBags);
+    InitFreeFuncBag(T_GUROBI, &GurobiFreeFunc);
+
+    CopyObjFuncs[ T_GUROBI ] = &GurobiCopyFunc;
+    CleanObjFuncs[ T_GUROBI ] = &GurobiCleanFunc;
+	IsMutableObjFuncs[ T_GUROBI ] = &GurobiIsMutableObjFuncs;
+
     return 0;
 }
 

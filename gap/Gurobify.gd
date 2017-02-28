@@ -17,5 +17,9 @@
 #! Cutoff
 #! ToConsole
 
-DeclareOperation( "GurobifySolve",
-	[ IsString] );
+DeclareCategory( "IsGurobiModel", IsObject );
+
+
+GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
+
+BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
