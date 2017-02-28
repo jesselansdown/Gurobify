@@ -15,31 +15,23 @@ make
 
 To load package in GAP:
 LoadPackage( "Gurobify");
-To solve an lp file:
 
-GurobifySolve( file_name : OptionVariable1 := 7; OptionVariable2 := 3; OptionVariable4 := 100.9);
 
-	where file_name is the name of the lp_file (and path if not in the current GAP working directory)
+To read an lp file to a model do:
+	model := GurobiReadLP("lp_file_name.lp");
+where "lp_file_name.lp" is the name of the lp file as a string, including the path if it is not located in the current GAP working directory.
 
-GurobifySolve( file_name, mat, sense, rhs : OptionVariable1 := 7; OptionVariable2 := 3; OptionVariable4 := 100.9);
+To optimise the model created in the previous step do:
+	GurobiSolveModel(model);
 
-	where	mat is a matrix of additional constraints
-				eg [[1,0,1], [0,1,1], [1,1,0]]
-			sense is a list of "<", ">" or "=" corresponding to each row of mat eg.
-				["=", "=", "<"] (note that gurobi doesn't distinguish between <= and <)
-			rhs is a list of the values on the right hand side of the expression for each row of mat
-				eg [1,1, 2.5]
+To change a parameter of the model do:
+	GurobiSetParameter(model, ParameterName, ParameterValue);
+where ParameterName is a string corresponding to the parameter, exactly as given in the Gurobi documentation. Parameter value must be either an integer or a double, depending on the parameter being altered.
+For example
+	GurobiSetParameter(model, "timelimit", 10.0);
+would set the time limit to 10 seconds. Note that ParameterName is case insensitive, so "TimeLimit", "tIMeLiMit" and "TIMELIMIT" are all equivalent.
 
-	in both instances, it is possible to add as many option variables as desired from the following
-	list (written exactly as expressed below).More information in these options can be found in
-	the Gurobi documentation
-	
-		TimeLimit (Takes a floating value. Default is no time limit.)
-		BestObjStop (Takes a floating value. Default is no best object bound.)
-		NumericFocus (Takes an integer between 0 and 3. Default is 0.)
-		Cutoff (Takes a floating value. Default is no cut off.)
-		LogToConsole (Takes either true or false. Default is false.)
-		
-The output is in the form
-[ Gurobi optimization status code, objective value, solution ]
-Refer to the gurobi documentation for the meanings of the optimization status codes.
+To find the current value of a parameter do
+	GurobiGetParameter(model, ParameterName);
+
+Note that Gurobify can only handle parameters which are of int or double type. This is most of the parameters, but there are a few such as "InputFile " which take a string value and are currently not supported.
