@@ -7,6 +7,7 @@
 #include "gurobi_c.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 static GRBenv *env = NULL;
@@ -271,23 +272,16 @@ Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquatio
 	    }
 	}
 
-	if ( strncmp(CSTR_STRING(AdditionalConstraintSense), "<", 1) == 0 ){
+	char *sense = CSTR_STRING(AdditionalConstraintSense);
+
+	if ( (! strcmp(sense, "<") && ! strcmp(sense, ">" ) && ! strcmp(sense, "=") ) || ! (strlen(sense) == 1) ){
+		ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
+	}
+	else{
 		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
 		if (error)
 			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
 	}
-	else if ( strncmp(CSTR_STRING(AdditionalConstraintSense), ">", 1) == 0 ){
-		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
-		if (error)
-			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
-	}
-	else if ( strncmp(CSTR_STRING(AdditionalConstraintSense), "=", 1) == 0 ){
-		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
-		if (error)
-			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
-	}
-	else
-		ErrorMayQuit( "Error: wrong type of constraint sense. must be <,> or = ", 0, 0 );
 
 	return 0;
 }
