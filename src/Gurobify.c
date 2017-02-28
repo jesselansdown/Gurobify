@@ -169,26 +169,55 @@ Obj GurobiSolveModel(Obj self, Obj GAPmodel )
 }
 
 
-Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
+Obj GurobiSetParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
 {
-    /* simply return the first parameter */
-    if( ! IS_PLIST( param ) ){
-        ErrorMayQuit( "Param is not a list!", 0, 0 );
-    }
-    if( ! IS_INTOBJ(param2) ){
-        ErrorMayQuit( "Param2 is not an integer!", 0, 0);
-    }
-    int index = INT_INTOBJ(param2);
-    int length = LEN_PLIST( param );
-    if (index > length){
-        ErrorMayQuit("Param2 is larger than the size of param!", 0, 0);
-    }
-    Obj a = ELM_PLIST( param, index );
-    int b = INT_INTOBJ(a);
-    Obj return_val = INTOBJ_INT( b );
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	GRBenv *modelenv = NULL;
+	modelenv = GRBgetenv(model);
+	int error;
 
-    return return_val;
+	if (IS_MACFLOAT(ParameterValue))
+		error = GRBsetdblparam(modelenv, CSTR_STRING(ParameterName), VAL_MACFLOAT(ParameterValue));
+
+	if (IS_INTOBJ(ParameterValue))
+		error = GRBsetintparam(modelenv, CSTR_STRING(ParameterName), INT_INTOBJ(ParameterValue));
+
+	if ( ! IS_MACFLOAT(ParameterValue) && ! IS_INTOBJ(ParameterValue) )
+		ErrorMayQuit( "Error: Can only set integer or double parameters.", 0, 0 );
+
+	if (error)
+		ErrorMayQuit( "Error: Unable to set parameter. Check parameter type and name.", 0, 0 );
+
+
+	return 0;
 }
+
+Obj GurobiGetParameter( Obj self, Obj GAPmodel, Obj ParameterName )
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	GRBenv *modelenv = NULL;
+	modelenv = GRBgetenv(model);
+	int error;
+	double current_double_value;
+	int current_int_value;
+	error = GRBgetdblparam(modelenv, CSTR_STRING(ParameterName), &current_double_value);
+	if (error){
+		error = GRBgetintparam(modelenv, CSTR_STRING(ParameterName), &current_int_value);
+		if (error){
+			ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
+		}
+		else{
+			return INTOBJ_INT(current_int_value);
+		}
+	}
+	else{
+		return NEW_MACFLOAT(current_double_value);
+	}
+
+	ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
+	return 0;
+}
+
 
 
 typedef Obj (* GVarFunc)(/*arguments*/);
@@ -203,7 +232,8 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
 
   { 0 } /* Finish with an empty entry */
 
