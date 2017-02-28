@@ -33,11 +33,11 @@ To add a constraint to the model do:
 
 where eqn is a list indexed by the variables, with the value at that index in the list representing the coefficient of the variable. Sense is either "=", "<" or ">" as a string, recalling that Gurobi does not differentiate between <= and < or >= and >. Lastly, rhs is the value on the right hand side of the expression. For example, to add the constraint
 
-		2 x_1 + 3 x_2  - x_3  <= 3
+		2 x_1 + 3.5 x_2  - x_3  <= 8.2
 
 we would use the following command
 
-		GurobiAddConstraint(model, [ 2, 3, -1 ], "<", 3 );
+		GurobiAddConstraint(model, [ 2, 3.5, -1 ], "<", 8.2 );
 
 To change a parameter of the model do:
 
