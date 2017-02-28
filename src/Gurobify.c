@@ -48,8 +48,7 @@ Obj GurobiTypeFunc(Obj o)
 
 Obj GurobiCopyFunc(Obj o, Int mut)
 {
-    // Cone objects are mathematically immutable, so
-    // we don't need to do anything,
+	// TODO copy the model using gurobi's methods and return
     return o;
 }
 
@@ -59,7 +58,6 @@ void GurobiCleanFunc(Obj o)
 
 Int GurobiIsMutableObjFuncs(Obj o)
 {
-    // Cone objects are mathematically immutable.
     return 0L;
 }
 
@@ -82,7 +80,7 @@ Obj GurobiReadLP(Obj self, Obj lp_file )
 //-------------------------------------------------------------------------------------
 // Set up the model
 
-	//TODO: Check that lp_file is actually a string AND ALL OTHER ERROR CHECKS IN THIS SECTION
+	//TODO: Check that lp_file is actually a string
     char *lp_file_name = CSTR_STRING(lp_file);
     error = GRBreadmodel(env, lp_file_name, &model);
     if (error)
@@ -108,10 +106,6 @@ Obj GurobiSolveModel(Obj self, Obj GAPmodel )
 	double objval;
 	int i;
     int error = 0;
-
-    error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
-    if (error || env == NULL)
-        ErrorMayQuit( "Error: failed to load the environment.", 0, 0 );
 
 //-------------------------------------------------------------------------------------
 // Optimise the model
