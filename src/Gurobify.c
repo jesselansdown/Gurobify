@@ -9,37 +9,8 @@
 #include <stdio.h>
 
 
-Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
-					Obj AdditionalConstraintRHSValue, Obj ParameterArguments )
+Obj GurobiReadLP(Obj self, Obj lp_file )
 {
-
-	//TODO: Add option of additional constraints
-	//TODO: Add numeric focus parameter - infact, all parameters?
-
-
-//-------------------------------------------------------------------------------------
-// Define each of the additional parameters.
-
-
-	int number_of_arguments = 9;
-
-	if( ! IS_PLIST( ParameterArguments ) ){
-        ErrorMayQuit( "Error: additional-parameters is not a list!", 0, 0 );
-    }
-	int length = LEN_PLIST( ParameterArguments );
-    if (length != number_of_arguments){
-        ErrorMayQuit("Error: wrong number of additional-parameter!", 0, 0);
-    }
-
-    Obj TimeLimitON = ELM_PLIST( ParameterArguments, 1 );
-    Obj TimeLimitValue = ELM_PLIST( ParameterArguments, 2 );
-    Obj BestObjStopON = ELM_PLIST( ParameterArguments, 3 );
-    Obj BestObjStopValue = ELM_PLIST( ParameterArguments, 4 );
-    Obj NumericFocusON = ELM_PLIST( ParameterArguments, 5 );
-    Obj NumericFocusValue = ELM_PLIST( ParameterArguments, 6 );
-    Obj CutOffON = ELM_PLIST( ParameterArguments, 7 );
-    Obj CutOffValue = ELM_PLIST( ParameterArguments, 8 );
-    Obj ConsoleOutputON = ELM_PLIST( ParameterArguments, 9 );
 
 //-------------------------------------------------------------------------------------
 // Set up the environment.
@@ -50,196 +21,21 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj Addition
 
     int optimstatus;
 	double objval;
+	int i;
     int error = 0;
 
     error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
     if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
-    
-
-//-------------------------------------------------------------------------------------
-// Enact each of the additional parameters
-
-    if (ConsoleOutputON != True && ConsoleOutputON != False){
-    	ErrorMayQuit( "Error: ConsoleOutputON requires a true/false switch.", 0, 0 );
-    }
-    else{
-    	if (ConsoleOutputON != True){
-	   		error = GRBsetintparam(env, "LogToConsole", 0);
-			   	if (error)
-			        ErrorMayQuit( "Error: LogToConsole not updated correctly.", 0, 0 );
-    	}
-	}
-
-    if ( (TimeLimitON != True) && (TimeLimitON != False) ) {
-    	ErrorMayQuit( "Error: TimeLimitON requires a true/false switch.", 0, 0 );
-    }
-    else{
-    	if (TimeLimitON == True ){
-    		if (IS_INTOBJ(TimeLimitValue) || ! IS_MACFLOAT(TimeLimitValue)){
-    	    	ErrorMayQuit( "Error: TimeLimitValue requires a double.", 0, 0 );
-			}
-			else{
-			   	error = GRBsetdblparam(env, "TimeLimit", VAL_MACFLOAT(TimeLimitValue) );
-			   	if (error)
-			        ErrorMayQuit( "Error: TimeLimit not updated correctly.", 0, 0 );
-			}
-    	}
-	}
-
-	if ( (BestObjStopON != True) && (BestObjStopON != False) ) {
-    	ErrorMayQuit( "Error: BestObjStopON requires a true/false switch.", 0, 0 );
-    }
-    else{
-    	if (BestObjStopON == True ){
-    		if (IS_INTOBJ(BestObjStopValue) || ! IS_MACFLOAT(BestObjStopValue)){
-    	    	ErrorMayQuit( "Error: BestObjStop requires a double.", 0, 0 );
-			}
-			else{
-			   	error = GRBsetdblparam(env, "BestObjStop", VAL_MACFLOAT(BestObjStopValue) );
-			   	if (error)
-			        ErrorMayQuit( "Error: BestObjStop not updated correctly.", 0, 0 );
-			}
-    	}
-	}
-
-	if ( (NumericFocusON != True) && (NumericFocusON != False) ) {
-    	ErrorMayQuit( "Error: NumericFocusON requires a true/false switch.", 0, 0 );
-    }
-    else{
-    	if (NumericFocusON == True ){
-    		if (! IS_INTOBJ(NumericFocusValue) ){
-    	    	ErrorMayQuit( "Error: NumericFocus requires a integer.", 0, 0 );
-			}
-			else{
-			   	error = GRBsetintparam(env, "NumericFocus", INT_INTOBJ(NumericFocusValue) );
-			   	if (error)
-			        ErrorMayQuit( "Error: NumericFocus not updated correctly.", 0, 0 );
-			}
-    	}
-    }
-
-	if ( (CutOffON != True) && (CutOffON != False) ) {
-    	ErrorMayQuit( "Error: CutOffON requires a true/false switch.", 0, 0 );
-    }
-    else{
-    	if (CutOffON == True ){
-    		if (IS_INTOBJ(CutOffValue) || ! IS_MACFLOAT(CutOffValue)){
-    	    	ErrorMayQuit( "Error: CutOffValue requires a double.", 0, 0 );
-			}
-			else{
-			   	error = GRBsetdblparam(env, GRB_DBL_PAR_CUTOFF, VAL_MACFLOAT(CutOffValue) );
-			   	if (error)
-			        ErrorMayQuit( "Error: Cutoff not updated correctly.", 0, 0 );
-			}
-    	}
-	}
 
 //-------------------------------------------------------------------------------------
 // Set up the model
 
-
-    //TODO: Check that lp_file is actually a string
+	//TODO: Check that lp_file is actually a string AND ALL OTHER ERROR CHECKS IN THIS SECTION
     char *lp_file_name = CSTR_STRING(lp_file);
-
     error = GRBreadmodel(env, lp_file_name, &model);
-
-
     if (error)
         ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
-
-//-------------------------------------------------------------------------------------
-// Adding additional constraints
-
-	int i;
-	int number_of_variables;
-	error = GRBgetintattr(model, "NumVars", &number_of_variables);		//TODO: check for errors
-
-	if ( (AdditionalConstraintsON != True) && (AdditionalConstraintsON != False) ) {
-    	ErrorMayQuit( "Error: AdditionalConstraintsON requires a true/false switch.", 0, 0 );
-    }
-	else{
-    	if (AdditionalConstraintsON == True ){
-
-			if ( ! IS_PLIST(AdditionalConstraintEquations))
-			    ErrorMayQuit( "Error: AdditionalConstraintEquations must be a matrix.", 0, 0 );
-
-    		int constraint_index[number_of_variables];
-			double constraint_value[number_of_variables];
-			int non_zero_constraints = 0;
-			int index = 0;
-			int j = 0;
-			double rhs;
-			double currentVal;
-			int currentValAsInt;
-
-		    for (i = 0; i < LEN_PLIST(AdditionalConstraintEquations); i = i+1 ){
-
-				Obj rhsObj = ELM_PLIST(AdditionalConstraintRHSValue, i+1);				
-				if (IS_MACFLOAT(rhsObj) ||  IS_INTOBJ(rhsObj) ){
-					if (IS_INTOBJ(rhsObj)){
-						currentValAsInt = INT_INTOBJ(rhsObj);
-						rhs = (double) currentValAsInt;
-					}
-					else{
-						rhs = VAL_MACFLOAT(rhsObj);
-					}
-				}
-				else{
-			    	ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be an integer or a double.", 0, 0 );
-				}
-
-				Obj CurrentEquation = ELM_PLIST(AdditionalConstraintEquations, i+1);
-				if (! IS_PLIST(CurrentEquation))
-			    	ErrorMayQuit( "Error: AdditionalConstraintEquations must be a matrix.", 0, 0 );
-
-			    if ( LEN_PLIST(CurrentEquation) != number_of_variables)
-			    	ErrorMayQuit( "Error: AdditionalConstraintEquations has incorrect dimensions!", 0, 0 );
-
-		    	non_zero_constraints = 0;
-		    	index = 0;
-		    	for (j = 0; j < number_of_variables; j = j+1){
-					Obj CurrentEntry = ELM_PLIST(CurrentEquation, j+1);
-					if ( ! (IS_MACFLOAT(CurrentEntry) ||  IS_INTOBJ(CurrentEntry) ) )
-						ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
-					else{
-						if (IS_INTOBJ(CurrentEntry)){
-							currentValAsInt = INT_INTOBJ(CurrentEntry);
-							currentVal = (double) currentValAsInt;
-						}
-						else{
-							currentVal = VAL_MACFLOAT(CurrentEntry);
-						}
-					}
-
-		    		if ( currentVal != 0){
-						constraint_index[index] = j;
-						constraint_value[index] = currentVal;
-						non_zero_constraints = non_zero_constraints + 1;
-						index = index + 1;
-		    		}
-
-		    	}
-		    	if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), "<", 1) == 0 ){
-					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
-						if (error)
-							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
-		    	}
-				else if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), ">", 1) == 0 ){
-					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
-						if (error)
-							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
-				}
-				else if ( strncmp(CSTR_STRING(ELM_PLIST(AdditionalConstraintSense, i+1)), "=", 1) == 0 ){
-					error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
-						if (error)
-							ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
-				}
-				else
-					ErrorMayQuit( "Error: wrong type of constraint sense. must be <,> or = ", 0, 0 );
-		    }
-    	}
-	}
 
 //-------------------------------------------------------------------------------------
 // Optimise the model
@@ -251,6 +47,8 @@ Obj GurobiSolve(Obj self, Obj lp_file, Obj AdditionalConstraintsON, Obj Addition
 
 //-------------------------------------------------------------------------------------
 // Evaluate the outcome of the optimisation
+    int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);        //TODO: check for errors
 
     error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &optimstatus);
     if (error)
@@ -330,7 +128,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolve, 6, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", TestCommandWithParams, 2, "param, param2"),
 
   { 0 } /* Finish with an empty entry */
