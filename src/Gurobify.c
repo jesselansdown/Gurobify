@@ -212,6 +212,90 @@ Obj GurobiGetParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 	return 0;
 }
 
+Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense, Obj AdditionalConstraintRHSValue)
+{
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	if ( ! IS_PLIST(AdditionalConstraintEquations))
+	    ErrorMayQuit( "Error: AdditionalConstraintEquations must be a list.", 0, 0 );
+
+	int number_of_variables;
+	number_of_variables = LEN_PLIST(AdditionalConstraintEquations);
+
+	int error;
+	double currentVal;
+	int currentValAsInt;
+	double rhs;
+
+	if (IS_MACFLOAT(AdditionalConstraintRHSValue) ||  IS_INTOBJ(AdditionalConstraintRHSValue) ){
+		if (IS_INTOBJ(AdditionalConstraintRHSValue)){
+			currentValAsInt = INT_INTOBJ(AdditionalConstraintRHSValue);
+			rhs = (double) currentValAsInt;
+		}
+		else{
+			rhs = VAL_MACFLOAT(AdditionalConstraintRHSValue);
+		}
+	}
+	else{
+		ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be an integer or a double.", 0, 0 );
+	}
+
+    int constraint_index[number_of_variables];
+	double constraint_value[number_of_variables];
+	int non_zero_constraints = 0;
+	int index = 0;
+	int j = 0;
+
+	non_zero_constraints = 0;
+	index = 0;
+	for (j = 0; j < number_of_variables; j = j+1){
+		Obj CurrentEntry = ELM_PLIST(AdditionalConstraintEquations, j+1);
+		if ( ! (IS_MACFLOAT(CurrentEntry) ||  IS_INTOBJ(CurrentEntry) ) )
+			ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
+		else{
+			if (IS_INTOBJ(CurrentEntry)){
+				currentValAsInt = INT_INTOBJ(CurrentEntry);
+				currentVal = (double) currentValAsInt;
+			}
+			else{
+				currentVal = VAL_MACFLOAT(CurrentEntry);
+			}
+		}
+
+		if ( currentVal != 0){
+			constraint_index[index] = j;
+			constraint_value[index] = currentVal;
+			non_zero_constraints = non_zero_constraints + 1;
+			index = index + 1;
+	    }
+	}
+
+	if ( strncmp(CSTR_STRING(AdditionalConstraintSense), "<", 1) == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
+		if (error)
+			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+	}
+	else if ( strncmp(CSTR_STRING(AdditionalConstraintSense), ">", 1) == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
+		if (error)
+			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+	}
+	else if ( strncmp(CSTR_STRING(AdditionalConstraintSense), "=", 1) == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
+		if (error)
+			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+	}
+	else
+		ErrorMayQuit( "Error: wrong type of constraint sense. must be <,> or = ", 0, 0 );
+
+	return 0;
+}
+
+
+
+
+
 
 
 typedef Obj (* GVarFunc)(/*arguments*/);
@@ -228,6 +312,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
 
   { 0 } /* Finish with an empty entry */
 
