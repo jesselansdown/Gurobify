@@ -68,19 +68,8 @@ Int GurobiIsMutableObjFuncs(Obj o)
 Obj GurobiReadLP(Obj self, Obj lp_file )
 {
 
-//-------------------------------------------------------------------------------------
-// Set up the environment.
-
     GRBmodel *model = NULL;
     int error = 0;
-
-    error = GRBloadenv(&env, NULL);     // We are not interested in a log file, so the second argument of GRBloadenv is NULL
-    if (error || env == NULL)
-        ErrorMayQuit( "Error: failed to load the environment.", 0, 0 );
-
-//-------------------------------------------------------------------------------------
-// Set up the model
-
 	//TODO: Check that lp_file is actually a string
     char *lp_file_name = CSTR_STRING(lp_file);
     error = GRBreadmodel(env, lp_file_name, &model);
@@ -328,7 +317,9 @@ static Int InitKernel( StructInitInfo *module )
     if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
     /* return success*/
-
+	error = GRBsetintparam(env, "LogToConsole", 0);
+	if (error)
+		ErrorMayQuit( "Error: unable to turn logging off", 0, 0 );
 
 	T_GUROBI = RegisterPackageTNUM("GurobiModel", GurobiTypeFunc);
 
