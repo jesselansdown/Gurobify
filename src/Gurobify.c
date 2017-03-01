@@ -297,7 +297,29 @@ Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeV
 	return 0;
 }
 
+Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int error;
+	double current_double_value;
+	int current_int_value;
+	error = GRBgetdblattr(model, CSTR_STRING(AttributeName), &current_double_value);
+	if (error){
+		error = GRBgetintattr(model, CSTR_STRING(AttributeName), &current_int_value);
+		if (error){
+			ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
+		}
+		else{
+			return INTOBJ_INT(current_int_value);
+		}
+	}
+	else{
+		return NEW_MACFLOAT(current_double_value);
+	}
 
+	ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
+	return 0;
+}
 
 
 typedef Obj (* GVarFunc)(/*arguments*/);
@@ -310,12 +332,13 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "ModelFile"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "model"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "model, AttributeName, AttributeValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
 
   { 0 } /* Finish with an empty entry */
 
