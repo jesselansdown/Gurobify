@@ -6,14 +6,14 @@ Requirements:
 * AutoTools 
 
 (AutoTools can be installed on a mac using homebrew: 
-- brew install autoconf
-- brew install automake)
+	- brew install autoconf
+	- brew install automake)
 
 To install the Gurobify package, move it to the pkg directory of the GAP installation directory.
 Inside the Gurobify directory run:
-- ./autogen.sh (Requires AutoTools installed)
-- ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
-- make
+	- ./autogen.sh (Requires AutoTools installed)
+	- ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
+	- make
 
 To load package in GAP:
 
