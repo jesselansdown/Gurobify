@@ -81,6 +81,19 @@ Obj GurobiReadModel(Obj self, Obj lp_file )
 
 
 
+Obj GurobiNewModel(Obj self )
+{
+
+    GRBmodel *model = NULL;
+    int error = 0;
+	error = GRBnewmodel(env, &model, "", 0, NULL, NULL, NULL, NULL, NULL);
+    if (error)
+        ErrorMayQuit( "Error: model was not created correctly.", 0, 0 );
+
+    return NewModel(model);
+}
+
+
 Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 {
 
@@ -345,6 +358,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
