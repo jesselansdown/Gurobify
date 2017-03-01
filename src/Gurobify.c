@@ -65,7 +65,7 @@ Int GurobiIsMutableObjFuncs(Obj o)
 
 
 
-Obj GurobiReadLP(Obj self, Obj lp_file )
+Obj GurobiReadModel(Obj self, Obj lp_file )
 {
 
     GRBmodel *model = NULL;
@@ -324,7 +324,7 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 																		// causes no trouble
 			for (i = 0; i < number_of_variables; i = i+1 ){
 			//SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
-			SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
+				SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
 			}
 
 			return solution;
