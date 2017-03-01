@@ -107,49 +107,12 @@ Obj GurobiSolveModel(Obj self, Obj GAPmodel )
 
 //-------------------------------------------------------------------------------------
 // Evaluate the outcome of the optimisation
-    int number_of_variables;
-    error = GRBgetintattr(model, "NumVars", &number_of_variables);        //TODO: check for errors
 
     error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &optimstatus);
     if (error)
         ErrorMayQuit( "Error: unable to obtain optimisation status", 0, 0 );
-	
-	Obj results = NEW_PLIST( T_PLIST , 3);
-	SET_LEN_PLIST( results , 3 );
-    
-    if (optimstatus == GRB_OPTIMAL){
-	    error = GRBgetdblattr(model, GRB_DBL_ATTR_OBJVAL, &objval);			//TODO: First check that the optimstatus returned a success
-	    if (error)
-	        ErrorMayQuit( "Error: unable to obtain optimal value", 0, 0 );
 
-	    double sol[number_of_variables];
-	    error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, number_of_variables, sol);		//TODO: check for errors
-	    
-	    Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-		SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
-	    for (i = 0; i < number_of_variables; i = i+1 ){
-			SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
-	//		SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
-	    }
-
-		SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
-		SET_ELM_PLIST(results, 2, NEW_MACFLOAT(objval));			//TODO: Check if can return an integer first, otherwise return a float
-		SET_ELM_PLIST(results, 3, solution);
-	}
-	else{
-		Obj unsure = NEW_STRING(3);
-		C_NEW_STRING_CONST(unsure, "?");
-		Obj empty_solution = NEW_PLIST( T_PLIST , 0);
-		SET_LEN_PLIST( empty_solution , 0);
-		SET_ELM_PLIST(results, 1, INTOBJ_INT(optimstatus));
-		SET_ELM_PLIST(results, 2, unsure);			//TODO: Check if can return an integer first, otherwise return a float
-		SET_ELM_PLIST(results, 3, empty_solution);
-	}
-
-    return results;
+    return INTOBJ_INT(optimstatus);
 }
 
 
@@ -321,6 +284,55 @@ Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	return 0;
 }
 
+Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	int i;
+	int error;
+	int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+    	if (error)
+	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
+
+	double sol[number_of_variables];
+	error = GRBgetdblattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
+	    if (error){
+			int solInt[number_of_variables];
+			error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);
+				if (error){
+					ErrorMayQuit( "Error: Unable to get parameter array. Check parameter type and name.", 0, 0 );
+				}
+				else{
+					Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+					SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+																		// When number of variables is replaced by
+																		// the actual number it gives no warning and
+																		// causes no trouble
+					for (i = 0; i < number_of_variables; i = i+1 ){
+					SET_ELM_PLIST(solution, i+1, INTOBJ_INT(solInt[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
+					//	SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
+					}
+				return solution;
+				}
+	    }
+	    else{
+			Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+			SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+																		// When number of variables is replaced by
+																		// the actual number it gives no warning and
+																		// causes no trouble
+			for (i = 0; i < number_of_variables; i = i+1 ){
+			//SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
+			SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
+			}
+
+			return solution;
+		}
+
+}
+
+
 
 typedef Obj (* GVarFunc)(/*arguments*/);
 
@@ -339,6 +351,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
 
   { 0 } /* Finish with an empty entry */
 
