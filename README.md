@@ -78,3 +78,9 @@ To find the current value of an attribute do
 		GurobiGetAttribute(model, AttributeName);
 
 Only works for int or double attributes.
+
+For more information on Gurobi parameters and attributes, see the following links:
+
+Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html
+
+Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html
