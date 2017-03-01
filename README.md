@@ -33,6 +33,8 @@ To optimise the model created in the previous step do:
 
 		GurobiOptimizeModel(model);
 
+This will return the Gurobi status code which indicates the outcome of the optimization. See the Gurobi documentation for more information on their meanings.
+
 To add a constraint to the model do:
 
 		GurobiAddConstraint( model, eqn, sense, rhs);
@@ -79,8 +81,10 @@ To find the current value of an attribute do
 
 Only works for int or double attributes.
 
-For more information on Gurobi parameters and attributes, see the following links:
+For more information on Gurobi parameters, attributes, and status codes, see the following links:
 
 Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html
 
 Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html
+
+Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html
