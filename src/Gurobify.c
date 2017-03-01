@@ -433,6 +433,14 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 	return 0;
 }
 
+Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	error = GRBupdatemodel(model);
+	if (error)
+		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );		
+}
+
 typedef Obj (* GVarFunc)(/*arguments*/);
 
 #define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
@@ -453,6 +461,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
 
   { 0 } /* Finish with an empty entry */
 

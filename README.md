@@ -106,6 +106,16 @@ For example, given a model was able to be successfully optimised, the optimal so
 
 		GurobiGetAttributeArray(model, "X");
 
+Note that Gurobi does not update immediately, and so it is necessary to either optimize the model, or update the model manually by
+
+		GurobiUpdateModel(model);
+		
+It is also possible to write a model to a file. The type of file is determined by the suffix of the file name given. For example
+
+		GurobiWriteToFile(model, "file.lp");
+
+would return an lp file. It is also possible to write .mps, .rew, .lp, or .rlp files, or files that write the solution such as .sol. For more, see the Gurobi documentation.
+
 
 For more information on Gurobi parameters, attributes, and status codes, see the following links:
 
