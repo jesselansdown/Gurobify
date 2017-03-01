@@ -72,3 +72,9 @@ For example
 		GurobiSetAttribute(model, "ModelSense", -1);
 
 would change the sense of model to Maximise. The default sense is to minimise the objective function.
+
+To find the current value of an attribute do
+
+		GurobiGetAttribute(model, AttributeName);
+
+Only works for int or double attributes.
