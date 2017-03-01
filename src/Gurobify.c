@@ -276,7 +276,26 @@ Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquatio
 }
 
 
+Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int error;
 
+	if (IS_MACFLOAT(AttributeValue))
+		error = GRBsetdblattr(model, CSTR_STRING(AttributeName), VAL_MACFLOAT(AttributeValue));
+
+	if (IS_INTOBJ(AttributeValue))
+		error = GRBsetintattr(model, CSTR_STRING(AttributeName), INT_INTOBJ(AttributeValue));
+
+	if ( ! IS_MACFLOAT(AttributeValue) && ! IS_INTOBJ(AttributeValue) )
+		ErrorMayQuit( "Error: Can only set integer or double attributes.", 0, 0 );
+
+	if (error)
+		ErrorMayQuit( "Error: Unable to set attribute. Check attribute type and name.", 0, 0 );
+
+
+	return 0;
+}
 
 
 
@@ -296,6 +315,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "lp_file,  TimeLimitON, TimeLimitValue, CutOffON, CutOffValue, ConsoleOutputON"),
 
   { 0 } /* Finish with an empty entry */
 
