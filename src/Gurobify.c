@@ -106,11 +106,10 @@ Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 	int length;
 	int i;
 	for (i = 0; i < number_of_variables; i = i+1){
-//		if (IS_INTOBJ(ELM_PLIST(ObjectiveFunction, i+1)))
-//		    ErrorMayQuit( "Error: Objective function must contain doubles.", 0, 0 );
-//		else
-//			obj[i] = VAL_MACFLOAT(ELM_PLIST(ObjectiveFunction, i+1));
-			obj[i] = 0;
+		if (IS_INTOBJ(ELM_PLIST(ObjectiveFunction, i+1)))
+		    ErrorMayQuit( "Error: Objective function must contain doubles.", 0, 0 );
+		else
+			obj[i] = VAL_MACFLOAT(ELM_PLIST(ObjectiveFunction, i+1));
 	
 		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
 		length = strlen(var_type);
@@ -186,11 +185,16 @@ Obj GurobiSetParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterV
 	modelenv = GRBgetenv(model);
 	int error;
 
-	if (IS_MACFLOAT(ParameterValue))
+	if (IS_MACFLOAT(ParameterValue)){
 		error = GRBsetdblparam(modelenv, CSTR_STRING(ParameterName), VAL_MACFLOAT(ParameterValue));
-
-	if (IS_INTOBJ(ParameterValue))
+        if (error)
+        	ErrorMayQuit( "Error: Unable to set parameter.", 0, 0 );
+    }
+	if (IS_INTOBJ(ParameterValue)){
 		error = GRBsetintparam(modelenv, CSTR_STRING(ParameterName), INT_INTOBJ(ParameterValue));
+        if (error)
+        	ErrorMayQuit( "Error: Unable to set parameter.", 0, 0 );
+    }
 
 	if ( ! IS_MACFLOAT(ParameterValue) && ! IS_INTOBJ(ParameterValue) )
 		ErrorMayQuit( "Error: Can only set integer or double parameters.", 0, 0 );
@@ -321,11 +325,17 @@ Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeV
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 
-	if (IS_MACFLOAT(AttributeValue))
+	if (IS_MACFLOAT(AttributeValue)){
 		error = GRBsetdblattr(model, CSTR_STRING(AttributeName), VAL_MACFLOAT(AttributeValue));
+		if (error)
+        	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
+	}
 
-	if (IS_INTOBJ(AttributeValue))
+	if (IS_INTOBJ(AttributeValue)){
 		error = GRBsetintattr(model, CSTR_STRING(AttributeName), INT_INTOBJ(AttributeValue));
+    	if (error)
+        	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
+   	}
 
 	if ( ! IS_MACFLOAT(AttributeValue) && ! IS_INTOBJ(AttributeValue) )
 		ErrorMayQuit( "Error: Can only set integer or double attributes.", 0, 0 );

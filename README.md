@@ -29,11 +29,21 @@ To read an model file (such as an lp file) to a model do:
 
 where "model_file_name" is the name of the model file as a string, including the path if it is not located in the current GAP working directory. See gurobi documentation to see which model files it supports.
 
-To optimise the model created in the previous step do:
+To create new model, do
 
-		GurobiOptimizeModel(model);
+		GurobiNewModel( VariableTypes, ObjectiveFunction);
 
-This will return the Gurobi status code which indicates the outcome of the optimization. See the Gurobi documentation for more information on their meanings.
+where variable types is a list consisting of "BINARY", "CONTINUOUS", "INTEGER", "SEMICONT", or "SEMIINT", for each variable in the model, and ObjectiveFunction is a list with the coefficients of each variable in the objective function, which must be floats.
+
+For example, to create a model with three binary variables x_1, x_2, x_3 and  objective function
+
+		x_1 + 3 x_2
+
+we would do
+
+		GurobiNewModel( ["BINARY", "BINARY", "BINARY"], [1., 3., 0. ]);
+
+where the model will be set by default to minimise the objective function. This can be changed by changing the ModelSense.
 
 To add a constraint to the model do:
 
@@ -46,6 +56,13 @@ where eqn is a list indexed by the variables, with the value at that index in th
 we would use the following command
 
 		GurobiAddConstraint(model, [ 2, 3.5, -1 ], "<", 8.2 );
+
+
+To optimise the model created in the previous step do:
+
+		GurobiOptimizeModel(model);
+
+This will return the Gurobi status code which indicates the outcome of the optimization. See the Gurobi documentation for more information on their meanings.
 
 To change a parameter of the model do:
 
@@ -80,6 +97,15 @@ To find the current value of an attribute do
 		GurobiGetAttribute(model, AttributeName);
 
 Only works for int or double attributes.
+
+To obtain an attribute array, do
+
+		GurobiGetAttributeArray(model, AttributeName);
+
+For example, given a model was able to be successfully optimised, the optimal solution can be viewed by:
+
+		GurobiGetAttributeArray(model, "X");
+
 
 For more information on Gurobi parameters, attributes, and status codes, see the following links:
 
