@@ -23,15 +23,15 @@ To load package in GAP:
 		LoadPackage( "Gurobify");
 
 
-To read an lp file to a model do:
+To read an model file (such as an lp file) to a model do:
 
-		model := GurobiReadLP("lp_file_name.lp");
+		model := GurobiReadModel("model_file_name");
 
-where "lp_file_name.lp" is the name of the lp file as a string, including the path if it is not located in the current GAP working directory.
+where "model_file_name" is the name of the model file as a string, including the path if it is not located in the current GAP working directory. See gurobi documentation to see which model files it supports.
 
 To optimise the model created in the previous step do:
 
-		GurobiSolveModel(model);
+		GurobiOptimizeModel(model);
 
 To add a constraint to the model do:
 
