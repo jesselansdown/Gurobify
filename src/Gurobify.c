@@ -419,7 +419,19 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 }
 
+Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
+{
+// Note that the file suffix determines what sort of file is written. Valid sufixes are .mps, .rew, .lp, or .rlp, and a number
+// of others depending on what is to be written.
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	char *file_name = CSTR_STRING(FileName);
 
+	int error = GRBwrite(model, file_name);
+	if (error)
+		ErrorMayQuit( "Error: Unable to write model.", 0, 0 );
+
+	return 0;
+}
 
 typedef Obj (* GVarFunc)(/*arguments*/);
 
@@ -440,6 +452,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
 
   { 0 } /* Finish with an empty entry */
 
