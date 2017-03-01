@@ -12,7 +12,7 @@ Requirements:
 To install the Gurobify package, move it to the pkg directory of the GAP installation directory.
 Inside the Gurobify directory run:
 	- ./autogen.sh (Requires AutoTools installed)
-	- ./configure --with-gurobi=&ltgurobi path> [--with-gaproot=&ltgap path>]
+	- ./configure --with-gurobi= &lt gurobi path> [--with-gaproot= &lt gap path>]
 	- make
 
 To load package in GAP:
