@@ -81,14 +81,64 @@ Obj GurobiReadModel(Obj self, Obj lp_file )
 
 
 
-Obj GurobiNewModel(Obj self )
+Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 {
+
+	// variable types must be one of GRB_CONTINUOUS, GRB_BINARY, GRB_INTEGER, GRB_SEMICONT, or GRB_SEMIINT
 
     GRBmodel *model = NULL;
     int error = 0;
 	error = GRBnewmodel(env, &model, "", 0, NULL, NULL, NULL, NULL, NULL);
+		if (error)
+	        ErrorMayQuit( "Error: Unable to create new model.", 0, 0 );
+
+    if ( ! IS_PLIST(VariableTypes) || ! IS_PLIST(ObjectiveFunction) )
+        ErrorMayQuit( "Error: VariableTypes and ObjectiveFunction msut be lists!", 0, 0 );
+
+    if (LEN_PLIST(VariableTypes) != LEN_PLIST(ObjectiveFunction) )
+        ErrorMayQuit( "Error: VariableTypes and ObjectiveFunction must have the same sizes!", 0, 0 );
+
+
+	int number_of_variables = LEN_PLIST(VariableTypes);
+	double obj[number_of_variables];
+	char vtype[number_of_variables];
+
+	int length;
+	int i;
+	for (i = 0; i < number_of_variables; i = i+1){
+//		if (IS_INTOBJ(ELM_PLIST(ObjectiveFunction, i+1)))
+//		    ErrorMayQuit( "Error: Objective function must contain doubles.", 0, 0 );
+//		else
+//			obj[i] = VAL_MACFLOAT(ELM_PLIST(ObjectiveFunction, i+1));
+			obj[i] = 0;
+	
+		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
+		length = strlen(var_type);
+		if ( length != 10 && length != 6 && length != 7 && length != 8)
+		    ErrorMayQuit( "Error: VariableTypes must contain only 'CONTINUOUS', 'BINARY', 'INTEGER', 'SEMICONT', or 'SEMIINT'", 0, 0 );
+
+		if ( strncmp(var_type, "CONTINUOUS", 10) == 0 ){
+			vtype[i] = GRB_CONTINUOUS;
+		}
+		else if ( strncmp(var_type, "BINARY", 6) == 0){
+			vtype[i] = GRB_BINARY;
+		}
+		else if ( strncmp(var_type, "INTEGER", 7) == 0 ){
+			vtype[i] = GRB_INTEGER;
+		}
+		else if ( strncmp(var_type, "SEMIINT", 7) ==0 ){
+			vtype[i] = GRB_SEMIINT;
+		}
+		else if ( strncmp(var_type, "SEMICONT", 8) ==0 ){
+			vtype[i] = GRB_SEMICONT;
+		}
+		else
+			ErrorMayQuit( "Error: VariableTypes must contain only 'CONTINUOUS', 'BINARY', 'INTEGER', 'SEMICONT', or 'SEMIINT' ", 0, 0 );
+	}		
+
+	error = GRBaddvars(model, number_of_variables, 0, NULL, NULL, NULL, obj, NULL, NULL, vtype, NULL);
     if (error)
-        ErrorMayQuit( "Error: model was not created correctly.", 0, 0 );
+        ErrorMayQuit( "Error: Unable to add variables.", 0, 0 );
 
     return NewModel(model);
 }
@@ -239,14 +289,28 @@ Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquatio
 
 	char *sense = CSTR_STRING(AdditionalConstraintSense);
 
-	if ( (! strcmp(sense, "<") && ! strcmp(sense, ">" ) && ! strcmp(sense, "=") ) || ! (strlen(sense) == 1) ){
+	if ( ! (strlen(sense) == 1) ){
 		ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
 	}
-	else{
+
+	if ( strcmp(sense, "<") ){
 		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
 		if (error)
 			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
 	}
+	else if ( strcmp(sense, ">" ) ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
+		if (error)
+			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+
+	}
+	else if ( strcmp(sense, "=") ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
+		if (error)
+			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
+	}
+	else
+			ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
 
 	return 0;
 }
@@ -312,7 +376,7 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	error = GRBgetdblattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
 	    if (error){
 			int solInt[number_of_variables];
-			error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);
+			error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, solInt);
 				if (error){
 					ErrorMayQuit( "Error: Unable to get parameter array. Check parameter type and name.", 0, 0 );
 				}
@@ -358,7 +422,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 0, ""),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 2, "VariableTypes, ObjectiveFunction"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
