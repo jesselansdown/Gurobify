@@ -81,7 +81,7 @@ Obj GurobiReadModel(Obj self, Obj lp_file )
 
 
 
-Obj GurobiSolveModel(Obj self, Obj GAPmodel )
+Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 {
 
 //-------------------------------------------------------------------------------------
@@ -344,8 +344,8 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadLP, 1, "ModelFile"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSolveModel, 1, "model"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
