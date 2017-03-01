@@ -61,3 +61,14 @@ To find the current value of a parameter do
 		GurobiGetParameter(model, ParameterName);
 
 Note that Gurobify can only handle parameters which are of int or double type. This is most of the parameters, but there are a few such as "InputFile " which take a string value and are currently not supported.
+
+To change an attribute of the model do:
+
+		GurobiSetAttribute(model, AttributeName, AttributeValue);
+
+where AttributeName is a string, as given in the Gurobi documentation. The AttributeValue must be an integer or a double, depending on the attribute.
+For example
+
+		GurobiSetAttribute(model, "ModelSense", -1);
+
+would change the sense of model to Maximise. The default sense is to minimise the objective function.
