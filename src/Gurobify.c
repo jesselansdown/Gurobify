@@ -436,7 +436,7 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
 
 	GRBmodel *model = GET_MODEL(GAPmodel);
-	error = GRBupdatemodel(model);
+	int error = GRBupdatemodel(model);
 	if (error)
 		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );		
 }
