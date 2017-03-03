@@ -18,6 +18,8 @@ Inside the Gurobify directory run:
 
 * make
 
+* "quit;" | gap.sh makedoc.g
+
 To load package in GAP:
 
 		LoadPackage( "Gurobify");
