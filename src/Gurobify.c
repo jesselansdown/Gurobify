@@ -218,6 +218,18 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 }
 
 
+
+/*
+	#! @Arguments Model, ParameterName, ParameterValue
+	#! @Returns
+	#! @Description
+	#!	Takes a Gurobi model and assigns a value to a given parameter.
+	#!	Can only set parameters which take integer or double values,
+	#!  and the correct value type must be used for the given parameter.
+	#!	Refer to the Gurobi documentation for a list of parameters and their types.
+	DeclareGlobalFunction("GurobiSetParameter");
+*/
+
 Obj GurobiSetParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -246,6 +258,16 @@ Obj GurobiSetParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterV
 	return 0;
 }
 
+/*
+	#! @Arguments Model, ParameterName
+	#! @Returns parameter value
+	#! @Description
+	#!	Takes a Gurobi model and retrieve a parameter value.
+	#!	Can only get value of parameters which take integer or double values,
+	#!	Refer to the Gurobi documentation for a list of parameters and their types.
+	DeclareGlobalFunction("GurobiGetParameter");
+*/
+
 Obj GurobiGetParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -272,7 +294,22 @@ Obj GurobiGetParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 	return 0;
 }
 
-Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense, Obj AdditionalConstraintRHSValue)
+
+
+/*
+	#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue
+	#! @Returns 
+	#! @Description
+	#!	Adds a constraint to a gurobi model. ConstraintEquation must be a list, with entries indexed
+	#!	by the variable set, such that each entry is the coefficient of the corresponding variable
+	#! 	in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=",
+	#!	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the
+	#!	right hand side of the constraint. Note that a model must be updated or optimised before
+	#!	any additional constraints become effective.
+	DeclareGlobalFunction("GurobiAddConstraint");
+*/
+
+Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense, Obj AdditionalConstraintRHSValue)
 {
 
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -359,6 +396,16 @@ Obj GurobiAddConstraints(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquatio
 	return 0;
 }
 
+/*
+	#! @Arguments Model, AttributeName, AttributeValue
+	#! @Returns
+	#! @Description
+	#!	Takes a Gurobi model and assigns a value to a given attribute.
+	#!	Can only set attributes which take integer or double values,
+	#!  and the correct value type must be used for the given attribute.
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiSetAttribute");
+*/
 
 Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
 {
@@ -387,6 +434,16 @@ Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeV
 	return 0;
 }
 
+/*
+	#! @Arguments Model, AttributeName
+	#! @Returns attibute value
+	#! @Description
+	#!	Takes a Gurobi model and retrieve an attribute value.
+	#!	Can only get value of attributes which take integer or double values,
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiGetAttribute");
+*/
+
 Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -411,6 +468,17 @@ Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	return 0;
 }
 
+
+/*
+	#! @Arguments Model, AttributeName
+	#! @Returns attibute value
+	#! @Description
+	#!	Takes a Gurobi model and retrieve an attribute array.
+	#!	Can only get value of attributes arrays which take integer or double values,
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiGetAttribute");
+*/
+
 Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -428,7 +496,7 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 			int solInt[number_of_variables];
 			error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, solInt);
 				if (error){
-					ErrorMayQuit( "Error: Unable to get parameter array. Check parameter type and name.", 0, 0 );
+					ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 				}
 				else{
 					Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
@@ -459,6 +527,16 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 }
 
+/*
+	#! @Arguments Model, FileName
+	#! @Returns
+	#! @Description
+	#!  Takes a model and writes it to a file. File type written is determined by the FileName suffix.
+	#!	File types include .mps, .rew, .lp, .rlp, .ilp, .sol, or .prm
+	#!  Refer to the gurobi documentation for more infomation on which file types can be read.
+	DeclareGlobalFunction("GurobiWriteToFile");
+*/
+
 Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 {
 // Note that the file suffix determines what sort of file is written. Valid sufixes are .mps, .rew, .lp, or .rlp, and a number
@@ -472,6 +550,16 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 
 	return 0;
 }
+
+
+/*
+	#! @Arguments Model
+	#! @Returns
+	#! @Description
+	#!  Takes a model and updates it. Changes to parameters or constraints are not processed
+	#!	until the model is either updated or optimised. 
+	DeclareGlobalFunction("GurobiUpdateModel");
+*/
 
 Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
 
@@ -496,7 +584,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraints, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraint, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
