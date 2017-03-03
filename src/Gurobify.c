@@ -63,15 +63,25 @@ Int GurobiIsMutableObjFuncs(Obj o)
 }
 
 
+/*
+	#! @Arguments ModelFile
+	#! @Returns a Gurobi model.
+	#! @Description
+	#!  Takes a model file, reads it and creates a Gurobi model from it.
+	#!  ModelFile is the name of the file as a string, with the appropriate extension,
+	#!  and including the path if the file is not located in the current GAP working directory.
+	#!  Gurobi accepts files of type .mps, .rew, .lp, .rlp, .ilp, or .opb.
+	#!  Refer to the gurobi documentation for more infomation on which file types can be read.
+	DeclareGlobalFunction("GurobiReadModel");
+*/
 
-
-Obj GurobiReadModel(Obj self, Obj lp_file )
+Obj GurobiReadModel(Obj self, Obj ModelFile )
 {
 
     GRBmodel *model = NULL;
     int error = 0;
 	//TODO: Check that lp_file is actually a string
-    char *lp_file_name = CSTR_STRING(lp_file);
+    char *lp_file_name = CSTR_STRING(ModelFile);
     error = GRBreadmodel(env, lp_file_name, &model);
     if (error)
         ErrorMayQuit( "Error: model was not read correctly.", 0, 0 );
@@ -79,7 +89,20 @@ Obj GurobiReadModel(Obj self, Obj lp_file )
     return NewModel(model);
 }
 
-
+/*
+	#! @Arguments VariableTypes, ObjectiveFunction
+	#! @Returns a Gurobi model.
+	#! @Description
+	#!  Creates a gurobi model with variables defined by VariableTypes and an objective function
+	#!  given by ObjectiveFunction. VariableTypes must be a list, with entries indexed by the set
+	#!  of variables, and entries corresponding to the type of variable, as a string.
+	#!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
+	#!  Refer to the Gurobi documentation for more information on the variable types.
+	#!  ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
+	#!  corresponds to the coefficient of the variable in the objective function.
+	#!  ObjectiveFunction takes only double values.
+	DeclareGlobalFunction("GurobiNewModel");
+*/
 
 Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 {
@@ -142,6 +165,23 @@ Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
     return NewModel(model);
 }
 
+
+
+
+
+
+/*
+	#! @Arguments Model
+	#! @Returns Optimisation status.
+	#! @Description
+	#!  Takes a Gurobi model and optimises it. Returns the optimisation status code which indicates
+	#!	the outcome of the optimisation. A status code of 2 indicates that a feasible solution was found,
+	#!	a status code of 3 indicates the model is infeasible. There a number of other status codes.
+	#!	Refer to the Gurobi documentation for more information about status codes. The model itself is
+	#!	altered to reflect the optimisation, and more information about can be obatained using other functions,
+	#!	in particular the GurobiGetAttribute and GurobiGetAttributeArray functions.
+	DeclareGlobalFunction("GurobiOptimizeModel");
+*/
 
 Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 {
