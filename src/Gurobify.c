@@ -1,6 +1,6 @@
 /*
  * Gurobify: Gurobify provides an interface to Gurobi from GAP.
- * Jesse Lansdown
+ * Copyright Jesse Lansdown
  */
 
 #include "src/compiled.h"          /* GAP headers */
@@ -471,12 +471,12 @@ Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 
 /*
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute value
+	#! @Returns attibute array
 	#! @Description
 	#!	Takes a Gurobi model and retrieve an attribute array.
 	#!	Can only get value of attributes arrays which take integer or double values,
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiGetAttribute");
+	DeclareGlobalFunction("GurobiGetAttributeArray");
 */
 
 Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
