@@ -64,6 +64,12 @@ Int GurobiIsMutableObjFuncs(Obj o)
 
 
 /*
+	#! @Chapter Gurobify Functions
+	#! @Section Functions
+*/
+
+
+/*
 	#! @Arguments ModelFile
 	#! @Returns a Gurobi model.
 	#! @Description
