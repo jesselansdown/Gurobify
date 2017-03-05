@@ -83,6 +83,17 @@ TestFile := "tst/testall.g",
 
 #Keywords := [ "TODO" ],
 
+AutoDoc := rec(
+    TitlePage := rec(
+        Copyright := Concatenation(
+                    "&copyright; 2017 Jesse Lansdown<P/>\n\n",
+                    "Licence to come\n"),
+        Abstract := "TODO",
+        Acknowledgements := "TODO"
+    )
+),
+
+
 ));
 
 

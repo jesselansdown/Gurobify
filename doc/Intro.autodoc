@@ -2,3 +2,18 @@
 @Section Introducing Gurobify
 
 Gurobify is a GAP package which provides an interface to the optimisation software Gurobi.
+
+@Chapter Installation
+@Section Installing Gurobify
+
+TODO
+
+@Chapter Getting Started
+@Section Getting Started
+
+TODO
+
+@Chapter Examples
+@Section Examples
+
+TODO
