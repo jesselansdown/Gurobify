@@ -65,7 +65,7 @@ InstallMethod(SetCutOff, "",
 
 InstallOtherMethod( SetCutOff, "",
 	[ IsGurobiModel, IsPosInt ] ,
-	function(model, BestObjectiveBoundStop)
+	function(model, CutOff)
 
 	GurobiSetDoubleParameter(model, "CutOff", Float(CutOff));
 
