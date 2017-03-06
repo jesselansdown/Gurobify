@@ -15,16 +15,22 @@ BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
 
 #! @Arguments Model, TimeLimit
-#! @Returns 
+#! @Returns true
 #! @Description
 #!	Set a time limit for a Gurobi model.
 DeclareOperation( "SetTimeLimit",
 	[ IsGurobiModel, IsFloat] );
 
 #! @Arguments Model, BestObjectiveBoundStop
-#! @Returns 
+#! @Returns true
 #! @Description
-#!	If a solution is found for which the objective function meets the value of BestObjectiveBoundStop,
-#!	then Gurobi will stop optimising.
+#!	Optimisation will terminate if a feasible solution is found with objective value at least as good as BestObjectiveBoundStop.
 DeclareOperation( "SetBestObjectiveBoundStop",
+	[ IsGurobiModel, IsFloat] );
+
+#! @Arguments Model, CutOff
+#! @Returns true
+#! @Description
+#!	Optimisation will terminate if the objective value is worse than CutOff
+DeclareOperation( "SetCutOff",
 	[ IsGurobiModel, IsFloat] );
