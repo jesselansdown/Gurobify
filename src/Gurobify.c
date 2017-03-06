@@ -229,75 +229,105 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 	#! @Arguments Model, ParameterName, ParameterValue
 	#! @Returns
 	#! @Description
-	#!	Takes a Gurobi model and assigns a value to a given parameter.
-	#!	Can only set parameters which take integer or double values,
-	#!  and the correct value type must be used for the given parameter.
+	#!	Takes a Gurobi model and assigns a value to a given integer-valued parameter.
+	#!	ParameterValue must be a integer value.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
-	DeclareGlobalFunction("GurobiSetParameter");
+	DeclareGlobalFunction("GurobiSetIntegerParameter");
 */
 
-Obj GurobiSetParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
+Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
 	int error;
 
-	if (IS_MACFLOAT(ParameterValue)){
-		error = GRBsetdblparam(modelenv, CSTR_STRING(ParameterName), VAL_MACFLOAT(ParameterValue));
-        if (error)
-        	ErrorMayQuit( "Error: Unable to set parameter.", 0, 0 );
-    }
-	if (IS_INTOBJ(ParameterValue)){
-		error = GRBsetintparam(modelenv, CSTR_STRING(ParameterName), INT_INTOBJ(ParameterValue));
-        if (error)
-        	ErrorMayQuit( "Error: Unable to set parameter.", 0, 0 );
-    }
+	if ( ! IS_INTOBJ(ParameterValue) )
+		ErrorMayQuit( "Error: Can only set integer parameters.", 0, 0 );
 
-	if ( ! IS_MACFLOAT(ParameterValue) && ! IS_INTOBJ(ParameterValue) )
-		ErrorMayQuit( "Error: Can only set integer or double parameters.", 0, 0 );
-
-	if (error)
-		ErrorMayQuit( "Error: Unable to set parameter. Check parameter type and name.", 0, 0 );
+	error = GRBsetintparam(modelenv, CSTR_STRING(ParameterName), INT_INTOBJ(ParameterValue));
+    if (error)
+        ErrorMayQuit( "Error: Unable to set parameter. Check name and type", 0, 0 );
+    
+    return 0;
+}
 
 
-	return 0;
+/*
+	#! @Arguments Model, ParameterName, ParameterValue
+	#! @Returns
+	#! @Description
+	#!	Takes a Gurobi model and assigns a value to a given double-valued parameter.
+	#!	ParameterValue must be a double value.
+	#!	Refer to the Gurobi documentation for a list of parameters and their types.
+	DeclareGlobalFunction("GurobiSetDoubleParameter");
+*/
+
+Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	GRBenv *modelenv = NULL;
+	modelenv = GRBgetenv(model);
+	int error;
+
+	if ( ! IS_MACFLOAT(ParameterValue) )
+		ErrorMayQuit( "Error: Can only set double parameters.", 0, 0 );
+
+	error = GRBsetdblparam(modelenv, CSTR_STRING(ParameterName), VAL_MACFLOAT(ParameterValue));
+    if (error)
+        ErrorMayQuit( "Error: Unable to set parameter. Check name and type", 0, 0 );
+    
+    return 0;
 }
 
 /*
 	#! @Arguments Model, ParameterName
 	#! @Returns parameter value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve a parameter value.
-	#!	Can only get value of parameters which take integer or double values,
+	#!	Takes a Gurobi model and retrieve the value of a integer-valued parameter.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
-	DeclareGlobalFunction("GurobiGetParameter");
+	DeclareGlobalFunction("GurobiGetIntegerParameter");
 */
 
-Obj GurobiGetParameter( Obj self, Obj GAPmodel, Obj ParameterName )
+Obj GurobiGetIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	GRBenv *modelenv = NULL;
+	modelenv = GRBgetenv(model);
+	int error;
+	int current_int_value;
+
+	error = GRBgetintparam(modelenv, CSTR_STRING(ParameterName), &current_int_value);
+	if (error){
+		ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
+	}
+	
+	return INTOBJ_INT(current_int_value);
+}
+
+/*
+	#! @Arguments Model, ParameterName
+	#! @Returns parameter value
+	#! @Description
+	#!	Takes a Gurobi model and retrieve the value of a double-valued parameter.
+	#!	Refer to the Gurobi documentation for a list of parameters and their types.
+	DeclareGlobalFunction("GurobiGetDoubleParameter");
+*/
+
+Obj GurobiGetDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
 	int error;
 	double current_double_value;
-	int current_int_value;
+
 	error = GRBgetdblparam(modelenv, CSTR_STRING(ParameterName), &current_double_value);
 	if (error){
-		error = GRBgetintparam(modelenv, CSTR_STRING(ParameterName), &current_int_value);
-		if (error){
-			ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
-		}
-		else{
-			return INTOBJ_INT(current_int_value);
-		}
+		ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
 	}
-	else{
-		return NEW_MACFLOAT(current_double_value);
-	}
-
-	ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
-	return 0;
+	
+	return NEW_MACFLOAT(current_double_value);
 }
 
 
@@ -406,23 +436,18 @@ Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	#! @Arguments Model, AttributeName, AttributeValue
 	#! @Returns
 	#! @Description
-	#!	Takes a Gurobi model and assigns a value to a given attribute.
-	#!	Can only set attributes which take integer or double values,
-	#!  and the correct value type must be used for the given attribute.
+	#!	Takes a Gurobi model and assigns a value to a given integer-valued attribute.
+	#!	AttributeValue must be a double value
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiSetAttribute");
+	DeclareGlobalFunction("GurobiSetIntegerAttribute");
 */
-
-Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
+Obj GurobiSetIntegerAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 
-	if (IS_MACFLOAT(AttributeValue)){
-		error = GRBsetdblattr(model, CSTR_STRING(AttributeName), VAL_MACFLOAT(AttributeValue));
-		if (error)
-        	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
-	}
+	if ( ! IS_INTOBJ(AttributeValue) )
+		ErrorMayQuit( "Error: Can only set integer-valued attributes. Check attribute type and name.", 0, 0 );
 
 	if (IS_INTOBJ(AttributeValue)){
 		error = GRBsetintattr(model, CSTR_STRING(AttributeName), INT_INTOBJ(AttributeValue));
@@ -430,48 +455,81 @@ Obj GurobiSetAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeV
         	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
    	}
 
-	if ( ! IS_MACFLOAT(AttributeValue) && ! IS_INTOBJ(AttributeValue) )
-		ErrorMayQuit( "Error: Can only set integer or double attributes.", 0, 0 );
+	return 0;
+}
 
-	if (error)
-		ErrorMayQuit( "Error: Unable to set attribute. Check attribute type and name.", 0, 0 );
+/*
+	#! @Arguments Model, AttributeName, AttributeValue
+	#! @Returns
+	#! @Description
+	#!	Takes a Gurobi model and assigns a value to a given double-valued attribute.
+	#!	AttributeValue must be a double value
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiSetDoubleAttribute");
+*/
 
+Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int error;
+
+	if ( ! IS_MACFLOAT(AttributeValue) )
+		ErrorMayQuit( "Error: Can only set double-valued attributes. Check attribute type and name.", 0, 0 );
+
+	if (IS_MACFLOAT(AttributeValue)){
+		error = GRBsetdblattr(model, CSTR_STRING(AttributeName), VAL_MACFLOAT(AttributeValue));
+		if (error)
+        	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
+	}
 
 	return 0;
+}
+
+
+/*
+	#! @Arguments Model, AttributeName
+	#! @Returns attibute value
+	#! @Description
+	#!	Takes a Gurobi model and retrieve the value of an integer-valued attribute.
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiGetIntegerAttribute");
+*/
+
+Obj GurobiGetIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int error;
+	int current_int_value;
+
+	error = GRBgetintattr(model, CSTR_STRING(AttributeName), &current_int_value);
+	if (error){
+		ErrorMayQuit( "Error: Unable to get attribute value. Check attribute type and name.", 0, 0 );
+	}
+
+	return INTOBJ_INT(current_int_value);
 }
 
 /*
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve an attribute value.
-	#!	Can only get value of attributes which take integer or double values,
+	#!	Takes a Gurobi model and retrieve the value of a double-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiGetAttribute");
+	DeclareGlobalFunction("GurobiGetDoubleAttribute");
 */
 
-Obj GurobiGetAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
+Obj GurobiGetDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 	double current_double_value;
-	int current_int_value;
+
 	error = GRBgetdblattr(model, CSTR_STRING(AttributeName), &current_double_value);
 	if (error){
-		error = GRBgetintattr(model, CSTR_STRING(AttributeName), &current_int_value);
-		if (error){
-			ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
-		}
-		else{
-			return INTOBJ_INT(current_int_value);
-		}
-	}
-	else{
-		return NEW_MACFLOAT(current_double_value);
+		ErrorMayQuit( "Error: Unable to get attribute value. Check attribute type and name.", 0, 0 );
 	}
 
-	ErrorMayQuit( "Error: Unable to get parameter value. Check parameter type and name.", 0, 0 );
-	return 0;
+	return NEW_MACFLOAT(current_double_value);
 }
 
 
@@ -588,11 +646,15 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 2, "VariableTypes, ObjectiveFunction"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetParameter, 3, "model, ParameterName, ParameterValue"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetParameter, 2, "model, ParameterName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerParameter, 2, "model, ParameterName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraint, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetAttribute, 3, "model, AttributeName, AttributeValue"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttribute, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerAttribute, 3, "model, AttributeName, AttributeValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerAttribute, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
