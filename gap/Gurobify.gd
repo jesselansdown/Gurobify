@@ -4,18 +4,6 @@
 # Declarations
 #
 
-#! @Description
-#!   Insert documentation for you function here
-#!
-#! Takes the following optional arguments:
-#!
-#! TimeLimit
-#! BestObjBound
-#! ToConsole
-#! ToConsole
-#! NumericFocus
-#! Cutoff
-#! ToConsole
 
 DeclareCategory( "IsGurobiModel", IsObject );
 
@@ -23,3 +11,20 @@ DeclareCategory( "IsGurobiModel", IsObject );
 GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
 
 BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
+
+
+
+#! @Arguments Model, TimeLimit
+#! @Returns 
+#! @Description
+#!	Set a time limit for a Gurobi model.
+DeclareOperation( "SetTimeLimit",
+	[ IsGurobiModel, IsFloat] );
+
+#! @Arguments Model, BestObjectiveBoundStop
+#! @Returns 
+#! @Description
+#!	If a solution is found for which the objective function meets the value of BestObjectiveBoundStop,
+#!	then Gurobi will stop optimising.
+DeclareOperation( "SetBestObjectiveBoundStop",
+	[ IsGurobiModel, IsFloat] );
