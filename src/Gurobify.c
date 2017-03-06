@@ -230,6 +230,28 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
     return INTOBJ_INT(optimstatus);
 }
 
+/*
+	#! @Arguments Model
+	#! @Returns
+	#! @Description
+	#!	Reset all information associated with a solution for the model.
+	DeclareGlobalFunction("GurobiReset");
+*/
+
+Obj GurobiReset(Obj self, Obj GAPmodel)
+{
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+    GRBmodel *model = GET_MODEL(GAPmodel);
+
+    int error;
+	error = GRBresetmodel(model);
+	if (error)
+        ErrorMayQuit( "Error: unable to reset model", 0, 0 );	
+
+    return 0;	
+}
 
 
 /*
@@ -691,6 +713,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 2, "VariableTypes, ObjectiveFunction"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerParameter, 2, "model, ParameterName"),
