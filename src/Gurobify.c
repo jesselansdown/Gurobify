@@ -66,6 +66,13 @@ Int GurobiIsMutableObjFuncs(Obj o)
 /*
 	#! @Chapter Gurobify Functions
 	#! @Section Functions
+	#!
+	#!	In addition to the methods provided by Gurobify for altering specific attibute,
+	#!	Gurobify also offers direct manipulation of the Gurobi model using the following
+	#!	functions. Note that these require a greater familiarity with Gurobi, since
+	#!	they require the exact names of a gurobi attribute or parameter, and they
+	#!	are strict about the value types, and will only take integer or double values
+	#!	depending on the given attribute or parameter.
 */
 
 
@@ -333,19 +340,21 @@ Obj GurobiGetDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 
 
 /*
-	#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue
+	#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName
 	#! @Returns 
 	#! @Description
 	#!	Adds a constraint to a gurobi model. ConstraintEquation must be a list, with entries indexed
 	#!	by the variable set, such that each entry is the coefficient of the corresponding variable
 	#! 	in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=",
 	#!	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the
-	#!	right hand side of the constraint. Note that a model must be updated or optimised before
-	#!	any additional constraints become effective.
+	#!	right hand side of the constraint. A constraint may also be given a name, which helps to identify
+	#!	the constraint if it is to be deleted at some point. May also take an empty string "" if no name is needed.
+	#!	Note that a model must be updated or optimised before any additional constraints become effective.
 	DeclareGlobalFunction("GurobiAddConstraint");
 */
 
-Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense, Obj AdditionalConstraintRHSValue)
+Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
+						Obj AdditionalConstraintRHSValue, Obj ConstraintName)
 {
 
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -410,24 +419,60 @@ Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 		ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
 	}
 
-	if ( strcmp(sense, "<") ){
-		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, NULL);
+	if ( strcmp(sense, "<") == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_LESS_EQUAL, rhs, CSTR_STRING(ConstraintName));
 		if (error)
 			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
 	}
-	else if ( strcmp(sense, ">" ) ){
-		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, NULL);
+	else if ( strcmp(sense, ">" ) == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_GREATER_EQUAL, rhs, CSTR_STRING(ConstraintName));
 		if (error)
 			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
 
 	}
-	else if ( strcmp(sense, "=") ){
-		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, NULL);
+	else if ( strcmp(sense, "=") == 0 ){
+		error = GRBaddconstr(model, non_zero_constraints , constraint_index, constraint_value, GRB_EQUAL, rhs, CSTR_STRING(ConstraintName));
 		if (error)
 			ErrorMayQuit( "Error: unable to add constraint ", 0, 0 );
 	}
 	else
 			ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
+
+	return 0;
+}
+
+/*
+	#! @Arguments Model, ConstraintName
+	#! @Returns 
+	#! @Description
+	#!	Deletes all constraints from a model with the name ConstraintName. Returns the updated model.
+	DeclareGlobalFunction("GurobiAddConstraint");
+*/
+
+Obj GurobiDeleteAllConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
+{
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int ConstraintNumber;
+	int error;
+	error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
+	if ( error )
+		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+
+	while ( ConstraintNumber != -1 ){
+
+		error = GRBdelconstrs(model, 1, &ConstraintNumber);
+		if ( error )
+			ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+			
+		error = GRBupdatemodel(model);
+		if (error)
+			ErrorMayQuit( "Error: Unable to update model.", 0, 0 );	
+
+		error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
+		if ( error )
+			ErrorMayQuit( "Error: Unable to delete constraintkjljlk.", 0, 0 );
+	}
 
 	return 0;
 }
@@ -650,7 +695,8 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleParameter, 2, "model, ParameterName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraint, 4, "model, ConstraintEquation, ConstraintSense, ConstraintRHS"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraint, 5, "model, ConstraintEquation, ConstraintSense, ConstraintRHS, ConstraintName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteAllConstraintsWithName, 2, "model, ConstraintName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerAttribute, 2, "model, AttributeName"),
