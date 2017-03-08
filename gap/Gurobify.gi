@@ -5,9 +5,6 @@ InstallMethod(SetTimeLimit, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, TimeLimit)
 	
-	local edge1, edge2, edge3, edge4, edge5, edge6, vertex1, vertex2, vertex3,
-		vertex4, newVerticesOfEdges, newEdgesOfFaces, newVertices, newEdges, newFaces;
-
 		if TimeLimit <= 0.0 then
 			Print("ERROR: Time limit must be a positive value!");
 			return fail;
