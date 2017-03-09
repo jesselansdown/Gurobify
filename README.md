@@ -1,5 +1,6 @@
 # Gurobify
 Gurobify provides an interface to Gurobi from GAP.
+[View the manual here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf) Please note that this is a beta version of Gurobify and the documentation and features are constantly being updated.
 
 Requirements:
 * Gurobi 7.0
