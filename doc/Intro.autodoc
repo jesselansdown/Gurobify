@@ -1,30 +1,69 @@
 @Chapter Introduction
-@Section Introducing Gurobify
+	@Section Introducing Gurobify
 
 Gurobify is a GAP package which provides an interface to the optimisation software Gurobi.
 
-@Chapter Installation
-@Section Installing Gurobify
+	@Section Prerequisites
+
+	@Section Installation
+
+
+
 
 TODO
 
 @Chapter Getting Started
-@Section Getting Started
+	@Section Getting Started
 
 TODO
 
-@Section Minimal working example?
+	@Section Minimal working example?
 
 TODO
+
+@Chapter Using Gurobify
+	@Section Creating or reading a model
+
+	TODO intro to section
+
+	@Section Adding and deleting constraints
+
+	TODO
+
+	@Section Optimizing a model
+
+	TODO
+	@Section Querying attributes and parameters
+
+	TODO
+
+	@Section Querying other attributes and parameters
+
+	In addition to these specific queries given in the previous section, all other gurobi parameters and attributes which take integer or double values can be queried using GurobiGetIntegerParameter("ParameterName"), GurobiGetDoubleParameter("ParameterName"), GurobiGetIntegerAttribute("AttributeName") or GurobiGetDoubleAttribute("AttributeName") respectively, where "ParameterName" and "AttributeName" are strings given exactly as in the Gurobi documentation. See the Appendix for links to the relevant documentation.
+
+	@Section Modifying attributes and parameters
+
+	TODO
+
+	@Section Modifying other attributes and parameters
+
+	@Chapter Using Gurobify
+		@Section Other
 
 @Chapter Gurobify Functions
 
 @Chapter Examples
-@Section Examples
+	@Section Examples
 
 TODO
 
-@Chapter Apendix
-@Section Links to some Gurobi documentation
+@Chapter Appendix
+	@Section Links to some Gurobi documentation
 
-TODO
+For more information on Gurobi parameters, attributes, and status codes, see the following links:
+
+* Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html
+
+* Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html
+
+* Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html

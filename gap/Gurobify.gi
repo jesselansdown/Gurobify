@@ -1,6 +1,5 @@
 
 
-
 InstallMethod(SetTimeLimit, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, TimeLimit)

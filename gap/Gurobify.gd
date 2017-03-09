@@ -13,7 +13,8 @@ GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
 BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
 
-
+#! @Chapter Using Gurobify
+#! @Section Modifying attributes and parameters
 #! @Arguments Model, TimeLimit
 #! @Returns true
 #! @Description
@@ -21,6 +22,8 @@ BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 DeclareOperation( "SetTimeLimit",
 	[ IsGurobiModel, IsFloat] );
 
+#! @Chapter Using Gurobify
+#! @Section Modifying attributes and parameters
 #! @Arguments Model, BestObjectiveBoundStop
 #! @Returns true
 #! @Description
@@ -28,6 +31,8 @@ DeclareOperation( "SetTimeLimit",
 DeclareOperation( "SetBestObjectiveBoundStop",
 	[ IsGurobiModel, IsFloat] );
 
+#! @Chapter Using Gurobify
+#! @Section Modifying attributes and parameters
 #! @Arguments Model, CutOff
 #! @Returns true
 #! @Description

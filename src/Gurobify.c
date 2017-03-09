@@ -63,20 +63,11 @@ Int GurobiIsMutableObjFuncs(Obj o)
 }
 
 
-/*
-	#! @Chapter Gurobify Functions
-	#! @Section Functions
-	#!
-	#!	In addition to the methods provided by Gurobify for altering specific attibute,
-	#!	Gurobify also offers direct manipulation of the Gurobi model using the following
-	#!	functions. Note that these require a greater familiarity with Gurobi, since
-	#!	they require the exact names of a gurobi attribute or parameter, and they
-	#!	are strict about the value types, and will only take integer or double values
-	#!	depending on the given attribute or parameter.
-*/
 
 
 /*
+	#! @Chapter Using Gurobify
+	#!	@Section Creating or reading a model
 	#! @Arguments ModelFile
 	#! @Returns a Gurobi model.
 	#! @Description
@@ -103,6 +94,8 @@ Obj GurobiReadModel(Obj self, Obj ModelFile )
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#!	@Section Creating or reading a model
 	#! @Arguments VariableTypes, ObjectiveFunction
 	#! @Returns a Gurobi model.
 	#! @Description
@@ -178,12 +171,9 @@ Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
     return NewModel(model);
 }
 
-
-
-
-
-
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Optimizing a model
 	#! @Arguments Model
 	#! @Returns Optimisation status.
 	#! @Description
@@ -231,6 +221,8 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Optimizing a model
 	#! @Arguments Model
 	#! @Returns
 	#! @Description
@@ -255,6 +247,8 @@ Obj GurobiReset(Obj self, Obj GAPmodel)
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Modifying other attributes and parameters
 	#! @Arguments Model, ParameterName, ParameterValue
 	#! @Returns
 	#! @Description
@@ -283,6 +277,8 @@ Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Par
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Modifying other attributes and parameters
 	#! @Arguments Model, ParameterName, ParameterValue
 	#! @Returns
 	#! @Description
@@ -310,6 +306,8 @@ Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Para
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
 	#! @Arguments Model, ParameterName
 	#! @Returns parameter value
 	#! @Description
@@ -335,6 +333,8 @@ Obj GurobiGetIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
 	#! @Arguments Model, ParameterName
 	#! @Returns parameter value
 	#! @Description
@@ -362,6 +362,8 @@ Obj GurobiGetDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Adding and deleting constraints
 	#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName
 	#! @Returns 
 	#! @Description
@@ -464,11 +466,13 @@ Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Adding and deleting constraints
 	#! @Arguments Model, ConstraintName
 	#! @Returns 
 	#! @Description
 	#!	Deletes all constraints from a model with the name ConstraintName. Returns the updated model.
-	DeclareGlobalFunction("GurobiAddConstraint");
+	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
 */
 
 Obj GurobiDeleteAllConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
@@ -500,6 +504,8 @@ Obj GurobiDeleteAllConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintNam
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Modifying other attributes and parameters
 	#! @Arguments Model, AttributeName, AttributeValue
 	#! @Returns
 	#! @Description
@@ -526,6 +532,8 @@ Obj GurobiSetIntegerAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Att
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Modifying other attributes and parameters
 	#! @Arguments Model, AttributeName, AttributeValue
 	#! @Returns
 	#! @Description
@@ -554,6 +562,8 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute value
 	#! @Description
@@ -577,6 +587,8 @@ Obj GurobiGetIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute value
 	#! @Description
@@ -601,6 +613,8 @@ Obj GurobiGetDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute array
 	#! @Description
@@ -659,6 +673,8 @@ Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 }
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Other
 	#! @Arguments Model, FileName
 	#! @Returns
 	#! @Description
@@ -684,6 +700,8 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 
 
 /*
+	#! @Chapter Using Gurobify
+	#! @Section Other
 	#! @Arguments Model
 	#! @Returns
 	#! @Description

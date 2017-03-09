@@ -1,3 +1,5 @@
+TODO.txt
+
 aclocal.m4
 config.log
 config.status
@@ -97,3 +99,5 @@ doc/times.css
 doc/title.xml
 doc/toggless.css
 doc/toggless.js
+_Chapter_Appendix.xml
+_Chapter_Using_Gurobify.xml
