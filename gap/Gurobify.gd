@@ -12,6 +12,14 @@ GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
 
 BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
+#! @Chapter Using Gurobify
+#! @Section Optimizing a model
+#! @Arguments Model
+#! @Returns Solution
+#! @Description
+#!	Display the solution found for a successfuly optimised model.
+DeclareOperation( "GetSolution",
+	[ IsGurobiModel] );
 
 #! @Chapter Using Gurobify
 #! @Section Modifying attributes and parameters

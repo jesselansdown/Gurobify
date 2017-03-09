@@ -1,5 +1,15 @@
 
 
+InstallMethod(GetSolution, "",
+	[ IsGurobiModel] ,
+	function(model)
+	
+		GurobiGetAttributeArray(model, "X");
+
+		return true;
+	end
+);
+
 InstallMethod(SetTimeLimit, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, TimeLimit)
