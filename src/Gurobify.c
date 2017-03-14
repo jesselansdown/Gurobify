@@ -497,7 +497,7 @@ Obj GurobiDeleteAllConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintNam
 
 		error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
 		if ( error )
-			ErrorMayQuit( "Error: Unable to delete constraintkjljlk.", 0, 0 );
+			ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 	}
 
 	return 0;
@@ -715,7 +715,9 @@ Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error = GRBupdatemodel(model);
 	if (error)
-		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );		
+		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );
+
+	return 0;
 }
 
 typedef Obj (* GVarFunc)(/*arguments*/);
