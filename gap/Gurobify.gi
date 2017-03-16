@@ -3,10 +3,7 @@
 InstallMethod(GetSolution, "",
 	[ IsGurobiModel] ,
 	function(model)
-	
-		GurobiGetAttributeArray(model, "X");
-
-		return true;
+		return GurobiGetAttributeArray(model, "X");
 	end
 );
 
