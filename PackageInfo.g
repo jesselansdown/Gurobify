@@ -9,7 +9,7 @@
 SetPackageInfo( rec(
 
 PackageName := "Gurobify",
-Subtitle := "Gurobify provides an interface to Gurobi from GAP.",
+Subtitle := "A GAP interface to Gurobi.",
 Version := "0.1",
 Date := "23/02/2017", # dd/mm/yyyy format
 

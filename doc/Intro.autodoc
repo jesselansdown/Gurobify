@@ -7,8 +7,10 @@ Gurobify is a GAP package which provides an interface to the optimisation softwa
 
 	@Section Installation
 
-
-
+	<Cite Key="GAP4"/>
+	<Cite Key="gurobi"/>
+	<Cite Key="autodoc"/>
+	<Cite Key="packagemaker"/>
 
 TODO
 
