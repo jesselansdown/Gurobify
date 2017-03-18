@@ -39,6 +39,41 @@ InstallOtherMethod(GurobiAddConstraint, "",
 	end
 );
 
+InstallMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsList, IsList, IsList],
+	function(Model, ConstraintEquations, ConstraintSenses, ConstraintRHSValues, ConstraintNames)
+		# Add error checks
+		local i;
+		if Size(ConstraintEquations) <> Size(ConstraintSenses) or Size(ConstraintEquations) <> Size(ConstraintRHSValues)
+			or Size(ConstraintEquations) <> Size(ConstraintNames) then
+			Print("Error: the ConstraintEquations, ConstraintSenses, Constraint ConstraintRHSValues and ConstraintNames must have the same sizes.");
+			return;
+		fi;
+		for i in [1 .. Size(ConstraintEquations)] do
+			GUROBIADDCONSTRAINT(Model, List(ConstraintEquations[i], t -> Float(t)), ConstraintSenses[i],
+				Float(ConstraintRHSValues[i]), ConstraintNames[i]);
+		od;
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsList, IsList],
+	function(Model, ConstraintEquations, ConstraintSenses, ConstraintRHSValues)
+		# Add error checks
+		local i;
+		if Size(ConstraintEquations) <> Size(ConstraintSenses) or Size(ConstraintEquations) <> Size(ConstraintRHSValues) then
+			Print("Error: the ConstraintEquations, ConstraintSenses, Constraint ConstraintRHSValues must have the same sizes.");
+			return;
+		fi;
+		for i in [1 .. Size(ConstraintEquations)] do
+			GUROBIADDCONSTRAINT(Model, List(ConstraintEquations[i], t -> Float(t)), ConstraintSenses[i],
+				Float(ConstraintRHSValues[i]), "UnNamedConstraint");
+		od;
+		return true;
+	end
+);
+
 InstallMethod(GetSolution, "",
 	[ IsGurobiModel] ,
 	function(model)

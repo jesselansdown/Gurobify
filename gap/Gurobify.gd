@@ -44,6 +44,15 @@ DeclareOperation( "GurobiAddConstraint",
 	[ IsGurobiModel, IsList, IsString, IsFloat, IsString] );
 
 #! @Chapter Using Gurobify
+#! @Section Adding and deleting constraints
+#! @Arguments Model, ConstraintEquations, ConstraintSenses, ConstraintRHSValues, ConstraintNames
+#! @Returns true
+#! @Description
+#!	TODO
+DeclareOperation( "GurobiAddMultipleConstraints",
+	[ IsGurobiModel, IsList, IsList, IsList, IsList] );
+
+#! @Chapter Using Gurobify
 #! @Section Optimizing a model
 #! @Arguments Model
 #! @Returns Solution
