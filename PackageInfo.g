@@ -88,7 +88,9 @@ AutoDoc := rec(
         Copyright := Concatenation(
                     "&copyright; 2017 Jesse Lansdown<P/>\n\n",
                     "Licence to come\n"),
-        Abstract := "TODO",
+        Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from GAP. ",
+          "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
+          "by Gurobi from within the GAP environment."),
         Acknowledgements := "TODO"
     )
 ),
