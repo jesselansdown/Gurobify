@@ -94,23 +94,19 @@ Obj GurobiReadModel(Obj self, Obj ModelFile )
 }
 
 /*
-	#! @Chapter Using Gurobify
-	#!	@Section Creating or reading a model
-	#! @Arguments VariableTypes, ObjectiveFunction
-	#! @Returns a Gurobi model.
-	#! @Description
-	#!  Creates a gurobi model with variables defined by VariableTypes and an objective function
-	#!  given by ObjectiveFunction. VariableTypes must be a list, with entries indexed by the set
-	#!  of variables, and entries corresponding to the type of variable, as a string.
-	#!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
-	#!  Refer to the Gurobi documentation for more information on the variable types.
-	#!  ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
-	#!  corresponds to the coefficient of the variable in the objective function.
-	#!  ObjectiveFunction takes only double values.
-	DeclareGlobalFunction("GurobiNewModel");
+  This function is not documented.
+  
+  Creates a gurobi model with variables defined by VariableTypes and an objective function
+  given by ObjectiveFunction. VariableTypes must be a list, with entries indexed by the set
+  of variables, and entries corresponding to the type of variable, as a string.
+  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
+  Refer to the Gurobi documentation for more information on the variable types.
+  ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
+  corresponds to the coefficient of the variable in the objective function.
+  ObjectiveFunction takes only double values.
 */
 
-Obj GurobiNewModel(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
+Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 {
 
 	// variable types must be one of GRB_CONTINUOUS, GRB_BINARY, GRB_INTEGER, GRB_SEMICONT, or GRB_SEMIINT
@@ -362,22 +358,18 @@ Obj GurobiGetDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 
 
 /*
-	#! @Chapter Using Gurobify
-	#! @Section Adding and deleting constraints
-	#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName
-	#! @Returns 
-	#! @Description
-	#!	Adds a constraint to a gurobi model. ConstraintEquation must be a list, with entries indexed
-	#!	by the variable set, such that each entry is the coefficient of the corresponding variable
-	#! 	in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=",
-	#!	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the
-	#!	right hand side of the constraint. A constraint may also be given a name, which helps to identify
-	#!	the constraint if it is to be deleted at some point. May also take an empty string "" if no name is needed.
-	#!	Note that a model must be updated or optimised before any additional constraints become effective.
-	DeclareGlobalFunction("GurobiAddConstraint");
+This function is not documented.
+
+	Adds a constraint to a gurobi model. ConstraintEquation must be a list, with entries indexed
+	by the variable set, such that each entry is the coefficient of the corresponding variable
+ 	in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=",
+	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the
+	right hand side of the constraint. A constraint may also be given a name, which helps to identify
+	the constraint if it is to be deleted at some point. May also take an empty string "" if no name is needed.
+	Note that a model must be updated or optimised before any additional constraints become effective.
 */
 
-Obj GurobiAddConstraint(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
+Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
 						Obj AdditionalConstraintRHSValue, Obj ConstraintName)
 {
 
@@ -731,14 +723,14 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiNewModel, 2, "VariableTypes, ObjectiveFunction"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 2, "VariableTypes, ObjectiveFunction"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleParameter, 2, "model, ParameterName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAddConstraint, 5, "model, ConstraintEquation, ConstraintSense, ConstraintRHS, ConstraintName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBIADDCONSTRAINT, 5, "model, ConstraintEquation, ConstraintSense, ConstraintRHS, ConstraintName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteAllConstraintsWithName, 2, "model, ConstraintName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),

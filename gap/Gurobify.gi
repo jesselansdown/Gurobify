@@ -1,5 +1,44 @@
 
 
+InstallMethod(GurobiNewModel, "",
+	[ IsList, IsList] ,
+	function(VariableTypes, ObjectiveFunction)
+		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), List(ObjectiveFunction, t -> Float(t)));
+	end
+);
+
+InstallMethod(GurobiAddConstraint, "",
+	[ IsGurobiModel, IsList, IsString, IsFloat, IsString],
+	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName)
+		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, ConstraintRHSValue, ConstraintName);
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddConstraint, "",
+	[ IsGurobiModel, IsList, IsString, IsInt, IsString],
+	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName)
+		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, Float(ConstraintRHSValue), ConstraintName);
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddConstraint, "",
+	[ IsGurobiModel, IsList, IsString, IsFloat],
+	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue)
+		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, ConstraintRHSValue, "UnNamedConstraint");
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddConstraint, "",
+	[ IsGurobiModel, IsList, IsString, IsInt],
+	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue)
+		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, Float(ConstraintRHSValue), "UnNamedConstraint");
+		return true;
+	end
+);
+
 InstallMethod(GetSolution, "",
 	[ IsGurobiModel] ,
 	function(model)
