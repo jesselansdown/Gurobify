@@ -1,13 +1,31 @@
 @Chapter Introduction
 	@Section What is Gurobify?
 
-	<Cite Key="GAP4"/>
-	<Cite Key="gurobi"/>
-	<Cite Key="autodoc"/>
-	<Cite Key="packagemaker"/>
+Gurobify is a GAP<Cite Key="GAP4"/> package which provides an interface to the optimisation software Gurobi<Cite Key="gurobi"/>.
 
-Gurobify is a GAP package which provides an interface to the optimisation software Gurobi.
+Please use the issue tracker to inform me of any bugs or suggestions. I would also like to hear about applications of Gurobify via email.
 
+	@Section Citing Gurobify
+
+I am interested to know who is using Gurobify! If you obtain a copy I would appreciate it if you sent me an email to let me know. 
+If Gurobify aids you in obtaining results that lead to a publication, please cite Gurobify as you would a paper. An example BibTeX entry for citing gurobify is given below. Please also send me an email informing me of the paper for my own interest.
+
+@BeginLog
+#! @manual{gurobify,
+#!	Author = {Lansdown, Jesse},
+#!	Key = {gurobify},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.0}},
+#!	Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
+#!	Year = 2017}
+@EndLog
+
+Here is the entry in the APA style which may be used directly in the bibliography environment of your LaTeX document.
+
+@BeginLog
+#! \bibitem[Gurobify]{gurobify}
+#!	J.~Lansdown.
+#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0, 2017.
+@EndLog
 
 	@Section Prerequisites
 
@@ -120,6 +138,9 @@ TODO
 	@Section Adding and deleting constraints
 
 	TODO
+
+	@Section Adding and modifying objective functions
+
 
 	@Section Optimizing a model
 

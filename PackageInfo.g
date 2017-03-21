@@ -91,7 +91,15 @@ AutoDoc := rec(
         Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from GAP. ",
           "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
           "by Gurobi from within the GAP environment."),
-        Acknowledgements := "TODO"
+        Acknowledgements := Concatenation("I thank Sebastian Gutsche for generously taking the time ",
+          "to explain the inner workings of GAP and GAP packages to me, and for pointing me towards examples. ",
+          "I also thank John Bamberg for introducing me to both GAP and Gurobi ",
+          "and showing me how they can be used to so effectively complement each other. ",
+          "I used the AutoDoc<Cite Key=\"autodoc\"/> package to streamline ",
+          "the creation of the documentation for this package, ",
+          "and PackageMaker<Cite Key=\"packagemaker\"/> to generate a package template. ",
+           "I would also like to acknowledge the support of an Australian Government Research Training Program (RTP) Scholarship ",
+           "while writing this software.")
     )
 ),
 
