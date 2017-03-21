@@ -13,7 +13,7 @@ GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
 BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
 
-#! @BeginGroup GurobiAddConstraint
+#! @BeginGroup GurobiNewModel
 
 #! @Chapter Using Gurobify
 #! @Section Creating or reading a model
@@ -33,7 +33,7 @@ DeclareOperation( "GurobiNewModel",
 #! @Arguments VariableTypes
 DeclareOperation( "GurobiNewModel",
 	[IsList]);
-#! @EndGroup GurobiAddConstraint
+#! @EndGroup GurobiNewModel
 
 
 #! @BeginGroup GurobiAddConstraint
