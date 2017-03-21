@@ -7,6 +7,13 @@ InstallMethod(GurobiNewModel, "",
 	end
 );
 
+InstallMethod(GurobiNewModel, "",
+	[ IsList] ,
+	function(VariableTypes)
+		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), ListWithIdenticalEntries(Size(VariableTypes),0.));
+	end
+);
+
 InstallMethod(GurobiAddConstraint, "",
 	[ IsGurobiModel, IsList, IsString, IsFloat, IsString],
 	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName)
@@ -15,7 +22,7 @@ InstallMethod(GurobiAddConstraint, "",
 	end
 );
 
-InstallOtherMethod(GurobiAddConstraint, "",
+InstallMethod(GurobiAddConstraint, "",
 	[ IsGurobiModel, IsList, IsString, IsInt, IsString],
 	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName)
 		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, Float(ConstraintRHSValue), ConstraintName);
@@ -23,7 +30,7 @@ InstallOtherMethod(GurobiAddConstraint, "",
 	end
 );
 
-InstallOtherMethod(GurobiAddConstraint, "",
+InstallMethod(GurobiAddConstraint, "",
 	[ IsGurobiModel, IsList, IsString, IsFloat],
 	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue)
 		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, ConstraintRHSValue, "UnNamedConstraint");
@@ -31,7 +38,7 @@ InstallOtherMethod(GurobiAddConstraint, "",
 	end
 );
 
-InstallOtherMethod(GurobiAddConstraint, "",
+InstallMethod(GurobiAddConstraint, "",
 	[ IsGurobiModel, IsList, IsString, IsInt],
 	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue)
 		GUROBIADDCONSTRAINT(Model, List(ConstraintEquation, t -> Float(t)), ConstraintSense, Float(ConstraintRHSValue), "UnNamedConstraint");
@@ -74,14 +81,14 @@ InstallOtherMethod(GurobiAddMultipleConstraints, "",
 	end
 );
 
-InstallMethod(GetSolution, "",
+InstallMethod(GurobiSolution, "",
 	[ IsGurobiModel] ,
 	function(model)
-		return GurobiGetAttributeArray(model, "X");
+		return GurobiAttributeArray(model, "X");
 	end
 );
 
-InstallMethod(SetTimeLimit, "",
+InstallMethod(GurobiSetTimeLimit, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, TimeLimit)
 	
@@ -96,7 +103,7 @@ InstallMethod(SetTimeLimit, "",
 );
 
 
-InstallOtherMethod( SetTimeLimit, "",
+InstallOtherMethod( GurobiSetTimeLimit, "",
 	[ IsGurobiModel, IsPosInt ] ,
 	function(model, TimeLimit)
 
@@ -107,7 +114,7 @@ InstallOtherMethod( SetTimeLimit, "",
 );
 
 
-InstallMethod(SetBestObjectiveBoundStop, "",
+InstallMethod(GurobiSetBestObjectiveBoundStop, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, BestObjectiveBoundStop)
 
@@ -118,7 +125,7 @@ InstallMethod(SetBestObjectiveBoundStop, "",
 );
 
 
-InstallOtherMethod( SetBestObjectiveBoundStop, "",
+InstallOtherMethod( GurobiSetBestObjectiveBoundStop, "",
 	[ IsGurobiModel, IsPosInt ] ,
 	function(model, BestObjectiveBoundStop)
 
@@ -128,7 +135,7 @@ InstallOtherMethod( SetBestObjectiveBoundStop, "",
 	end
 );
 
-InstallMethod(SetCutOff, "",
+InstallMethod(GurobiSetCutOff, "",
 	[ IsGurobiModel, IsFloat] ,
 	function(model, CutOff)
 	
@@ -140,11 +147,31 @@ InstallMethod(SetCutOff, "",
 );
 
 
-InstallOtherMethod( SetCutOff, "",
+InstallOtherMethod( GurobiSetCutOff, "",
 	[ IsGurobiModel, IsPosInt ] ,
 	function(model, CutOff)
 
 	GurobiSetDoubleParameter(model, "CutOff", Float(CutOff));
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiMaximiseModel, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	GurobiSetIntegerAttribute(model, "ModelSense", -1);
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiMinimiseModel, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	GurobiSetIntegerAttribute(model, "ModelSense", 1);
 
 	return true;
 	end

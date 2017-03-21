@@ -312,7 +312,7 @@ Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Para
 	DeclareGlobalFunction("GurobiGetIntegerParameter");
 */
 
-Obj GurobiGetIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
+Obj GurobiIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
@@ -339,7 +339,7 @@ Obj GurobiGetIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 	DeclareGlobalFunction("GurobiGetDoubleParameter");
 */
 
-Obj GurobiGetDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
+Obj GurobiDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
@@ -467,7 +467,7 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
 */
 
-Obj GurobiDeleteAllConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
+Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 {
 
 	GRBmodel *model = GET_MODEL(GAPmodel);
@@ -564,7 +564,7 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 	DeclareGlobalFunction("GurobiGetIntegerAttribute");
 */
 
-Obj GurobiGetIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
+Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
@@ -589,7 +589,7 @@ Obj GurobiGetIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	DeclareGlobalFunction("GurobiGetDoubleAttribute");
 */
 
-Obj GurobiGetDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
+Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
@@ -616,7 +616,7 @@ Obj GurobiGetDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	DeclareGlobalFunction("GurobiGetAttributeArray");
 */
 
-Obj GurobiGetAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
@@ -728,15 +728,15 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerParameter, 2, "model, ParameterName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleParameter, 2, "model, ParameterName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerParameter, 2, "model, ParameterName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBIADDCONSTRAINT, 5, "model, ConstraintEquation, ConstraintSense, ConstraintRHS, ConstraintName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteAllConstraintsWithName, 2, "model, ConstraintName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteConstraintsWithName, 2, "model, ConstraintName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetIntegerAttribute, 2, "model, AttributeName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetDoubleAttribute, 2, "model, AttributeName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiGetAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttribute, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleAttribute, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
 
