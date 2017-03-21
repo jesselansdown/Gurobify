@@ -37,7 +37,7 @@ Gurobi requires the following software to be installed.
 
 * Autotools
 
-Autotools may be installed on MacOSC using homebrew with the commands **brew install autoconf** and **brew install automake**.
+Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
 If you want to regenerate the documentation for any reason, then the following will also be required.
 
 * AutoDoc 2016.03.08 (or later)
@@ -59,7 +59,7 @@ $$ $$
 
 Note, free academic licenses expire twelve (12) months after the date on which your license was generated, but eligible faculty, students, or staff can renew a license by repeating the above process" <Cite Key="gurobiLicence1"/>.
 $$ $$
-For up to date information on Gurobi licences, please refer to the Gurobi website. A link can be found in the Appendix, or through a simple search online.
+For up-to-date information on Gurobi licences, please refer to the Gurobi website. A link can be found in the Appendix, or through a simple search online.
 
 
 
@@ -147,7 +147,7 @@ TODO
 	TODO
 	@Section Querying attributes and parameters
 
-	TODO
+	Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
 
 	@Section Querying other attributes and parameters
 
@@ -155,7 +155,7 @@ TODO
 
 	@Section Modifying attributes and parameters
 
-	TODO
+	Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
 
 	@Section Modifying other attributes and parameters
 
@@ -181,3 +181,24 @@ For more information on Gurobi parameters, attributes, and status codes, see the
 * Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html
 
 * Licencing: http://www.gurobi.com/products/licensing-pricing/licensing-overview
+
+	@Section Optimisation Status Codes
+
+The information in this section on optimisation status codes is taken directly from the Gurobi website<Cite Key="gurobiStatusCodes"/>.
+
+* 1 -	Model is loaded, but no solution information is available.
+* 2 - Model was solved to optimality (subject to tolerances), and an optimal solution is available.
+* 3 - Model was proven to be infeasible.
+* 4 -	Model was proven to be either infeasible or unbounded. To obtain a more definitive conclusion, set the DualReductions parameter to 0 and reoptimize.
+* 5 - Model was proven to be unbounded. Important note: an unbounded status indicates the presence of an unbounded ray that allows the objective to improve without limit. It says nothing about whether the model has a feasible solution. If you require information on feasibility, you should set the objective to zero and reoptimize.
+* 6 - Optimal objective for model was proven to be worse than the value specified in the Cutoff parameter. No solution information is available.
+* 7 - Optimization terminated because the total number of simplex iterations performed exceeded the value specified in the IterationLimit parameter, or because the total number of barrier iterations exceeded the value specified in the BarIterLimit parameter.
+* 8 - Optimization terminated because the total number of branch-and-cut nodes explored exceeded the value specified in the NodeLimit parameter.
+* 9 - Optimization terminated because the time expended exceeded the value specified in the TimeLimit parameter.
+* 10 - Optimization terminated because the number of solutions found reached the value specified in the SolutionLimit parameter.
+* 11 - Optimization was terminated by the user.
+* 12 - Optimization was terminated due to unrecoverable numerical difficulties.
+* 13 - Unable to satisfy optimality tolerances; a sub-optimal solution is available.
+* 14 - An asynchronous optimization call was made, but the associated optimization run is not yet complete.
+* 15 - User specified an objective limit (a bound on either the best objective or the best bound), and that limit has been reached.
+

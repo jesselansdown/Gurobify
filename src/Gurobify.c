@@ -664,6 +664,47 @@ Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 }
 
+
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Modifying other attributes and parameters
+	#! @Arguments Model, AttributeName, AttributeValueArray
+	#! @Returns
+	#! @Description
+	#!	Takes a Gurobi model and assigns a value to a given attribute which takes an array of floats.
+	#!	AttributeValue must be an array of floats.
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiSetDoubleAttributeArray");
+*/
+Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj GAParray)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	if (! IS_PLIST(GAParray) )
+    	ErrorMayQuit( "Error: The attribute takes a list.", 0, 0 );
+
+	int error;
+	int length;
+	length = LEN_PLIST(GAParray);
+	double vals[length];
+	int i;
+	for (i = 0; i < length; i = i+1 ){
+		if (! IS_MACFLOAT(ELM_PLIST(GAParray, i+1))){
+	    	ErrorMayQuit( "Error: Attibute must be a list of floats.", 0, 0 );		
+		}
+		else{
+			vals[i] = VAL_MACFLOAT(ELM_PLIST(GAParray,i+1));
+		}
+	}
+	
+	error = GRBsetdblattrarray(model, CSTR_STRING(AttributeName), 0, length, vals);
+	if (error)
+    	ErrorMayQuit( "Error: Unable to set attribute array.", 0, 0 );
+
+	return 0;
+}
+
 /*
 	#! @Chapter Using Gurobify
 	#! @Section Other
@@ -739,6 +780,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttributeArray, 3, "model, AttributeName, AttributeArray"),
 
   { 0 } /* Finish with an empty entry */
 

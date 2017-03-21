@@ -176,3 +176,213 @@ InstallMethod( GurobiMinimiseModel, "",
 	return true;
 	end
 );
+
+InstallMethod( GurobiSetObjectiveFunction, "",
+	[ IsGurobiModel, IsList ] ,
+	function(model, AttributeArray)
+
+	GurobiSetDoubleAttributeArray(model, "Obj", List(AttributeArray, t -> Float(t)));
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiObjectiveFunction, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiAttributeArray(model, "Obj");
+	end
+);
+
+InstallMethod( GurobiNumberOfVariables, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerAttribute(model, "NumVars");
+	end
+);
+
+InstallMethod( GurobiNumberOfConstraints, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerAttribute(model, "NumConstrs");
+	end
+);
+
+
+InstallMethod( GurobiObjectiveValue, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleAttribute(model, "ObjVal");
+	end
+);
+
+InstallMethod( GurobiObjectiveBound, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleAttribute(model, "ObjBound");
+	end
+);
+
+InstallMethod( GurobiRunTime, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleAttribute(model, "RunTime");
+	end
+);
+
+InstallMethod( GurobiStatus, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerAttribute(model, "Status");
+	end
+);
+
+InstallMethod( GurobiNumericFocus, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "NumericFocus");
+	end
+);
+
+
+InstallOtherMethod( GurobiSetNumericFocus, "",
+	[ IsGurobiModel, IsPosInt ] ,
+	function(model, NumericFocus)
+
+	if not NumericFocus in [0,1,2,3] then
+		Print("Error: Numeric focus must be an integer between 0 and 3");
+		return fail;
+	fi;
+
+	GurobiSetIntegerParameter(model, "NumericFocus", NumericFocus);
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiTimeLimit, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "TimeLimit");
+	end
+);
+
+InstallMethod( GurobiCutOff, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleParameter(model, "CutOff");
+	end
+);
+
+InstallMethod( GurobiBestObjectiveBoundStop, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleParameter(model, "bestobjstop");
+	end
+);
+
+InstallOtherMethod( GurobiSetNumericFocus, "",
+	[ IsGurobiModel, IsInt ] ,
+	function(model, MIPFocus)
+
+	if not MIPFocus in [0,1,2,3] then
+		Print("Error: MIP focus must be an integer between 0 and 3");
+		return fail;
+	fi;
+
+	GurobiSetIntegerParameter(model, "MIPFocus", MIPFocus);
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiMIPFocus, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "MIPFocus");
+	end
+);
+
+InstallOtherMethod( GurobiSetBestBoundStop, "",
+	[ IsGurobiModel, IsFloat ] ,
+	function(model, BestBdStop )
+
+	GurobiSetDoubleParameter(model, "BestBdStop", BestBdStop );
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiBestBoundStop, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleParameter(model, "BestBdStop");
+	end
+);
+
+InstallOtherMethod( GurobiSetSolutionLimit, "",
+	[ IsGurobiModel, IsInt ] ,
+	function(model, SolutionLimit )
+
+	GurobiSetIntegerParameter(model, "SoluitionLimit", SolutionLimit );
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiSolutionLimit, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "SolutionLimit");
+	end
+);
+
+InstallOtherMethod( GurobiSetIterationLimit, "",
+	[ IsGurobiModel, IsFloat ] ,
+	function(model,  IterationLimit )
+
+	GurobiSetDoubleParameter(model, "IterationLimit",  IterationLimit );
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiIterationLimit, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleParameter(model, "IterationLimit");
+	end
+);
+
+InstallOtherMethod( GurobiSetNodeLimit, "",
+	[ IsGurobiModel, IsFloat ] ,
+	function(model,  NodeLimit )
+
+	GurobiSetDoubleParameter(model, "NodeLimit",  NodeLimit );
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiNodeLimit, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiDoubleParameter(model, "NodeLimit");
+	end
+);
