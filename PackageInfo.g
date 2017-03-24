@@ -1,5 +1,5 @@
 #
-# Gurobify: Gurobify provides an interface to Gurobi from GAP.
+# Gurobify: Gurobify provides an interface to Gurobi from &GAP;.
 #
 # This file contains package meta data. For additional information on
 # the meaning and correct usage of these fields, please consult the
@@ -88,12 +88,12 @@ AutoDoc := rec(
         Copyright := Concatenation(
                     "&copyright; 2017 Jesse Lansdown<P/>\n\n",
                     "Licence to come\n"),
-        Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from GAP. ",
+        Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from &GAP;. ",
           "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
-          "by Gurobi from within the GAP environment."),
+          "by Gurobi from within the &GAP; environment."),
         Acknowledgements := Concatenation("I thank Sebastian Gutsche for generously taking the time ",
-          "to explain the inner workings of GAP and GAP packages to me, and for pointing me towards examples. ",
-          "I also thank John Bamberg for introducing me to both GAP and Gurobi ",
+          "to explain the inner workings of &GAP; and &GAP; packages to me, and for pointing me towards examples. ",
+          "I also thank John Bamberg for introducing me to both &GAP; and Gurobi ",
           "and showing me how they can be used to so effectively complement each other. ",
           "I used the AutoDoc<Cite Key=\"autodoc\"/> package to streamline ",
           "the creation of the documentation for this package, ",

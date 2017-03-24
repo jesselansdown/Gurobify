@@ -42,13 +42,3 @@ GurobiOptimizeModel(re_model);
 #! 2
 #! @EndExample
 
-
-
-gap> LoadPackage("gur");
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Loading  Gurobify 0.1 (Gurobify provides an interface to Gurobi from GAP.)
-by Jesse Lansdown (www.jesselansdown.com).
-Homepage: https://github.com/jesselansdown/Gurobify/
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-true
-
