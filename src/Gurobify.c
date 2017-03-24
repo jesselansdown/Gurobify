@@ -106,7 +106,7 @@ Obj GurobiReadModel(Obj self, Obj ModelFile )
   ObjectiveFunction takes only double values.
 */
 
-Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
+Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj VarNames)
 {
 
 	// variable types must be one of GRB_CONTINUOUS, GRB_BINARY, GRB_INTEGER, GRB_SEMICONT, or GRB_SEMIINT
@@ -117,24 +117,24 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 		if (error)
 	        ErrorMayQuit( "Error: Unable to create new model.", 0, 0 );
 
-    if ( ! IS_PLIST(VariableTypes) || ! IS_PLIST(ObjectiveFunction) )
-        ErrorMayQuit( "Error: VariableTypes and ObjectiveFunction msut be lists!", 0, 0 );
+    if ( ! IS_PLIST(VariableTypes) || ! IS_PLIST(VarNames) )
+        ErrorMayQuit( "Error: VariableTypes and Varnames msut be lists!", 0, 0 );
 
-    if (LEN_PLIST(VariableTypes) != LEN_PLIST(ObjectiveFunction) )
-        ErrorMayQuit( "Error: VariableTypes and ObjectiveFunction must have the same sizes!", 0, 0 );
+    if (LEN_PLIST(VariableTypes) != LEN_PLIST(VarNames) )
+        ErrorMayQuit( "Error: VariableTypes and VarNames must have the same sizes!", 0, 0 );
 
 
 	int number_of_variables = LEN_PLIST(VariableTypes);
-	double obj[number_of_variables];
+	char **vnames[number_of_variables];
 	char vtype[number_of_variables];
 
 	int length;
 	int i;
 	for (i = 0; i < number_of_variables; i = i+1){
-		if (IS_INTOBJ(ELM_PLIST(ObjectiveFunction, i+1)))
-		    ErrorMayQuit( "Error: Objective function must contain doubles.", 0, 0 );
+		if ( ! IS_STRING(ELM_PLIST(VarNames, i+1)))
+		    ErrorMayQuit( "Error: Objective function must contain strings.", 0, 0 );
 		else
-			obj[i] = VAL_MACFLOAT(ELM_PLIST(ObjectiveFunction, i+1));
+			vnames[i] = CSTR_STRING(ELM_PLIST(VarNames, i+1));
 	
 		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
 		length = strlen(var_type);
@@ -160,7 +160,7 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj ObjectiveFunction)
 			ErrorMayQuit( "Error: VariableTypes must contain only 'CONTINUOUS', 'BINARY', 'INTEGER', 'SEMICONT', or 'SEMIINT' ", 0, 0 );
 	}		
 
-	error = GRBaddvars(model, number_of_variables, 0, NULL, NULL, NULL, obj, NULL, NULL, vtype, NULL);
+	error = GRBaddvars(model, number_of_variables, 0, NULL, NULL, NULL, NULL, NULL, NULL, vtype, vnames);
     if (error)
         ErrorMayQuit( "Error: Unable to add variables.", 0, 0 );
 
@@ -764,7 +764,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 2, "VariableTypes, ObjectiveFunction"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 2, "VariableTypes, VarNames"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),

@@ -2,8 +2,8 @@
 
 InstallMethod(GurobiNewModel, "",
 	[ IsList, IsList] ,
-	function(VariableTypes, ObjectiveFunction)
-		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), List(ObjectiveFunction, t -> Float(t)));
+	function(VariableTypes, VariableNames)
+		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), VariableNames);
 	end
 );
 
