@@ -17,7 +17,7 @@ BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
 #! @Chapter Using Gurobify
 #! @Section Creating or reading a model
-#! @Arguments VariableTypes, ObjectiveFunction
+#! @Arguments VariableTypes
 #! @Returns A Gurobi model
 #! @Description
 #!  Creates a gurobi model with variables defined by VariableTypes and an objective function
@@ -28,13 +28,8 @@ BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 #!  ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
 #!  corresponds to the coefficient of the variable in the objective function.
 DeclareOperation( "GurobiNewModel",
-	[IsList, IsList]);
-
-#! @Arguments VariableTypes
-DeclareOperation( "GurobiNewModel",
 	[IsList]);
 #! @EndGroup GurobiNewModel
-
 
 #! @BeginGroup GurobiAddConstraint
 
@@ -354,3 +349,20 @@ DeclareOperation( "GurobiSetNodeLimit",
 #!	Returns the node limit value for the model.
 DeclareOperation("GurobiNodeLimit",
 	[IsGurobiModel]);
+
+#! @Chapter Using Gurobify
+#! @Section Querying attributes and parameters
+#! @Arguments Model
+#! @Returns 
+#! @Description
+#!	TODO
+DeclareOperation("GurobiVariableNames",
+	[IsGurobiModel]);
+
+
+#! @Group GurobiNewModel
+#! @Arguments VariableTypes[, VariableNames]
+#! @Description
+#!  Optionally takes the names of the variables
+DeclareOperation( "GurobiNewModel",
+	[IsList, IsList]);

@@ -106,7 +106,7 @@ Obj GurobiReadModel(Obj self, Obj ModelFile )
   ObjectiveFunction takes only double values.
 */
 
-Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj VarNames)
+Obj GUROBINEWMODEL(Obj self, Obj VariableTypes)
 {
 
 	// variable types must be one of GRB_CONTINUOUS, GRB_BINARY, GRB_INTEGER, GRB_SEMICONT, or GRB_SEMIINT
@@ -117,24 +117,15 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj VarNames)
 		if (error)
 	        ErrorMayQuit( "Error: Unable to create new model.", 0, 0 );
 
-    if ( ! IS_PLIST(VariableTypes) || ! IS_PLIST(VarNames) )
+    if ( ! IS_PLIST(VariableTypes) )
         ErrorMayQuit( "Error: VariableTypes and Varnames msut be lists!", 0, 0 );
 
-    if (LEN_PLIST(VariableTypes) != LEN_PLIST(VarNames) )
-        ErrorMayQuit( "Error: VariableTypes and VarNames must have the same sizes!", 0, 0 );
-
-
 	int number_of_variables = LEN_PLIST(VariableTypes);
-	char **vnames[number_of_variables];
 	char vtype[number_of_variables];
 
 	int length;
 	int i;
 	for (i = 0; i < number_of_variables; i = i+1){
-		if ( ! IS_STRING(ELM_PLIST(VarNames, i+1)))
-		    ErrorMayQuit( "Error: Objective function must contain strings.", 0, 0 );
-		else
-			vnames[i] = CSTR_STRING(ELM_PLIST(VarNames, i+1));
 	
 		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
 		length = strlen(var_type);
@@ -160,11 +151,44 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes, Obj VarNames)
 			ErrorMayQuit( "Error: VariableTypes must contain only 'CONTINUOUS', 'BINARY', 'INTEGER', 'SEMICONT', or 'SEMIINT' ", 0, 0 );
 	}		
 
-	error = GRBaddvars(model, number_of_variables, 0, NULL, NULL, NULL, NULL, NULL, NULL, vtype, vnames);
+	error = GRBaddvars(model, number_of_variables, 0, NULL, NULL, NULL, NULL, NULL, NULL, vtype, NULL);
     if (error)
         ErrorMayQuit( "Error: Unable to add variables.", 0, 0 );
 
     return NewModel(model);
+}
+
+/*
+	#! @Chapter Using Gurobify
+	#!	@Section Creating or reading a model
+	#! @Arguments Model, VariableNames
+	#! @Returns 
+	#! @Description
+	#!  To do: check that everything is a string
+	DeclareGlobalFunction("GurobiSetVariableNames");
+*/
+Obj GurobiSetVariableNames(Obj self, Obj GAPmodel, Obj VariableNames)
+{
+	int error = 0;
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+    GRBmodel *model = GET_MODEL(GAPmodel);
+
+   if ( ! IS_PLIST(VariableNames) )
+        ErrorMayQuit( "Error: VariableTypes and Varnames msut be lists!", 0, 0 );
+
+	int number_of_variables = LEN_PLIST(VariableNames);
+	int i;
+
+	for (i = 0; i < number_of_variables; i = i+1){
+		error = GRBsetstrattrelement(model, "VarName", i, CSTR_STRING(ELM_PLIST(VariableNames, i+1)));
+	    if (error)
+	        ErrorMayQuit( "Error: Unable to set variable names.", 0, 0 );
+    }
+
+    return 0;
 }
 
 /*
@@ -561,7 +585,7 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 	#! @Description
 	#!	Takes a Gurobi model and retrieve the value of an integer-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiGetIntegerAttribute");
+	DeclareGlobalFunction("GurobiIntegerAttribute");
 */
 
 Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
@@ -586,7 +610,7 @@ Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#! @Description
 	#!	Takes a Gurobi model and retrieve the value of a double-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiGetDoubleAttribute");
+	DeclareGlobalFunction("GurobiDoubleAttribute");
 */
 
 Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
@@ -613,7 +637,7 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#!	Takes a Gurobi model and retrieve an attribute array.
 	#!	Can only get value of attributes arrays which take integer or double values,
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiGetAttributeArray");
+	DeclareGlobalFunction("GurobiAttributeArray");
 */
 
 Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
@@ -661,6 +685,43 @@ Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 			return solution;
 		}
+
+}
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
+	#! @Arguments Model, AttributeName
+	#! @Returns attibute array
+	#! @Description
+	#! TODO
+	DeclareGlobalFunction("GurobiStringAttributeArray");
+*/
+Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	int i;
+	int error;
+	int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+    	if (error)
+	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
+
+	char **attrvals[number_of_variables];
+	error = GRBgetstrattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, attrvals);
+    if (error)
+		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
+
+	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+	SET_LEN_PLIST( solution , number_of_variables );
+
+	for (i = 0; i < number_of_variables; i = i+1 ){
+		Obj name;
+		C_NEW_STRING_DYN(name, attrvals[i]);
+		SET_ELM_PLIST(solution, i+1, name);
+	}
+	return solution;
 
 }
 
@@ -764,7 +825,8 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 2, "VariableTypes, VarNames"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 1, "VariableTypes"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetVariableNames, 2, "model, VariableNames"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
@@ -778,6 +840,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiStringAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttributeArray, 3, "model, AttributeName, AttributeArray"),

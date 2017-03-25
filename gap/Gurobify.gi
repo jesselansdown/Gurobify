@@ -1,16 +1,12 @@
 
 
 InstallMethod(GurobiNewModel, "",
-	[ IsList, IsList] ,
-	function(VariableTypes, VariableNames)
-		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), VariableNames);
-	end
-);
-
-InstallMethod(GurobiNewModel, "",
 	[ IsList] ,
 	function(VariableTypes)
-		return GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)), ListWithIdenticalEntries(Size(VariableTypes),0.));
+		local model;
+		model := GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)));
+		GurobiUpdateModel(model);
+		return model;
 	end
 );
 
@@ -384,5 +380,25 @@ InstallMethod( GurobiNodeLimit, "",
 	function(model)
 
 	return GurobiDoubleParameter(model, "NodeLimit");
+	end
+);
+
+InstallMethod( GurobiVariableNames, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiStringAttributeArray(model, "varname");
+	end
+);
+
+
+InstallMethod(GurobiNewModel, "",
+	[ IsList, IsList] ,
+	function(VariableTypes, variablenames)
+		local model;
+		model := GUROBINEWMODEL(List(VariableTypes, t -> UppercaseString(t)));
+		GurobiSetVariableNames(model, variablenames);
+		GurobiUpdateModel(model);
+	return model;
 	end
 );
