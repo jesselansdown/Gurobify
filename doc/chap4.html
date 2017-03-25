@@ -55,7 +55,7 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_types := ListWithIdenticalEntries( Size( var_names ), "Binary" );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model := GurobiNewModel( var_types );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model := GurobiNewModel( var_types, var_names );</span>
 &lt;object&gt;
 </pre></div>
 
@@ -199,20 +199,21 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiWriteToFile( model, "SudokuSolver.lp" );</span>
 </pre></div>
 
-<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. Assuming we do not remember the variable names or their order, we must first extract this information from the model. We then optimize the model and display the solution as before. How to get variable names...</p>
+<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. Assuming we do not remember the variable names or their order, we must first extract this information from the model. We then optimize the model and display the solution as before. Incase we have forgotten the names of the variables, or the order they occur, or simply don't want to reconstruct the var_names list, we can first extract this information directly from the model.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model2 := GurobiReadModel( "SudokuSolver.lp" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names2 := GurobiVariableNames(model2);</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985", "x999"];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(variable_names, starter_squares);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(model2, constr , "=", Sum( constr ));</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(model2);</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol := GurobiSolution(model2);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames(variable_names, sol);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames(var_names2, sol);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncDisplaySudoku( sol2 );</span>
 [ [  8,  4,  2,  5,  9,  1,  7,  3,  6 ],
   [  9,  3,  1,  6,  2,  7,  5,  4,  8 ],
@@ -229,24 +230,25 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model2 := GurobiReadModel( "SudokuSolver.lp" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model3 := GurobiReadModel( "SudokuSolver.lp" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names3 := GurobiVariableNames(model3);</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985"];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names, starter_squares);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model2, constr , "=", Sum( constr ));</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel( model2 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiStatus( model2 ) = 2 then</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model3, constr , "=", Sum( constr ));</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel( model3 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiStatus( model3 ) = 2 then</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 1;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">else</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 0;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fi;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiStatus( model2 ) = 2 do</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">	sol := GurobiSolution( model2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiStatus( model3 ) = 2 do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">	sol := GurobiSolution( model3 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	number_of_solutions := number_of_solutions + 1;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiAddConstraint( model2, sol , "&lt;", 80 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiOptimizeModel( model2 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiAddConstraint( model3, sol , "&lt;", 80 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiOptimizeModel( model3 );</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( number_of_solutions, "\n");</span>
 67
