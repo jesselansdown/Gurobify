@@ -207,7 +207,7 @@ DeclareOperation("GurobiRunTime",
 #! @Description
 #!	Returns the optimisation status of the most recent optimization. Refer to the Gurobi documentation for more
 #!	on the optimization statuses. See the appendix for a link.
-DeclareOperation("GurobiStatus",
+DeclareOperation("GurobiOptimizationStatus",
 	[IsGurobiModel]);
 
 #! @Chapter Using Gurobify

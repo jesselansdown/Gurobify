@@ -123,28 +123,24 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes)
 	int number_of_variables = LEN_PLIST(VariableTypes);
 	char vtype[number_of_variables];
 
-	int length;
 	int i;
 	for (i = 0; i < number_of_variables; i = i+1){
 	
 		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
-		length = strlen(var_type);
-		if ( length != 10 && length != 6 && length != 7 && length != 8)
-		    ErrorMayQuit( "Error: VariableTypes must contain only 'CONTINUOUS', 'BINARY', 'INTEGER', 'SEMICONT', or 'SEMIINT'", 0, 0 );
 
-		if ( strncmp(var_type, "CONTINUOUS", 10) == 0 ){
+		if ( strcmp(var_type, "CONTINUOUS") == 0 ){
 			vtype[i] = GRB_CONTINUOUS;
 		}
-		else if ( strncmp(var_type, "BINARY", 6) == 0){
+		else if ( strcmp(var_type, "BINARY") == 0){
 			vtype[i] = GRB_BINARY;
 		}
-		else if ( strncmp(var_type, "INTEGER", 7) == 0 ){
+		else if ( strcmp(var_type, "INTEGER") == 0 ){
 			vtype[i] = GRB_INTEGER;
 		}
-		else if ( strncmp(var_type, "SEMIINT", 7) ==0 ){
+		else if ( strcmp(var_type, "SEMIINT") ==0 ){
 			vtype[i] = GRB_SEMIINT;
 		}
-		else if ( strncmp(var_type, "SEMICONT", 8) ==0 ){
+		else if ( strcmp(var_type, "SEMICONT") ==0 ){
 			vtype[i] = GRB_SEMICONT;
 		}
 		else
@@ -516,7 +512,7 @@ Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 			ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 	}
 
-	return 0;
+	return True;
 }
 
 /*
@@ -628,6 +624,7 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 }
 
 
+
 /*
 	#! @Chapter Using Gurobify
 	#! @Section Querying other attributes and parameters
@@ -637,10 +634,50 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#!	Takes a Gurobi model and retrieve an attribute array.
 	#!	Can only get value of attributes arrays which take integer or double values,
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiAttributeArray");
+	DeclareGlobalFunction("GurobiIntegerAttributeArray");
 */
 
-Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+{
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	int i;
+	int error;
+	int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+    	if (error)
+	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
+
+	int sol[number_of_variables];
+	error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
+	    if (error)
+			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
+	
+	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+																		// When number of variables is replaced by
+																		// the actual number it gives no warning and
+																		// causes no trouble
+	for (i = 0; i < number_of_variables; i = i+1 ){
+				SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));
+	}
+	return solution;
+}
+
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Querying other attributes and parameters
+	#! @Arguments Model, AttributeName
+	#! @Returns attibute array
+	#! @Description
+	#!	Takes a Gurobi model and retrieve an attribute array.
+	#!	Can only get value of attributes arrays which take integer or double values,
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiDoubleAttributeArray");
+*/
+
+Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
@@ -653,39 +690,18 @@ Obj GurobiAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 	double sol[number_of_variables];
 	error = GRBgetdblattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
-	    if (error){
-			int solInt[number_of_variables];
-			error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, solInt);
-				if (error){
-					ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
-				}
-				else{
-					Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-					SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
+	    if (error)
+			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
+	
+	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
 																		// When number of variables is replaced by
 																		// the actual number it gives no warning and
 																		// causes no trouble
-					for (i = 0; i < number_of_variables; i = i+1 ){
-					SET_ELM_PLIST(solution, i+1, INTOBJ_INT(solInt[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
-					//	SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
-					}
-				return solution;
-				}
-	    }
-	    else{
-			Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-			SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
-			for (i = 0; i < number_of_variables; i = i+1 ){
-			//SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));		//Need to check that it is infact an integer (ie not just for MIPs)
-				SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));		//This line gives the solution as doubles, but unnecessary when not a MIP
-			}
-
-			return solution;
-		}
-
+	for (i = 0; i < number_of_variables; i = i+1 ){
+				SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));
+	}
+	return solution;
 }
 
 /*
@@ -789,7 +805,7 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 	if (error)
 		ErrorMayQuit( "Error: Unable to write model.", 0, 0 );
 
-	return 0;
+	return True;
 }
 
 
@@ -839,7 +855,8 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttribute, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleAttribute, 2, "model, AttributeName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiStringAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),

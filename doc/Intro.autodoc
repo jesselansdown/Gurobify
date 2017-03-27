@@ -27,6 +27,8 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 #!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0, 2017.
 @EndLog
 
+
+
 	@Section Prerequisites
 
 Gurobi requires the following software to be installed.
@@ -133,11 +135,24 @@ where **/alternative/path/to/Gurobify** is the path to the directory which conta
 @Chapter Getting Started
 	@Section Getting Started
 
-TODO
+This section contains a simple example which demonstrates some of the key functionality of Gurobify.
+We demonstrate the following:
+* Creation of a Gurobi model, including specifying variable types and names
+* Adding an objective function to the model and choosing its sense (maximise or minimise)
+* Adding constraints to a model individually
+* Adding multiple constraints to a model at one time
+* Deleting constraints from a model
+* Optimizing a model
+* Querying the optimisation status of a model
+* Displaying the solution to a feasible model
+* Setting a parameter (in this case the time limit)
+* Querying the current value of a parameter (again, the time limit)
+* Writing a model to a file
+* Reading a model from a file
 
-	@Section Minimal working example?
+The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same proceedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".
 
-TODO
+	@Section Simple example
 
 @Chapter Using Gurobify
 	@Section Creating or reading a model

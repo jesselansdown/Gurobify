@@ -40,6 +40,7 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names :=[];</span>
+[  ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for j in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       for k in [1 .. 9] do</span>
@@ -95,7 +96,7 @@
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       uniqueness_constr :=[];</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">           name := Concatenation("x", String(i), String(j), String(k));;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">           Add(uniqueness_const, name);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">           Add(uniqueness_constr, name);</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         od;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         constr := ExampleFuncNamesToIndex( var_names, uniqueness_constr );</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         GurobiAddConstraint( model, constr , "=", 1 );</span>
@@ -143,6 +144,7 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_points := [ [1,1], [1,4], [1,7], [4,1], [4,4],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">[4,7], [7,1], [7,4], [7,7]];</span>
+[ [ 1, 1 ], [ 1, 4 ], [ 1, 7 ], [ 4, 1 ], [ 4, 4 ], [ 4, 7 ], [ 7, 1 ], [ 7, 4 ], [ 7, 7 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for m in starter_points do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       square_constr := [];</span>

@@ -80,7 +80,7 @@ InstallOtherMethod(GurobiAddMultipleConstraints, "",
 InstallMethod(GurobiSolution, "",
 	[ IsGurobiModel] ,
 	function(model)
-		return GurobiAttributeArray(model, "X");
+		return GurobiDoubleAttributeArray(model, "X");
 	end
 );
 
@@ -187,7 +187,7 @@ InstallMethod( GurobiObjectiveFunction, "",
 	[ IsGurobiModel ] ,
 	function(model)
 
-	return GurobiAttributeArray(model, "Obj");
+	return GurobiDoubleAttributeArray(model, "Obj");
 	end
 );
 
@@ -232,7 +232,7 @@ InstallMethod( GurobiRunTime, "",
 	end
 );
 
-InstallMethod( GurobiStatus, "",
+InstallMethod( GurobiOptimizationStatus, "",
 	[ IsGurobiModel ] ,
 	function(model)
 
@@ -268,7 +268,7 @@ InstallMethod( GurobiTimeLimit, "",
 	[ IsGurobiModel ] ,
 	function(model)
 
-	return GurobiIntegerParameter(model, "TimeLimit");
+	return GurobiDoubleParameter(model, "TimeLimit");
 	end
 );
 

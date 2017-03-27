@@ -59,7 +59,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85B8DBF882D458FF">3.5-3 GurobiObjectiveValue</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8658BCCD85405DAE">3.5-4 GurobiObjectiveBound</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85C998A78508B506">3.5-5 GurobiRunTime</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80503D8D78730E50">3.5-6 GurobiStatus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A1BA3137D85FDAB">3.5-6 GurobiOptimizationStatus</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D71837B85A49586">3.5-7 GurobiNumericFocus</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X84E732C6817D89E6">3.5-8 GurobiTimeLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X874CA3997B6F23C5">3.5-9 GurobiCutOff</a></span>
@@ -78,8 +78,9 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7DA06A3F82B870CD">3.6-2 GurobiGetDoubleParameter</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AF271328125ACAE">3.6-3 GurobiIntegerAttribute</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81B9A6EC80C1A48A">3.6-4 GurobiDoubleAttribute</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X827A733B7A37C6FB">3.6-5 GurobiAttributeArray</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-6 GurobiStringAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CDBE1727DD4EE7B">3.6-5 GurobiIntegerAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C09F57A2A2819">3.6-6 GurobiDoubleAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-7 GurobiStringAttributeArray</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X85C908697CD13F5A">3.7 <span class="Heading">Modifying attributes and parameters</span></a>
 </span>
@@ -301,11 +302,11 @@
 
 <p>Returns the wall clock runtime in seconds for the most recent optimization.</p>
 
-<p><a id="X80503D8D78730E50" name="X80503D8D78730E50"></a></p>
+<p><a id="X7A1BA3137D85FDAB" name="X7A1BA3137D85FDAB"></a></p>
 
-<h5>3.5-6 GurobiStatus</h5>
+<h5>3.5-6 GurobiOptimizationStatus</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStatus</code>( <var class="Arg">Model</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiOptimizationStatus</code>( <var class="Arg">Model</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns: objective bound</p>
 
 <p>Returns the optimisation status of the most recent optimization. Refer to the Gurobi documentation for more on the optimization statuses. See the appendix for a link.</p>
@@ -440,18 +441,27 @@
 
 <p>Takes a Gurobi model and retrieve the value of a double-valued attribute. Refer to the Gurobi documentation for a list of attributes and their types.</p>
 
-<p><a id="X827A733B7A37C6FB" name="X827A733B7A37C6FB"></a></p>
+<p><a id="X7CDBE1727DD4EE7B" name="X7CDBE1727DD4EE7B"></a></p>
 
-<h5>3.6-5 GurobiAttributeArray</h5>
+<h5>3.6-5 GurobiIntegerAttributeArray</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIntegerAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>Returns: attibute array</p>
+
+<p>Takes a Gurobi model and retrieve an attribute array. Can only get value of attributes arrays which take integer or double values, Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X846C09F57A2A2819" name="X846C09F57A2A2819"></a></p>
+
+<h5>3.6-6 GurobiDoubleAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute array</p>
 
 <p>Takes a Gurobi model and retrieve an attribute array. Can only get value of attributes arrays which take integer or double values, Refer to the Gurobi documentation for a list of attributes and their types.</p>
 
 <p><a id="X78575B84809DCBFC" name="X78575B84809DCBFC"></a></p>
 
-<h5>3.6-6 GurobiStringAttributeArray</h5>
+<h5>3.6-7 GurobiStringAttributeArray</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStringAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute array</p>

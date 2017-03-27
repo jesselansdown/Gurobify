@@ -10,6 +10,7 @@
 
 #! @BeginExample
 var_names :=[];
+#! [  ]
 for i in [1 .. 9] do
      for j in [1 .. 9] do
        for k in [1 .. 9] do
@@ -67,7 +68,7 @@ for i in [1 .. 9] do
        uniqueness_constr :=[];
          for k in [1 .. 9] do
            name := Concatenation("x", String(i), String(j), String(k));;
-           Add(uniqueness_const, name);
+           Add(uniqueness_constr, name);
          od;
          constr := ExampleFuncNamesToIndex( var_names, uniqueness_constr );
          GurobiAddConstraint( model, constr , "=", 1 );
@@ -112,7 +113,7 @@ od;
 
 #! @BeginExample
 starter_points := [ [1,1], [1,4], [1,7], [4,1], [4,4],
-[4,7], [7,1], [7,4], [7,7]];
+[4,7], [7,1], [7,4], [7,7]];;
 
 for m in starter_points do
      for k in [1 .. 9] do
@@ -141,9 +142,10 @@ od;
 starter_squares := ["x112", "x123", "x164", "x217", "x248", "x326",
 "x343", "x391", "x411", "x422", "x488", "x516", "x549", "x568", 
 "x595", "x625", "x682", "x693", "x719", "x767", "x785", "x865", 
-"x894", "x942", "x986", "x998"];
+"x894", "x942", "x986", "x998"];;
 constr := ExampleFuncNamesToIndex(var_names, starter_squares);;
 GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");
+#! true;
 #! @EndExample
 
 #! Now we optimize. Change the solution into the variable names, and then display.
@@ -174,7 +176,9 @@ ExampleFuncDisplaySudoku( sol2 );
 
 #! @BeginExample
 GurobiDeleteConstraintsWithName( model, "StarterSquares" );
+#! true
 GurobiWriteToFile( model, "SudokuSolver.lp" );
+#! true
 #! @EndExample
 
 #! We can now load the lp file to create a new model with all the generic Sudoku constraints.
@@ -188,18 +192,20 @@ GurobiWriteToFile( model, "SudokuSolver.lp" );
 
 #! @BeginExample
 model2 := GurobiReadModel( "SudokuSolver.lp" );
+#! <object>
 
-var_names2 := GurobiVariableNames(model2);
+var_names2 := GurobiVariableNames(model2);;
 
 starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 
  "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", 
- "x968", "x971", "x985", "x999"];
+ "x968", "x971", "x985", "x999"];;
 
 constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;
 GurobiAddConstraint(model2, constr , "=", Sum( constr ));
-
+#! true
 GurobiOptimizeModel(model2);
+#! 2
 sol := GurobiSolution(model2);;
 sol2 := ExampleFuncIndexToNames(var_names2, sol);;
 ExampleFuncDisplaySudoku( sol2 );
@@ -221,23 +227,26 @@ ExampleFuncDisplaySudoku( sol2 );
 
 #! @BeginExample
 model3 := GurobiReadModel( "SudokuSolver.lp" );
-var_names3 := GurobiVariableNames(model3);
+#! <object>
+var_names3 := GurobiVariableNames(model3);;
 
 starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 
  "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", 
- "x968", "x971", "x985"];
+ "x968", "x971", "x985"];;
 
 constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;
 GurobiAddConstraint( model3, constr , "=", Sum( constr ));
+#! true
 GurobiOptimizeModel( model3 );
+#! 2
 
-if GurobiStatus( model3 ) = 2 then
+if GurobiOptimizationStatus( model3 ) = 2 then
 	number_of_solutions := 1;
 else
 	number_of_solutions := 0;
 fi;
-while GurobiStatus( model3 ) = 2 do
+while GurobiOptimizationStatus( model3 ) = 2 do
 	sol := GurobiSolution( model3 );;
 	number_of_solutions := number_of_solutions + 1;
 	GurobiAddConstraint( model3, sol , "<", 80 );
