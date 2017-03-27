@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Using_Gurobify">
+<Heading>Using Gurobify</Heading>
+
+<Section Label="Chapter_Using_Gurobify_Section_Creating_or_reading_a_model">
+<Heading>Creating or reading a model</Heading>
+
+TODO intro to section
+<ManSection>
+  <Func Arg="ModelFile" Name="GurobiReadModel" />
+ <Returns>a Gurobi model.
+</Returns>
+ <Description>
+Takes a model file, reads it and creates a Gurobi model from it.
+ModelFile is the name of the file as a string, with the appropriate extension,
+and including the path if the file is not located in the current GAP working directory.
+Gurobi accepts files of type .mps, .rew, .lp, .rlp, .ilp, or .opb.
+Refer to the gurobi documentation for more infomation on which file types can be read.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, VariableNames" Name="GurobiSetVariableNames" />
+ <Returns></Returns>
+ <Description>
+To do: check that everything is a string
+ </Description>
+</ManSection>
+
+
+<ManSection Label="GurobiNewModel">
+  <Oper Arg="VariableTypes" Name="GurobiNewModel" Label="for IsList"/>
+  <Oper Arg="VariableTypes[, VariableNames]" Name="GurobiNewModel" Label="for IsList, IsList"/>
+ <Returns>A Gurobi model
+</Returns>
+ <Description>
+Creates a gurobi model with variables defined by VariableTypes and an objective function
+given by ObjectiveFunction. VariableTypes must be a list, with entries indexed by the set
+of variables, and entries corresponding to the type of variable, as a string.
+Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
+Refer to the Gurobi documentation for more information on the variable types.
+ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
+corresponds to the coefficient of the variable in the objective function.
+Optionally takes the names of the variables
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Adding_and_deleting_constraints">
+<Heading>Adding and deleting constraints</Heading>
+
+TODO
+<ManSection>
+  <Func Arg="Model, ConstraintName" Name="GurobiDeleteAllConstraintsWithName" />
+ <Returns></Returns>
+ <Description>
+Deletes all constraints from a model with the name ConstraintName. Returns the updated model.
+ </Description>
+</ManSection>
+
+
+<ManSection Label="GurobiAddConstraint">
+  <Oper Arg="Model, CstrEquation, CstrSense, CstrRHSValue, CstrName" Name="GurobiAddConstraint" Label="for IsGurobiModel, IsList, IsString, IsFloat, IsString"/>
+  <Oper Arg="Model, CstrEquation, CstrSense, CstrRHSValue, CstrName" Name="GurobiAddConstraint" Label="for IsGurobiModel, IsList, IsString, IsInt, IsString"/>
+  <Oper Arg="Model, CstrEquation, CstrSense, CstrRHSValue" Name="GurobiAddConstraint" Label="for IsGurobiModel, IsList, IsString, IsFloat"/>
+  <Oper Arg="Model, CstrEquation, CstrSense, CstrRHSValue" Name="GurobiAddConstraint" Label="for IsGurobiModel, IsList, IsString, IsInt"/>
+ <Returns>true
+</Returns>
+ <Description>
+Adds a constraint to a gurobi model. CstrEquation must be a list, with entries indexed
+by the variable set, such that each entry is the coefficient of the corresponding variable
+in the constraint equation. The CstrSense must be one of "&lt;", "&gt;" or "=",
+where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The CstrRHSValue is the value on the
+right hand side of the constraint. A constraint may also be given a name, which helps to identify
+the constraint if it is to be deleted at some point.
+Note that a model must be updated or optimised before any additional constraints become effective.
+In the second instance, CstrRHSValue takes an integer
+Note that the name is an optional argument. It is necessary if you wish to delete the constraint at a
+later stage. If no name is given, the constraint will be named "UnNamedConstraint".
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, ConstraintEquations, ConstraintSenses, ConstraintRHSValues, ConstraintNames" Name="GurobiAddMultipleConstraints" Label="for IsGurobiModel, IsList, IsList, IsList, IsList"/>
+ <Returns>true
+</Returns>
+ <Description>
+Add a multiple constraints to a model. ConstraintEquations, ConstraintSenses, ConstraintRHSValues and
+ConstraintNames are lists, such that the i-th entries of each of them determine a single constraint in
+the same manner as for the operation GurobiAddConstraint.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Adding_and_modifying_objective_functions">
+<Heading>Adding and modifying objective functions</Heading>
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiMaximiseModel" Label="for IsGurobiModel"/>
+ <Returns>true
+</Returns>
+ <Description>
+Sets the model sense to maximise. When the model is optimized, it will try to maximise the objective function.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiMinimiseModel" Label="for IsGurobiModel"/>
+ <Returns>true
+</Returns>
+ <Description>
+Sets the model sense to minimise. When the model is optimized, it will try to minimise the objective function.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, ObjectiveValues" Name="GurobiSetObjectiveFunction" Label="for IsGurobiModel, IsList"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the objective function for a model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiObjectiveFunction" Label="for IsGurobiModel"/>
+ <Returns>List of coefficients of the objective function
+</Returns>
+ <Description>
+View the objectivive function.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Optimizing_a_model">
+<Heading>Optimizing a model</Heading>
+
+TODO
+<ManSection>
+  <Func Arg="Model" Name="GurobiOptimizeModel" />
+ <Returns>Optimisation status.
+</Returns>
+ <Description>
+Takes a Gurobi model and optimises it. Returns the optimisation status code which indicates
+the outcome of the optimisation. A status code of 2 indicates that a feasible solution was found,
+a status code of 3 indicates the model is infeasible. There a number of other status codes.
+Refer to the Gurobi documentation for more information about status codes. The model itself is
+altered to reflect the optimisation, and more information about can be obatained using other functions,
+in particular the GurobiGetAttribute and GurobiGetAttributeArray functions.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model" Name="GurobiReset" />
+ <Returns></Returns>
+ <Description>
+Reset all information associated with a solution for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiSolution" Label="for IsGurobiModel"/>
+ <Returns>Solution
+</Returns>
+ <Description>
+Display the solution found for a successfuly optimised model.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Querying_attributes_and_parameters">
+<Heading>Querying attributes and parameters</Heading>
+
+Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
+<ManSection>
+  <Oper Arg="Model" Name="GurobiNumberOfVariables" Label="for IsGurobiModel"/>
+ <Returns>Number of variables
+</Returns>
+ <Description>
+Returns the number of variables in the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiNumberOfConstraints" Label="for IsGurobiModel"/>
+ <Returns>Number of linear constraints
+</Returns>
+ <Description>
+Returns the number of linear constraints in the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiObjectiveValue" Label="for IsGurobiModel"/>
+ <Returns>objective value
+</Returns>
+ <Description>
+Returns the objective value of the current solution.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiObjectiveBound" Label="for IsGurobiModel"/>
+ <Returns>objective bound
+</Returns>
+ <Description>
+Returns the best known bound for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiRunTime" Label="for IsGurobiModel"/>
+ <Returns>objective bound
+</Returns>
+ <Description>
+Returns the wall clock runtime in seconds for the most recent optimization.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiOptimizationStatus" Label="for IsGurobiModel"/>
+ <Returns>objective bound
+</Returns>
+ <Description>
+Returns the optimisation status of the most recent optimization. Refer to the Gurobi documentation for more
+on the optimization statuses. See the appendix for a link.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiNumericFocus" Label="for IsGurobiModel"/>
+ <Returns>numeric focus
+</Returns>
+ <Description>
+Returns the numeric focus value of the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiTimeLimit" Label="for IsGurobiModel"/>
+ <Returns>time limit
+</Returns>
+ <Description>
+Returns the time limit for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiCutOff" Label="for IsGurobiModel"/>
+ <Returns>cutoff value
+</Returns>
+ <Description>
+Returns the cutoff value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiBestObjectiveBoundStop" Label="for IsGurobiModel"/>
+ <Returns>best objective bound limit value
+</Returns>
+ <Description>
+Returns the best objective bound limit value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiMIPFocus" Label="for IsGurobiModel"/>
+ <Returns>MIP focus
+</Returns>
+ <Description>
+Returns the MIP focus value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiBestBoundStop" Label="for IsGurobiModel"/>
+ <Returns>Best bound stopping value
+</Returns>
+ <Description>
+Returns the best bound stopping value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiSolutionLimit" Label="for IsGurobiModel"/>
+ <Returns>solution limit value
+</Returns>
+ <Description>
+Returns the solution limit value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiIterationLimit" Label="for IsGurobiModel"/>
+ <Returns>Iteration limit
+</Returns>
+ <Description>
+Returns the iteration limit value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiNodeLimit" Label="for IsGurobiModel"/>
+ <Returns>Node limit
+</Returns>
+ <Description>
+Returns the node limit value for the model.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model" Name="GurobiVariableNames" Label="for IsGurobiModel"/>
+ <Returns></Returns>
+ <Description>
+TODO
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Querying_other_attributes_and_parameters">
+<Heading>Querying other attributes and parameters</Heading>
+
+In addition to these specific queries given in the previous section, all other gurobi parameters and attributes which take integer or double values can be queried using GurobiGetIntegerParameter("ParameterName"), GurobiGetDoubleParameter("ParameterName"), GurobiGetIntegerAttribute("AttributeName") or GurobiGetDoubleAttribute("AttributeName") respectively, where "ParameterName" and "AttributeName" are strings given exactly as in the Gurobi documentation. See the Appendix for links to the relevant documentation.
+<ManSection>
+  <Func Arg="Model, ParameterName" Name="GurobiGetIntegerParameter" />
+ <Returns>parameter value
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve the value of a integer-valued parameter.
+Refer to the Gurobi documentation for a list of parameters and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, ParameterName" Name="GurobiGetDoubleParameter" />
+ <Returns>parameter value
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve the value of a double-valued parameter.
+Refer to the Gurobi documentation for a list of parameters and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName" Name="GurobiIntegerAttribute" />
+ <Returns>attibute value
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve the value of an integer-valued attribute.
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName" Name="GurobiDoubleAttribute" />
+ <Returns>attibute value
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve the value of a double-valued attribute.
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName" Name="GurobiIntegerAttributeArray" />
+ <Returns>attibute array
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve an attribute array.
+Can only get value of attributes arrays which take integer or double values,
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName" Name="GurobiDoubleAttributeArray" />
+ <Returns>attibute array
+</Returns>
+ <Description>
+Takes a Gurobi model and retrieve an attribute array.
+Can only get value of attributes arrays which take integer or double values,
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName" Name="GurobiStringAttributeArray" />
+ <Returns>attibute array
+</Returns>
+ <Description>
+TODO
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Modifying_attributes_and_parameters">
+<Heading>Modifying attributes and parameters</Heading>
+
+Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
+<ManSection>
+  <Oper Arg="Model, TimeLimit" Name="GurobiSetTimeLimit" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set a time limit for a Gurobi model. Note that TimeLimit should be a float, however an integer value can be given
+which will be automatically converted to a float.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, BestObjectiveBoundStop" Name="GurobiSetBestObjectiveBoundStop" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Optimisation will terminate if a feasible solution is found with objective value at least as good as BestObjectiveBoundStop.
+Note that BestObjectiveBoundStop should be a float, however an integer value can be given
+which will be automatically converted to a float.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, CutOff" Name="GurobiSetCutOff" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Optimisation will terminate if the objective value is worse than CutOff.
+Note that CutOff should be a float, an integer value can be given
+which will be automatically converted to a float.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, NumericFocus" Name="GurobiSetNumericFocus" Label="for IsGurobiModel, IsInt"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the numeric focus for a model. Numeric focus must be in the set [0,1,2,3]. A numeric focus of 0 sets the
+numeric focus automatically, preferancing speed. Values between 1 and 3 increase the care taken in computations
+as the value increases, but also take longer. The default value is 0.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, MIPFocus" Name="GurobiSetMIPFocus" Label="for IsGurobiModel, IsInt"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set a the MIP focus for a model. The mip focus must be in the set [0,1,2,3], and the default value is 0.
+The MIP focus alows you to prioritise finding solutions or proving their optimality. See the Gurobi
+documentation for more information.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, BestBdStop" Name="GurobiSetBestBoundStop" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the best bound stopping value for a model. Terminates opmitzation as soon as the value
+of the best bound is determined to be at least as good as the best bound stopping value.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, BestBdStop" Name="GurobiSetSolutionLimit" Label="for IsGurobiModel, IsInt"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the limit for the maximum number of MIP solutions to find.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, IterationLimit" Name="GurobiSetIterationLimit" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the limit for the maximum number of simplex iterations performed.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Oper Arg="Model, NodeLimit" Name="GurobiSetNodeLimit" Label="for IsGurobiModel, IsFloat"/>
+ <Returns>true
+</Returns>
+ <Description>
+Set the limit for the maximum number of MIP nodes explored.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Modifying_other_attributes_and_parameters">
+<Heading>Modifying other attributes and parameters</Heading>
+
+<ManSection>
+  <Func Arg="Model, ParameterName, ParameterValue" Name="GurobiSetIntegerParameter" />
+ <Returns></Returns>
+ <Description>
+Takes a Gurobi model and assigns a value to a given integer-valued parameter.
+ParameterValue must be a integer value.
+Refer to the Gurobi documentation for a list of parameters and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, ParameterName, ParameterValue" Name="GurobiSetDoubleParameter" />
+ <Returns></Returns>
+ <Description>
+Takes a Gurobi model and assigns a value to a given double-valued parameter.
+ParameterValue must be a double value.
+Refer to the Gurobi documentation for a list of parameters and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName, AttributeValue" Name="GurobiSetIntegerAttribute" />
+ <Returns></Returns>
+ <Description>
+Takes a Gurobi model and assigns a value to a given integer-valued attribute.
+AttributeValue must be a double value
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName, AttributeValue" Name="GurobiSetDoubleAttribute" />
+ <Returns></Returns>
+ <Description>
+Takes a Gurobi model and assigns a value to a given double-valued attribute.
+AttributeValue must be a double value
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model, AttributeName, AttributeValueArray" Name="GurobiSetDoubleAttributeArray" />
+ <Returns></Returns>
+ <Description>
+Takes a Gurobi model and assigns a value to a given attribute which takes an array of floats.
+AttributeValue must be an array of floats.
+Refer to the Gurobi documentation for a list of attributes and their types.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_Gurobify_Section_Other">
+<Heading>Other</Heading>
+
+<ManSection>
+  <Func Arg="Model, FileName" Name="GurobiWriteToFile" />
+ <Returns></Returns>
+ <Description>
+Takes a model and writes it to a file. File type written is determined by the FileName suffix.
+File types include .mps, .rew, .lp, .rlp, .ilp, .sol, or .prm
+Refer to the gurobi documentation for more infomation on which file types can be read.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="Model" Name="GurobiUpdateModel" />
+ <Returns></Returns>
+ <Description>
+Takes a model and updates it. Changes to parameters or constraints are not processed
+until the model is either updated or optimised.
+ </Description>
+</ManSection>
+
+
+</Section>
+
+
+</Chapter>
+

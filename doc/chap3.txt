@@ -1,0 +1,488 @@
+  
+  [1X3 [33X[0;0YUsing Gurobify[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YCreating or reading a model[133X[101X
+  
+  [33X[0;0YTODO intro to section[133X
+  
+  [1X3.1-1 GurobiReadModel[101X
+  
+  [29X[2XGurobiReadModel[102X( [3XModelFile[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Ya Gurobi model.[133X
+  
+  [33X[0;0YTakes  a  model file, reads it and creates a Gurobi model from it. ModelFile
+  is  the  name  of  the file as a string, with the appropriate extension, and
+  including  the  path  if  the file is not located in the current GAP working
+  directory.  Gurobi  accepts  files  of  type .mps, .rew, .lp, .rlp, .ilp, or
+  .opb.  Refer  to  the gurobi documentation for more infomation on which file
+  types can be read.[133X
+  
+  [1X3.1-2 GurobiSetVariableNames[101X
+  
+  [29X[2XGurobiSetVariableNames[102X( [3XModel[103X, [3XVariableNames[103X ) [32X function
+  
+  [33X[0;0YTo do: check that everything is a string[133X
+  
+  [1X3.1-3 GurobiNewModel[101X
+  
+  [29X[2XGurobiNewModel[102X( [3XVariableTypes[103X ) [32X operation
+  [29X[2XGurobiNewModel[102X( [3XVariableTypes[103X[, [3XVariableNames[103X] ) [32X operation
+  [6XReturns:[106X  [33X[0;10YA Gurobi model[133X
+  
+  [33X[0;0YCreates  a  gurobi  model  with  variables  defined  by VariableTypes and an
+  objective function given by ObjectiveFunction. VariableTypes must be a list,
+  with  entries  indexed by the set of variables, and entries corresponding to
+  the type of variable, as a string. Accepted variable types are "CONTINUOUS",
+  "BINARY",   "INTEGER",   "SEMICONT",  or  "SEMIINT".  Refer  to  the  Gurobi
+  documentation  for more information on the variable types. ObjectiveFunction
+  is  a  list,  with entries indexed by the set of variables, where each entry
+  corresponds  to  the  coefficient of the variable in the objective function.
+  Optionally takes the names of the variables[133X
+  
+  
+  [1X3.2 [33X[0;0YAdding and deleting constraints[133X[101X
+  
+  [33X[0;0YTODO[133X
+  
+  [1X3.2-1 GurobiDeleteAllConstraintsWithName[101X
+  
+  [29X[2XGurobiDeleteAllConstraintsWithName[102X( [3XModel[103X, [3XConstraintName[103X ) [32X function
+  
+  [33X[0;0YDeletes  all  constraints from a model with the name ConstraintName. Returns
+  the updated model.[133X
+  
+  [1X3.2-2 GurobiAddConstraint[101X
+  
+  [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XCstrEquation[103X, [3XCstrSense[103X, [3XCstrRHSValue[103X, [3XCstrName[103X ) [32X operation
+  [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XCstrEquation[103X, [3XCstrSense[103X, [3XCstrRHSValue[103X, [3XCstrName[103X ) [32X operation
+  [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XCstrEquation[103X, [3XCstrSense[103X, [3XCstrRHSValue[103X ) [32X operation
+  [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XCstrEquation[103X, [3XCstrSense[103X, [3XCstrRHSValue[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YAdds  a  constraint  to  a  gurobi  model. CstrEquation must be a list, with
+  entries indexed by the variable set, such that each entry is the coefficient
+  of the corresponding variable in the constraint equation. The CstrSense must
+  be  one of "<", ">" or "=", where Gurobi interprets < as <= and > as >=. The
+  CstrRHSValue  is  the  value  on  the  right  hand side of the constraint. A
+  constraint  may also be given a name, which helps to identify the constraint
+  if  it  is to be deleted at some point. Note that a model must be updated or
+  optimised  before any additional constraints become effective. In the second
+  instance,  CstrRHSValue  takes  an integer Note that the name is an optional
+  argument.  It  is  necessary if you wish to delete the constraint at a later
+  stage.   If   no   name   is   given,   the   constraint   will   be   named
+  "UnNamedConstraint".[133X
+  
+  [1X3.2-3 GurobiAddMultipleConstraints[101X
+  
+  [29X[2XGurobiAddMultipleConstraints[102X( [3XModel[103X, [3XConstraintEquations[103X, [3XConstraintSenses[103X, [3XConstraintRHSValues[103X, [3XConstraintNames[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YAdd    a    multiple    constraints   to   a   model.   ConstraintEquations,
+  ConstraintSenses,  ConstraintRHSValues  and  ConstraintNames are lists, such
+  that  the  i-th entries of each of them determine a single constraint in the
+  same manner as for the operation GurobiAddConstraint.[133X
+  
+  
+  [1X3.3 [33X[0;0YAdding and modifying objective functions[133X[101X
+  
+  [1X3.3-1 GurobiMaximiseModel[101X
+  
+  [29X[2XGurobiMaximiseModel[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSets  the  model sense to maximise. When the model is optimized, it will try
+  to maximise the objective function.[133X
+  
+  [1X3.3-2 GurobiMinimiseModel[101X
+  
+  [29X[2XGurobiMinimiseModel[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSets  the  model sense to minimise. When the model is optimized, it will try
+  to minimise the objective function.[133X
+  
+  [1X3.3-3 GurobiSetObjectiveFunction[101X
+  
+  [29X[2XGurobiSetObjectiveFunction[102X( [3XModel[103X, [3XObjectiveValues[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet the objective function for a model.[133X
+  
+  [1X3.3-4 GurobiObjectiveFunction[101X
+  
+  [29X[2XGurobiObjectiveFunction[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YList of coefficients of the objective function[133X
+  
+  [33X[0;0YView the objectivive function.[133X
+  
+  
+  [1X3.4 [33X[0;0YOptimizing a model[133X[101X
+  
+  [33X[0;0YTODO[133X
+  
+  [1X3.4-1 GurobiOptimizeModel[101X
+  
+  [29X[2XGurobiOptimizeModel[102X( [3XModel[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10YOptimisation status.[133X
+  
+  [33X[0;0YTakes  a Gurobi model and optimises it. Returns the optimisation status code
+  which  indicates  the  outcome  of  the  optimisation.  A  status  code of 2
+  indicates  that  a feasible solution was found, a status code of 3 indicates
+  the  model is infeasible. There a number of other status codes. Refer to the
+  Gurobi  documentation  for  more  information  about status codes. The model
+  itself  is  altered  to reflect the optimisation, and more information about
+  can be obatained using other functions, in particular the GurobiGetAttribute
+  and GurobiGetAttributeArray functions.[133X
+  
+  [1X3.4-2 GurobiReset[101X
+  
+  [29X[2XGurobiReset[102X( [3XModel[103X ) [32X function
+  
+  [33X[0;0YReset all information associated with a solution for the model.[133X
+  
+  [1X3.4-3 GurobiSolution[101X
+  
+  [29X[2XGurobiSolution[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YSolution[133X
+  
+  [33X[0;0YDisplay the solution found for a successfuly optimised model.[133X
+  
+  
+  [1X3.5 [33X[0;0YQuerying attributes and parameters[133X[101X
+  
+  [33X[0;0YNote  that  a  model  must  be  updated  or  optimized before parameters and
+  attributes  are  updated, any queries will return the values at the time the
+  model was last updated or optimized.[133X
+  
+  [1X3.5-1 GurobiNumberOfVariables[101X
+  
+  [29X[2XGurobiNumberOfVariables[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YNumber of variables[133X
+  
+  [33X[0;0YReturns the number of variables in the model.[133X
+  
+  [1X3.5-2 GurobiNumberOfConstraints[101X
+  
+  [29X[2XGurobiNumberOfConstraints[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YNumber of linear constraints[133X
+  
+  [33X[0;0YReturns the number of linear constraints in the model.[133X
+  
+  [1X3.5-3 GurobiObjectiveValue[101X
+  
+  [29X[2XGurobiObjectiveValue[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Yobjective value[133X
+  
+  [33X[0;0YReturns the objective value of the current solution.[133X
+  
+  [1X3.5-4 GurobiObjectiveBound[101X
+  
+  [29X[2XGurobiObjectiveBound[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Yobjective bound[133X
+  
+  [33X[0;0YReturns the best known bound for the model.[133X
+  
+  [1X3.5-5 GurobiRunTime[101X
+  
+  [29X[2XGurobiRunTime[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Yobjective bound[133X
+  
+  [33X[0;0YReturns the wall clock runtime in seconds for the most recent optimization.[133X
+  
+  [1X3.5-6 GurobiOptimizationStatus[101X
+  
+  [29X[2XGurobiOptimizationStatus[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Yobjective bound[133X
+  
+  [33X[0;0YReturns  the  optimisation  status of the most recent optimization. Refer to
+  the  Gurobi  documentation  for  more  on the optimization statuses. See the
+  appendix for a link.[133X
+  
+  [1X3.5-7 GurobiNumericFocus[101X
+  
+  [29X[2XGurobiNumericFocus[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ynumeric focus[133X
+  
+  [33X[0;0YReturns the numeric focus value of the model.[133X
+  
+  [1X3.5-8 GurobiTimeLimit[101X
+  
+  [29X[2XGurobiTimeLimit[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytime limit[133X
+  
+  [33X[0;0YReturns the time limit for the model.[133X
+  
+  [1X3.5-9 GurobiCutOff[101X
+  
+  [29X[2XGurobiCutOff[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ycutoff value[133X
+  
+  [33X[0;0YReturns the cutoff value for the model.[133X
+  
+  [1X3.5-10 GurobiBestObjectiveBoundStop[101X
+  
+  [29X[2XGurobiBestObjectiveBoundStop[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ybest objective bound limit value[133X
+  
+  [33X[0;0YReturns the best objective bound limit value for the model.[133X
+  
+  [1X3.5-11 GurobiMIPFocus[101X
+  
+  [29X[2XGurobiMIPFocus[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YMIP focus[133X
+  
+  [33X[0;0YReturns the MIP focus value for the model.[133X
+  
+  [1X3.5-12 GurobiBestBoundStop[101X
+  
+  [29X[2XGurobiBestBoundStop[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YBest bound stopping value[133X
+  
+  [33X[0;0YReturns the best bound stopping value for the model.[133X
+  
+  [1X3.5-13 GurobiSolutionLimit[101X
+  
+  [29X[2XGurobiSolutionLimit[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ysolution limit value[133X
+  
+  [33X[0;0YReturns the solution limit value for the model.[133X
+  
+  [1X3.5-14 GurobiIterationLimit[101X
+  
+  [29X[2XGurobiIterationLimit[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YIteration limit[133X
+  
+  [33X[0;0YReturns the iteration limit value for the model.[133X
+  
+  [1X3.5-15 GurobiNodeLimit[101X
+  
+  [29X[2XGurobiNodeLimit[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10YNode limit[133X
+  
+  [33X[0;0YReturns the node limit value for the model.[133X
+  
+  [1X3.5-16 GurobiVariableNames[101X
+  
+  [29X[2XGurobiVariableNames[102X( [3XModel[103X ) [32X operation
+  
+  [33X[0;0YTODO[133X
+  
+  
+  [1X3.6 [33X[0;0YQuerying other attributes and parameters[133X[101X
+  
+  [33X[0;0YIn  addition  to  these  specific queries given in the previous section, all
+  other  gurobi  parameters and attributes which take integer or double values
+  can    be    queried    using    GurobiGetIntegerParameter("ParameterName"),
+  GurobiGetDoubleParameter("ParameterName"),
+  GurobiGetIntegerAttribute("AttributeName")                                or
+  GurobiGetDoubleAttribute("AttributeName")         respectively,        where
+  "ParameterName"  and  "AttributeName"  are  strings  given exactly as in the
+  Gurobi   documentation.   See   the  Appendix  for  links  to  the  relevant
+  documentation.[133X
+  
+  [1X3.6-1 GurobiGetIntegerParameter[101X
+  
+  [29X[2XGurobiGetIntegerParameter[102X( [3XModel[103X, [3XParameterName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yparameter value[133X
+  
+  [33X[0;0YTakes  a  Gurobi model and retrieve the value of a integer-valued parameter.
+  Refer to the Gurobi documentation for a list of parameters and their types.[133X
+  
+  [1X3.6-2 GurobiGetDoubleParameter[101X
+  
+  [29X[2XGurobiGetDoubleParameter[102X( [3XModel[103X, [3XParameterName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yparameter value[133X
+  
+  [33X[0;0YTakes  a  Gurobi  model and retrieve the value of a double-valued parameter.
+  Refer to the Gurobi documentation for a list of parameters and their types.[133X
+  
+  [1X3.6-3 GurobiIntegerAttribute[101X
+  
+  [29X[2XGurobiIntegerAttribute[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute value[133X
+  
+  [33X[0;0YTakes  a Gurobi model and retrieve the value of an integer-valued attribute.
+  Refer to the Gurobi documentation for a list of attributes and their types.[133X
+  
+  [1X3.6-4 GurobiDoubleAttribute[101X
+  
+  [29X[2XGurobiDoubleAttribute[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute value[133X
+  
+  [33X[0;0YTakes  a  Gurobi  model and retrieve the value of a double-valued attribute.
+  Refer to the Gurobi documentation for a list of attributes and their types.[133X
+  
+  [1X3.6-5 GurobiIntegerAttributeArray[101X
+  
+  [29X[2XGurobiIntegerAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute array[133X
+  
+  [33X[0;0YTakes  a Gurobi model and retrieve an attribute array. Can only get value of
+  attributes  arrays  which take integer or double values, Refer to the Gurobi
+  documentation for a list of attributes and their types.[133X
+  
+  [1X3.6-6 GurobiDoubleAttributeArray[101X
+  
+  [29X[2XGurobiDoubleAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute array[133X
+  
+  [33X[0;0YTakes  a Gurobi model and retrieve an attribute array. Can only get value of
+  attributes  arrays  which take integer or double values, Refer to the Gurobi
+  documentation for a list of attributes and their types.[133X
+  
+  [1X3.6-7 GurobiStringAttributeArray[101X
+  
+  [29X[2XGurobiStringAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute array[133X
+  
+  [33X[0;0YTODO[133X
+  
+  
+  [1X3.7 [33X[0;0YModifying attributes and parameters[133X[101X
+  
+  [33X[0;0YNote  that  a  model  must  be  updated  or  optimized before parameters and
+  attributes  are  updated, any queries will return the values at the time the
+  model was last updated or optimized.[133X
+  
+  [1X3.7-1 GurobiSetTimeLimit[101X
+  
+  [29X[2XGurobiSetTimeLimit[102X( [3XModel[103X, [3XTimeLimit[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet  a time limit for a Gurobi model. Note that TimeLimit should be a float,
+  however  an integer value can be given which will be automatically converted
+  to a float.[133X
+  
+  [1X3.7-2 GurobiSetBestObjectiveBoundStop[101X
+  
+  [29X[2XGurobiSetBestObjectiveBoundStop[102X( [3XModel[103X, [3XBestObjectiveBoundStop[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YOptimisation  will  terminate if a feasible solution is found with objective
+  value    at   least   as   good   as   BestObjectiveBoundStop.   Note   that
+  BestObjectiveBoundStop  should  be  a float, however an integer value can be
+  given which will be automatically converted to a float.[133X
+  
+  [1X3.7-3 GurobiSetCutOff[101X
+  
+  [29X[2XGurobiSetCutOff[102X( [3XModel[103X, [3XCutOff[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YOptimisation  will  terminate  if  the objective value is worse than CutOff.
+  Note that CutOff should be a float, an integer value can be given which will
+  be automatically converted to a float.[133X
+  
+  [1X3.7-4 GurobiSetNumericFocus[101X
+  
+  [29X[2XGurobiSetNumericFocus[102X( [3XModel[103X, [3XNumericFocus[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet  the  numeric  focus  for  a  model.  Numeric  focus  must be in the set
+  [0,1,2,3].  A  numeric  focus  of  0  sets  the numeric focus automatically,
+  preferancing  speed.  Values  between  1  and  3  increase the care taken in
+  computations as the value increases, but also take longer. The default value
+  is 0.[133X
+  
+  [1X3.7-5 GurobiSetMIPFocus[101X
+  
+  [29X[2XGurobiSetMIPFocus[102X( [3XModel[103X, [3XMIPFocus[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet a the MIP focus for a model. The mip focus must be in the set [0,1,2,3],
+  and  the  default  value is 0. The MIP focus alows you to prioritise finding
+  solutions or proving their optimality. See the Gurobi documentation for more
+  information.[133X
+  
+  [1X3.7-6 GurobiSetBestBoundStop[101X
+  
+  [29X[2XGurobiSetBestBoundStop[102X( [3XModel[103X, [3XBestBdStop[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet  the  best  bound  stopping value for a model. Terminates opmitzation as
+  soon  as the value of the best bound is determined to be at least as good as
+  the best bound stopping value.[133X
+  
+  [1X3.7-7 GurobiSetSolutionLimit[101X
+  
+  [29X[2XGurobiSetSolutionLimit[102X( [3XModel[103X, [3XBestBdStop[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet the limit for the maximum number of MIP solutions to find.[133X
+  
+  [1X3.7-8 GurobiSetIterationLimit[101X
+  
+  [29X[2XGurobiSetIterationLimit[102X( [3XModel[103X, [3XIterationLimit[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet the limit for the maximum number of simplex iterations performed.[133X
+  
+  [1X3.7-9 GurobiSetNodeLimit[101X
+  
+  [29X[2XGurobiSetNodeLimit[102X( [3XModel[103X, [3XNodeLimit[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YSet the limit for the maximum number of MIP nodes explored.[133X
+  
+  
+  [1X3.8 [33X[0;0YModifying other attributes and parameters[133X[101X
+  
+  [1X3.8-1 GurobiSetIntegerParameter[101X
+  
+  [29X[2XGurobiSetIntegerParameter[102X( [3XModel[103X, [3XParameterName[103X, [3XParameterValue[103X ) [32X function
+  
+  [33X[0;0YTakes  a  Gurobi  model  and  assigns  a  value  to  a  given integer-valued
+  parameter.  ParameterValue  must  be  a  integer  value. Refer to the Gurobi
+  documentation for a list of parameters and their types.[133X
+  
+  [1X3.8-2 GurobiSetDoubleParameter[101X
+  
+  [29X[2XGurobiSetDoubleParameter[102X( [3XModel[103X, [3XParameterName[103X, [3XParameterValue[103X ) [32X function
+  
+  [33X[0;0YTakes a Gurobi model and assigns a value to a given double-valued parameter.
+  ParameterValue must be a double value. Refer to the Gurobi documentation for
+  a list of parameters and their types.[133X
+  
+  [1X3.8-3 GurobiSetIntegerAttribute[101X
+  
+  [29X[2XGurobiSetIntegerAttribute[102X( [3XModel[103X, [3XAttributeName[103X, [3XAttributeValue[103X ) [32X function
+  
+  [33X[0;0YTakes  a  Gurobi  model  and  assigns  a  value  to  a  given integer-valued
+  attribute.  AttributeValue  must  be  a  double  value  Refer  to the Gurobi
+  documentation for a list of attributes and their types.[133X
+  
+  [1X3.8-4 GurobiSetDoubleAttribute[101X
+  
+  [29X[2XGurobiSetDoubleAttribute[102X( [3XModel[103X, [3XAttributeName[103X, [3XAttributeValue[103X ) [32X function
+  
+  [33X[0;0YTakes a Gurobi model and assigns a value to a given double-valued attribute.
+  AttributeValue  must be a double value Refer to the Gurobi documentation for
+  a list of attributes and their types.[133X
+  
+  [1X3.8-5 GurobiSetDoubleAttributeArray[101X
+  
+  [29X[2XGurobiSetDoubleAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X, [3XAttributeValueArray[103X ) [32X function
+  
+  [33X[0;0YTakes a Gurobi model and assigns a value to a given attribute which takes an
+  array  of  floats.  AttributeValue  must be an array of floats. Refer to the
+  Gurobi documentation for a list of attributes and their types.[133X
+  
+  
+  [1X3.9 [33X[0;0YOther[133X[101X
+  
+  [1X3.9-1 GurobiWriteToFile[101X
+  
+  [29X[2XGurobiWriteToFile[102X( [3XModel[103X, [3XFileName[103X ) [32X function
+  
+  [33X[0;0YTakes  a  model  and writes it to a file. File type written is determined by
+  the  FileName  suffix. File types include .mps, .rew, .lp, .rlp, .ilp, .sol,
+  or  .prm Refer to the gurobi documentation for more infomation on which file
+  types can be read.[133X
+  
+  [1X3.9-2 GurobiUpdateModel[101X
+  
+  [29X[2XGurobiUpdateModel[102X( [3XModel[103X ) [32X function
+  
+  [33X[0;0YTakes  a  model and updates it. Changes to parameters or constraints are not
+  processed until the model is either updated or optimised.[133X
+  

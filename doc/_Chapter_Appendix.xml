@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Appendix">
+<Heading>Appendix</Heading>
+
+<Section Label="Chapter_Appendix_Section_Links_to_some_Gurobi_documentation">
+<Heading>Links to some Gurobi documentation</Heading>
+
+For more information on Gurobi parameters, attributes, and status codes, see the following links:
+<List>
+<Item>
+Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html
+</Item>
+<Item>
+Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html
+</Item>
+<Item>
+Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html
+</Item>
+<Item>
+Licencing: http://www.gurobi.com/products/licensing-pricing/licensing-overview
+</Item>
+</List>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Optimisation_Status_Codes">
+<Heading>Optimisation Status Codes</Heading>
+
+The information in this section on optimisation status codes is taken directly from the Gurobi website<Cite Key="gurobiStatusCodes"/>.
+<List>
+<Item>
+1 - Model is loaded, but no solution information is available.
+</Item>
+<Item>
+2 - Model was solved to optimality (subject to tolerances), and an optimal solution is available.
+</Item>
+<Item>
+3 - Model was proven to be infeasible.
+</Item>
+<Item>
+4 - Model was proven to be either infeasible or unbounded. To obtain a more definitive conclusion, set the DualReductions parameter to 0 and reoptimize.
+</Item>
+<Item>
+5 - Model was proven to be unbounded. Important note: an unbounded status indicates the presence of an unbounded ray that allows the objective to improve without limit. It says nothing about whether the model has a feasible solution. If you require information on feasibility, you should set the objective to zero and reoptimize.
+</Item>
+<Item>
+6 - Optimal objective for model was proven to be worse than the value specified in the Cutoff parameter. No solution information is available.
+</Item>
+<Item>
+7 - Optimization terminated because the total number of simplex iterations performed exceeded the value specified in the IterationLimit parameter, or because the total number of barrier iterations exceeded the value specified in the BarIterLimit parameter.
+</Item>
+<Item>
+8 - Optimization terminated because the total number of branch-and-cut nodes explored exceeded the value specified in the NodeLimit parameter.
+</Item>
+<Item>
+9 - Optimization terminated because the time expended exceeded the value specified in the TimeLimit parameter.
+</Item>
+<Item>
+10 - Optimization terminated because the number of solutions found reached the value specified in the SolutionLimit parameter.
+</Item>
+<Item>
+11 - Optimization was terminated by the user.
+</Item>
+<Item>
+12 - Optimization was terminated due to unrecoverable numerical difficulties.
+</Item>
+<Item>
+13 - Unable to satisfy optimality tolerances; a sub-optimal solution is available.
+</Item>
+<Item>
+14 - An asynchronous optimization call was made, but the associated optimization run is not yet complete.
+</Item>
+<Item>
+15 - User specified an objective limit (a bound on either the best objective or the best bound), and that limit has been reached.
+</Item>
+</List>
+</Section>
+
+
+</Chapter>
+
