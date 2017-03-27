@@ -2,12 +2,18 @@
   [1X1 [33X[0;0YIntroduction[133X[101X
   
   
-  [1X1.1 [33X[0;0YWhat is Gurobify?[133X[101X
+  [1X1.1 [33X[0;0YWelcome to Gurobify[133X[101X
   
   [33X[0;0YGurobify   is  a  [5XGAP[105X[GAP]  package  which  provides  an  interface  to  the
-  optimisation software Gurobi[gurobi]. Please use the issue tracker to inform
-  me  of any bugs or suggestions. I would also like to hear about applications
-  of Gurobify via email.[133X
+  optimisation software Gurobi[gurobi].[133X
+  [33X[0;0YINSERT LICENCE INFO[133X
+  [33X[0;0YGurobify can be obtained from the Gurobify homepage:[133X
+  
+  [30X    [33X[0;6Yhttps://github.com/jesselansdown/Gurobify[133X
+  
+  [33X[0;0YPlease use the issue tracker to inform me of any bugs or suggestions:[133X
+  
+  [30X    [33X[0;6Yhttps://github.com/jesselansdown/Gurobify/issues[133X
   
   
   [1X1.2 [33X[0;0YCiting Gurobify[133X[101X
@@ -113,11 +119,21 @@
   [33X[0;0Y ‐-with-gaproot=/opt/gap4r8/[133X
   
   
-  [1X1.5 [33X[0;0YDocumentation[133X[101X
+  [1X1.5 [33X[0;0YTesting and documentation[133X[101X
   
-  [33X[0;0YWithin  the  Gurobify  directory  there  is  a subdirectory called doc. This
+  [33X[0;0YTo  test  the  package  is working correctly, run the following command from
+  inside the Gurobify directory.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xgap.sh maketest.g[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  transforms  each of the examples in Chapter 4 "Examples" and the example
+  given in Section 2.2 "Simple example" into test cases to check that Gurobify
+  is functioning correctly.[133X
+  [33X[0;0YWithin  the  Gurobify  directory  there is a subdirectory called "doc". This
   directory  contains  the documentaion for Gurobify in the form of a pdf file
-  called  "manual.pdf"  as well as in html form. To access the html version of
+  called "manual.pdf" as well as in html format. To access the html version of
   the  manual,  open  the  file  called "chap0.html". The documentation can be
   regenerated  by  running  the  following  command  in  the terminal from the
   Gurobify directory, though this should not be necessary.[133X
@@ -125,6 +141,9 @@
   [4X[32X  Example  [32X[104X
     [4X[28Xgap.sh makedoc.g[128X[104X
   [4X[32X[104X
+  
+  [33X[0;0YRegenerating  the  documentation  will  also  automatically  regenerate  the
+  "maketest.g" test file.[133X
   
   
   [1X1.6 [33X[0;0YLoading Gurobify[133X[101X

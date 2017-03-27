@@ -258,7 +258,7 @@ Obj GurobiReset(Obj self, Obj GAPmodel)
 	if (error)
         ErrorMayQuit( "Error: unable to reset model", 0, 0 );	
 
-    return 0;	
+    return True;	
 }
 
 

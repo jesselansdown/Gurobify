@@ -130,7 +130,6 @@ true
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(model);</span>
 [ 1., 1., 1. ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiReset(model);</span>
 </pre></div>
 
 <p>In addition to returning the optimisation status upon finishing optimisation, we can query the optimisation status of a model directly at any point in time. It will give the status of the model at the point when it was last optimised.</p>
@@ -139,6 +138,16 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizationStatus(model);</span>
 2
+</pre></div>
+
+<p>We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the model has been loaded, but no optimization information is available.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiReset(model);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizationStatus(model);</span>
+1
 </pre></div>
 
 <p>We can change the objective sense of the model so that Gurobi will look for a solution which minimises the objective function instead. We then optimise the model and, if the optimisation is succesful, retun the solution.</p>

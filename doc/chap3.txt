@@ -1,6 +1,8 @@
   
   [1X3 [33X[0;0YUsing Gurobify[133X[101X
   
+  [33X[0;0Yjlkjlk[133X
+  
   
   [1X3.1 [33X[0;0YCreating or reading a model[133X[101X
   

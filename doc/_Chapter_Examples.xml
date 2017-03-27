@@ -38,7 +38,7 @@ gap> model := GurobiNewModel( var_types, var_names );
 Here we define a few basic functions which are purely for the purpose of this example.
 Firstly a way to go from a subset of the variables to the corresponding index set.
 Secondly, a way of going back from the index set to identify the variable name.
-Lastly, a method of displaying the Sudoku board given the variables which are in the solution set.
+Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.
 <Example><![CDATA[
 gap> ExampleFuncNamesToIndex := function( vari_names, var_included )
 >      local vars, ind;
@@ -115,8 +115,7 @@ gap> od;
 Ensure that each value occurs exactly once per sub-square. We start at the top left corner of each square and work our way through them.
 <Example><![CDATA[
 gap> starter_points := [ [1,1], [1,4], [1,7], [4,1], [4,4],
-> [4,7], [7,1], [7,4], [7,7]];
-[ [ 1, 1 ], [ 1, 4 ], [ 1, 7 ], [ 4, 1 ], [ 4, 4 ], [ 4, 7 ], [ 7, 1 ], [ 7, 4 ], [ 7, 7 ] ]
+> [4,7], [7,1], [7,4], [7,7]];;
 gap> for m in starter_points do
 >      for k in [1 .. 9] do
 >        square_constr := [];
@@ -142,9 +141,10 @@ sudoku matrix set values.
 gap> starter_squares := ["x112", "x123", "x164", "x217", "x248", "x326",
 > "x343", "x391", "x411", "x422", "x488", "x516", "x549", "x568", 
 > "x595", "x625", "x682", "x693", "x719", "x767", "x785", "x865", 
-> "x894", "x942", "x986", "x998"];
+> "x894", "x942", "x986", "x998"];;
 gap> constr := ExampleFuncNamesToIndex(var_names, starter_squares);;
 gap> GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");
+true;
 ]]></Example>
 
 
@@ -172,7 +172,9 @@ Of course, we do not want to save the starter configuration, only the general Su
 and so we must first delete the the constraint "StarterSquares".
 <Example><![CDATA[
 gap> GurobiDeleteConstraintsWithName( model, "StarterSquares" );
+true
 gap> GurobiWriteToFile( model, "SudokuSolver.lp" );
+true
 ]]></Example>
 
 
@@ -186,14 +188,17 @@ the solution as before. Incase we have forgotten the names of the variables, or 
 or simply don't want to reconstruct the var_names list, we can first extract this information directly from the model.
 <Example><![CDATA[
 gap> model2 := GurobiReadModel( "SudokuSolver.lp" );
-gap> var_names2 := GurobiVariableNames(model2);
+<object>
+gap> var_names2 := GurobiVariableNames(model2);;
 gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 >  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 
 >  "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", 
->  "x968", "x971", "x985", "x999"];
+>  "x968", "x971", "x985", "x999"];;
 gap> constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;
 gap> GurobiAddConstraint(model2, constr , "=", Sum( constr ));
+true
 gap> GurobiOptimizeModel(model2);
+2
 gap> sol := GurobiSolution(model2);;
 gap> sol2 := ExampleFuncIndexToNames(var_names2, sol);;
 gap> ExampleFuncDisplaySudoku( sol2 );
@@ -215,20 +220,23 @@ We feed this solution back in as a constraint, and then reoptimize. We can repea
 until we have found all feasible solutions, which will be when the model becomes infeasible.
 <Example><![CDATA[
 gap> model3 := GurobiReadModel( "SudokuSolver.lp" );
-gap> var_names3 := GurobiVariableNames(model3);
+<object>
+gap> var_names3 := GurobiVariableNames(model3);;
 gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 >  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 
 >  "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", 
->  "x968", "x971", "x985"];
+>  "x968", "x971", "x985"];;
 gap> constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;
 gap> GurobiAddConstraint( model3, constr , "=", Sum( constr ));
+true
 gap> GurobiOptimizeModel( model3 );
-gap> if GurobiStatus( model3 ) = 2 then
+2
+gap> if GurobiOptimizationStatus( model3 ) = 2 then
 > 	number_of_solutions := 1;
 gap> else
 > 	number_of_solutions := 0;
 gap> fi;
-gap> while GurobiStatus( model3 ) = 2 do
+gap> while GurobiOptimizationStatus( model3 ) = 2 do
 > 	sol := GurobiSolution( model3 );;
 gap> 	number_of_solutions := number_of_solutions + 1;
 gap> 	GurobiAddConstraint( model3, sol , "<", 80 );

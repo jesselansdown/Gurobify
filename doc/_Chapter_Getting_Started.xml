@@ -102,7 +102,6 @@ gap> GurobiOptimizeModel(model);
 2
 gap> GurobiSolution(model);
 [ 1., 1., 1. ]
-gap> GurobiReset(model);
 ]]></Example>
 
 
@@ -111,6 +110,16 @@ of a model directly at any point in time. It will give the status of the model a
 <Example><![CDATA[
 gap> GurobiOptimizationStatus(model);
 2
+]]></Example>
+
+
+We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the
+model has been loaded, but no optimization information is available.
+<Example><![CDATA[
+gap> GurobiReset(model);
+true
+gap> GurobiOptimizationStatus(model);
+1
 ]]></Example>
 
 

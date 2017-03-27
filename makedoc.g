@@ -7,7 +7,7 @@ if fail = LoadPackage("AutoDoc", "2016.02.16") then
     Error("AutoDoc version 2016.02.16 or newer is required.");
 fi;
 
-AutoDoc( rec( scaffold := true, autodoc := rec( files := [ "doc/Intro.autodoc", "src/Gurobify.c"] ) ) );
+AutoDoc( rec( maketest := rec( commands := [ "LoadPackage( \"Gurobify\" );"]), scaffold := true, autodoc := rec( files := [ "doc/Intro.autodoc", "src/Gurobify.c"] ) ) );
 
 PrintTo("VERSION", PackageInfo("Gurobify")[1].Version);
 

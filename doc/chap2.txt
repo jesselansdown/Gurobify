@@ -97,7 +97,6 @@
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XGurobiSolution(model);[127X[104X
     [4X[28X[ 1., 1., 1. ][128X[104X
-    [4X[25Xgap>[125X [27XGurobiReset(model);[127X[104X
   [4X[32X[104X
   
   [33X[0;0YIn   addition   to   returning   the   optimisation  status  upon  finishing
@@ -108,6 +107,17 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiOptimizationStatus(model);[127X[104X
     [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  can reset any information found on a model to its pre-optimization stat.
+  If we then check its status, it will tell us that the model has been loaded,
+  but no optimization information is available.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGurobiReset(model);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimizationStatus(model);[127X[104X
+    [4X[28X1[128X[104X
   [4X[32X[104X
   
   [33X[0;0YWe  can change the objective sense of the model so that Gurobi will look for

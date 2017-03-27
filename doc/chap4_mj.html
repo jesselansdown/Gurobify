@@ -63,7 +63,7 @@
 &lt;object&gt;
 </pre></div>
 
-<p>Here we define a few basic functions which are purely for the purpose of this example. Firstly a way to go from a subset of the variables to the corresponding index set. Secondly, a way of going back from the index set to identify the variable name. Lastly, a method of displaying the Sudoku board given the variables which are in the solution set.</p>
+<p>Here we define a few basic functions which are purely for the purpose of this example. Firstly a way to go from a subset of the variables to the corresponding index set. Secondly, a way of going back from the index set to identify the variable name. Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.</p>
 
 
 <div class="example"><pre>
@@ -146,8 +146,7 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_points := [ [1,1], [1,4], [1,7], [4,1], [4,4],</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">[4,7], [7,1], [7,4], [7,7]];</span>
-[ [ 1, 1 ], [ 1, 4 ], [ 1, 7 ], [ 4, 1 ], [ 4, 4 ], [ 4, 7 ], [ 7, 1 ], [ 7, 4 ], [ 7, 7 ] ]
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">[4,7], [7,1], [7,4], [7,7]];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for m in starter_points do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       square_constr := [];</span>
@@ -172,9 +171,10 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x112", "x123", "x164", "x217", "x248", "x326",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">"x343", "x391", "x411", "x422", "x488", "x516", "x549", "x568", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">"x595", "x625", "x682", "x693", "x719", "x767", "x785", "x865", </span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">"x894", "x942", "x986", "x998"];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">"x894", "x942", "x986", "x998"];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");</span>
+true;
 </pre></div>
 
 <p>Now we optimize. Change the solution into the variable names, and then display.</p>
@@ -201,7 +201,9 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiDeleteConstraintsWithName( model, "StarterSquares" );</span>
+true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiWriteToFile( model, "SudokuSolver.lp" );</span>
+true
 </pre></div>
 
 <p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. Assuming we do not remember the variable names or their order, we must first extract this information from the model. We then optimize the model and display the solution as before. Incase we have forgotten the names of the variables, or the order they occur, or simply don't want to reconstruct the var_names list, we can first extract this information directly from the model.</p>
@@ -209,14 +211,17 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model2 := GurobiReadModel( "SudokuSolver.lp" );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names2 := GurobiVariableNames(model2);</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names2 := GurobiVariableNames(model2);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", </span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985", "x999"];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985", "x999"];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(model2, constr , "=", Sum( constr ));</span>
+true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(model2);</span>
+2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol := GurobiSolution(model2);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames(var_names2, sol);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncDisplaySudoku( sol2 );</span>
@@ -236,20 +241,23 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model3 := GurobiReadModel( "SudokuSolver.lp" );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names3 := GurobiVariableNames(model3);</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names3 := GurobiVariableNames(model3);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", </span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985"];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x968", "x971", "x985"];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model3, constr , "=", Sum( constr ));</span>
+true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel( model3 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiStatus( model3 ) = 2 then</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiOptimizationStatus( model3 ) = 2 then</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 1;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">else</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 0;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fi;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiStatus( model3 ) = 2 do</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiOptimizationStatus( model3 ) = 2 do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	sol := GurobiSolution( model3 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	number_of_solutions := number_of_solutions + 1;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiAddConstraint( model3, sol , "&lt;", 80 );</span>

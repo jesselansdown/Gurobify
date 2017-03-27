@@ -32,7 +32,7 @@ model := GurobiNewModel( var_types, var_names );
 #! Here we define a few basic functions which are purely for the purpose of this example.
 #! Firstly a way to go from a subset of the variables to the corresponding index set.
 #! Secondly, a way of going back from the index set to identify the variable name.
-#! Lastly, a method of displaying the Sudoku board given the variables which are in the solution set.
+#! Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.
 
 #! @BeginExample
 ExampleFuncNamesToIndex := function( vari_names, var_included )

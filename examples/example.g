@@ -50,7 +50,6 @@ GurobiOptimizeModel(model);
 #! 2
 GurobiSolution(model);
 #! [ 1., 1., 1. ]
-GurobiReset(model);
 #! @EndExample
 
 #! In addition to returning the optimisation status upon finishing optimisation, we can query the optimisation status
@@ -59,6 +58,16 @@ GurobiReset(model);
 #! @BeginExample
 GurobiOptimizationStatus(model);
 #! 2
+#! @EndExample
+
+#! We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the
+#! model has been loaded, but no optimization information is available. 
+
+#! @BeginExample
+GurobiReset(model);
+#! true
+GurobiOptimizationStatus(model);
+#! 1
 #! @EndExample
 
 #! We can change the objective sense of the model so that Gurobi will look for a solution which minimises the objective function instead.

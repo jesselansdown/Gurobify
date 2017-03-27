@@ -36,7 +36,7 @@
   this  example.  Firstly  a  way  to go from a subset of the variables to the
   corresponding index set. Secondly, a way of going back from the index set to
   identify  the variable name. Lastly, a method of displaying the Sudoku board
-  given the variables which are in the solution set.[133X
+  from the names of the variables which are in the solution set.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XExampleFuncNamesToIndex := function( vari_names, var_included )[127X[104X
@@ -115,8 +115,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xstarter_points := [ [1,1], [1,4], [1,7], [4,1], [4,4],[127X[104X
-    [4X[25X>[125X [27X[4,7], [7,1], [7,4], [7,7]];[127X[104X
-    [4X[28X[ [ 1, 1 ], [ 1, 4 ], [ 1, 7 ], [ 4, 1 ], [ 4, 4 ], [ 4, 7 ], [ 7, 1 ], [ 7, 4 ], [ 7, 7 ] ][128X[104X
+    [4X[25X>[125X [27X[4,7], [7,1], [7,4], [7,7]];;[127X[104X
     [4X[25Xgap>[125X [27Xfor m in starter_points do[127X[104X
     [4X[25X>[125X [27X     for k in [1 .. 9] do[127X[104X
     [4X[25X>[125X [27X       square_constr := [];[127X[104X
@@ -142,9 +141,10 @@
     [4X[25Xgap>[125X [27Xstarter_squares := ["x112", "x123", "x164", "x217", "x248", "x326",[127X[104X
     [4X[25X>[125X [27X"x343", "x391", "x411", "x422", "x488", "x516", "x549", "x568", [127X[104X
     [4X[25X>[125X [27X"x595", "x625", "x682", "x693", "x719", "x767", "x785", "x865", [127X[104X
-    [4X[25X>[125X [27X"x894", "x942", "x986", "x998"];[127X[104X
+    [4X[25X>[125X [27X"x894", "x942", "x986", "x998"];;[127X[104X
     [4X[25Xgap>[125X [27Xconstr := ExampleFuncNamesToIndex(var_names, starter_squares);;[127X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");[127X[104X
+    [4X[28Xtrue;[128X[104X
   [4X[32X[104X
   
   [33X[0;0YNow  we  optimize.  Change  the  solution  into the variable names, and then
@@ -174,7 +174,9 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiDeleteConstraintsWithName( model, "StarterSquares" );[127X[104X
+    [4X[28Xtrue[128X[104X
     [4X[25Xgap>[125X [27XGurobiWriteToFile( model, "SudokuSolver.lp" );[127X[104X
+    [4X[28Xtrue[128X[104X
   [4X[32X[104X
   
   [33X[0;0YWe  can  now  load  the  lp  file to create a new model with all the generic
@@ -191,14 +193,17 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xmodel2 := GurobiReadModel( "SudokuSolver.lp" );[127X[104X
-    [4X[25Xgap>[125X [27Xvar_names2 := GurobiVariableNames(model2);[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xvar_names2 := GurobiVariableNames(model2);;[127X[104X
     [4X[25Xgap>[125X [27Xstarter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",[127X[104X
     [4X[25X>[125X [27X "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", [127X[104X
     [4X[25X>[125X [27X "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", [127X[104X
-    [4X[25X>[125X [27X "x968", "x971", "x985", "x999"];[127X[104X
+    [4X[25X>[125X [27X "x968", "x971", "x985", "x999"];;[127X[104X
     [4X[25Xgap>[125X [27Xconstr := ExampleFuncNamesToIndex(var_names2, starter_squares);;[127X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint(model2, constr , "=", Sum( constr ));[127X[104X
+    [4X[28Xtrue[128X[104X
     [4X[25Xgap>[125X [27XGurobiOptimizeModel(model2);[127X[104X
+    [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27Xsol := GurobiSolution(model2);;[127X[104X
     [4X[25Xgap>[125X [27Xsol2 := ExampleFuncIndexToNames(var_names2, sol);;[127X[104X
     [4X[25Xgap>[125X [27XExampleFuncDisplaySudoku( sol2 );[127X[104X
@@ -222,20 +227,23 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xmodel3 := GurobiReadModel( "SudokuSolver.lp" );[127X[104X
-    [4X[25Xgap>[125X [27Xvar_names3 := GurobiVariableNames(model3);[127X[104X
+    [4X[28X<object>[128X[104X
+    [4X[25Xgap>[125X [27Xvar_names3 := GurobiVariableNames(model3);;[127X[104X
     [4X[25Xgap>[125X [27Xstarter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",[127X[104X
     [4X[25X>[125X [27X "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", [127X[104X
     [4X[25X>[125X [27X "x573", "x669", "x686", "x691", "x754", "x778", "x894", "x947", [127X[104X
-    [4X[25X>[125X [27X "x968", "x971", "x985"];[127X[104X
+    [4X[25X>[125X [27X "x968", "x971", "x985"];;[127X[104X
     [4X[25Xgap>[125X [27Xconstr := ExampleFuncNamesToIndex(var_names3, starter_squares);;[127X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint( model3, constr , "=", Sum( constr ));[127X[104X
+    [4X[28Xtrue[128X[104X
     [4X[25Xgap>[125X [27XGurobiOptimizeModel( model3 );[127X[104X
-    [4X[25Xgap>[125X [27Xif GurobiStatus( model3 ) = 2 then[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xif GurobiOptimizationStatus( model3 ) = 2 then[127X[104X
     [4X[25X>[125X [27X	number_of_solutions := 1;[127X[104X
     [4X[25Xgap>[125X [27Xelse[127X[104X
     [4X[25X>[125X [27X	number_of_solutions := 0;[127X[104X
     [4X[25Xgap>[125X [27Xfi;[127X[104X
-    [4X[25Xgap>[125X [27Xwhile GurobiStatus( model3 ) = 2 do[127X[104X
+    [4X[25Xgap>[125X [27Xwhile GurobiOptimizationStatus( model3 ) = 2 do[127X[104X
     [4X[25X>[125X [27X	sol := GurobiSolution( model3 );;[127X[104X
     [4X[25Xgap>[125X [27X	number_of_solutions := number_of_solutions + 1;[127X[104X
     [4X[25Xgap>[125X [27X	GurobiAddConstraint( model3, sol , "<", 80 );[127X[104X
