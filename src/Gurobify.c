@@ -154,16 +154,8 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes)
     return NewModel(model);
 }
 
-/*
-	#! @Chapter Using Gurobify
-	#!	@Section Creating or reading a model
-	#! @Arguments Model, VariableNames
-	#! @Returns 
-	#! @Description
-	#!  To do: check that everything is a string
-	DeclareGlobalFunction("GurobiSetVariableNames");
-*/
-Obj GurobiSetVariableNames(Obj self, Obj GAPmodel, Obj VariableNames)
+
+Obj GUROBISETVARIABLENAMES(Obj self, Obj GAPmodel, Obj VariableNames)
 {
 	int error = 0;
 
@@ -184,7 +176,7 @@ Obj GurobiSetVariableNames(Obj self, Obj GAPmodel, Obj VariableNames)
 	        ErrorMayQuit( "Error: Unable to set variable names.", 0, 0 );
     }
 
-    return 0;
+    return True;
 }
 
 /*
@@ -196,9 +188,9 @@ Obj GurobiSetVariableNames(Obj self, Obj GAPmodel, Obj VariableNames)
 	#!  Takes a Gurobi model and optimises it. Returns the optimisation status code which indicates
 	#!	the outcome of the optimisation. A status code of 2 indicates that a feasible solution was found,
 	#!	a status code of 3 indicates the model is infeasible. There a number of other status codes.
-	#!	Refer to the Gurobi documentation for more information about status codes. The model itself is
-	#!	altered to reflect the optimisation, and more information about can be obatained using other functions,
-	#!	in particular the GurobiGetAttribute and GurobiGetAttributeArray functions.
+	#!	Refer to the Gurobi documentation for more information about status codes, or alternatively see the Appendix of this manual.
+	#!	The model itself is altered to reflect the optimisation, and more information about it can be obatained using other functions,
+	#!	in particular the GurobiSolution and GurobiObjectiveValue functions.
 	DeclareGlobalFunction("GurobiOptimizeModel");
 */
 
@@ -329,7 +321,7 @@ Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Para
 	#! @Description
 	#!	Takes a Gurobi model and retrieve the value of a integer-valued parameter.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
-	DeclareGlobalFunction("GurobiGetIntegerParameter");
+	DeclareGlobalFunction("GurobiIntegerParameter");
 */
 
 Obj GurobiIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
@@ -356,7 +348,7 @@ Obj GurobiIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 	#! @Description
 	#!	Takes a Gurobi model and retrieve the value of a double-valued parameter.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
-	DeclareGlobalFunction("GurobiGetDoubleParameter");
+	DeclareGlobalFunction("GurobiDoubleParameter");
 */
 
 Obj GurobiDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
@@ -481,9 +473,9 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	#! @Chapter Using Gurobify
 	#! @Section Adding and deleting constraints
 	#! @Arguments Model, ConstraintName
-	#! @Returns 
+	#! @Returns true
 	#! @Description
-	#!	Deletes all constraints from a model with the name ConstraintName. Returns the updated model.
+	#!	Deletes all constraints from a model with the name ConstraintName.
 	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
 */
 
@@ -632,7 +624,7 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#! @Returns attibute array
 	#! @Description
 	#!	Takes a Gurobi model and retrieve an attribute array.
-	#!	Can only get value of attributes arrays which take integer or double values,
+	#!	Can only get value of attributes arrays which take integer values,
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiIntegerAttributeArray");
 */
@@ -672,7 +664,7 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	#! @Returns attibute array
 	#! @Description
 	#!	Takes a Gurobi model and retrieve an attribute array.
-	#!	Can only get value of attributes arrays which take integer or double values,
+	#!	Can only get value of attributes arrays which take double values,
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiDoubleAttributeArray");
 */
@@ -710,8 +702,11 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute array
 	#! @Description
-	#! TODO
-	DeclareGlobalFunction("GurobiStringAttributeArray");
+	#! @Description
+	#!	Takes a Gurobi model and retrieve an attribute array.
+	#!	Can only get value of attributes arrays which have string values,
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+		DeclareGlobalFunction("GurobiStringAttributeArray");
 */
 Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
@@ -784,7 +779,7 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Other
+	#! @Section Creating or reading a model
 	#! @Arguments Model, FileName
 	#! @Returns
 	#! @Description
@@ -811,7 +806,7 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Other
+	#! @Section Optimizing a model
 	#! @Arguments Model
 	#! @Returns
 	#! @Description
@@ -842,7 +837,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 1, "VariableTypes"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetVariableNames, 2, "model, VariableNames"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBISETVARIABLENAMES, 2, "model, VariableNames"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),

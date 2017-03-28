@@ -4,9 +4,39 @@
 <Chapter Label="Chapter_Appendix">
 <Heading>Appendix</Heading>
 
-<Section Label="Chapter_Appendix_Section_Links_to_some_Gurobi_documentation">
-<Heading>Links to some Gurobi documentation</Heading>
+<Section Label="Chapter_Appendix_Section_Gurobify_links">
+<Heading>Gurobify links</Heading>
 
+<List>
+<Item>
+Homepage: https://github.com/jesselansdown/Gurobify
+</Item>
+<Item>
+Issue tracker: https://github.com/jesselansdown/Gurobify/issues
+</Item>
+</List>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_GAP_links">
+<Heading>GAP links</Heading>
+
+<List>
+<Item>
+Homepage: http://gap-system.org/
+</Item>
+</List>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Gurobi_links">
+<Heading>Gurobi links</Heading>
+
+<List>
+<Item>
+Homepage: http://gurobi.com/
+</Item>
+</List>
 For more information on Gurobi parameters, attributes, and status codes, see the following links:
 <List>
 <Item>

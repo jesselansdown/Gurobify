@@ -1,12 +1,18 @@
 #! @Chapter Examples
 #! @Section Sudoku solver
 
-#! The purpose of the example
-#! Statement of the problem
-#! The method applied
-#! Defining the variables with a view to the constraints (all diff)
-#!
-#! In this instance we name the variables since that is of use to us
+#! To solve a sudoku puzzle, the integers from $1$ to $9$ must be placed in each cell of a $9 \times 9$ grid,
+#! such that every number in a column, row, or one of the nine subgrids, is different. A starting configuration
+#! is given which must be incorporated into the final solution. In this example we create a model which imposes
+#! the sudoku rules as constraints, takes an additional constraint for the starting configuration of the Sudoku
+#! puzzle, and then solves the puzzle.
+#! <Br/><Br/>
+#! To begin with we will define the variables that we will need for our model. Each variable will have a name
+#! of the form $x_{ijk}$, where $i$ is the row of the sudoku puzzle, $j$ is the column, and $k$ is the value of
+#! the entry defined byt cell $ij$. The variables are binary, since a value of $1$ indicates that the corresponding
+#! cell $ij$ has value $k$, and a $0$ indicates that it doesn't have that value.
+#! <Br/><Br/>
+#! Since the variable names are important to the fomulation of this problem, we must define the variable names.
 
 #! @BeginExample
 var_names :=[];
@@ -21,7 +27,7 @@ for i in [1 .. 9] do
    od;
 #! @EndExample
 
-#! Create the model. We need to tell Gurobi that each variable is binary.
+#! Now create the model. We need to tell Gurobi that each variable is binary.
 
 #! @BeginExample
 var_types := ListWithIdenticalEntries( Size( var_names ), "Binary" );;
@@ -30,7 +36,7 @@ model := GurobiNewModel( var_types, var_names );
 #! @EndExample
 
 #! Here we define a few basic functions which are purely for the purpose of this example.
-#! Firstly a way to go from a subset of the variables to the corresponding index set.
+#! Firstly a way to go from the names of a subset of the variables to the corresponding index set.
 #! Secondly, a way of going back from the index set to identify the variable name.
 #! Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.
 
@@ -108,7 +114,8 @@ for j in [1 .. 9] do
 od;
 #! @EndExample
 
-#! Ensure that each value occurs exactly once per sub-square. We start at the top left corner of each square and work our way through them.
+#! Ensure that each value occurs exactly once per sub-square. We start at the top left corner of each square
+#! and work our way through them.
 
 
 #! @BeginExample
@@ -132,10 +139,9 @@ for m in starter_points do
 od;
 #! @EndExample
 
-
-#! Now that the lp file will look for solutions that obey the Sudoku rules,
-#! we can put in the inital Sudoku configuration by assigning certain entries of the
-#! sudoku matrix set values.
+#! The model now has constraints that will ensure that the Sudoku rules are obeyed.
+#! We can put in the inital Sudoku configuration by assigning values to certain entries of the
+#! sudoku matrix.
 
 
 #! @BeginExample
@@ -148,7 +154,7 @@ GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");
 #! true;
 #! @EndExample
 
-#! Now we optimize. Change the solution into the variable names, and then display.
+#! Now we optimize. Change the solution into the set of variable names, and then display the solution.
 
 #! @BeginExample
 GurobiOptimizeModel( model );
@@ -185,10 +191,9 @@ GurobiWriteToFile( model, "SudokuSolver.lp" );
 #! Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames
 #! and ExampleFuncDisplaySudoku as before,
 #! we may simply add a new constraint to the model to represent the starting configuration of the
-#! Sudoku problem. Assuming we do not remember the variable names or their order,
-#! we must first extract this information from the model. We then optimize the model and display
-#! the solution as before. Incase we have forgotten the names of the variables, or the order they occur,
-#! or simply don't want to reconstruct the var_names list, we can first extract this information directly from the model.
+#! Sudoku problem. In case we do not remember the variable names or their order,
+#! we can first extract this information from the model. We then optimize the model and display
+#! the solution as before.
 
 #! @BeginExample
 model2 := GurobiReadModel( "SudokuSolver.lp" );

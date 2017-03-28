@@ -13,67 +13,50 @@ GurobiObjectFamily := NewFamily( "GurobiObjectFamily" );
 BindGlobal("TheTypeGurobiModel", NewType( GurobiObjectFamily, IsGurobiModel ));
 
 
-#! @BeginGroup GurobiNewModel
-
-#! @Chapter Using Gurobify
-#! @Section Creating or reading a model
-#! @Arguments VariableTypes
-#! @Returns A Gurobi model
-#! @Description
-#!  Creates a gurobi model with variables defined by VariableTypes and an objective function
-#!  given by ObjectiveFunction. VariableTypes must be a list, with entries indexed by the set
-#!  of variables, and entries corresponding to the type of variable, as a string.
-#!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
-#!  Refer to the Gurobi documentation for more information on the variable types.
-#!  ObjectiveFunction is a list, with entries indexed by the set of variables, where each entry
-#!  corresponds to the coefficient of the variable in the objective function.
 DeclareOperation( "GurobiNewModel",
 	[IsList]);
-#! @EndGroup GurobiNewModel
 
-#! @BeginGroup GurobiAddConstraint
+
 
 #! @Chapter Using Gurobify
 #! @Section Adding and deleting constraints
-#! @Arguments Model, CstrEquation, CstrSense, CstrRHSValue, CstrName
+#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue[, ConstraintName]
 #! @Returns true
 #! @Description
-#!	Adds a constraint to a gurobi model. CstrEquation must be a list, with entries indexed
-#!	by the variable set, such that each entry is the coefficient of the corresponding variable
-#! 	in the constraint equation. The CstrSense must be one of "&lt;", "&gt;" or "=",
-#!	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The CstrRHSValue is the value on the
-#!	right hand side of the constraint. A constraint may also be given a name, which helps to identify
+#!	Same as below, except that ConstraintRHS value takes an integer value.
+DeclareOperation( "GurobiAddConstraint",
+	[ IsGurobiModel, IsList, IsString, IsInt, IsString]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Adding and deleting constraints
+#! @Arguments Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue[, ConstraintName]
+#! @Returns true
+#! @Description
+#!	Adds a constraint to a gurobi model. ConstraintEquation must be a list, 
+#!	such that each entry is the coefficient (including $0$ coefficents) of the corresponding variable
+#! 	in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=",
+#!	where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the
+#!	right hand side of the constraint. A constraint may optionally be given a name, which helps to identify
 #!	the constraint if it is to be deleted at some point.
 #!	Note that a model must be updated or optimised before any additional constraints become effective.
 DeclareOperation( "GurobiAddConstraint",
 	[ IsGurobiModel, IsList, IsString, IsFloat, IsString] );
 
-#! @Description
-#!	In the second instance, CstrRHSValue takes an integer
-#! @Arguments Model, CstrEquation, CstrSense, CstrRHSValue, CstrName
-DeclareOperation( "GurobiAddConstraint",
-	[ IsGurobiModel, IsList, IsString, IsInt, IsString]);
-
-#! @Description
-#!	Note that the name is an optional argument. It is necessary if you wish to delete the constraint at a
-#!	later stage. If no name is given, the constraint will be named "UnNamedConstraint".
-#! @Arguments Model, CstrEquation, CstrSense, CstrRHSValue
 DeclareOperation( "GurobiAddConstraint",
 	[ IsGurobiModel, IsList, IsString, IsFloat]);
 
-#! @Arguments Model, CstrEquation, CstrSense, CstrRHSValue
 DeclareOperation( "GurobiAddConstraint",
 	[ IsGurobiModel, IsList, IsString, IsInt]);
 
-#! @EndGroup GurobiAddConstraint
 
 #! @Chapter Using Gurobify
 #! @Section Adding and deleting constraints
 #! @Arguments Model, ConstraintEquations, ConstraintSenses, ConstraintRHSValues, ConstraintNames
 #! @Returns true
 #! @Description
-#!	Add a multiple constraints to a model. ConstraintEquations, ConstraintSenses, ConstraintRHSValues and
-#!	ConstraintNames are lists, such that the i-th entries of each of them determine a single constraint in
+#!	Add multiple constraints to a model at one time. The arguments (except Model)
+#!	are lists, such that the i-th entries of each list determine a single constraint in
 #!	the same manner as for the operation GurobiAddConstraint.
 DeclareOperation( "GurobiAddMultipleConstraints",
 	[ IsGurobiModel, IsList, IsList, IsList, IsList] );
@@ -142,7 +125,8 @@ DeclareOperation("GurobiMinimiseModel",
 #! @Arguments Model, ObjectiveValues
 #! @Returns true
 #! @Description
-#!	Set the objective function for a model.
+#!	Set the objective function for a model. ObjectiveValues is a list of coefficients (including $0$ coefficeints)
+#!	corresponding to each of the variables
 DeclareOperation( "GurobiSetObjectiveFunction",
 	[ IsGurobiModel, IsList] );
 
@@ -151,7 +135,7 @@ DeclareOperation( "GurobiSetObjectiveFunction",
 #! @Arguments Model
 #! @Returns List of coefficients of the objective function
 #! @Description
-#!	View the objectivive function.
+#!	View the objectivive function for a model.
 DeclareOperation( "GurobiObjectiveFunction",
 	[ IsGurobiModel] );
 
@@ -174,7 +158,7 @@ DeclareOperation("GurobiNumberOfConstraints",
 	[IsGurobiModel]);
 
 #! @Chapter Using Gurobify
-#! @Section Querying attributes and parameters
+#! @Section Optimizing a model
 #! @Arguments Model
 #! @Returns objective value
 #! @Description
@@ -194,19 +178,19 @@ DeclareOperation("GurobiObjectiveBound",
 #! @Chapter Using Gurobify
 #! @Section Querying attributes and parameters
 #! @Arguments Model
-#! @Returns objective bound
+#! @Returns run time of optimization
 #! @Description
 #!	Returns the wall clock runtime in seconds for the most recent optimization.
 DeclareOperation("GurobiRunTime",
 	[IsGurobiModel]);
 
 #! @Chapter Using Gurobify
-#! @Section Querying attributes and parameters
+#! @Section Optimizing a model
 #! @Arguments Model
 #! @Returns objective bound
 #! @Description
 #!	Returns the optimisation status of the most recent optimization. Refer to the Gurobi documentation for more
-#!	on the optimization statuses. See the appendix for a link.
+#!	on the optimization statuses, or alternatively refer to the Appendix of this manual.
 DeclareOperation("GurobiOptimizationStatus",
 	[IsGurobiModel]);
 
@@ -355,14 +339,33 @@ DeclareOperation("GurobiNodeLimit",
 #! @Arguments Model
 #! @Returns 
 #! @Description
-#!	TODO
+#!	Returns the names of the variables in the model. The order of the variables acts as the index list for
+#!	any lists of variable coefficients, such as in GurobiAddConstraint or GurobiSetObjectiveFunction.
 DeclareOperation("GurobiVariableNames",
 	[IsGurobiModel]);
 
 
-#! @Group GurobiNewModel
+#! @Chapter Using Gurobify
+#! @Section Creating or reading a model
 #! @Arguments VariableTypes[, VariableNames]
+#! @Returns A Gurobi model
 #! @Description
-#!  Optionally takes the names of the variables
+#!  Creates a gurobi model with variables defined by VariableTypes. VariableTypes must be a list of strings, 
+#!	where each entry is the type of the corresponding variable.
+#!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT".
+#!  Refer to the Gurobi documentation for more information on the variable types.
+#!  Optionally takes the names of the variables as a list of strings.
 DeclareOperation( "GurobiNewModel",
 	[IsList, IsList]);
+
+
+
+#! @Chapter Using Gurobify
+#! @Section Creating or reading a model
+#! @Arguments Model, VariableNames
+#! @Returns true
+#! @Description
+#!  To do: check that everything is a string
+DeclareOperation("GurobiSetVariableNames",
+		[IsGurobiModel, IsList]);
+

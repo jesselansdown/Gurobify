@@ -32,13 +32,13 @@
 
 <h3>4 <span class="Heading">Examples</span></h3>
 
-<p>This section contains a number of examples which are intended to illustrate the usage of Gurobify.</p>
+<p>This section contains a number of examples which are intended to illustrate the usage of Gurobify. Each of these examples also form a test suite (along with the Simple example in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.</p>
 
 <p><a id="X8178D90E8532685F" name="X8178D90E8532685F"></a></p>
 
 <h4>4.1 <span class="Heading">Sudoku solver</span></h4>
 
-<p>The purpose of the example Statement of the problem The method applied Defining the variables with a view to the constraints (all diff) In this instance we name the variables since that is of use to us</p>
+<p>To solve a sudoku puzzle, the integers from <span class="SimpleMath">\(1\)</span> to <span class="SimpleMath">\(9\)</span> must be placed in each cell of a <span class="SimpleMath">\(9 \times 9\)</span> grid, such that every number in a column, row, or one of the nine subgrids, is different. A starting configuration is given which must be incorporated into the final solution. In this example we create a model which imposes the sudoku rules as constraints, takes an additional constraint for the starting configuration of the Sudoku puzzle, and then solves the puzzle. <br /> <br /> To begin with we will define the variables that we will need for our model. Each variable will have a name of the form <span class="SimpleMath">\(x_{ijk}\)</span>, where <span class="SimpleMath">\(i\)</span> is the row of the sudoku puzzle, <span class="SimpleMath">\(j\)</span> is the column, and <span class="SimpleMath">\(k\)</span> is the value of the entry defined byt cell <span class="SimpleMath">\(ij\)</span>. The variables are binary, since a value of <span class="SimpleMath">\(1\)</span> indicates that the corresponding cell <span class="SimpleMath">\(ij\)</span> has value <span class="SimpleMath">\(k\)</span>, and a <span class="SimpleMath">\(0\)</span> indicates that it doesn't have that value. <br /> <br /> Since the variable names are important to the fomulation of this problem, we must define the variable names.</p>
 
 
 <div class="example"><pre>
@@ -54,7 +54,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">   od;</span>
 </pre></div>
 
-<p>Create the model. We need to tell Gurobi that each variable is binary.</p>
+<p>Now create the model. We need to tell Gurobi that each variable is binary.</p>
 
 
 <div class="example"><pre>
@@ -63,7 +63,7 @@
 &lt;object&gt;
 </pre></div>
 
-<p>Here we define a few basic functions which are purely for the purpose of this example. Firstly a way to go from a subset of the variables to the corresponding index set. Secondly, a way of going back from the index set to identify the variable name. Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.</p>
+<p>Here we define a few basic functions which are purely for the purpose of this example. Firstly a way to go from the names of a subset of the variables to the corresponding index set. Secondly, a way of going back from the index set to identify the variable name. Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.</p>
 
 
 <div class="example"><pre>
@@ -164,7 +164,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
 </pre></div>
 
-<p>Now that the lp file will look for solutions that obey the Sudoku rules, we can put in the inital Sudoku configuration by assigning certain entries of the sudoku matrix set values.</p>
+<p>The model now has constraints that will ensure that the Sudoku rules are obeyed. We can put in the inital Sudoku configuration by assigning values to certain entries of the sudoku matrix.</p>
 
 
 <div class="example"><pre>
@@ -177,7 +177,7 @@
 true;
 </pre></div>
 
-<p>Now we optimize. Change the solution into the variable names, and then display.</p>
+<p>Now we optimize. Change the solution into the set of variable names, and then display the solution.</p>
 
 
 <div class="example"><pre>
@@ -206,7 +206,7 @@ true
 true
 </pre></div>
 
-<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. Assuming we do not remember the variable names or their order, we must first extract this information from the model. We then optimize the model and display the solution as before. Incase we have forgotten the names of the variables, or the order they occur, or simply don't want to reconstruct the var_names list, we can first extract this information directly from the model.</p>
+<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. In case we do not remember the variable names or their order, we can first extract this information from the model. We then optimize the model and display the solution as before.</p>
 
 
 <div class="example"><pre>

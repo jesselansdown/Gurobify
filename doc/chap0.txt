@@ -74,12 +74,14 @@
   3 [33X[0;0YUsing Gurobify[133X
     3.1 [33X[0;0YCreating or reading a model[133X
       3.1-1 GurobiReadModel
-      3.1-2 GurobiSetVariableNames
+      3.1-2 GurobiWriteToFile
       3.1-3 GurobiNewModel
+      3.1-4 GurobiSetVariableNames
     3.2 [33X[0;0YAdding and deleting constraints[133X
       3.2-1 GurobiDeleteAllConstraintsWithName
       3.2-2 GurobiAddConstraint
-      3.2-3 GurobiAddMultipleConstraints
+      3.2-3 GurobiAddConstraint
+      3.2-4 GurobiAddMultipleConstraints
     3.3 [33X[0;0YAdding and modifying objective functions[133X
       3.3-1 GurobiMaximiseModel
       3.3-2 GurobiMinimiseModel
@@ -88,27 +90,28 @@
     3.4 [33X[0;0YOptimizing a model[133X
       3.4-1 GurobiOptimizeModel
       3.4-2 GurobiReset
-      3.4-3 GurobiSolution
+      3.4-3 GurobiUpdateModel
+      3.4-4 GurobiSolution
+      3.4-5 GurobiObjectiveValue
+      3.4-6 GurobiOptimizationStatus
     3.5 [33X[0;0YQuerying attributes and parameters[133X
       3.5-1 GurobiNumberOfVariables
       3.5-2 GurobiNumberOfConstraints
-      3.5-3 GurobiObjectiveValue
-      3.5-4 GurobiObjectiveBound
-      3.5-5 GurobiRunTime
-      3.5-6 GurobiOptimizationStatus
-      3.5-7 GurobiNumericFocus
-      3.5-8 GurobiTimeLimit
-      3.5-9 GurobiCutOff
-      3.5-10 GurobiBestObjectiveBoundStop
-      3.5-11 GurobiMIPFocus
-      3.5-12 GurobiBestBoundStop
-      3.5-13 GurobiSolutionLimit
-      3.5-14 GurobiIterationLimit
-      3.5-15 GurobiNodeLimit
-      3.5-16 GurobiVariableNames
+      3.5-3 GurobiObjectiveBound
+      3.5-4 GurobiRunTime
+      3.5-5 GurobiNumericFocus
+      3.5-6 GurobiTimeLimit
+      3.5-7 GurobiCutOff
+      3.5-8 GurobiBestObjectiveBoundStop
+      3.5-9 GurobiMIPFocus
+      3.5-10 GurobiBestBoundStop
+      3.5-11 GurobiSolutionLimit
+      3.5-12 GurobiIterationLimit
+      3.5-13 GurobiNodeLimit
+      3.5-14 GurobiVariableNames
     3.6 [33X[0;0YQuerying other attributes and parameters[133X
-      3.6-1 GurobiGetIntegerParameter
-      3.6-2 GurobiGetDoubleParameter
+      3.6-1 GurobiIntegerParameter
+      3.6-2 GurobiDoubleParameter
       3.6-3 GurobiIntegerAttribute
       3.6-4 GurobiDoubleAttribute
       3.6-5 GurobiIntegerAttributeArray
@@ -130,14 +133,13 @@
       3.8-3 GurobiSetIntegerAttribute
       3.8-4 GurobiSetDoubleAttribute
       3.8-5 GurobiSetDoubleAttributeArray
-    3.9 [33X[0;0YOther[133X
-      3.9-1 GurobiWriteToFile
-      3.9-2 GurobiUpdateModel
   4 [33X[0;0YExamples[133X
     4.1 [33X[0;0YSudoku solver[133X
   5 [33X[0;0YAppendix[133X
-    5.1 [33X[0;0YLinks to some Gurobi documentation[133X
-    5.2 [33X[0;0YOptimisation Status Codes[133X
+    5.1 [33X[0;0YGurobify links[133X
+    5.2 [33X[0;0YGAP links[133X
+    5.3 [33X[0;0YGurobi links[133X
+    5.4 [33X[0;0YOptimisation Status Codes[133X
   
   
   [32X

@@ -170,47 +170,58 @@ The purpose of this example is to illustrate the use of Gurobify in a quick, sim
 
 @Chapter Using Gurobify
 
-	jlkjlk
+	This chapter documents the various commands available in Gurobify. Each command begins with "Gurobi", which in some instances helps to avoid conflict with other GAP commands, and is used for consistancy in other instances. Note that a Gurobi model object in GAP is simply a pointer to the Gurobi model within Gurobi itself. Thus care must be taken not to overwrite the Gurobi model without first releasing the memory associated with it by calling the TODO command. It is also important to note that many changes to a model do not become active until the model is updated. This can be done by either Optimizing the model, or calling GurobiUpdateModel. It is often unnecessary to update the model if it will later be optimized, and in fact can be more efficient to only update when necessary. However, one may occasionally wish to perform a command which is dependent on previous changes to the model. In this case it is necessary to call the update command first.
 
 	@Section Creating or reading a model
 
-	TODO intro to section
+	This section deals with reading, writing, and creating models, as well as working with the model variables.
 
 	@Section Adding and deleting constraints
 
-	TODO
+	This section deals with adding linear constraints, both individually and in bulk, naming constraints, and also deleting constraints.
 
 	@Section Adding and modifying objective functions
 
+	This section deals with adding and modifying objective functions to a model, and changing between maximising and minimising objective functions.
 
 	@Section Optimizing a model
 
-	TODO
+	This section deals with optimizing a model, and handling solution information.
+
 	@Section Querying attributes and parameters
 
-	Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
+	This section deals with obtaining information about attributes and parameters of a Gurobi model. Note that a model must be updated or optimized before parameters and attributes are updated - any queries will return the values at the time the model was last updated or optimized. Note also that the attributes are Gurobi attributes, and are not true attributes in the GAP sense. Crucially, attributes for a model constantly change, either as a result of optimization or from manually setting them. Thus attributes for Gurobi models are approximated by Gurobify using GAP operations or functions. Their usage should still be comfortable for users familiar with GAP attributes.
 
 	@Section Querying other attributes and parameters
 
-	In addition to these specific queries given in the previous section, all other gurobi parameters and attributes which take integer or double values can be queried using GurobiGetIntegerParameter("ParameterName"), GurobiGetDoubleParameter("ParameterName"), GurobiGetIntegerAttribute("AttributeName") or GurobiGetDoubleAttribute("AttributeName") respectively, where "ParameterName" and "AttributeName" are strings given exactly as in the Gurobi documentation. See the Appendix for links to the relevant documentation.
+	In addition to these specific queries given in the previous section, all other gurobi parameters and attributes which take specific value types can be queried using the parameter or attribute name as a strings given exactly as in the Gurobi documentation. See the Appendix for links to the relevant documentation.
 
 	@Section Modifying attributes and parameters
 
-	Note that a model must be updated or optimized before parameters and attributes are updated, any queries will return the values at the time the model was last updated or optimized.
+	This section deals with modifying the values of attributes and parameters of Gurobi models. Note that a model must be updated or optimized before parameters and attributes are updated, any queries or commands which depend on these values will use the values at the time the model was last updated or optimized, even if the values have since been modified.
 
 	@Section Modifying other attributes and parameters
+	In addition to these specific commands given in the previous section, other gurobi parameters and attributes which take specific value types can be modified using the parameter or attribute name as a strings given exactly as in the Gurobi documentation. See the Appendix for links to the relevant documentation.
 
-	@Chapter Using Gurobify
-		@Section Other
-
-@Chapter Gurobify Functions
 
 @Chapter Examples
 
-This section contains a number of examples which are intended to illustrate the usage of Gurobify.
+This section contains a number of examples which are intended to illustrate the usage of Gurobify. Each of these examples also form a test suite (along with the Simple example in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.
 
 @Chapter Appendix
-	@Section Links to some Gurobi documentation
+
+	@Section Gurobify links
+
+* Homepage: https://github.com/jesselansdown/Gurobify
+* Issue tracker: https://github.com/jesselansdown/Gurobify/issues
+
+	@Section GAP links
+
+* Homepage: http://gap-system.org/
+
+	@Section Gurobi links
+
+* Homepage: http://gurobi.com/
 
 For more information on Gurobi parameters, attributes, and status codes, see the following links:
 

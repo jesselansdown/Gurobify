@@ -402,3 +402,12 @@ InstallMethod(GurobiNewModel, "",
 	return model;
 	end
 );
+
+InstallMethod(GurobiSetVariableNames, "",
+	[ IsGurobiModel, IsList] ,
+	function(model, variablenames)
+		GUROBISETVARIABLENAMES(model, variablenames);
+		GurobiUpdateModel(model);
+	return true;
+	end
+);
