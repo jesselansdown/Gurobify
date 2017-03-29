@@ -66,35 +66,35 @@
     1.2 [33X[0;0YCiting Gurobify[133X
     1.3 [33X[0;0YPrerequisites[133X
     1.4 [33X[0;0YInstallation[133X
-    1.5 [33X[0;0YTesting and documentation[133X
+    1.5 [33X[0;0YTesting And Documentation[133X
     1.6 [33X[0;0YLoading Gurobify[133X
   2 [33X[0;0YGetting Started[133X
     2.1 [33X[0;0YGetting Started[133X
-    2.2 [33X[0;0YSimple example[133X
+    2.2 [33X[0;0YSimple Example[133X
   3 [33X[0;0YUsing Gurobify[133X
-    3.1 [33X[0;0YCreating or reading a model[133X
+    3.1 [33X[0;0YCreating Or Reading A Model[133X
       3.1-1 GurobiReadModel
       3.1-2 GurobiWriteToFile
       3.1-3 GurobiNewModel
       3.1-4 GurobiSetVariableNames
-    3.2 [33X[0;0YAdding and deleting constraints[133X
+    3.2 [33X[0;0YAdding And Deleting Constraints[133X
       3.2-1 GurobiDeleteAllConstraintsWithName
       3.2-2 GurobiAddConstraint
       3.2-3 GurobiAddConstraint
       3.2-4 GurobiAddMultipleConstraints
-    3.3 [33X[0;0YAdding and modifying objective functions[133X
+    3.3 [33X[0;0YAdding And Modifying Objective Functions[133X
       3.3-1 GurobiMaximiseModel
       3.3-2 GurobiMinimiseModel
       3.3-3 GurobiSetObjectiveFunction
       3.3-4 GurobiObjectiveFunction
-    3.4 [33X[0;0YOptimizing a model[133X
-      3.4-1 GurobiOptimizeModel
+    3.4 [33X[0;0YOptimising A Model[133X
+      3.4-1 GurobiOptimiseModel
       3.4-2 GurobiReset
       3.4-3 GurobiUpdateModel
       3.4-4 GurobiSolution
       3.4-5 GurobiObjectiveValue
-      3.4-6 GurobiOptimizationStatus
-    3.5 [33X[0;0YQuerying attributes and parameters[133X
+      3.4-6 GurobiOptimisationStatus
+    3.5 [33X[0;0YQuerying Attributes And Parameters[133X
       3.5-1 GurobiNumberOfVariables
       3.5-2 GurobiNumberOfConstraints
       3.5-3 GurobiObjectiveBound
@@ -109,7 +109,7 @@
       3.5-12 GurobiIterationLimit
       3.5-13 GurobiNodeLimit
       3.5-14 GurobiVariableNames
-    3.6 [33X[0;0YQuerying other attributes and parameters[133X
+    3.6 [33X[0;0YQuerying Other Attributes And Parameters[133X
       3.6-1 GurobiIntegerParameter
       3.6-2 GurobiDoubleParameter
       3.6-3 GurobiIntegerAttribute
@@ -117,7 +117,7 @@
       3.6-5 GurobiIntegerAttributeArray
       3.6-6 GurobiDoubleAttributeArray
       3.6-7 GurobiStringAttributeArray
-    3.7 [33X[0;0YModifying attributes and parameters[133X
+    3.7 [33X[0;0YModifying Attributes And Parameters[133X
       3.7-1 GurobiSetTimeLimit
       3.7-2 GurobiSetBestObjectiveBoundStop
       3.7-3 GurobiSetCutOff
@@ -127,7 +127,7 @@
       3.7-7 GurobiSetSolutionLimit
       3.7-8 GurobiSetIterationLimit
       3.7-9 GurobiSetNodeLimit
-    3.8 [33X[0;0YModifying other attributes and parameters[133X
+    3.8 [33X[0;0YModifying Other Attributes And Parameters[133X
       3.8-1 GurobiSetIntegerParameter
       3.8-2 GurobiSetDoubleParameter
       3.8-3 GurobiSetIntegerAttribute
@@ -136,9 +136,9 @@
   4 [33X[0;0YExamples[133X
     4.1 [33X[0;0YSudoku solver[133X
   5 [33X[0;0YAppendix[133X
-    5.1 [33X[0;0YGurobify links[133X
-    5.2 [33X[0;0YGAP links[133X
-    5.3 [33X[0;0YGurobi links[133X
+    5.1 [33X[0;0YGurobify Links[133X
+    5.2 [33X[0;0Y[5XGAP[105X Links[133X
+    5.3 [33X[0;0YGurobi Links[133X
     5.4 [33X[0;0YOptimisation Status Codes[133X
   
   

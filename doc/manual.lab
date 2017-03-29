@@ -9,26 +9,26 @@
 \makelabel{gurobify:Citing Gurobify}{1.2}{X7C9488DD7A057069}
 \makelabel{gurobify:Prerequisites}{1.3}{X7B4649CF7B7CFAA1}
 \makelabel{gurobify:Installation}{1.4}{X8360C04082558A12}
-\makelabel{gurobify:Testing and documentation}{1.5}{X84A483B47DCD6909}
+\makelabel{gurobify:Testing And Documentation}{1.5}{X84A483B47DCD6909}
 \makelabel{gurobify:Loading Gurobify}{1.6}{X7C24864E7D6ABBD8}
 \makelabel{gurobify:Getting Started}{2}{X7B1863E17896BCE1}
 \makelabel{gurobify:Getting Started}{2.1}{X7B1863E17896BCE1}
-\makelabel{gurobify:Simple example}{2.2}{X811824A37C2C1786}
+\makelabel{gurobify:Simple Example}{2.2}{X811824A37C2C1786}
 \makelabel{gurobify:Using Gurobify}{3}{X80B2C5E2806A42D0}
-\makelabel{gurobify:Creating or reading a model}{3.1}{X877FB4F48578544E}
-\makelabel{gurobify:Adding and deleting constraints}{3.2}{X7C005CF27BE32A57}
-\makelabel{gurobify:Adding and modifying objective functions}{3.3}{X813E985F7A2CF730}
-\makelabel{gurobify:Optimizing a model}{3.4}{X7D2E9CA9849C1E17}
-\makelabel{gurobify:Querying attributes and parameters}{3.5}{X7C6728BE7BB441E4}
-\makelabel{gurobify:Querying other attributes and parameters}{3.6}{X7FFA259B78D1DC6E}
-\makelabel{gurobify:Modifying attributes and parameters}{3.7}{X85C908697CD13F5A}
-\makelabel{gurobify:Modifying other attributes and parameters}{3.8}{X7A7ED7598622FB73}
+\makelabel{gurobify:Creating Or Reading A Model}{3.1}{X877FB4F48578544E}
+\makelabel{gurobify:Adding And Deleting Constraints}{3.2}{X7C005CF27BE32A57}
+\makelabel{gurobify:Adding And Modifying Objective Functions}{3.3}{X813E985F7A2CF730}
+\makelabel{gurobify:Optimising A Model}{3.4}{X84F40F007DC59A4A}
+\makelabel{gurobify:Querying Attributes And Parameters}{3.5}{X7C6728BE7BB441E4}
+\makelabel{gurobify:Querying Other Attributes And Parameters}{3.6}{X7FFA259B78D1DC6E}
+\makelabel{gurobify:Modifying Attributes And Parameters}{3.7}{X85C908697CD13F5A}
+\makelabel{gurobify:Modifying Other Attributes And Parameters}{3.8}{X7A7ED7598622FB73}
 \makelabel{gurobify:Examples}{4}{X7A489A5D79DA9E5C}
 \makelabel{gurobify:Sudoku solver}{4.1}{X8178D90E8532685F}
 \makelabel{gurobify:Appendix}{5}{X86E649828230497D}
-\makelabel{gurobify:Gurobify links}{5.1}{X78ED02E086FD61CC}
-\makelabel{gurobify:GAP links}{5.2}{X8122776087DEC60B}
-\makelabel{gurobify:Gurobi links}{5.3}{X86F5635F87FF23D6}
+\makelabel{gurobify:Gurobify Links}{5.1}{X78ED02E086FD61CC}
+\makelabel{gurobify:GAP Links}{5.2}{X7CECA0458071F09B}
+\makelabel{gurobify:Gurobi Links}{5.3}{X86F5635F87FF23D6}
 \makelabel{gurobify:Optimisation Status Codes}{5.4}{X7FB642867EA9BDDC}
 \makelabel{gurobify:Bibliography}{Bib}{X7A6F98FD85F02BFE}
 \makelabel{gurobify:References}{Bib}{X7A6F98FD85F02BFE}
@@ -45,12 +45,12 @@
 \makelabel{gurobify:GurobiMinimiseModel (for IsGurobiModel)}{3.3.2}{X803628D383545D0E}
 \makelabel{gurobify:GurobiSetObjectiveFunction (for IsGurobiModel, IsList)}{3.3.3}{X83A23C757B5BF985}
 \makelabel{gurobify:GurobiObjectiveFunction (for IsGurobiModel)}{3.3.4}{X815D981A82AA744D}
-\makelabel{gurobify:GurobiOptimizeModel}{3.4.1}{X80EAEA647CF980BA}
+\makelabel{gurobify:GurobiOptimiseModel}{3.4.1}{X79B36E398480D014}
 \makelabel{gurobify:GurobiReset}{3.4.2}{X7A6D43D1797E8C42}
 \makelabel{gurobify:GurobiUpdateModel}{3.4.3}{X7B4BFD4878C5D61A}
 \makelabel{gurobify:GurobiSolution (for IsGurobiModel)}{3.4.4}{X848B53DF8794358C}
 \makelabel{gurobify:GurobiObjectiveValue (for IsGurobiModel)}{3.4.5}{X85B8DBF882D458FF}
-\makelabel{gurobify:GurobiOptimizationStatus (for IsGurobiModel)}{3.4.6}{X7A1BA3137D85FDAB}
+\makelabel{gurobify:GurobiOptimisationStatus (for IsGurobiModel)}{3.4.6}{X7A5ACCC385FCAD05}
 \makelabel{gurobify:GurobiNumberOfVariables (for IsGurobiModel)}{3.5.1}{X81FBE98F84413201}
 \makelabel{gurobify:GurobiNumberOfConstraints (for IsGurobiModel)}{3.5.2}{X87042E1F86357576}
 \makelabel{gurobify:GurobiObjectiveBound (for IsGurobiModel)}{3.5.3}{X8658BCCD85405DAE}

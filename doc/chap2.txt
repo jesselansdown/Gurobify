@@ -19,7 +19,7 @@
   
   [30X    [33X[0;6YDeleting constraints from a model[133X
   
-  [30X    [33X[0;6YOptimizing a model[133X
+  [30X    [33X[0;6YOptimising a model[133X
   
   [30X    [33X[0;6YQuerying the optimisation status of a model[133X
   
@@ -34,14 +34,13 @@
   [30X    [33X[0;6YReading a model from a file[133X
   
   [33X[0;0YThe purpose of this example is to illustrate the use of Gurobify in a quick,
-  simple  manner.  The  example  itself  is  trivial,  but the same proceedure
-  applies  for  much  more  complex  models. It only utilises some of the core
-  commands available in Gurobify, though more commands are listed in detail in
-  Chapter  3  "Using  Gurobify",  and  further examples are given in Chapter 4
-  "Examples".[133X
+  simple manner. The example itself is trivial, but the same procedure applies
+  for  much  more  complex  models. It only utilises some of the core commands
+  available  in Gurobify, though more commands are listed in detail in Chapter
+  3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".[133X
   
   
-  [1X2.2 [33X[0;0YSimple example[133X[101X
+  [1X2.2 [33X[0;0YSimple Example[133X[101X
   
   [33X[0;0YThe  first step in using gurobify is to create a model. To do this, we first
   need  to define the types of variables that are to be used in the model, and
@@ -60,11 +59,12 @@
   
   [33X[0;0YHaving  defined our model, we can now add constraints. To do this, a list of
   the coefficients for each of the variables is given, along with the sense of
-  the  equation (that is, [23X=[123X, [23X\le[123X or [23X\ge[123X), and the value on the right hand side
-  of  the  constraint,  and optionally a name for the constraints. Gurobi does
-  not distinguish between [23X\le[123X and [23X<[123X or [23X\ge[123X and [23X>[123X, though we note that gurobify
-  only  accepts the form [23X<[123X or [23X>[123X. We add constraints the [23X2x + 2y + 2z \le 6[123X and
-  [23Xx + 2y + 3z \ge 5[123X to our model. We do not assign them names.[133X
+  the  equation  (that is, [23X=[123X, [23X<[123X or [23X>[123X), the value on the right hand side of the
+  constraint,   and  optionally  a  name  for  the  constraints.  Gurobi  does
+  interprets  [23X<[123X  as  [23X\le[123X  and  [23X>[123X as [23X\ge[123X and does not distinguish between them.
+  Note,  however,  that  gurobify  only  accepts  the  form [23X<[123X or [23X>[123X. We add the
+  constraints [23X2x + 2y + 2z \le 6[123X and [23Xx + 2y + 3z \ge 5[123X to our model. We do not
+  assign them names.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint(model, [2, 2, 2], "<", 6 );[127X[104X
@@ -87,13 +87,13 @@
     [4X[28Xtrue[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YWe  can now optimize the model. This will return an Gurobi opimiztion status
+  [33X[0;0YWe  can  now optimise the model. This will return a Gurobi opimistion status
   code.  More  information on the status codes can be found in the Appendix. A
-  status  code of [23X2[123X lets us know that the model was successfully optimized. We
+  status  code of [23X2[123X lets us know that the model was successfully optimised. We
   may then query the model's solution.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(model);[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XGurobiSolution(model);[127X[104X
     [4X[28X[ 1., 1., 1. ][128X[104X
@@ -105,18 +105,18 @@
   was last optimised.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizationStatus(model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimisationStatus(model);[127X[104X
     [4X[28X2[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YWe  can reset any information found on a model to its pre-optimization stat.
-  If we then check its status, it will tell us that the model has been loaded,
-  but no optimization information is available.[133X
+  [33X[0;0YWe can reset any information found on a model to its pre-optimisation state.
+  If  we then check its status it will tell us that the model has been loaded,
+  but no optimisation information is available.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiReset(model);[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizationStatus(model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimisationStatus(model);[127X[104X
     [4X[28X1[128X[104X
   [4X[32X[104X
   
@@ -127,7 +127,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiMinimiseModel(model);[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(model);[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XGurobiSolution(model);                                [127X[104X
     [4X[28X[ 0., 1., 1. ][128X[104X
@@ -160,7 +160,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint(re_model, [1, 1, 1], ">", 3, "Other Constraint");[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(re_model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(re_model);[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XGurobiSolution(re_model);[127X[104X
     [4X[28X[ 1., 1., 1. ][128X[104X
@@ -173,7 +173,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint(re_model, [0, 1, 1], "<", 1, "Other Constraint");[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(re_model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(re_model);[127X[104X
     [4X[28X3[128X[104X
   [4X[32X[104X
   
@@ -183,7 +183,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiDeleteConstraintsWithName(re_model, "Other Constraint");[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(re_model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(re_model);[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XGurobiSolution(re_model);[127X[104X
     [4X[28X[ 0., 1., 1. ][128X[104X
@@ -199,11 +199,11 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XGurobiSetTimeLimit(re_model, 0.000001);[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(re_model); [127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(re_model); [127X[104X
     [4X[28X9[128X[104X
     [4X[25Xgap>[125X [27XGurobiSetTimeLimit(re_model, 10);[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(re_model);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(re_model);[127X[104X
     [4X[28X2[128X[104X
   [4X[32X[104X
   

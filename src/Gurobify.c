@@ -49,8 +49,10 @@ Obj GurobiTypeFunc(Obj o)
 
 Obj GurobiCopyFunc(Obj o, Int mut)
 {
-	// TODO copy the model using gurobi's methods and return
-    return o;
+
+	GRBmodel *model = GET_MODEL(o);
+	GRBmodel *copy = GRBcopymodel(model);
+    return NewModel(copy);
 }
 
 void GurobiCleanFunc(Obj o)
@@ -67,7 +69,7 @@ Int GurobiIsMutableObjFuncs(Obj o)
 
 /*
 	#! @Chapter Using Gurobify
-	#!	@Section Creating or reading a model
+	#!	@Section Creating Or Reading A Model
 	#! @Arguments ModelFile
 	#! @Returns a Gurobi model.
 	#! @Description
@@ -85,6 +87,9 @@ Obj GurobiReadModel(Obj self, Obj ModelFile )
     GRBmodel *model = NULL;
     int error = 0;
 	//TODO: Check that lp_file is actually a string
+	if (! IS_STRING(ModelFile))
+        ErrorMayQuit( "Error: File name must be a string.", 0, 0 );
+
     char *lp_file_name = CSTR_STRING(ModelFile);
     error = GRBreadmodel(env, lp_file_name, &model);
     if (error)
@@ -126,6 +131,9 @@ Obj GUROBINEWMODEL(Obj self, Obj VariableTypes)
 	int i;
 	for (i = 0; i < number_of_variables; i = i+1){
 	
+		if (! IS_STRING(ELM_PLIST(VariableTypes, i+1)))
+	        ErrorMayQuit( "Error: Variable types must be strings.", 0, 0 );
+
 		char *var_type = CSTR_STRING(ELM_PLIST(VariableTypes, i+1));
 
 		if ( strcmp(var_type, "CONTINUOUS") == 0 ){
@@ -171,6 +179,9 @@ Obj GUROBISETVARIABLENAMES(Obj self, Obj GAPmodel, Obj VariableNames)
 	int i;
 
 	for (i = 0; i < number_of_variables; i = i+1){
+		if (! IS_STRING(ELM_PLIST(VariableNames, i+1)))
+	        ErrorMayQuit( "Error: Variable names must be strings.", 0, 0 );
+
 		error = GRBsetstrattrelement(model, "VarName", i, CSTR_STRING(ELM_PLIST(VariableNames, i+1)));
 	    if (error)
 	        ErrorMayQuit( "Error: Unable to set variable names.", 0, 0 );
@@ -181,20 +192,20 @@ Obj GUROBISETVARIABLENAMES(Obj self, Obj GAPmodel, Obj VariableNames)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Optimizing a model
+	#! @Section Optimising A Model
 	#! @Arguments Model
-	#! @Returns Optimisation status.
+	#! @Returns Optimisation status code.
 	#! @Description
 	#!  Takes a Gurobi model and optimises it. Returns the optimisation status code which indicates
 	#!	the outcome of the optimisation. A status code of 2 indicates that a feasible solution was found,
 	#!	a status code of 3 indicates the model is infeasible. There a number of other status codes.
 	#!	Refer to the Gurobi documentation for more information about status codes, or alternatively see the Appendix of this manual.
-	#!	The model itself is altered to reflect the optimisation, and more information about it can be obatained using other functions,
+	#!	The model itself is altered to reflect the optimisation, and more information about it can be obatained using other commands,
 	#!	in particular the GurobiSolution and GurobiObjectiveValue functions.
-	DeclareGlobalFunction("GurobiOptimizeModel");
+	DeclareGlobalFunction("GurobiOptimiseModel");
 */
 
-Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
+Obj GurobiOptimiseModel(Obj self, Obj GAPmodel )
 {
 
 //-------------------------------------------------------------------------------------
@@ -216,7 +227,7 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
     error = GRBoptimize(model);
 
     if (error)
-        ErrorMayQuit( "Error: model was not able to be optimized", 0, 0 );
+        ErrorMayQuit( "Error: model was not able to be optimised", 0, 0 );
 
 //-------------------------------------------------------------------------------------
 // Evaluate the outcome of the optimisation
@@ -230,11 +241,12 @@ Obj GurobiOptimizeModel(Obj self, Obj GAPmodel )
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Optimizing a model
+	#! @Section Optimising A Model
 	#! @Arguments Model
-	#! @Returns
+	#! @Returns true
 	#! @Description
-	#!	Reset all information associated with a solution for the model.
+	#!	Reset all information associated with an optimisation of the model, such as the optimisation status,
+	#!	the solution and the objective value.
 	DeclareGlobalFunction("GurobiReset");
 */
 
@@ -256,7 +268,7 @@ Obj GurobiReset(Obj self, Obj GAPmodel)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Modifying other attributes and parameters
+	#! @Section Modifying Other Attributes And Parameters
 	#! @Arguments Model, ParameterName, ParameterValue
 	#! @Returns
 	#! @Description
@@ -268,6 +280,10 @@ Obj GurobiReset(Obj self, Obj GAPmodel)
 
 Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
@@ -275,6 +291,9 @@ Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Par
 
 	if ( ! IS_INTOBJ(ParameterValue) )
 		ErrorMayQuit( "Error: Can only set integer parameters.", 0, 0 );
+
+	if (! IS_STRING(ParameterName))
+        ErrorMayQuit( "Error: ParameterName must be a string.", 0, 0 );
 
 	error = GRBsetintparam(modelenv, CSTR_STRING(ParameterName), INT_INTOBJ(ParameterValue));
     if (error)
@@ -286,7 +305,7 @@ Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Par
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Modifying other attributes and parameters
+	#! @Section Modifying Other Attributes And Parameters
 	#! @Arguments Model, ParameterName, ParameterValue
 	#! @Returns
 	#! @Description
@@ -298,6 +317,10 @@ Obj GurobiSetIntegerParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Par
 
 Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj ParameterValue)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
@@ -305,6 +328,9 @@ Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Para
 
 	if ( ! IS_MACFLOAT(ParameterValue) )
 		ErrorMayQuit( "Error: Can only set double parameters.", 0, 0 );
+
+	if (! IS_STRING(ParameterName))
+        ErrorMayQuit( "Error: ParameterName must be a string.", 0, 0 );
 
 	error = GRBsetdblparam(modelenv, CSTR_STRING(ParameterName), VAL_MACFLOAT(ParameterValue));
     if (error)
@@ -315,22 +341,29 @@ Obj GurobiSetDoubleParameter(Obj self, Obj GAPmodel, Obj ParameterName, Obj Para
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, ParameterName
 	#! @Returns parameter value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve the value of a integer-valued parameter.
+	#!	Takes a Gurobi model and retrieves the value of a integer-valued parameter.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
 	DeclareGlobalFunction("GurobiIntegerParameter");
 */
 
 Obj GurobiIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
 	int error;
 	int current_int_value;
+
+	if (! IS_STRING(ParameterName))
+        ErrorMayQuit( "Error: ParameterName must be a string.", 0, 0 );
 
 	error = GRBgetintparam(modelenv, CSTR_STRING(ParameterName), &current_int_value);
 	if (error){
@@ -342,22 +375,29 @@ Obj GurobiIntegerParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, ParameterName
 	#! @Returns parameter value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve the value of a double-valued parameter.
+	#!	Takes a Gurobi model and retrieves the value of a double-valued parameter.
 	#!	Refer to the Gurobi documentation for a list of parameters and their types.
 	DeclareGlobalFunction("GurobiDoubleParameter");
 */
 
 Obj GurobiDoubleParameter( Obj self, Obj GAPmodel, Obj ParameterName )
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	GRBenv *modelenv = NULL;
 	modelenv = GRBgetenv(model);
 	int error;
 	double current_double_value;
+
+	if (! IS_STRING(ParameterName))
+        ErrorMayQuit( "Error: ParameterName must be a string.", 0, 0 );
 
 	error = GRBgetdblparam(modelenv, CSTR_STRING(ParameterName), &current_double_value);
 	if (error){
@@ -384,6 +424,9 @@ This function is not documented.
 Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquations, Obj AdditionalConstraintSense,
 						Obj AdditionalConstraintRHSValue, Obj ConstraintName)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
 
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
@@ -441,6 +484,9 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	    }
 	}
 
+	if (! IS_STRING(AdditionalConstraintSense))
+        ErrorMayQuit( "Error: AdditionalConstraintSense must be a string.", 0, 0 );
+
 	char *sense = CSTR_STRING(AdditionalConstraintSense);
 
 	if ( ! (strlen(sense) == 1) ){
@@ -471,7 +517,7 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Adding and deleting constraints
+	#! @Section Adding And Deleting Constraints
 	#! @Arguments Model, ConstraintName
 	#! @Returns true
 	#! @Description
@@ -482,9 +528,15 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 {
 
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int ConstraintNumber;
 	int error;
+	if (! IS_STRING(ConstraintName))
+        ErrorMayQuit( "Error: ConstraintName must be a string.", 0, 0 );
+
 	error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
 	if ( error )
 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
@@ -509,17 +561,21 @@ Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Modifying other attributes and parameters
+	#! @Section Modifying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName, AttributeValue
 	#! @Returns
 	#! @Description
 	#!	Takes a Gurobi model and assigns a value to a given integer-valued attribute.
-	#!	AttributeValue must be a double value
+	#!	AttributeValue must be a double value.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiSetIntegerAttribute");
 */
 Obj GurobiSetIntegerAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 
@@ -527,6 +583,10 @@ Obj GurobiSetIntegerAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Att
 		ErrorMayQuit( "Error: Can only set integer-valued attributes. Check attribute type and name.", 0, 0 );
 
 	if (IS_INTOBJ(AttributeValue)){
+
+		if (! IS_STRING(AttributeName))
+	        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 		error = GRBsetintattr(model, CSTR_STRING(AttributeName), INT_INTOBJ(AttributeValue));
     	if (error)
         	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
@@ -537,18 +597,22 @@ Obj GurobiSetIntegerAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Att
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Modifying other attributes and parameters
+	#! @Section Modifying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName, AttributeValue
 	#! @Returns
 	#! @Description
 	#!	Takes a Gurobi model and assigns a value to a given double-valued attribute.
-	#!	AttributeValue must be a double value
+	#!	AttributeValue must be a double value.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiSetDoubleAttribute");
 */
 
 Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj AttributeValue)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 
@@ -556,6 +620,10 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 		ErrorMayQuit( "Error: Can only set double-valued attributes. Check attribute type and name.", 0, 0 );
 
 	if (IS_MACFLOAT(AttributeValue)){
+
+		if (! IS_STRING(AttributeName))
+	        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 		error = GRBsetdblattr(model, CSTR_STRING(AttributeName), VAL_MACFLOAT(AttributeValue));
 		if (error)
         	ErrorMayQuit( "Error: Unable to set attribute.", 0, 0 );
@@ -567,20 +635,27 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve the value of an integer-valued attribute.
+	#!	Takes a Gurobi model and retrieves the value of an integer-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiIntegerAttribute");
 */
 
 Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 	int current_int_value;
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
 	error = GRBgetintattr(model, CSTR_STRING(AttributeName), &current_int_value);
 	if (error){
@@ -592,20 +667,27 @@ Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute value
 	#! @Description
-	#!	Takes a Gurobi model and retrieve the value of a double-valued attribute.
+	#!	Takes a Gurobi model and retrieves the value of a double-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiDoubleAttribute");
 */
 
 Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error;
 	double current_double_value;
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
 	error = GRBgetdblattr(model, CSTR_STRING(AttributeName), &current_double_value);
 	if (error){
@@ -619,18 +701,22 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute array
 	#! @Description
-	#!	Takes a Gurobi model and retrieve an attribute array.
-	#!	Can only get value of attributes arrays which take integer values,
+	#!	Takes a Gurobi model and retrieves an attribute array.
+	#!	Can only get values of attributes arrays which take integer values.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiIntegerAttributeArray");
 */
 
 Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
 	int i;
@@ -641,6 +727,10 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
 	int sol[number_of_variables];
+
+	if (! IS_STRING(AttributeName))
+	    ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 	error = GRBgetintattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
 	    if (error)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
@@ -659,18 +749,22 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute array
 	#! @Description
-	#!	Takes a Gurobi model and retrieve an attribute array.
-	#!	Can only get value of attributes arrays which take double values,
+	#!	Takes a Gurobi model and retrieves an attribute array.
+	#!	Can only get values of attributes arrays which take double values.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 	DeclareGlobalFunction("GurobiDoubleAttributeArray");
 */
 
 Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
 	int i;
@@ -681,6 +775,10 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
 	double sol[number_of_variables];
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 	error = GRBgetdblattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, sol);		//TODO: check for errors
 	    if (error)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
@@ -698,18 +796,22 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Querying other attributes and parameters
+	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
 	#! @Returns attibute array
 	#! @Description
 	#! @Description
-	#!	Takes a Gurobi model and retrieve an attribute array.
-	#!	Can only get value of attributes arrays which have string values,
+	#!	Takes a Gurobi model and retrieves an attribute array.
+	#!	Can only get values of attributes arrays which have string values.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
 		DeclareGlobalFunction("GurobiStringAttributeArray");
 */
 Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
 	int i;
@@ -720,6 +822,10 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
 	char **attrvals[number_of_variables];
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 	error = GRBgetstrattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, attrvals);
     if (error)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
@@ -740,7 +846,7 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Modifying other attributes and parameters
+	#! @Section Modifying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName, AttributeValueArray
 	#! @Returns
 	#! @Description
@@ -751,6 +857,10 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 */
 Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj GAParray)
 {
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 
 	if (! IS_PLIST(GAParray) )
@@ -769,7 +879,10 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 			vals[i] = VAL_MACFLOAT(ELM_PLIST(GAParray,i+1));
 		}
 	}
-	
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
 	error = GRBsetdblattrarray(model, CSTR_STRING(AttributeName), 0, length, vals);
 	if (error)
     	ErrorMayQuit( "Error: Unable to set attribute array.", 0, 0 );
@@ -779,13 +892,13 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Creating or reading a model
+	#! @Section Creating Or Reading A Model
 	#! @Arguments Model, FileName
-	#! @Returns
+	#! @Returns true
 	#! @Description
 	#!  Takes a model and writes it to a file. File type written is determined by the FileName suffix.
-	#!	File types include .mps, .rew, .lp, .rlp, .ilp, .sol, or .prm
-	#!  Refer to the gurobi documentation for more infomation on which file types can be read.
+	#!	File types include .mps, .rew, .lp, .rlp, .ilp, .sol, or .prm.
+	#!  Refer to the gurobi documentation for more infomation on which file types can be written.
 	DeclareGlobalFunction("GurobiWriteToFile");
 */
 
@@ -793,7 +906,15 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 {
 // Note that the file suffix determines what sort of file is written. Valid sufixes are .mps, .rew, .lp, or .rlp, and a number
 // of others depending on what is to be written.
-	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+   	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	if (! IS_STRING(FileName))
+        ErrorMayQuit( "Error: FileName must be a string.", 0, 0 );
+
 	char *file_name = CSTR_STRING(FileName);
 
 	int error = GRBwrite(model, file_name);
@@ -806,24 +927,29 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 
 /*
 	#! @Chapter Using Gurobify
-	#! @Section Optimizing a model
+	#! @Section Optimising A Model
 	#! @Arguments Model
-	#! @Returns
+	#! @Returns true
 	#! @Description
-	#!  Takes a model and updates it. Changes to parameters or constraints are not processed
+	#!  Takes a model and updates it. Changes to a model (such as changes to parameters or constraints) are not processed
 	#!	until the model is either updated or optimised. 
 	DeclareGlobalFunction("GurobiUpdateModel");
 */
 
 Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
 
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
 	GRBmodel *model = GET_MODEL(GAPmodel);
 	int error = GRBupdatemodel(model);
 	if (error)
 		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );
 
-	return 0;
+	return True;
 }
+
+
 
 typedef Obj (* GVarFunc)(/*arguments*/);
 
@@ -838,7 +964,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReadModel, 1, "ModelFile"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBINEWMODEL, 1, "VariableTypes"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBISETVARIABLENAMES, 2, "model, VariableNames"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimizeModel, 1, "model"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiOptimiseModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiReset, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerParameter, 3, "model, ParameterName, ParameterValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleParameter, 3, "model, ParameterName, ParameterValue"),

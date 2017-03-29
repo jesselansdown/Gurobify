@@ -1,5 +1,5 @@
 #! @Chapter Getting Started
-#! @Section Simple example
+#! @Section Simple Example
 
 #! The first step in using gurobify is to create a model. To do this, we first need to define the types of variables
 #! that are to be used in the model, and we may optionally give them names. In this case we create a model
@@ -16,10 +16,11 @@ GurobiMaximiseModel(model);
 #! @EndExample
 
 #! Having defined our model, we can now add constraints. To do this, a list of the coefficients for each of the variables is given,
-#! along with the sense of the equation (that is, $=$, $\le$ or $\ge$), and the value on the right hand side of the constraint,
+#! along with the sense of the equation (that is, $=$, $&lt;$ or $&gt;$), the value on the right hand side of the constraint,
 #! and optionally a name for the constraints.
-#! Gurobi does not distinguish between $\le$ and $&lt;$ or $\ge$ and $&gt;$, though we note that gurobify only accepts the form $&lt;$ or $&gt;$.
-#! We add constraints the $2x + 2y + 2z \le 6$ and $x + 2y + 3z \ge 5$ to our model. We do not assign them names.
+#! Gurobi does interprets $&lt;$ as $\le$ and $&gt;$ as $\ge$ and does not distinguish between them. Note, however, that gurobify only
+#! accepts the form $&lt;$ or $&gt;$.
+#! We add the constraints $2x + 2y + 2z \le 6$ and $x + 2y + 3z \ge 5$ to our model. We do not assign them names.
 
 #! @BeginExample
 GurobiAddConstraint(model, [2, 2, 2], "<", 6 );
@@ -41,12 +42,12 @@ GurobiAddMultipleConstraints( model, constraints, sense, rhs );
 #! true
 #! @EndExample
 
-#! We can now optimize the model. This will return an Gurobi opimiztion status code. More information on the status codes can be
-#! found in the Appendix. A status code of $2$ lets us know that the model was successfully optimized. We may then query the model's
+#! We can now optimise the model. This will return a Gurobi opimistion status code. More information on the status codes can be
+#! found in the Appendix. A status code of $2$ lets us know that the model was successfully optimised. We may then query the model's
 #! solution.
 
 #! @BeginExample
-GurobiOptimizeModel(model);
+GurobiOptimiseModel(model);
 #! 2
 GurobiSolution(model);
 #! [ 1., 1., 1. ]
@@ -56,17 +57,17 @@ GurobiSolution(model);
 #! of a model directly at any point in time. It will give the status of the model at the point when it was last optimised.
 
 #! @BeginExample
-GurobiOptimizationStatus(model);
+GurobiOptimisationStatus(model);
 #! 2
 #! @EndExample
 
-#! We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the
-#! model has been loaded, but no optimization information is available. 
+#! We can reset any information found on a model to its pre-optimisation state. If we then check its status it will tell us that the
+#! model has been loaded, but no optimisation information is available. 
 
 #! @BeginExample
 GurobiReset(model);
 #! true
-GurobiOptimizationStatus(model);
+GurobiOptimisationStatus(model);
 #! 1
 #! @EndExample
 
@@ -76,7 +77,7 @@ GurobiOptimizationStatus(model);
 #! @BeginExample
 GurobiMinimiseModel(model);
 #! true
-GurobiOptimizeModel(model);
+GurobiOptimiseModel(model);
 #! 2
 GurobiSolution(model);                                
 #! [ 0., 1., 1. ]
@@ -104,7 +105,7 @@ re_model := GurobiReadModel("test.lp");
 #! @BeginExample
 GurobiAddConstraint(re_model, [1, 1, 1], ">", 3, "Other Constraint");
 #! true
-GurobiOptimizeModel(re_model);
+GurobiOptimiseModel(re_model);
 #! 2
 GurobiSolution(re_model);
 #! [ 1., 1., 1. ]
@@ -116,7 +117,7 @@ GurobiSolution(re_model);
 #! @BeginExample
 GurobiAddConstraint(re_model, [0, 1, 1], "<", 1, "Other Constraint");
 #! true
-GurobiOptimizeModel(re_model);
+GurobiOptimiseModel(re_model);
 #! 3
 #! @EndExample
 
@@ -126,7 +127,7 @@ GurobiOptimizeModel(re_model);
 #! @BeginExample
 GurobiDeleteConstraintsWithName(re_model, "Other Constraint");
 #! true
-GurobiOptimizeModel(re_model);
+GurobiOptimiseModel(re_model);
 #! 2
 GurobiSolution(re_model);
 #! [ 0., 1., 1. ]
@@ -140,11 +141,11 @@ GurobiSolution(re_model);
 #! @BeginExample
 GurobiSetTimeLimit(re_model, 0.000001);
 #! true
-GurobiOptimizeModel(re_model); 
+GurobiOptimiseModel(re_model); 
 #! 9
 GurobiSetTimeLimit(re_model, 10);
 #! true
-GurobiOptimizeModel(re_model);
+GurobiOptimiseModel(re_model);
 #! 2
 #! @EndExample
 

@@ -232,7 +232,7 @@ InstallMethod( GurobiRunTime, "",
 	end
 );
 
-InstallMethod( GurobiOptimizationStatus, "",
+InstallMethod( GurobiOptimisationStatus, "",
 	[ IsGurobiModel ] ,
 	function(model)
 

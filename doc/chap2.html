@@ -25,7 +25,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7B1863E17896BCE1">2.1 <span class="Heading">Getting Started</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X811824A37C2C1786">2.2 <span class="Heading">Simple example</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X811824A37C2C1786">2.2 <span class="Heading">Simple Example</span></a>
 </span>
 </div>
 </div>
@@ -55,7 +55,7 @@
 <li><p>Deleting constraints from a model</p>
 
 </li>
-<li><p>Optimizing a model</p>
+<li><p>Optimising a model</p>
 
 </li>
 <li><p>Querying the optimisation status of a model</p>
@@ -77,11 +77,11 @@
 
 </li>
 </ul>
-<p>The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same proceedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".</p>
+<p>The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same procedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".</p>
 
 <p><a id="X811824A37C2C1786" name="X811824A37C2C1786"></a></p>
 
-<h4>2.2 <span class="Heading">Simple example</span></h4>
+<h4>2.2 <span class="Heading">Simple Example</span></h4>
 
 <p>The first step in using gurobify is to create a model. To do this, we first need to define the types of variables that are to be used in the model, and we may optionally give them names. In this case we create a model with three binary variables, called <span class="Math">x</span>, <span class="Math">y</span> and <span class="Math">z</span>. We then define the objective function as <span class="Math">x + 2 y + z</span>, which we set to be maximised.</p>
 
@@ -95,7 +95,7 @@ true
 true
 </pre></div>
 
-<p>Having defined our model, we can now add constraints. To do this, a list of the coefficients for each of the variables is given, along with the sense of the equation (that is, <span class="Math">=</span>, <span class="Math">\le</span> or <span class="Math">\ge</span>), and the value on the right hand side of the constraint, and optionally a name for the constraints. Gurobi does not distinguish between <span class="Math">\le</span> and <span class="Math">&lt;</span> or <span class="Math">\ge</span> and <span class="Math">&gt;</span>, though we note that gurobify only accepts the form <span class="Math">&lt;</span> or <span class="Math">&gt;</span>. We add constraints the <span class="Math">2x + 2y + 2z \le 6</span> and <span class="Math">x + 2y + 3z \ge 5</span> to our model. We do not assign them names.</p>
+<p>Having defined our model, we can now add constraints. To do this, a list of the coefficients for each of the variables is given, along with the sense of the equation (that is, <span class="Math">=</span>, <span class="Math">&lt;</span> or <span class="Math">&gt;</span>), the value on the right hand side of the constraint, and optionally a name for the constraints. Gurobi does interprets <span class="Math">&lt;</span> as <span class="Math">\le</span> and <span class="Math">&gt;</span> as <span class="Math">\ge</span> and does not distinguish between them. Note, however, that gurobify only accepts the form <span class="Math">&lt;</span> or <span class="Math">&gt;</span>. We add the constraints <span class="Math">2x + 2y + 2z \le 6</span> and <span class="Math">x + 2y + 3z \ge 5</span> to our model. We do not assign them names.</p>
 
 
 <div class="example"><pre>
@@ -119,11 +119,11 @@ true
 true
 </pre></div>
 
-<p>We can now optimize the model. This will return an Gurobi opimiztion status code. More information on the status codes can be found in the Appendix. A status code of <span class="Math">2</span> lets us know that the model was successfully optimized. We may then query the model's solution.</p>
+<p>We can now optimise the model. This will return a Gurobi opimistion status code. More information on the status codes can be found in the Appendix. A status code of <span class="Math">2</span> lets us know that the model was successfully optimised. We may then query the model's solution.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(model);</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(model);</span>
 [ 1., 1., 1. ]
@@ -133,17 +133,17 @@ true
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizationStatus(model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimisationStatus(model);</span>
 2
 </pre></div>
 
-<p>We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the model has been loaded, but no optimization information is available.</p>
+<p>We can reset any information found on a model to its pre-optimisation state. If we then check its status it will tell us that the model has been loaded, but no optimisation information is available.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiReset(model);</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizationStatus(model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimisationStatus(model);</span>
 1
 </pre></div>
 
@@ -153,7 +153,7 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiMinimiseModel(model);</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(model);</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(model);                                </span>
 [ 0., 1., 1. ]
@@ -181,7 +181,7 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(re_model, [1, 1, 1], "&gt;", 3, "Other Constraint");</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(re_model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(re_model);</span>
 [ 1., 1., 1. ]
@@ -193,7 +193,7 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(re_model, [0, 1, 1], "&lt;", 1, "Other Constraint");</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(re_model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
 3
 </pre></div>
 
@@ -203,7 +203,7 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiDeleteConstraintsWithName(re_model, "Other Constraint");</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(re_model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(re_model);</span>
 [ 0., 1., 1. ]
@@ -215,11 +215,11 @@ true
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetTimeLimit(re_model, 0.000001);</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(re_model); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model); </span>
 9
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetTimeLimit(re_model, 10);</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(re_model);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
 2
 </pre></div>
 

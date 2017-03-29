@@ -2,10 +2,10 @@
   [1X4 [33X[0;0YExamples[133X[101X
   
   [33X[0;0YThis  section contains a number of examples which are intended to illustrate
-  the  usage of Gurobify. Each of these examples also form a test suite (along
-  with  the  Simple  example  in  Chapter  2), which can be used to check that
-  Gurobify   is   functioning   properly.   See   Section   1.5  "Testing  and
-  documentation" for more on this aspect of the examples.[133X
+  the  usage  of  Gurobify.  These examples also form a test suite (along with
+  "Simple  Example" in Chapter 2), which can be used to check that Gurobify is
+  functioning  properly.  See Section 1.5 "Testing and documentation" for more
+  on this aspect of the examples.[133X
   
   
   [1X4.1 [33X[0;0YSudoku solver[133X[101X
@@ -163,11 +163,11 @@
     [4X[28Xtrue;[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YNow  we  optimize.  Change  the solution into the set of variable names, and
+  [33X[0;0YNow  we  optimise.  Change  the solution into the set of variable names, and
   then display the solution.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel( model );[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel( model );[127X[104X
     [4X[25Xgap>[125X [27Xsol := GurobiSolution( model );;[127X[104X
     [4X[25Xgap>[125X [27Xsol2 := ExampleFuncIndexToNames( var_names, sol );;[127X[104X
     [4X[25Xgap>[125X [27XExampleFuncDisplaySudoku( sol2 );[127X[104X
@@ -201,7 +201,7 @@
   ExampleFuncDisplaySudoku  as  before,  we may simply add a new constraint to
   the  model to represent the starting configuration of the Sudoku problem. In
   case  we  do  not  remember  the variable names or their order, we can first
-  extract  this  information  from  the  model. We then optimize the model and
+  extract  this  information  from  the  model. We then optimise the model and
   display the solution as before.[133X
   
   [4X[32X  Example  [32X[104X
@@ -215,7 +215,7 @@
     [4X[25Xgap>[125X [27Xconstr := ExampleFuncNamesToIndex(var_names2, starter_squares);;[127X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint(model2, constr , "=", Sum( constr ));[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel(model2);[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel(model2);[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27Xsol := GurobiSolution(model2);;[127X[104X
     [4X[25Xgap>[125X [27Xsol2 := ExampleFuncIndexToNames(var_names2, sol);;[127X[104X
@@ -233,8 +233,8 @@
   
   [33X[0;0YWhat  if  we  removed  a  initial  value  from  the Sudoku problem? How many
   solutions  would  there  be?  We  remove  set  an  entry  from  the  starter
-  configuration  and  then  optimize.  We  feed  this  solution  back  in as a
-  constraint,  and  then  reoptimize. We can repeat this process until we have
+  configuration  and  then  optimise.  We  feed  this  solution  back  in as a
+  constraint,  and  then  reoptimise. We can repeat this process until we have
   found  all  feasible  solutions,  which  will  be  when  the  model  becomes
   infeasible.[133X
   
@@ -249,18 +249,18 @@
     [4X[25Xgap>[125X [27Xconstr := ExampleFuncNamesToIndex(var_names3, starter_squares);;[127X[104X
     [4X[25Xgap>[125X [27XGurobiAddConstraint( model3, constr , "=", Sum( constr ));[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XGurobiOptimizeModel( model3 );[127X[104X
+    [4X[25Xgap>[125X [27XGurobiOptimiseModel( model3 );[127X[104X
     [4X[28X2[128X[104X
-    [4X[25Xgap>[125X [27Xif GurobiOptimizationStatus( model3 ) = 2 then[127X[104X
+    [4X[25Xgap>[125X [27Xif GurobiOptimisationStatus( model3 ) = 2 then[127X[104X
     [4X[25X>[125X [27X	number_of_solutions := 1;[127X[104X
     [4X[25Xgap>[125X [27Xelse[127X[104X
     [4X[25X>[125X [27X	number_of_solutions := 0;[127X[104X
     [4X[25Xgap>[125X [27Xfi;[127X[104X
-    [4X[25Xgap>[125X [27Xwhile GurobiOptimizationStatus( model3 ) = 2 do[127X[104X
+    [4X[25Xgap>[125X [27Xwhile GurobiOptimisationStatus( model3 ) = 2 do[127X[104X
     [4X[25X>[125X [27X	sol := GurobiSolution( model3 );;[127X[104X
     [4X[25Xgap>[125X [27X	number_of_solutions := number_of_solutions + 1;[127X[104X
     [4X[25Xgap>[125X [27X	GurobiAddConstraint( model3, sol , "<", 80 );[127X[104X
-    [4X[25Xgap>[125X [27X	GurobiOptimizeModel( model3 );[127X[104X
+    [4X[25Xgap>[125X [27X	GurobiOptimiseModel( model3 );[127X[104X
     [4X[25Xgap>[125X [27Xod;[127X[104X
     [4X[25Xgap>[125X [27XPrint( number_of_solutions, "\n");[127X[104X
     [4X[28X67[128X[104X

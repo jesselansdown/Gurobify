@@ -26,7 +26,7 @@ Adding multiple constraints to a model at one time
 Deleting constraints from a model
 </Item>
 <Item>
-Optimizing a model
+Optimising a model
 </Item>
 <Item>
 Querying the optimisation status of a model
@@ -47,12 +47,12 @@ Writing a model to a file
 Reading a model from a file
 </Item>
 </List>
-The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same proceedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".
+The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same procedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".
 </Section>
 
 
-<Section Label="Chapter_Getting_Started_Section_Simple_example">
-<Heading>Simple example</Heading>
+<Section Label="Chapter_Getting_Started_Section_Simple_Example">
+<Heading>Simple Example</Heading>
 
 The first step in using gurobify is to create a model. To do this, we first need to define the types of variables
 that are to be used in the model, and we may optionally give them names. In this case we create a model
@@ -69,10 +69,11 @@ true
 
 
 Having defined our model, we can now add constraints. To do this, a list of the coefficients for each of the variables is given,
-along with the sense of the equation (that is, <Math>=</Math>, <Math>\le</Math> or <Math>\ge</Math>), and the value on the right hand side of the constraint,
+along with the sense of the equation (that is, <Math>=</Math>, <Math>&lt;</Math> or <Math>&gt;</Math>), the value on the right hand side of the constraint,
 and optionally a name for the constraints.
-Gurobi does not distinguish between <Math>\le</Math> and <Math>&lt;</Math> or <Math>\ge</Math> and <Math>&gt;</Math>, though we note that gurobify only accepts the form <Math>&lt;</Math> or <Math>&gt;</Math>.
-We add constraints the <Math>2x + 2y + 2z \le 6</Math> and <Math>x + 2y + 3z \ge 5</Math> to our model. We do not assign them names.
+Gurobi does interprets <Math>&lt;</Math> as <Math>\le</Math> and <Math>&gt;</Math> as <Math>\ge</Math> and does not distinguish between them. Note, however, that gurobify only
+accepts the form <Math>&lt;</Math> or <Math>&gt;</Math>.
+We add the constraints <Math>2x + 2y + 2z \le 6</Math> and <Math>x + 2y + 3z \ge 5</Math> to our model. We do not assign them names.
 <Example><![CDATA[
 gap> GurobiAddConstraint(model, [2, 2, 2], "<", 6 );
 true
@@ -94,11 +95,11 @@ true
 ]]></Example>
 
 
-We can now optimize the model. This will return an Gurobi opimiztion status code. More information on the status codes can be
-found in the Appendix. A status code of <Math>2</Math> lets us know that the model was successfully optimized. We may then query the model's
+We can now optimise the model. This will return a Gurobi opimistion status code. More information on the status codes can be
+found in the Appendix. A status code of <Math>2</Math> lets us know that the model was successfully optimised. We may then query the model's
 solution.
 <Example><![CDATA[
-gap> GurobiOptimizeModel(model);
+gap> GurobiOptimiseModel(model);
 2
 gap> GurobiSolution(model);
 [ 1., 1., 1. ]
@@ -108,17 +109,17 @@ gap> GurobiSolution(model);
 In addition to returning the optimisation status upon finishing optimisation, we can query the optimisation status
 of a model directly at any point in time. It will give the status of the model at the point when it was last optimised.
 <Example><![CDATA[
-gap> GurobiOptimizationStatus(model);
+gap> GurobiOptimisationStatus(model);
 2
 ]]></Example>
 
 
-We can reset any information found on a model to its pre-optimization stat. If we then check its status, it will tell us that the
-model has been loaded, but no optimization information is available.
+We can reset any information found on a model to its pre-optimisation state. If we then check its status it will tell us that the
+model has been loaded, but no optimisation information is available.
 <Example><![CDATA[
 gap> GurobiReset(model);
 true
-gap> GurobiOptimizationStatus(model);
+gap> GurobiOptimisationStatus(model);
 1
 ]]></Example>
 
@@ -128,7 +129,7 @@ We then optimise the model and, if the optimisation is succesful, retun the solu
 <Example><![CDATA[
 gap> GurobiMinimiseModel(model);
 true
-gap> GurobiOptimizeModel(model);
+gap> GurobiOptimiseModel(model);
 2
 gap> GurobiSolution(model);                                
 [ 0., 1., 1. ]
@@ -156,7 +157,7 @@ it the name "Other Constraint". We optimise the model and since it returns a fea
 <Example><![CDATA[
 gap> GurobiAddConstraint(re_model, [1, 1, 1], ">", 3, "Other Constraint");
 true
-gap> GurobiOptimizeModel(re_model);
+gap> GurobiOptimiseModel(re_model);
 2
 gap> GurobiSolution(re_model);
 [ 1., 1., 1. ]
@@ -168,7 +169,7 @@ status code of <Math>3</Math>, indicating that the model has no feasible solutio
 <Example><![CDATA[
 gap> GurobiAddConstraint(re_model, [0, 1, 1], "<", 1, "Other Constraint");
 true
-gap> GurobiOptimizeModel(re_model);
+gap> GurobiOptimiseModel(re_model);
 3
 ]]></Example>
 
@@ -178,7 +179,7 @@ as before.
 <Example><![CDATA[
 gap> GurobiDeleteConstraintsWithName(re_model, "Other Constraint");
 true
-gap> GurobiOptimizeModel(re_model);
+gap> GurobiOptimiseModel(re_model);
 2
 gap> GurobiSolution(re_model);
 [ 0., 1., 1. ]
@@ -192,11 +193,11 @@ documents other parameters and attributes that Gurobify is able to modify.
 <Example><![CDATA[
 gap> GurobiSetTimeLimit(re_model, 0.000001);
 true
-gap> GurobiOptimizeModel(re_model); 
+gap> GurobiOptimiseModel(re_model); 
 9
 gap> GurobiSetTimeLimit(re_model, 10);
 true
-gap> GurobiOptimizeModel(re_model);
+gap> GurobiOptimiseModel(re_model);
 2
 ]]></Example>
 

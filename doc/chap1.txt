@@ -6,7 +6,6 @@
   
   [33X[0;0YGurobify   is  a  [5XGAP[105X[GAP]  package  which  provides  an  interface  to  the
   optimisation software Gurobi[gurobi].[133X
-  [33X[0;0YINSERT LICENCE INFO[133X
   [33X[0;0YGurobify can be obtained from the Gurobify homepage:[133X
   
   [30X    [33X[0;6Yhttps://github.com/jesselansdown/Gurobify[133X
@@ -97,7 +96,7 @@
   installation  directory.  You may place Gurobify in a different location, so
   long as its parent directory is called "pkg". Installing Gurobify outside of
   the  [5XGAP[105X  root  pkg  directory is not recommended, but is useful for example
-  when  administrative privelages are needed to access the [5XGAP[105X root directory.
+  when  administrative privileges are needed to access the [5XGAP[105X root directory.
   Next  run  the  following  commands in the terminal from within the Gurobify
   directory.[133X
   
@@ -119,7 +118,7 @@
   [33X[0;0Y ‐-with-gaproot=/opt/gap4r8/[133X
   
   
-  [1X1.5 [33X[0;0YTesting and documentation[133X[101X
+  [1X1.5 [33X[0;0YTesting And Documentation[133X[101X
   
   [33X[0;0YTo  test  the  package  is working correctly, run the following command from
   inside the Gurobify directory.[133X
@@ -129,7 +128,7 @@
   [4X[32X[104X
   
   [33X[0;0YIt  transforms  each of the examples in Chapter 4 "Examples" and the example
-  given in Section 2.2 "Simple example" into test cases to check that Gurobify
+  given in Section 2.2 "Simple Example" into test cases to check that Gurobify
   is functioning correctly.[133X
   [33X[0;0YWithin  the  Gurobify  directory  there is a subdirectory called "doc". This
   directory  contains  the documentaion for Gurobify in the form of a pdf file
@@ -149,7 +148,7 @@
   [1X1.6 [33X[0;0YLoading Gurobify[133X[101X
   
   [33X[0;0YOpen  [5XGAP[105X  and  load Gurobify with the command [13XLoadPackage("Gurobify");[113X. You
-  should see something like the following.[133X
+  should see the following.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27X LoadPackage("Gurobify");[127X[104X

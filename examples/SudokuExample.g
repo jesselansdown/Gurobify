@@ -154,10 +154,10 @@ GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");
 #! true;
 #! @EndExample
 
-#! Now we optimize. Change the solution into the set of variable names, and then display the solution.
+#! Now we optimise. Change the solution into the set of variable names, and then display the solution.
 
 #! @BeginExample
-GurobiOptimizeModel( model );
+GurobiOptimiseModel( model );
 sol := GurobiSolution( model );;
 sol2 := ExampleFuncIndexToNames( var_names, sol );;
 ExampleFuncDisplaySudoku( sol2 );
@@ -192,7 +192,7 @@ GurobiWriteToFile( model, "SudokuSolver.lp" );
 #! and ExampleFuncDisplaySudoku as before,
 #! we may simply add a new constraint to the model to represent the starting configuration of the
 #! Sudoku problem. In case we do not remember the variable names or their order,
-#! we can first extract this information from the model. We then optimize the model and display
+#! we can first extract this information from the model. We then optimise the model and display
 #! the solution as before.
 
 #! @BeginExample
@@ -209,7 +209,7 @@ starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;
 GurobiAddConstraint(model2, constr , "=", Sum( constr ));
 #! true
-GurobiOptimizeModel(model2);
+GurobiOptimiseModel(model2);
 #! 2
 sol := GurobiSolution(model2);;
 sol2 := ExampleFuncIndexToNames(var_names2, sol);;
@@ -226,8 +226,8 @@ ExampleFuncDisplaySudoku( sol2 );
 #! @EndExample
 
 #! What if we removed a initial value from the Sudoku problem? How many solutions would there be?
-#! We remove set an entry from the starter configuration and then optimize.
-#! We feed this solution back in as a constraint, and then reoptimize. We can repeat this process
+#! We remove set an entry from the starter configuration and then optimise.
+#! We feed this solution back in as a constraint, and then reoptimise. We can repeat this process
 #! until we have found all feasible solutions, which will be when the model becomes infeasible.
 
 #! @BeginExample
@@ -243,19 +243,19 @@ starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;
 GurobiAddConstraint( model3, constr , "=", Sum( constr ));
 #! true
-GurobiOptimizeModel( model3 );
+GurobiOptimiseModel( model3 );
 #! 2
 
-if GurobiOptimizationStatus( model3 ) = 2 then
+if GurobiOptimisationStatus( model3 ) = 2 then
 	number_of_solutions := 1;
 else
 	number_of_solutions := 0;
 fi;
-while GurobiOptimizationStatus( model3 ) = 2 do
+while GurobiOptimisationStatus( model3 ) = 2 do
 	sol := GurobiSolution( model3 );;
 	number_of_solutions := number_of_solutions + 1;
 	GurobiAddConstraint( model3, sol , "<", 80 );
-	GurobiOptimizeModel( model3 );
+	GurobiOptimiseModel( model3 );
 od;
 Print( number_of_solutions, "\n");
 #! 67

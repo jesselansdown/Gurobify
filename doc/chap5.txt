@@ -2,19 +2,19 @@
   [1X5 [33X[0;0YAppendix[133X[101X
   
   
-  [1X5.1 [33X[0;0YGurobify links[133X[101X
+  [1X5.1 [33X[0;0YGurobify Links[133X[101X
   
   [30X    [33X[0;6YHomepage: https://github.com/jesselansdown/Gurobify[133X
   
   [30X    [33X[0;6YIssue tracker: https://github.com/jesselansdown/Gurobify/issues[133X
   
   
-  [1X5.2 [33X[0;0YGAP links[133X[101X
+  [1X5.2 [33X[0;0Y[5XGAP[105X[101X[1X Links[133X[101X
   
   [30X    [33X[0;6YHomepage: http://gap-system.org/[133X
   
   
-  [1X5.3 [33X[0;0YGurobi links[133X[101X
+  [1X5.3 [33X[0;0YGurobi Links[133X[101X
   
   [30X    [33X[0;6YHomepage: http://gurobi.com/[133X
   

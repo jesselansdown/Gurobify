@@ -27,8 +27,8 @@
   [2XGurobiObjectiveBound[102X (for IsGurobiModel)  3.5-3
   [2XGurobiObjectiveFunction[102X (for IsGurobiModel)  3.3-4
   [2XGurobiObjectiveValue[102X (for IsGurobiModel)  3.4-5
-  [2XGurobiOptimizationStatus[102X (for IsGurobiModel)  3.4-6
-  [2XGurobiOptimizeModel[102X  3.4-1
+  [2XGurobiOptimisationStatus[102X (for IsGurobiModel)  3.4-6
+  [2XGurobiOptimiseModel[102X  3.4-1
   [2XGurobiReadModel[102X  3.1-1
   [2XGurobiReset[102X  3.4-2
   [2XGurobiRunTime[102X (for IsGurobiModel)  3.5-4

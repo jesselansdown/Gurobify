@@ -4,8 +4,8 @@
 <Chapter Label="Chapter_Appendix">
 <Heading>Appendix</Heading>
 
-<Section Label="Chapter_Appendix_Section_Gurobify_links">
-<Heading>Gurobify links</Heading>
+<Section Label="Chapter_Appendix_Section_Gurobify_Links">
+<Heading>Gurobify Links</Heading>
 
 <List>
 <Item>
@@ -18,8 +18,8 @@ Issue tracker: https://github.com/jesselansdown/Gurobify/issues
 </Section>
 
 
-<Section Label="Chapter_Appendix_Section_GAP_links">
-<Heading>GAP links</Heading>
+<Section Label="Chapter_Appendix_Section_GAP_Links">
+<Heading>&GAP; Links</Heading>
 
 <List>
 <Item>
@@ -29,8 +29,8 @@ Homepage: http://gap-system.org/
 </Section>
 
 
-<Section Label="Chapter_Appendix_Section_Gurobi_links">
-<Heading>Gurobi links</Heading>
+<Section Label="Chapter_Appendix_Section_Gurobi_Links">
+<Heading>Gurobi Links</Heading>
 
 <List>
 <Item>

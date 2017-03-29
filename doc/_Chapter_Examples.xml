@@ -4,7 +4,7 @@
 <Chapter Label="Chapter_Examples">
 <Heading>Examples</Heading>
 
-This section contains a number of examples which are intended to illustrate the usage of Gurobify. Each of these examples also form a test suite (along with the Simple example in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.
+This section contains a number of examples which are intended to illustrate the usage of Gurobify. These examples also form a test suite (along with "Simple Example" in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.
 <Section Label="Chapter_Examples_Section_Sudoku_solver">
 <Heading>Sudoku solver</Heading>
 
@@ -156,9 +156,9 @@ true;
 ]]></Example>
 
 
-Now we optimize. Change the solution into the set of variable names, and then display the solution.
+Now we optimise. Change the solution into the set of variable names, and then display the solution.
 <Example><![CDATA[
-gap> GurobiOptimizeModel( model );
+gap> GurobiOptimiseModel( model );
 gap> sol := GurobiSolution( model );;
 gap> sol2 := ExampleFuncIndexToNames( var_names, sol );;
 gap> ExampleFuncDisplaySudoku( sol2 );
@@ -191,7 +191,7 @@ Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndex
 and ExampleFuncDisplaySudoku as before,
 we may simply add a new constraint to the model to represent the starting configuration of the
 Sudoku problem. In case we do not remember the variable names or their order,
-we can first extract this information from the model. We then optimize the model and display
+we can first extract this information from the model. We then optimise the model and display
 the solution as before.
 <Example><![CDATA[
 gap> model2 := GurobiReadModel( "SudokuSolver.lp" );
@@ -204,7 +204,7 @@ gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 gap> constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;
 gap> GurobiAddConstraint(model2, constr , "=", Sum( constr ));
 true
-gap> GurobiOptimizeModel(model2);
+gap> GurobiOptimiseModel(model2);
 2
 gap> sol := GurobiSolution(model2);;
 gap> sol2 := ExampleFuncIndexToNames(var_names2, sol);;
@@ -222,8 +222,8 @@ gap> ExampleFuncDisplaySudoku( sol2 );
 
 
 What if we removed a initial value from the Sudoku problem? How many solutions would there be?
-We remove set an entry from the starter configuration and then optimize.
-We feed this solution back in as a constraint, and then reoptimize. We can repeat this process
+We remove set an entry from the starter configuration and then optimise.
+We feed this solution back in as a constraint, and then reoptimise. We can repeat this process
 until we have found all feasible solutions, which will be when the model becomes infeasible.
 <Example><![CDATA[
 gap> model3 := GurobiReadModel( "SudokuSolver.lp" );
@@ -236,18 +236,18 @@ gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 gap> constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;
 gap> GurobiAddConstraint( model3, constr , "=", Sum( constr ));
 true
-gap> GurobiOptimizeModel( model3 );
+gap> GurobiOptimiseModel( model3 );
 2
-gap> if GurobiOptimizationStatus( model3 ) = 2 then
+gap> if GurobiOptimisationStatus( model3 ) = 2 then
 > 	number_of_solutions := 1;
 gap> else
 > 	number_of_solutions := 0;
 gap> fi;
-gap> while GurobiOptimizationStatus( model3 ) = 2 do
+gap> while GurobiOptimisationStatus( model3 ) = 2 do
 > 	sol := GurobiSolution( model3 );;
 gap> 	number_of_solutions := number_of_solutions + 1;
 gap> 	GurobiAddConstraint( model3, sol , "<", 80 );
-gap> 	GurobiOptimizeModel( model3 );
+gap> 	GurobiOptimiseModel( model3 );
 gap> od;
 gap> Print( number_of_solutions, "\n");
 67

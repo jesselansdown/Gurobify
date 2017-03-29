@@ -29,7 +29,7 @@
 
 <h3>4 <span class="Heading">Examples</span></h3>
 
-<p>This section contains a number of examples which are intended to illustrate the usage of Gurobify. Each of these examples also form a test suite (along with the Simple example in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.</p>
+<p>This section contains a number of examples which are intended to illustrate the usage of Gurobify. These examples also form a test suite (along with "Simple Example" in Chapter 2), which can be used to check that Gurobify is functioning properly. See Section 1.5 "Testing and documentation" for more on this aspect of the examples.</p>
 
 <p><a id="X8178D90E8532685F" name="X8178D90E8532685F"></a></p>
 
@@ -174,11 +174,11 @@
 true;
 </pre></div>
 
-<p>Now we optimize. Change the solution into the set of variable names, and then display the solution.</p>
+<p>Now we optimise. Change the solution into the set of variable names, and then display the solution.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel( model );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel( model );</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol := GurobiSolution( model );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames( var_names, sol );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncDisplaySudoku( sol2 );</span>
@@ -203,7 +203,7 @@ true
 true
 </pre></div>
 
-<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. In case we do not remember the variable names or their order, we can first extract this information from the model. We then optimize the model and display the solution as before.</p>
+<p>We can now load the lp file to create a new model with all the generic Sudoku constraints. Assuming we have defined the functions ExampleFuncNamesToIndex, ExampleFuncIndexToNames and ExampleFuncDisplaySudoku as before, we may simply add a new constraint to the model to represent the starting configuration of the Sudoku problem. In case we do not remember the variable names or their order, we can first extract this information from the model. We then optimise the model and display the solution as before.</p>
 
 
 <div class="example"><pre>
@@ -217,7 +217,7 @@ true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names2, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(model2, constr , "=", Sum( constr ));</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel(model2);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(model2);</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol := GurobiSolution(model2);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames(var_names2, sol);;</span>
@@ -233,7 +233,7 @@ true
   [  3,  2,  4,  7,  6,  8,  1,  5,  9 ] ]
 </pre></div>
 
-<p>What if we removed a initial value from the Sudoku problem? How many solutions would there be? We remove set an entry from the starter configuration and then optimize. We feed this solution back in as a constraint, and then reoptimize. We can repeat this process until we have found all feasible solutions, which will be when the model becomes infeasible.</p>
+<p>What if we removed a initial value from the Sudoku problem? How many solutions would there be? We remove set an entry from the starter configuration and then optimise. We feed this solution back in as a constraint, and then reoptimise. We can repeat this process until we have found all feasible solutions, which will be when the model becomes infeasible.</p>
 
 
 <div class="example"><pre>
@@ -247,18 +247,18 @@ true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names3, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model3, constr , "=", Sum( constr ));</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimizeModel( model3 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel( model3 );</span>
 2
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiOptimizationStatus( model3 ) = 2 then</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiOptimisationStatus( model3 ) = 2 then</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 1;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">else</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 0;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fi;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiOptimizationStatus( model3 ) = 2 do</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiOptimisationStatus( model3 ) = 2 do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">	sol := GurobiSolution( model3 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	number_of_solutions := number_of_solutions + 1;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiAddConstraint( model3, sol , "&lt;", 80 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiOptimizeModel( model3 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiOptimiseModel( model3 );</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( number_of_solutions, "\n");</span>
 67
