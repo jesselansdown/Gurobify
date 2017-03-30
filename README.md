@@ -1,28 +1,36 @@
 # Gurobify
-Gurobify provides an interface to Gurobi from GAP.
-[View the manual here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf) Please note that this is a beta version of Gurobify and the documentation and features are constantly being updated.
+Jesse Lansdown (jesse.lansdown@research.uwa.edu.au)
 
-Requirements:
+Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http://www.gurobi.com).
+[View the manual here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf)
+
+Gurobify has the following dependencies:
+* GAP 4.8 (or later)
 * Gurobi 7.0
-* AutoTools 
+* AutoTools
 
-(AutoTools can be installed on a mac using homebrew: 
-	- brew install autoconf
-	- brew install automake)
+Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
+Gurobi is proprietary software, however it has free academic licences. Please refer to the Gurobi documentation for more information on its licences.
 
-To install the Gurobify package, move it to the pkg directory of the GAP installation directory.
-Inside the Gurobify directory run:
+If you want to regenerate the documentation for any reason, then the following will also be required.
 
-* ./autogen.sh (Requires AutoTools installed)
+* AutoDoc 2016.03.08 (or later)
+* GAPDoc 1.5 (or later)
 
-* ./configure --with-gurobi=\<gurobi path> [--with-gaproot=\<gap path>]
+To install Gurobify:
 
-* make
+1. Download Gurobify and extract it into the pkg directory of the GAP installation directory.
+2. Open the terminal in the Gurobify directory.
+3. Run the following commands.
 
-To regenerate the documentation do
+		./autogen.sh (Requires AutoTools installed)
+		 ./configure --with-gurobi=\<gurobi path> [--with-gaproot=\<gap path>]
+		 make
 
-* gap.sh makedoc.g
+If you wish to regenerate the documentation do
 
-To load package in GAP:
+		gap.sh makedoc.g
+
+To load Gurobify in GAP:
 
 		LoadPackage( "Gurobify");

@@ -821,12 +821,12 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	char **attrvals[number_of_variables];
+	char ** attrvals[number_of_variables];
 
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
-	error = GRBgetstrattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, attrvals);
+	error = GRBgetstrattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, attrvals );
     if (error)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 

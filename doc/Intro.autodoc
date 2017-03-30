@@ -32,9 +32,9 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 
 
 
-	@Section Prerequisites
+	@Section Dependencies
 
-Gurobi requires the following software to be installed.
+Gurobify requires the following software to be installed.
 
 * &GAP; 4.8 (or later)
 
@@ -73,7 +73,7 @@ For up-to-date information on Gurobi licences, please refer to the Gurobi websit
 
 	@Section Installation
 
-To install Gurobify, first unpack it in the pkg directory of the &GAP; installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the &GAP; root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the &GAP; root directory. Next run the following commands in the terminal from within the Gurobify directory.
+To install Gurobify, first extract it in the pkg directory of the &GAP; installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the &GAP; root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the &GAP; root directory. Next run the following commands in the terminal from within the Gurobify directory.
 
 @BeginLog
 #! ./autogen.sh
@@ -168,7 +168,7 @@ The purpose of this example is to illustrate the use of Gurobify in a quick, sim
 
 @Chapter Using Gurobify
 
-	This chapter documents the various commands available in Gurobify. Each command begins with "Gurobi", which in some instances helps to avoid conflict with other &GAP; commands, and is used for consistancy in other instances. Note that a Gurobify model object in &GAP; is simply a pointer to the model within Gurobi itself. &GAP; treats the models as mutable objects, and StructuralCopy should be used to create an independent copy of a model. It is also important to note that many changes to a model do not become active until the model is updated. This can be done by either optimising the model, or calling GurobiUpdateModel. It is often unnecessary to update the model if it will later be optimised, and in fact can be more efficient to only update when necessary. However, one may occasionally wish to perform a command which is dependent on previous changes to the model. In this case it is necessary to call the update command first.
+	This chapter documents the various commands available in Gurobify. Each command begins with "Gurobi", which in some instances helps to avoid conflict with other &GAP; commands, and is used for consistancy in other instances. It is important to note that many changes to a model do not become active until the model is updated. This can be done by either optimising the model, or calling GurobiUpdateModel. It is often unnecessary to update the model if it will later be optimised, and in fact can be more efficient to only update when necessary. However, one may occasionally wish to perform a command which is dependent on previous changes to the model. In this case it is necessary to call the update command first.
 
 	@Section Creating Or Reading A Model
 
