@@ -1,1 +1,147 @@
-Placeholder
+  
+  
+                                   [1X Gurobify [101X
+  
+  
+                          [1X A [5XGAP[105X interface to Gurobi. [101X
+  
+  
+                                     1.0.0
+  
+  
+                                   31/03/2017
+  
+  
+                                 Jesse Lansdown
+  
+  
+  
+  Jesse Lansdown
+      Email:    [7Xmailto:jesse.lansdown@research.uwa.edu.au[107X
+      Homepage: [7Xhttp://www.jesselansdown.com[107X
+      Address:  [33X[0;14YJesse Lansdown[133X
+                [33X[0;14YLehrstuhl B für Mathematik[133X
+                [33X[0;14YRWTH Aachen[133X
+                [33X[0;14YPontdriesch 10 - 16[133X
+                [33X[0;14Y52062 Aachen[133X
+                [33X[0;14YGermany[133X
+  
+  
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YGurobify provides an interface to the Gurobi Optimizer software from [5XGAP[105X. It
+  enables   the   creation  and  modification  of  mixed  integer  and  linear
+  programmming  models  which can be solved directly by Gurobi from within the
+  [5XGAP[105X environment.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2017 Jesse Lansdown[133X
+  
+  [33X[0;0YGurobify is subject to the terms of the Mozilla Public License, v. 2.0. If a
+  copy  of  the  MPL was not distributed with this file, You can obtain one at
+  https://mozilla.org/MPL/2.0/.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YI  thank  Sebastian  Gutsche  for  generously taking the time to explain the
+  inner  workings  of  [5XGAP[105X and [5XGAP[105X packages to me, and for pointing me towards
+  examples.  I  also  thank  John  Bamberg  for introducing me to both [5XGAP[105X and
+  Gurobi and showing me how they can be used to so effectively complement each
+  other. I used the AutoDoc[autodoc] package to streamline the creation of the
+  documentation for this package, and PackageMaker[packagemaker] to generate a
+  package  template.  I  would  also  like  to  acknowledge  the support of an
+  Australian  Government  Research  Training  Program  (RTP) Scholarship while
+  writing this software.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (Gurobify)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YWelcome to Gurobify[133X
+    1.2 [33X[0;0YCiting Gurobify[133X
+    1.3 [33X[0;0YDependencies[133X
+    1.4 [33X[0;0YInstallation[133X
+    1.5 [33X[0;0YTesting And Documentation[133X
+    1.6 [33X[0;0YLoading Gurobify[133X
+  2 [33X[0;0YGetting Started[133X
+    2.1 [33X[0;0YGetting Started[133X
+    2.2 [33X[0;0YSimple Example[133X
+  3 [33X[0;0YUsing Gurobify[133X
+    3.1 [33X[0;0YCreating Or Reading A Model[133X
+      3.1-1 GurobiReadModel
+      3.1-2 GurobiWriteToFile
+      3.1-3 GurobiNewModel
+      3.1-4 GurobiSetVariableNames
+    3.2 [33X[0;0YAdding And Deleting Constraints[133X
+      3.2-1 GurobiDeleteAllConstraintsWithName
+      3.2-2 GurobiAddConstraint
+      3.2-3 GurobiAddConstraint
+      3.2-4 GurobiAddMultipleConstraints
+    3.3 [33X[0;0YAdding And Modifying Objective Functions[133X
+      3.3-1 GurobiMaximiseModel
+      3.3-2 GurobiMinimiseModel
+      3.3-3 GurobiSetObjectiveFunction
+      3.3-4 GurobiObjectiveFunction
+    3.4 [33X[0;0YOptimising A Model[133X
+      3.4-1 GurobiOptimiseModel
+      3.4-2 GurobiReset
+      3.4-3 GurobiUpdateModel
+      3.4-4 GurobiSolution
+      3.4-5 GurobiObjectiveValue
+      3.4-6 GurobiOptimisationStatus
+    3.5 [33X[0;0YQuerying Attributes And Parameters[133X
+      3.5-1 GurobiNumberOfVariables
+      3.5-2 GurobiNumberOfConstraints
+      3.5-3 GurobiObjectiveBound
+      3.5-4 GurobiRunTime
+      3.5-5 GurobiNumericFocus
+      3.5-6 GurobiTimeLimit
+      3.5-7 GurobiCutOff
+      3.5-8 GurobiBestObjectiveBoundStop
+      3.5-9 GurobiMIPFocus
+      3.5-10 GurobiBestBoundStop
+      3.5-11 GurobiSolutionLimit
+      3.5-12 GurobiIterationLimit
+      3.5-13 GurobiNodeLimit
+      3.5-14 GurobiVariableNames
+    3.6 [33X[0;0YQuerying Other Attributes And Parameters[133X
+      3.6-1 GurobiIntegerParameter
+      3.6-2 GurobiDoubleParameter
+      3.6-3 GurobiIntegerAttribute
+      3.6-4 GurobiDoubleAttribute
+      3.6-5 GurobiIntegerAttributeArray
+      3.6-6 GurobiDoubleAttributeArray
+      3.6-7 GurobiStringAttributeArray
+    3.7 [33X[0;0YModifying Attributes And Parameters[133X
+      3.7-1 GurobiSetTimeLimit
+      3.7-2 GurobiSetBestObjectiveBoundStop
+      3.7-3 GurobiSetCutOff
+      3.7-4 GurobiSetNumericFocus
+      3.7-5 GurobiSetMIPFocus
+      3.7-6 GurobiSetBestBoundStop
+      3.7-7 GurobiSetSolutionLimit
+      3.7-8 GurobiSetIterationLimit
+      3.7-9 GurobiSetNodeLimit
+    3.8 [33X[0;0YModifying Other Attributes And Parameters[133X
+      3.8-1 GurobiSetIntegerParameter
+      3.8-2 GurobiSetDoubleParameter
+      3.8-3 GurobiSetIntegerAttribute
+      3.8-4 GurobiSetDoubleAttribute
+      3.8-5 GurobiSetDoubleAttributeArray
+  4 [33X[0;0YExamples[133X
+    4.1 [33X[0;0YSudoku solver[133X
+  5 [33X[0;0YAppendix[133X
+    5.1 [33X[0;0YGurobify Links[133X
+    5.2 [33X[0;0Y[5XGAP[105X Links[133X
+    5.3 [33X[0;0YGurobi Links[133X
+    5.4 [33X[0;0YOptimisation Status Codes[133X
+  
+  
+  [32X
