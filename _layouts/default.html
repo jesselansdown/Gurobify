@@ -52,7 +52,7 @@ var trackOutboundLink = function(url) {
 
         <ul>
           {% for item in site.data.package.downloads %}
-          <li class="download"><a class="buttons" href="{{ item.url }}" onclick="trackOutboundLink("{{ item.url }}"); return true;">Download {{ item.name }}</a></li>
+          <li class="download"><a class="buttons" href="{{ item.url }}" onclick="trackOutboundLink("{{ item.url }}"); return false;">Download {{ item.name }}</a></li>
           {% endfor %}
           {% if site.github.repository_url %}
           <li><a class="buttons github" href="{{ site.github.repository_url }}">View On GitHub</a></li>
