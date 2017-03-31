@@ -1,3 +1,13 @@
+# Gurobify: Gurobify provides an interface to Gurobi from GAP.
+#
+# Copyright (c) 2017 Jesse Lansdown
+#
+# This Source Code Form is subject to the terms of the Mozilla
+# Public License, v. 2.0. If a copy of the MPL was not distributed
+# with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+
+
 @Chapter Introduction
 	@Section Welcome to Gurobify
 
@@ -17,7 +27,7 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 #! @manual{gurobify,
 #!	Author = {Lansdown, Jesse},
 #!	Key = {gurobify},
-#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.0}},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.0.0}},
 #!	Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
 #!	Year = 2017}
 @EndLog
@@ -27,7 +37,7 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 @BeginLog
 #! \bibitem[Gurobify]{gurobify}
 #!	J.~Lansdown.
-#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0, 2017.
+#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0.0, 2017.
 @EndLog
 
 
@@ -128,7 +138,7 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 @BeginLog
  LoadPackage("Gurobify");
 #! -----------------------------------------------------------------------------
-#! Loading  Gurobify 1.0 (Gurobify provides an interface to Gurobi from GAP.)
+#! Loading  Gurobify 1.0.0 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
 #! Homepage: https://github.com/jesselansdown/Gurobify/
 #! -----------------------------------------------------------------------------

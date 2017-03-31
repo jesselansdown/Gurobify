@@ -2,7 +2,7 @@
 Jesse Lansdown (jesse.lansdown@research.uwa.edu.au)
 
 Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http://www.gurobi.com).
-[View the manual here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf)
+[View the manual for Gurobify here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf)
 
 Gurobify has the following dependencies:
 * GAP 4.8 (or later)
@@ -24,8 +24,8 @@ To install Gurobify:
 3. Run the following commands.
 
 		./autogen.sh (Requires AutoTools installed)
-		 ./configure --with-gurobi=\<gurobi path> [--with-gaproot=\<gap path>]
-		 make
+		./configure --with-gurobi=\<gurobi path> [--with-gaproot=\<gap path>]
+		make
 
 If you wish to regenerate the documentation do
 
@@ -33,4 +33,4 @@ If you wish to regenerate the documentation do
 
 To load Gurobify in GAP:
 
-		LoadPackage( "Gurobify");
+		LoadPackage( "Gurobify" );
