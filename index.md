@@ -7,11 +7,12 @@ layout: default
 {{site.data.package.abstract}}
 
 The current version of this package is version {{site.data.package.version}}.
-For more information, please refer to [the package manual]({{site.data.package.doc-html}}).
+For more information, please refer to the package manual in either [pdf format](http://www.jesselansdown.com/Gurobify/doc/manual.pdf) or  [html format]({{site.data.package.doc-html}}).
 There is also a [README](README.html) file.
 
 ## Dependencies
 
+This package requires [Gurobi](http://www.gurobi.com) version 7.0
 This package requires GAP version {{site.data.package.GAP}}
 {% if site.data.package.needed-pkgs %}
 The following other GAP packages are needed:
