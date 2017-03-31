@@ -11,20 +11,6 @@
   ga('send', 'pageview');
 
 </script>
-<script>
-/**
-* Function that tracks a click on an outbound link in Analytics.
-* This function takes a valid URL string as an argument, and uses that URL string
-* as the event label. Setting the transport method to 'beacon' lets the hit be sent
-* using 'navigator.sendBeacon' in browser that support it.
-*/
-var trackOutboundLink = function(url) {
-   ga('send', 'event', 'outbound', 'click', url, {
-     'transport': 'beacon',
-     'hitCallback': function(){document.location = url;}
-   });
-}
-</script> 
 
     <meta charset="utf-8">
     <title>GAP package {{ site.data.package.name }}</title>
@@ -52,7 +38,7 @@ var trackOutboundLink = function(url) {
 
         <ul>
           {% for item in site.data.package.downloads %}
-          <li class="download"><a class="buttons" href="{{ item.url }}" onclick="trackOutboundLink("{{ item.url }}"); return false;">Download {{ item.name }}</a></li>
+          <li class="download"><a class="buttons" href="{{ item.url }}">Download {{ item.name }}</a></li>
           {% endfor %}
           {% if site.github.repository_url %}
           <li><a class="buttons github" href="{{ site.github.repository_url }}">View On GitHub</a></li>
