@@ -2,7 +2,6 @@
 Jesse Lansdown (jesse.lansdown@research.uwa.edu.au)
 
 Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http://www.gurobi.com).
-[View the manual for Gurobify here.](https://github.com/jesselansdown/Gurobify/blob/master/doc/manual.pdf)
 
 Gurobify has the following dependencies:
 * GAP 4.8 (or later)
