@@ -5,11 +5,11 @@ description: A GAP interface to Gurobi.
 
 authors:
     - name: Jesse Lansdown
-      url: www.jesselansdown.com
+      url: http://www.jesselansdown.com
 
 maintainers:
     - name: Jesse Lansdown
-      url: www.jesselansdown.com
+      url: http://www.jesselansdown.com
 
 GAP: ">= 4.8"
 

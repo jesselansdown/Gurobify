@@ -19,7 +19,7 @@ Persons := [
     IsMaintainer := true,
     FirstNames := "Jesse",
     LastName := "Lansdown",
-    WWWHome := "www.jesselansdown.com",
+    WWWHome := "http://www.jesselansdown.com",
     Email := "jesse.lansdown@research.uwa.edu.au",
     PostalAddress := Concatenation(
                       "Jesse Lansdown\n",
