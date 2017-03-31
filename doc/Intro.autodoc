@@ -14,7 +14,7 @@
 Gurobify is a &GAP;<Cite Key="GAP4"/> package which provides an interface to the optimisation software Gurobi<Cite Key="gurobi"/>.
 <Br/><Br/>
 Gurobify can be obtained from the Gurobify homepage:
-* https://github.com/jesselansdown/Gurobify
+* https://jesselansdown.com/Gurobify
 Please use the issue tracker to inform me of any bugs or suggestions:
 * https://github.com/jesselansdown/Gurobify/issues
 

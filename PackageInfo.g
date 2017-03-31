@@ -38,7 +38,7 @@ Persons := [
 #IssueTrackerURL := "https://github.com/jesselansdown/Gurobify/issues",
 #SupportEmail := "TODO",
 
-PackageWWWHome := "https://github.com/jesselansdown/Gurobify/",
+PackageWWWHome := "http://jesselansdown.com/Gurobify/",
 
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
