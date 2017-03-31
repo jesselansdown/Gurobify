@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (Gurobify) - Chapter 2: Getting Started</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X7B1863E17896BCE1" name="X7B1863E17896BCE1"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X7B1863E17896BCE1">2 <span class="Heading">Getting Started</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7B1863E17896BCE1">2.1 <span class="Heading">Getting Started</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X811824A37C2C1786">2.2 <span class="Heading">Simple Example</span></a>
+</span>
+</div>
+</div>
+
+<h3>2 <span class="Heading">Getting Started</span></h3>
+
+<p><a id="X7B1863E17896BCE1" name="X7B1863E17896BCE1"></a></p>
+
+<h4>2.1 <span class="Heading">Getting Started</span></h4>
+
+<p>This section contains a simple example which demonstrates some of the key functionality of Gurobify. We demonstrate the following:</p>
+
+
+<ul>
+<li><p>Creation of a Gurobi model, including specifying variable types and names</p>
+
+</li>
+<li><p>Adding an objective function to the model and choosing its sense (maximise or minimise)</p>
+
+</li>
+<li><p>Adding constraints to a model individually</p>
+
+</li>
+<li><p>Adding multiple constraints to a model at one time</p>
+
+</li>
+<li><p>Deleting constraints from a model</p>
+
+</li>
+<li><p>Optimising a model</p>
+
+</li>
+<li><p>Querying the optimisation status of a model</p>
+
+</li>
+<li><p>Displaying the solution to a feasible model</p>
+
+</li>
+<li><p>Setting a parameter (in this case the time limit)</p>
+
+</li>
+<li><p>Querying the current value of a parameter (again, the time limit)</p>
+
+</li>
+<li><p>Writing a model to a file</p>
+
+</li>
+<li><p>Reading a model from a file</p>
+
+</li>
+</ul>
+<p>The purpose of this example is to illustrate the use of Gurobify in a quick, simple manner. The example itself is trivial, but the same procedure applies for much more complex models. It only utilises some of the core commands available in Gurobify, though more commands are listed in detail in Chapter 3 "Using Gurobify", and further examples are given in Chapter 4 "Examples".</p>
+
+<p><a id="X811824A37C2C1786" name="X811824A37C2C1786"></a></p>
+
+<h4>2.2 <span class="Heading">Simple Example</span></h4>
+
+<p>The first step in using gurobify is to create a model. To do this, we first need to define the types of variables that are to be used in the model, and we may optionally give them names. In this case we create a model with three binary variables, called <span class="SimpleMath">\(x\)</span>, <span class="SimpleMath">\(y\)</span> and <span class="SimpleMath">\(z\)</span>. We then define the objective function as <span class="SimpleMath">\(x + 2 y + z\)</span>, which we set to be maximised.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model := GurobiNewModel(["BINARY", "BINARY", "BINARY"], ["x", "y", "z"]);</span>
+&lt;object&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetObjectiveFunction( model, [1.,2.,1.] );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiMaximiseModel(model);</span>
+true
+</pre></div>
+
+<p>Having defined our model, we can now add constraints. To do this, a list of the coefficients for each of the variables is given, along with the sense of the equation (that is, <span class="SimpleMath">\(=\)</span>, <span class="SimpleMath">\(&lt;\)</span> or <span class="SimpleMath">\(&gt;\)</span>), the value on the right hand side of the constraint, and optionally a name for the constraints. Gurobi does interprets <span class="SimpleMath">\(&lt;\)</span> as <span class="SimpleMath">\(\le\)</span> and <span class="SimpleMath">\(&gt;\)</span> as <span class="SimpleMath">\(\ge\)</span> and does not distinguish between them. Note, however, that gurobify only accepts the form <span class="SimpleMath">\(&lt;\)</span> or <span class="SimpleMath">\(&gt;\)</span>. We add the constraints <span class="SimpleMath">\(2x + 2y + 2z \le 6\)</span> and <span class="SimpleMath">\(x + 2y + 3z \ge 5\)</span> to our model. We do not assign them names.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(model, [2, 2, 2], "&lt;", 6 );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(model, [1, 2, 3], "&gt;", 5 );</span>
+true
+</pre></div>
+
+<p>Alternatively, the previous constraints could have been added simultaneously, by containing multiple constraints as entries of a list.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constraints :=  [[2, 2, 2], [1, 2, 3]];</span>
+[ [ 2, 2, 2 ], [ 1, 2, 3 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sense := ["&lt;", "&gt;"];</span>
+[ "&lt;", "&gt;" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rhs := [6,5];</span>
+[ 6, 5 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddMultipleConstraints( model, constraints, sense, rhs );</span>
+true
+</pre></div>
+
+<p>We can now optimise the model. This will return a Gurobi opimistion status code. More information on the status codes can be found in the Appendix. A status code of <span class="SimpleMath">\(2\)</span> lets us know that the model was successfully optimised. We may then query the model's solution.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(model);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(model);</span>
+[ 1., 1., 1. ]
+</pre></div>
+
+<p>In addition to returning the optimisation status upon finishing optimisation, we can query the optimisation status of a model directly at any point in time. It will give the status of the model at the point when it was last optimised.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimisationStatus(model);</span>
+2
+</pre></div>
+
+<p>We can reset any information found on a model to its pre-optimisation state. If we then check its status it will tell us that the model has been loaded, but no optimisation information is available.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiReset(model);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimisationStatus(model);</span>
+1
+</pre></div>
+
+<p>We can change the objective sense of the model so that Gurobi will look for a solution which minimises the objective function instead. We then optimise the model and, if the optimisation is succesful, retun the solution.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiMinimiseModel(model);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(model);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(model);                                </span>
+[ 0., 1., 1. ]
+</pre></div>
+
+<p>We can write the model to a file so that we may use it later. We need to specify the file name, and the extension of the file name will determine the type of file written. In this case we write the model to an lp file which we call "test.lp".</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiWriteToFile(model, "test.lp");</span>
+true
+</pre></div>
+
+<p>It is also possible to read a model directly from a file. In this case it is not necessary to build the model from the ground up. We will read in the model from the "test.lp" file that we created in the previous step.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">re_model := GurobiReadModel("test.lp");</span>
+&lt;object&gt;
+</pre></div>
+
+<p>We now add another constraint, <span class="SimpleMath">\(x + y + z &gt; 3\)</span>, to the model. Since we may want to remove this constraint later we give it the name "Other Constraint". We optimise the model and since it returns a feasible optimisation status we return the solution.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(re_model, [1, 1, 1], "&gt;", 3, "Other Constraint");</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(re_model);</span>
+[ 1., 1., 1. ]
+</pre></div>
+
+<p>We add another constraint, <span class="SimpleMath">\(y + z &lt; 1\)</span>, to the model and also call it "Other Constraint". We optimise the model, and get a status code of <span class="SimpleMath">\(3\)</span>, indicating that the model has no feasible solutions.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint(re_model, [0, 1, 1], "&lt;", 1, "Other Constraint");</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
+3
+</pre></div>
+
+<p>Since we named the two additional constraints, we can delete them. This makes our model feasible again, and we get the same solution as before.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiDeleteConstraintsWithName(re_model, "Other Constraint");</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSolution(re_model);</span>
+[ 0., 1., 1. ]
+</pre></div>
+
+<p>There are many parameters and attributes of Gurobi models which can be set and queried. For example, we may set the time limit to something very small so that Gurobi terminates before finishing optimising. This returns a status code of <span class="SimpleMath">\(9\)</span>. We may then change the time limit again to allow Gurobi more time to finish optimising and thus obtain a feasible solution again. Chapter 3 documents other parameters and attributes that Gurobify is able to modify.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetTimeLimit(re_model, 0.000001);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model); </span>
+9
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetTimeLimit(re_model, 10);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel(re_model);</span>
+2
+</pre></div>
+
+<p>We can query the model to find out what the current time limit value is set to.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiTimeLimit(re_model);</span>
+10.
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

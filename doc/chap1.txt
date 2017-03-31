@@ -8,7 +8,7 @@
   optimisation software Gurobi[gurobi].[133X
   [33X[0;0YGurobify can be obtained from the Gurobify homepage:[133X
   
-  [30X    [33X[0;6Yhttps://github.com/jesselansdown/Gurobify[133X
+  [30X    [33X[0;6Yhttps://jesselansdown.com/Gurobify[133X
   
   [33X[0;0YPlease use the issue tracker to inform me of any bugs or suggestions:[133X
   
@@ -124,7 +124,7 @@
   inside the Gurobify directory.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28Xgap.sh maketest.g[128X[104X
+    [4X[28Xgap maketest.g[128X[104X
   [4X[32X[104X
   
   [33X[0;0YIt  transforms  each of the examples in Chapter 4 "Examples" and the example
@@ -138,7 +138,7 @@
   Gurobify directory, though this should not be necessary.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28Xgap.sh makedoc.g[128X[104X
+    [4X[28Xgap makedoc.g[128X[104X
   [4X[32X[104X
   
   [33X[0;0YRegenerating  the  documentation  will  also  automatically  regenerate  the
@@ -165,7 +165,7 @@
   to enable [5XGAP[105X to find Gurobify.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28Xgap.sh -l ";/alternative/path/to/Gurobify"[128X[104X
+    [4X[28Xgap -l ";/alternative/path/to/Gurobify"[128X[104X
   [4X[32X[104X
   
   [33X[0;0Ywhere  [13X/alternative/path/to/Gurobify[113X  is  the  path  to  the directory which
