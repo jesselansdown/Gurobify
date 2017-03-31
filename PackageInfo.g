@@ -1,101 +1,109 @@
-#############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
-##
-
+#
+# Gurobify: Gurobify provides an interface to Gurobi from &GAP;.
+#
+# This file contains package meta data. For additional information on
+# the meaning and correct usage of these fields, please consult the
+# manual of the "Example" package as well as the comments in its
+# PackageInfo.g file.
+#
 SetPackageInfo( rec(
 
-PackageName := "GitHubPagesForGAP",
-
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.2",
-Date := "04/02/2017", # dd/mm/yyyy format
+PackageName := "Gurobify",
+Subtitle := "A GAP interface to Gurobi.",
+Version := "1.0.0",
+Date := "31/03/2017", # dd/mm/yyyy format
 
 Persons := [
   rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
-    IsAuthor      := true,
-    IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
+    IsAuthor := true,
+    IsMaintainer := true,
+    FirstNames := "Jesse",
+    LastName := "Lansdown",
+    WWWHome := "www.jesselansdown.com",
+    Email := "jesse.lansdown@research.uwa.edu.au",
     PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
-                       "Germany" ),
-    Place         := "Gießen",
-    Institution   := "Justus-Liebig-Universität Gießen"
-  ),
-
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
-    IsAuthor      := true,
-    IsMaintainer  := false,
-    #Email         := "author@example.com",
-  ),
-
-  rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
-    IsMaintainer  := true,
-    #Email         := "janitor@example.com",
+                      "Jesse Lansdown\n",
+                      "Lehrstuhl B für Mathematik\n",
+                      "RWTH Aachen\n",
+                      "Pontdriesch 10 - 16\n",
+                      "52062 Aachen\n",
+                      "Germany"
+                      ),
+    Place := "Aachen",
+    Institution := "The University of Western Australia/RWTH Aachen University",
   ),
 ],
 
-Status := "other",
+#SourceRepository := rec( Type := "TODO", URL := "URL" ),
+#IssueTrackerURL := "https://github.com/jesselansdown/Gurobify/issues",
+#SupportEmail := "TODO",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "fingolfin",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+PackageWWWHome := "https://github.com/jesselansdown/Gurobify/",
 
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
+README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
+ArchiveURL     := Concatenation( ~.PackageWWWHome,
+                                 "/", ~.PackageName, "-", ~.Version ),
 
-ArchiveFormats := ".tar.gz .tar.bz2",
+ArchiveFormats := ".tar.gz",
 
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
+##  Status information. Currently the following cases are recognized:
+##    "accepted"      for successfully refereed packages
+##    "submitted"     for packages submitted for the refereeing
+##    "deposited"     for packages for which the GAP developers agreed
+##                    to distribute them with the core GAP system
+##    "dev"           for development versions of packages
+##    "other"         for all other packages
+##
+Status := "dev",
+
+AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "Gurobify",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "Gurobify provides an interface to Gurobi from GAP.",
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
+  GAP := ">= 4.8",
+  NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
+  SuggestedOtherPackages := [ ],
+  ExternalConditions := [ "Gurobi", "=7.0" ],
 ),
 
-AvailabilityTest := ReturnTrue,
+AvailabilityTest := function()
+        return true;
+    end,
 
-Keywords := ["GitHub Pages", "GAP"]
+TestFile := "tst/testall.g",
+
+#Keywords := [ "TODO" ],
+
+AutoDoc := rec(
+    TitlePage := rec(
+        Copyright := Concatenation("&copyright; 2017 Jesse Lansdown<P/>\n\n",
+                    "Gurobify is subject to the terms of the Mozilla ",
+                    "Public License, v. 2.0. If a copy of the MPL was not distributed ",
+                    "with this file, You can obtain one at https://mozilla.org/MPL/2.0/.\n"),
+        Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from &GAP;. ",
+          "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
+          "by Gurobi from within the &GAP; environment."),
+        Acknowledgements := Concatenation("I thank Sebastian Gutsche for generously taking the time ",
+          "to explain the inner workings of &GAP; and &GAP; packages to me, and for pointing me towards examples. ",
+          "I also thank John Bamberg for introducing me to both &GAP; and Gurobi ",
+          "and showing me how they can be used to so effectively complement each other. ",
+          "I used the AutoDoc<Cite Key=\"autodoc\"/> package to streamline ",
+          "the creation of the documentation for this package, ",
+          "and PackageMaker<Cite Key=\"packagemaker\"/> to generate a package template. ",
+           "I would also like to acknowledge the support of an Australian Government Research Training Program (RTP) Scholarship ",
+           "while writing this software.")
+    )
+),
+
 
 ));
 
