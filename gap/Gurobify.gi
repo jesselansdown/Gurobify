@@ -418,3 +418,26 @@ InstallMethod(GurobiSetVariableNames, "",
 	return true;
 	end
 );
+
+InstallMethod(GurobiSetLogToConsole, "",
+	[ IsGurobiModel, IsBool] ,
+	function(model, switch)
+		if switch then
+			GurobiSetIntegerParameter(model, "LogToConsole", 1);
+		else
+			GurobiSetIntegerParameter(model, "LogToConsole", 0);
+		fi;
+	return true;
+	end
+);
+
+InstallMethod(GurobiLogToConsole, "",
+	[ IsGurobiModel ] ,
+	function(model )
+		if GurobiIntegerParameter(model, "LogToConsole") then
+			return true;
+		else
+			return false;
+		fi;
+	end
+);

@@ -1008,7 +1008,7 @@ static Int InitKernel( StructInitInfo *module )
     if (error || env == NULL)
         ErrorMayQuit( "Error: failed to create new environment.", 0, 0 );
     /* return success*/
-	error = GRBsetintparam(env, "LogToConsole", 0);
+	error = GRBsetintparam(env, "OutputFlag", 0);
 	if (error)
 		ErrorMayQuit( "Error: unable to turn logging off", 0, 0 );
 

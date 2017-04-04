@@ -392,3 +392,26 @@ DeclareOperation( "GurobiNewModel",
 DeclareOperation("GurobiSetVariableNames",
 		[IsGurobiModel, IsList]);
 
+
+
+#! @Chapter Using Gurobify
+#! @Section Modifying Attributes And Parameters
+#! @Arguments Model, Switch
+#! @Returns true
+#! @Description
+#!  Turns console logging on or off. If Switch is true the output of Gurobi will be printed to the screen,
+#!	and if it is false the output will be supressed. The default for Gurobify is to supress the output.
+DeclareOperation("GurobiSetLogToConsole",
+		[IsGurobiModel, IsBool]);
+
+
+
+#! @Chapter Using Gurobify
+#! @Section Querying Attributes And Parameters
+#! @Arguments Model
+#! @Returns true/false
+#! @Description
+#!	Returns true if the Gurobi output is set to display to the screen, and false if the output is supressed.
+#!	Gurobify suppresses the output by default.
+DeclareOperation("GurobiLogToConsole",
+	[IsGurobiModel]);
