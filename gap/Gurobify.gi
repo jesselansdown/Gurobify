@@ -434,7 +434,7 @@ InstallMethod(GurobiSetLogToConsole, "",
 InstallMethod(GurobiLogToConsole, "",
 	[ IsGurobiModel ] ,
 	function(model )
-		if GurobiIntegerParameter(model, "LogToConsole") then
+		if GurobiIntegerParameter(model, "LogToConsole") = 1 then
 			return true;
 		else
 			return false;
