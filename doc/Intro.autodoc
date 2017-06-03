@@ -87,7 +87,7 @@ To install Gurobify, first extract it in the pkg directory of the &GAP; installa
 
 @BeginLog
 #! ./autogen.sh
-#! ./congigure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
+#! ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
 #! make
 @EndLog
 
