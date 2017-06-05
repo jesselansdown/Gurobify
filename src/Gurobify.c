@@ -548,7 +548,7 @@ Obj GurobiDeleteSingleConstraintWithName(Obj self, Obj GAPmodel, Obj ConstraintN
 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 
 	// while ( ConstraintNumber != -1 ){
-	if ConstraintNumber != -1
+	if (ConstraintNumber != -1)
 	 	error = GRBdelconstrs(model, 1, &ConstraintNumber);
 
 	 if ( error )
