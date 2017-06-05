@@ -3,4 +3,6 @@ Changes from Version 1.0.0
 	* Added GurobiSetLogToConsole command
 	* Added GurobiLogToConsole command
 	* Changed output log file to be off by default
-
+	* Changed GurobiDeleteConstraintsWithName to only update the model at the end, to increase speed.
+	* Added GurobiDeleteConstraints
+	* Added GurobiDeleteSingleConstraint
