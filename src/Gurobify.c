@@ -564,6 +564,52 @@ Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 	return True;
 }
 
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Adding And Deleting Constraints
+	#! @Arguments Model, ConstraintName
+	#! @Returns true
+	#! @Description
+	#!	Deletes all constraints from a model which are indexed by the values of ConstraintList.
+	#!	Requires an update to the model to take effect.
+	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
+*/
+
+Obj GurobiDeleteConstraints(Obj self, Obj GAPmodel, Obj ConstraintList)
+{
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	if (! IS_PLIST(ConstraintList) )
+        ErrorMayQuit( "Error: Must pass a list of positions", 0, 0 );
+
+	int length;
+	length = LEN_PLIST(ConstraintList);
+	int constr_index[length];
+	int i;
+
+	for (i = 0; i < length; i = i+1 ){
+		if (! IS_INTOBJ(ELM_PLIST(ConstraintList, i+1))){
+	    	ErrorMayQuit( "Error: Position must be an integer.", 0, 0 );		
+		}
+		else{
+			constr_index[i] = INT_INTOBJ(ELM_PLIST(ConstraintList,i+1));
+		}
+	}
+
+
+    int error;
+    error = GRBdelconstrs(model, length, constr_index);
+	if ( error )
+		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+
+	return True;
+}
+
 /*
 	#! @Chapter Using Gurobify
 	#! @Section Modifying Other Attributes And Parameters
@@ -668,6 +714,48 @@ Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	}
 
 	return INTOBJ_INT(current_int_value);
+}
+
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Querying Other Attributes And Parameters
+	#! @Arguments Model, position, AttributeName
+	#! @Returns attibute value
+	#! @Description
+	#!	Takes a Gurobi model and retrieves the value of a string attribute element at a given position.
+	#!	For example to get the names of constraints with "ConstrName".
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+	DeclareGlobalFunction("GurobiIntegerAttribute");
+*/
+
+Obj GurobiStringAttributeElement( Obj self, Obj GAPmodel, Obj position, Obj AttributeName )
+{
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+    if (! IS_INTOBJ(position) )
+        ErrorMayQuit( "Error: Must pass an integer as the position", 0, 0 );
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+	int error;
+	int i;
+	i = INT_INTOBJ(position);
+	char *cname;
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
+	error = GRBgetstrattrelement(model, CSTR_STRING(AttributeName), i, &cname);
+	if (error){
+		ErrorMayQuit( "Error: Unable to get attribute value. Check attribute type and name.", 0, 0 );
+	}
+
+	Obj name;
+	C_NEW_STRING_DYN(name, cname);
+
+	return name;
 }
 
 /*
@@ -987,6 +1075,8 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttributeArray, 3, "model, AttributeName, AttributeArray"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiStringAttributeElement, 3, "model, position, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteConstraints, 2, "model, ConstraintList"),
 
   { 0 } /* Finish with an empty entry */
 
