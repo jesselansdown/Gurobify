@@ -550,12 +550,13 @@ Obj GurobiDeleteSingleConstraintWithName(Obj self, Obj GAPmodel, Obj ConstraintN
 	// while ( ConstraintNumber != -1 ){
 	if ConstraintNumber != -1
 	 	error = GRBdelconstrs(model, 1, &ConstraintNumber);
-	// 	if ( error )
-	// 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+
+	 if ( error )
+	 	ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 			
-	// 	error = GRBupdatemodel(model);
-	// 	if (error)
-	// 		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );	
+	error = GRBupdatemodel(model);
+ 	if (error)
+ 		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );	
 
 	// 	error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
 	// 	if ( error )
