@@ -415,3 +415,13 @@ DeclareOperation("GurobiSetLogToConsole",
 #!	Gurobify suppresses the output by default.
 DeclareOperation("GurobiLogToConsole",
 	[IsGurobiModel]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Adding And Deleting Constraints
+#! @Arguments Model, ConstraintName
+#! @Returns true/false
+#! @Description
+#!	Deletes all constraints with the name ConstraintName
+DeclareOperation("GurobiDeleteConstraintsWithName",
+	[IsGurobiModel, IsString]);

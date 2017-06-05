@@ -441,3 +441,19 @@ InstallMethod(GurobiLogToConsole, "",
 		fi;
 	end
 );
+
+InstallMethod(GurobiDeleteConstraintsWithName, "",
+		[IsGurobiModel, IsString],
+	function(model, ConstraintName )
+		n := GurobiNumberOfConstraints(model);
+		indices :=[];
+		for i in [0 .. n-1] do
+			if GurobiStringAttributeElement(model, i, "ConstrName") = ConstraintName then
+				Add(indices, i);
+			fi;
+		od;
+		GurobiDeleteConstraints(model, indices);
+		GurobiUpdateModel(model);
+	return true;
+	end
+);

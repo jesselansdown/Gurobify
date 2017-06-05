@@ -526,11 +526,12 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	#! @Arguments Model, ConstraintName
 	#! @Returns true
 	#! @Description
-	#!	Deletes all constraints from a model with the name ConstraintName.
+	#!	Deletes a single constraint from a model with the name ConstraintName. If multiple constraints have this name,
+	#!	then one will be deleted at random.
 	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
 */
 
-Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
+Obj GurobiDeleteSingleConstraintWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 {
 
 	if (! IS_MODEL(GAPmodel))
@@ -546,20 +547,20 @@ Obj GurobiDeleteConstraintsWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
 	if ( error )
 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 
-	while ( ConstraintNumber != -1 ){
-
-		error = GRBdelconstrs(model, 1, &ConstraintNumber);
-		if ( error )
-			ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+	// while ( ConstraintNumber != -1 ){
+	if ConstraintNumber != -1
+	 	error = GRBdelconstrs(model, 1, &ConstraintNumber);
+	// 	if ( error )
+	// 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
 			
-		error = GRBupdatemodel(model);
-		if (error)
-			ErrorMayQuit( "Error: Unable to update model.", 0, 0 );	
+	// 	error = GRBupdatemodel(model);
+	// 	if (error)
+	// 		ErrorMayQuit( "Error: Unable to update model.", 0, 0 );	
 
-		error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
-		if ( error )
-			ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
-	}
+	// 	error = GRBgetconstrbyname(model, CSTR_STRING(ConstraintName), &ConstraintNumber);
+	// 	if ( error )
+	// 		ErrorMayQuit( "Error: Unable to delete constraint.", 0, 0 );
+	// }
 
 	return True;
 }
@@ -1064,7 +1065,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleParameter, 2, "model, ParameterName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GUROBIADDCONSTRAINT, 5, "model, ConstraintEquation, ConstraintSense, ConstraintRHS, ConstraintName"),
-    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteConstraintsWithName, 2, "model, ConstraintName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteSingleConstraintWithName, 2, "model, ConstraintName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetIntegerAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttribute, 3, "model, AttributeName, AttributeValue"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttribute, 2, "model, AttributeName"),
