@@ -445,7 +445,7 @@ InstallMethod(GurobiLogToConsole, "",
 InstallMethod(GurobiDeleteConstraintsWithName, "",
 		[IsGurobiModel, IsString],
 	function(model, ConstraintName )
-		local, n, indices, i;
+		local n, indices, i;
 		n := GurobiNumberOfConstraints(model);
 		indices :=[];
 		for i in [0 .. n-1] do
