@@ -528,7 +528,7 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	#! @Description
 	#!	Deletes a single constraint from a model with the name ConstraintName. If multiple constraints have this name,
 	#!	then one will be deleted at random.
-	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
+	DeclareGlobalFunction("GurobiDeleteSingleConstraintWithName");
 */
 
 Obj GurobiDeleteSingleConstraintWithName(Obj self, Obj GAPmodel, Obj ConstraintName)
@@ -575,7 +575,7 @@ Obj GurobiDeleteSingleConstraintWithName(Obj self, Obj GAPmodel, Obj ConstraintN
 	#! @Description
 	#!	Deletes all constraints from a model which are indexed by the values of ConstraintList.
 	#!	Requires an update to the model to take effect.
-	DeclareGlobalFunction("GurobiDeleteAllConstraintsWithName");
+	DeclareGlobalFunction("GurobiDeleteConstraints");
 */
 
 Obj GurobiDeleteConstraints(Obj self, Obj GAPmodel, Obj ConstraintList)

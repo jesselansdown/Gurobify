@@ -153,6 +153,10 @@ Note that if you have Gurobify located somewhere other than the &GAP; root direc
 
 where **/alternative/path/to/Gurobify** is the path to the directory which contains **/pkg/Gurobify** as subdirectories.
 
+	@Section Problems With The Installation
+
+Please ensure that all dependencies are present, the correct paths have been used, and the correct versions of software are being used. There is also a section in the Appendix, "Troubleshooting The Installation", which deals with a number of issues people face when installing Gurobify, and suggests solutions.
+
 
 @Chapter Getting Started
 	@Section Getting Started
@@ -261,3 +265,81 @@ The information in this section on optimisation status codes is taken directly f
 * 14 - An asynchronous optimization call was made, but the associated optimization run is not yet complete.
 * 15 - User specified an objective limit (a bound on either the best objective or the best bound), and that limit has been reached.
 
+
+	@Section Troubleshooting The Installation
+
+	@Subsection Typical Sources Of Error During Installation
+
+Common sources of error during installation include:
+* Forgetting to run ./autogen.sh
+* Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor. 
+* Not putting the correct paths to Gurobi (or &GAP; if not in the default "pkg" directory) when running "configure". Sometimes the paths are correct but incomplete, eg missing "linux64" or "mac64" at the end. Compare with the example paths given in the installation section of the manual.
+* Having incorrect versions of &GAP; or Gurobi.
+
+	@Subsection Specific Errors
+
+* The compiler gives warnings when running "make"
+
+This seems to be due to the way &GAP; stores integers, but it doesn't affect the function of the program. If no errors are given the installation is generally ok. Test the installation by loading Gurobify and running the test cases.
+
+* Compilation is successful, but &GAP; cannot load the package, giving an error such as:
+
+@BeginLog
+#! gap> LoadPackage("Gurobify");
+#! #W dlopen() error: libgurobi70.so: cannot open shared\
+#! object file: No such file or directory
+#! Error, module '/home/linux/gap4r8/pkg/Gurobify/bin\
+#! /x86_64-pc-linux-gnu-gcc-default64/Gurobify.so'  in
+#!   if not LOAD_DYN( arg[1], false )  then
+#!     Error( "no support for dynamic loading" );
+#! fi; at /home/linux/gap4r8/lib/files.gd:579 called from 
+#! <function "LoadDynamicModule">( <arguments> )
+#!  called from read-eval loop at line 8
+#!   of /home/linux/gap4r8/pkg/Gurobify/init.g
+#! Error, was not in any namespace called from
+#! LEAVE_NAMESPACE(  
+#!  ); at /home/linux/gap4r8/lib/package.gi:1212 called from
+#! ReadPackage( pkgname, "init.g" 
+#!  ); at /home/linux/gap4r8/lib/package.gi:1575 called from
+#! <function "LoadPackage">( <arguments> )
+#!  called from read-eval loop at line 1 of *stdin*
+#! you can 'quit;' to quit to outer loop, or
+#! you can 'return;' to continue
+#! brk> 
+@EndLog
+
+When installing Gurobify, you were required to enter the path to Gurobi in the configure stage. If this path is "gurobi_path", then navigate to "gurobi_path/lib" in the terminal. You should now be able to load Gurobify when running &GAP; from this location. This seems to be a problem caused by using an older compiler to compile Gurobify. It can be fixed by running the following
+
+@BeginLog
+#! LD_LIBRARY_PATH=gurobi_path/lib:$LD_LIBRARY_PATH
+@EndLog
+
+where "gurobi_path/lib" is as above. This will only be valid for the current session, to make this change permanent the line must be added to the .bash_profile file.
+
+
+* Compilation is successful, but &GAP; cannot load Gurobify, giving an error such as:
+
+@BeginLog
+#! gap> LoadPackage("Gurobify");
+#! dyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM
+#!   Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.0.0/bin\
+#!   /x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so
+#!   Expected in: flat namespace
+#! 
+#! dyld: Symbol not found: _RegisterPackageTNUM
+#!   Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.0.0\
+#!   /bin/x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so
+#!   Expected in: flat namespace
+#! 
+#! Trace/BPT trap: 5
+@EndLog
+
+Gurobify requires &GAP; version 4.8 or higher.
+
+* Gurobify will not compile, giving an error such as:
+
+@BeginLog
+#! src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
+@EndLog
+
+Check that you have entered the correct path for Gurobi in the "configure" stage of installation.
