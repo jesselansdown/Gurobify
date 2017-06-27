@@ -728,7 +728,7 @@ Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#!	Takes a Gurobi model and retrieves the value of a string attribute element at a given position.
 	#!	For example to get the names of constraints with "ConstrName".
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
-	DeclareGlobalFunction("GurobiIntegerAttribute");
+	DeclareGlobalFunction("GurobiStringAttributeElement");
 */
 
 Obj GurobiStringAttributeElement( Obj self, Obj GAPmodel, Obj position, Obj AttributeName )

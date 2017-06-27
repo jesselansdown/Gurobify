@@ -27,7 +27,7 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 #! @manual{gurobify,
 #!	Author = {Lansdown, Jesse},
 #!	Key = {gurobify},
-#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.0.0}},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},
 #!	Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
 #!	Year = 2017}
 @EndLog
@@ -37,7 +37,7 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 @BeginLog
 #! \bibitem[Gurobify]{gurobify}
 #!	J.~Lansdown.
-#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0.0, 2017.
+#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.1.0, 2017.
 @EndLog
 
 
@@ -138,7 +138,7 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 @BeginLog
  LoadPackage("Gurobify");
 #! -----------------------------------------------------------------------------
-#! Loading  Gurobify 1.0.0 (Gurobify provides an interface to Gurobi from GAP.)
+#! Loading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
 #! Homepage: https://github.com/jesselansdown/Gurobify/
 #! -----------------------------------------------------------------------------
@@ -307,7 +307,7 @@ where "gurobi_path/lib" is as above. This will only be valid for the current ses
 @BeginLog
 #! gap> LoadPackage("Gurobify");
 #! dyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM
-#!   Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.0.0/bin\
+#!   Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.1.0/bin\
 #!   /x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so
 #!   Expected in: flat namespace
 @EndLog

@@ -6,3 +6,6 @@ Changes from Version 1.0.0
 	* Changed GurobiDeleteConstraintsWithName to only update the model at the end, to increase speed.
 	* Added GurobiDeleteConstraints
 	* Added GurobiDeleteSingleConstraint
+	* Added GurobiStringAttributeElement
+	* Minor bug fixes
+	* Updated documentation, including adding a troubleshooting section.
