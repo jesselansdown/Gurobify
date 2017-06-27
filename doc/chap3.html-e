@@ -33,10 +33,12 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7C005CF27BE32A57">3.2 <span class="Heading">Adding And Deleting Constraints</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D65BB688477CD28">3.2-1 GurobiDeleteAllConstraintsWithName</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80DAC59A855C49B4">3.2-2 GurobiAddConstraint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83AB24597DEC03F2">3.2-3 GurobiAddConstraint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X804B714384F12A4C">3.2-4 GurobiAddMultipleConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E2213B9791B56B6">3.2-1 GurobiDeleteSingleConstraintWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X818D5BCD7E92B747">3.2-2 GurobiDeleteConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X841ABAB38141572F">3.2-3 GurobiDeleteConstraintsWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80DAC59A855C49B4">3.2-4 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83AB24597DEC03F2">3.2-5 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X804B714384F12A4C">3.2-6 GurobiAddMultipleConstraints</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X813E985F7A2CF730">3.3 <span class="Heading">Adding And Modifying Objective Functions</span></a>
 </span>
@@ -73,6 +75,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8466DB137CD0ACDF">3.5-12 GurobiIterationLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B9C3B937BEBAE23">3.5-13 GurobiNodeLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X827541CC821E642E">3.5-14 GurobiVariableNames</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A7293F67ABD4DAD">3.5-15 GurobiLogToConsole</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7FFA259B78D1DC6E">3.6 <span class="Heading">Querying Other Attributes And Parameters</span></a>
 </span>
@@ -80,10 +83,11 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87FCA6DC7B5B91F5">3.6-1 GurobiIntegerParameter</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CB77102788E9924">3.6-2 GurobiDoubleParameter</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AF271328125ACAE">3.6-3 GurobiIntegerAttribute</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81B9A6EC80C1A48A">3.6-4 GurobiDoubleAttribute</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CDBE1727DD4EE7B">3.6-5 GurobiIntegerAttributeArray</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C09F57A2A2819">3.6-6 GurobiDoubleAttributeArray</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-7 GurobiStringAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D96CEB0821999AD">3.6-4 GurobiStringAttributeElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81B9A6EC80C1A48A">3.6-5 GurobiDoubleAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CDBE1727DD4EE7B">3.6-6 GurobiIntegerAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C09F57A2A2819">3.6-7 GurobiDoubleAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-8 GurobiStringAttributeArray</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X85C908697CD13F5A">3.7 <span class="Heading">Modifying Attributes And Parameters</span></a>
 </span>
@@ -97,6 +101,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87C7D6E6845FF8D3">3.7-7 GurobiSetSolutionLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87D6E1F782BBF4E8">3.7-8 GurobiSetIterationLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81E8087881289D77">3.7-9 GurobiSetNodeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E11882884331F6D">3.7-10 GurobiSetLogToConsole</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A7ED7598622FB73">3.8 <span class="Heading">Modifying Other Attributes And Parameters</span></a>
 </span>
@@ -161,18 +166,36 @@
 
 <p>This section deals with adding linear constraints, both individually and in bulk, and also naming and deleting constraints.</p>
 
-<p><a id="X7D65BB688477CD28" name="X7D65BB688477CD28"></a></p>
+<p><a id="X7E2213B9791B56B6" name="X7E2213B9791B56B6"></a></p>
 
-<h5>3.2-1 GurobiDeleteAllConstraintsWithName</h5>
+<h5>3.2-1 GurobiDeleteSingleConstraintWithName</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteAllConstraintsWithName</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteSingleConstraintWithName</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: true</p>
 
-<p>Deletes all constraints from a model with the name ConstraintName.</p>
+<p>Deletes a single constraint from a model with the name ConstraintName. If multiple constraints have this name, then one will be deleted at random.</p>
+
+<p><a id="X818D5BCD7E92B747" name="X818D5BCD7E92B747"></a></p>
+
+<h5>3.2-2 GurobiDeleteConstraints</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteConstraints</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Deletes all constraints from a model which are indexed by the values of ConstraintList. Requires an update to the model to take effect.</p>
+
+<p><a id="X841ABAB38141572F" name="X841ABAB38141572F"></a></p>
+
+<h5>3.2-3 GurobiDeleteConstraintsWithName</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteConstraintsWithName</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns: true/false</p>
+
+<p>Deletes all constraints with the name ConstraintName</p>
 
 <p><a id="X80DAC59A855C49B4" name="X80DAC59A855C49B4"></a></p>
 
-<h5>3.2-2 GurobiAddConstraint</h5>
+<h5>3.2-4 GurobiAddConstraint</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddConstraint</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquation</var>, <var class="Arg">ConstraintSense</var>, <var class="Arg">ConstraintRHSValue</var>[, <var class="Arg">ConstraintName</var>] )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns: true</p>
@@ -181,7 +204,7 @@
 
 <p><a id="X83AB24597DEC03F2" name="X83AB24597DEC03F2"></a></p>
 
-<h5>3.2-3 GurobiAddConstraint</h5>
+<h5>3.2-5 GurobiAddConstraint</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddConstraint</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquation</var>, <var class="Arg">ConstraintSense</var>, <var class="Arg">ConstraintRHSValue</var>[, <var class="Arg">ConstraintName</var>] )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns: true</p>
@@ -190,7 +213,7 @@
 
 <p><a id="X804B714384F12A4C" name="X804B714384F12A4C"></a></p>
 
-<h5>3.2-4 GurobiAddMultipleConstraints</h5>
+<h5>3.2-6 GurobiAddMultipleConstraints</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddMultipleConstraints</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquations</var>, <var class="Arg">ConstraintSenses</var>, <var class="Arg">ConstraintRHSValues</var>[, <var class="Arg">ConstraintNames</var>] )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns: true</p>
@@ -429,6 +452,15 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiVariableNames</code>( <var class="Arg">Model</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns the names of the variables in the model. This list acts as the index set for any lists of variable coefficients, such as in GurobiAddConstraint or GurobiSetObjectiveFunction.</p>
 
+<p><a id="X7A7293F67ABD4DAD" name="X7A7293F67ABD4DAD"></a></p>
+
+<h5>3.5-15 GurobiLogToConsole</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiLogToConsole</code>( <var class="Arg">Model</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns: true/false</p>
+
+<p>Returns true if the Gurobi output is set to display to the screen, and false if the output is supressed. Gurobify suppresses the output by default.</p>
+
 <p><a id="X7FFA259B78D1DC6E" name="X7FFA259B78D1DC6E"></a></p>
 
 <h4>3.6 <span class="Heading">Querying Other Attributes And Parameters</span></h4>
@@ -462,9 +494,18 @@
 
 <p>Takes a Gurobi model and retrieves the value of an integer-valued attribute. Refer to the Gurobi documentation for a list of attributes and their types.</p>
 
+<p><a id="X7D96CEB0821999AD" name="X7D96CEB0821999AD"></a></p>
+
+<h5>3.6-4 GurobiStringAttributeElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStringAttributeElement</code>( <var class="Arg">Model</var>, <var class="Arg">position</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>Returns: attibute value</p>
+
+<p>Takes a Gurobi model and retrieves the value of a string attribute element at a given position. For example to get the names of constraints with "ConstrName". Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
 <p><a id="X81B9A6EC80C1A48A" name="X81B9A6EC80C1A48A"></a></p>
 
-<h5>3.6-4 GurobiDoubleAttribute</h5>
+<h5>3.6-5 GurobiDoubleAttribute</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleAttribute</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute value</p>
@@ -473,7 +514,7 @@
 
 <p><a id="X7CDBE1727DD4EE7B" name="X7CDBE1727DD4EE7B"></a></p>
 
-<h5>3.6-5 GurobiIntegerAttributeArray</h5>
+<h5>3.6-6 GurobiIntegerAttributeArray</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIntegerAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute array</p>
@@ -482,7 +523,7 @@
 
 <p><a id="X846C09F57A2A2819" name="X846C09F57A2A2819"></a></p>
 
-<h5>3.6-6 GurobiDoubleAttributeArray</h5>
+<h5>3.6-7 GurobiDoubleAttributeArray</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute array</p>
@@ -491,7 +532,7 @@
 
 <p><a id="X78575B84809DCBFC" name="X78575B84809DCBFC"></a></p>
 
-<h5>3.6-7 GurobiStringAttributeArray</h5>
+<h5>3.6-8 GurobiStringAttributeArray</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStringAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">( function )</td></tr></table></div>
 <p>Returns: attibute array</p>
@@ -584,6 +625,15 @@
 <p>Returns: true</p>
 
 <p>Set the limit for the maximum number of MIP nodes explored. The default value is infinity.</p>
+
+<p><a id="X7E11882884331F6D" name="X7E11882884331F6D"></a></p>
+
+<h5>3.7-10 GurobiSetLogToConsole</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetLogToConsole</code>( <var class="Arg">Model</var>, <var class="Arg">Switch</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Turns console logging on or off. If Switch is true the output of Gurobi will be printed to the screen, and if it is false the output will be supressed. The default for Gurobify is to supress the output.</p>
 
 <p><a id="X7A7ED7598622FB73" name="X7A7ED7598622FB73"></a></p>
 

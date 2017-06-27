@@ -26,13 +26,13 @@
 <h1>Gurobify</h1>
 
 
-<h2>A <strong class="pkg">GAP</strong> interface to Gurobi.</h2>
+<h2>A <strong class="pkg">GAP</strong> interface to Gurobi Optimizer.</h2>
 
 <p>
-    1.0.0</p>
+    1.1.0</p>
 
 <p>
-    31/03/2017
+    27/06/2017
   </p>
 
 </div>
@@ -86,6 +86,9 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7C24864E7D6ABBD8">1.6 <span class="Heading">Loading Gurobify</span></a>
 </span>
 </div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X87891BE881E89935">1.7 <span class="Heading">Problems With The Installation</span></a>
+</span>
+</div>
 </div>
 <div class="ContChap"><a href="chap2.html#X7B1863E17896BCE1">2 <span class="Heading">Getting Started</span></a>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7B1863E17896BCE1">2.1 <span class="Heading">Getting Started</span></a>
@@ -107,10 +110,12 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7C005CF27BE32A57">3.2 <span class="Heading">Adding And Deleting Constraints</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D65BB688477CD28">3.2-1 GurobiDeleteAllConstraintsWithName</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80DAC59A855C49B4">3.2-2 GurobiAddConstraint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83AB24597DEC03F2">3.2-3 GurobiAddConstraint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X804B714384F12A4C">3.2-4 GurobiAddMultipleConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E2213B9791B56B6">3.2-1 GurobiDeleteSingleConstraintWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X818D5BCD7E92B747">3.2-2 GurobiDeleteConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X841ABAB38141572F">3.2-3 GurobiDeleteConstraintsWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X80DAC59A855C49B4">3.2-4 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X83AB24597DEC03F2">3.2-5 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X804B714384F12A4C">3.2-6 GurobiAddMultipleConstraints</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X813E985F7A2CF730">3.3 <span class="Heading">Adding And Modifying Objective Functions</span></a>
 </span>
@@ -147,6 +152,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8466DB137CD0ACDF">3.5-12 GurobiIterationLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7B9C3B937BEBAE23">3.5-13 GurobiNodeLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X827541CC821E642E">3.5-14 GurobiVariableNames</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7A7293F67ABD4DAD">3.5-15 GurobiLogToConsole</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7FFA259B78D1DC6E">3.6 <span class="Heading">Querying Other Attributes And Parameters</span></a>
 </span>
@@ -154,10 +160,11 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87FCA6DC7B5B91F5">3.6-1 GurobiIntegerParameter</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CB77102788E9924">3.6-2 GurobiDoubleParameter</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7AF271328125ACAE">3.6-3 GurobiIntegerAttribute</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81B9A6EC80C1A48A">3.6-4 GurobiDoubleAttribute</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CDBE1727DD4EE7B">3.6-5 GurobiIntegerAttributeArray</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C09F57A2A2819">3.6-6 GurobiDoubleAttributeArray</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-7 GurobiStringAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D96CEB0821999AD">3.6-4 GurobiStringAttributeElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81B9A6EC80C1A48A">3.6-5 GurobiDoubleAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7CDBE1727DD4EE7B">3.6-6 GurobiIntegerAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X846C09F57A2A2819">3.6-7 GurobiDoubleAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X78575B84809DCBFC">3.6-8 GurobiStringAttributeArray</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X85C908697CD13F5A">3.7 <span class="Heading">Modifying Attributes And Parameters</span></a>
 </span>
@@ -171,6 +178,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87C7D6E6845FF8D3">3.7-7 GurobiSetSolutionLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87D6E1F782BBF4E8">3.7-8 GurobiSetIterationLimit</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X81E8087881289D77">3.7-9 GurobiSetNodeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E11882884331F6D">3.7-10 GurobiSetLogToConsole</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A7ED7598622FB73">3.8 <span class="Heading">Modifying Other Attributes And Parameters</span></a>
 </span>
@@ -200,6 +208,14 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X7FB642867EA9BDDC">5.4 <span class="Heading">Optimisation Status Codes</span></a>
 </span>
 </div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X868CA8638429A24E">5.5 <span class="Heading">Troubleshooting The Installation</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X81BB11CC7917EFD2">5.5-1 <span class="Heading">Typical Sources Of Error During Installation</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X79B4B31F854254C0">5.5-2 <span class="Heading">Specific Errors</span></a>
+</span>
+</div></div>
 </div>
 <div class="ContChap"><a href="chapBib.html"><span class="Heading">References</span></a></div>
 <div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>

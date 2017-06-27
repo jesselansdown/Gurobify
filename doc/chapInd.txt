@@ -2,20 +2,23 @@
   
   [1XIndex[101X
   
-  [2XGurobiAddConstraint[102X (for IsGurobiModel, IsList, IsString, IsInt, IsString)  3.2-2
-  [2XGurobiAddConstraint[102X (for IsGurobiModel, IsList, IsString, IsFloat, IsString)  3.2-3
-  [2XGurobiAddMultipleConstraints[102X (for IsGurobiModel, IsList, IsList, IsList, IsList)  3.2-4
+  [2XGurobiAddConstraint[102X (for IsGurobiModel, IsList, IsString, IsInt, IsString)  3.2-4
+  [2XGurobiAddConstraint[102X (for IsGurobiModel, IsList, IsString, IsFloat, IsString)  3.2-5
+  [2XGurobiAddMultipleConstraints[102X (for IsGurobiModel, IsList, IsList, IsList, IsList)  3.2-6
   [2XGurobiBestBoundStop[102X (for IsGurobiModel)  3.5-10
   [2XGurobiBestObjectiveBoundStop[102X (for IsGurobiModel)  3.5-8
   [2XGurobiCutOff[102X (for IsGurobiModel)  3.5-7
-  [2XGurobiDeleteAllConstraintsWithName[102X  3.2-1
-  [2XGurobiDoubleAttribute[102X  3.6-4
-  [2XGurobiDoubleAttributeArray[102X  3.6-6
+  [2XGurobiDeleteConstraints[102X  3.2-2
+  [2XGurobiDeleteConstraintsWithName[102X (for IsGurobiModel, IsString)  3.2-3
+  [2XGurobiDeleteSingleConstraintWithName[102X  3.2-1
+  [2XGurobiDoubleAttribute[102X  3.6-5
+  [2XGurobiDoubleAttributeArray[102X  3.6-7
   [2XGurobiDoubleParameter[102X  3.6-2
   [2XGurobiIntegerAttribute[102X  3.6-3
-  [2XGurobiIntegerAttributeArray[102X  3.6-5
+  [2XGurobiIntegerAttributeArray[102X  3.6-6
   [2XGurobiIntegerParameter[102X  3.6-1
   [2XGurobiIterationLimit[102X (for IsGurobiModel)  3.5-12
+  [2XGurobiLogToConsole[102X (for IsGurobiModel)  3.5-15
   [2XGurobiMaximiseModel[102X (for IsGurobiModel)  3.3-1
   [2XGurobiMinimiseModel[102X (for IsGurobiModel)  3.3-2
   [2XGurobiMIPFocus[102X (for IsGurobiModel)  3.5-9
@@ -41,6 +44,7 @@
   [2XGurobiSetIntegerAttribute[102X  3.8-3
   [2XGurobiSetIntegerParameter[102X  3.8-1
   [2XGurobiSetIterationLimit[102X (for IsGurobiModel, IsFloat)  3.7-8
+  [2XGurobiSetLogToConsole[102X (for IsGurobiModel, IsBool)  3.7-10
   [2XGurobiSetMIPFocus[102X (for IsGurobiModel, IsInt)  3.7-5
   [2XGurobiSetNodeLimit[102X (for IsGurobiModel, IsFloat)  3.7-9
   [2XGurobiSetNumericFocus[102X (for IsGurobiModel, IsInt)  3.7-4
@@ -50,7 +54,8 @@
   [2XGurobiSetVariableNames[102X (for IsGurobiModel, IsList)  3.1-4
   [2XGurobiSolution[102X (for IsGurobiModel)  3.4-4
   [2XGurobiSolutionLimit[102X (for IsGurobiModel)  3.5-11
-  [2XGurobiStringAttributeArray[102X  3.6-7
+  [2XGurobiStringAttributeArray[102X  3.6-8
+  [2XGurobiStringAttributeElement[102X  3.6-4
   [2XGurobiTimeLimit[102X (for IsGurobiModel)  3.5-6
   [2XGurobiUpdateModel[102X  3.4-3
   [2XGurobiVariableNames[102X (for IsGurobiModel)  3.5-14

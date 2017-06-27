@@ -9,9 +9,9 @@
 SetPackageInfo( rec(
 
 PackageName := "Gurobify",
-Subtitle := "A GAP interface to Gurobi.",
-Version := "1.0.0",
-Date := "31/03/2017", # dd/mm/yyyy format
+Subtitle := "A GAP interface to Gurobi Optimizer.",
+Version := "1.1.0",
+Date := "27/06/2017", # dd/mm/yyyy format
 
 Persons := [
   rec(
@@ -71,7 +71,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Gurobify provides an interface to Gurobi from GAP.",
+  LongTitle := "Gurobify provides an interface to Gurobi Optimizer from GAP.",
 ),
 
 Dependencies := rec(

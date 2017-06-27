@@ -25,20 +25,23 @@
 <div class="index">
 <h3>Index</h3>
 
-<code class="func">GurobiAddConstraint</code>, for IsGurobiModel, IsList, IsString, IsFloat, IsString  <a href="chap3.html#X83AB24597DEC03F2">3.2-3</a><br />
-<code class="func">GurobiAddConstraint</code>, for IsGurobiModel, IsList, IsString, IsInt, IsString  <a href="chap3.html#X80DAC59A855C49B4">3.2-2</a><br />
-<code class="func">GurobiAddMultipleConstraints</code>, for IsGurobiModel, IsList, IsList, IsList, IsList  <a href="chap3.html#X804B714384F12A4C">3.2-4</a><br />
+<code class="func">GurobiAddConstraint</code>, for IsGurobiModel, IsList, IsString, IsFloat, IsString  <a href="chap3.html#X83AB24597DEC03F2">3.2-5</a><br />
+<code class="func">GurobiAddConstraint</code>, for IsGurobiModel, IsList, IsString, IsInt, IsString  <a href="chap3.html#X80DAC59A855C49B4">3.2-4</a><br />
+<code class="func">GurobiAddMultipleConstraints</code>, for IsGurobiModel, IsList, IsList, IsList, IsList  <a href="chap3.html#X804B714384F12A4C">3.2-6</a><br />
 <code class="func">GurobiBestBoundStop</code>, for IsGurobiModel  <a href="chap3.html#X86E147B28494D228">3.5-10</a><br />
 <code class="func">GurobiBestObjectiveBoundStop</code>, for IsGurobiModel  <a href="chap3.html#X7DB8505D7A85E7B3">3.5-8</a><br />
 <code class="func">GurobiCutOff</code>, for IsGurobiModel  <a href="chap3.html#X874CA3997B6F23C5">3.5-7</a><br />
-<code class="func">GurobiDeleteAllConstraintsWithName</code>  <a href="chap3.html#X7D65BB688477CD28">3.2-1</a><br />
-<code class="func">GurobiDoubleAttribute</code>  <a href="chap3.html#X81B9A6EC80C1A48A">3.6-4</a><br />
-<code class="func">GurobiDoubleAttributeArray</code>  <a href="chap3.html#X846C09F57A2A2819">3.6-6</a><br />
+<code class="func">GurobiDeleteConstraints</code>  <a href="chap3.html#X818D5BCD7E92B747">3.2-2</a><br />
+<code class="func">GurobiDeleteConstraintsWithName</code>, for IsGurobiModel, IsString  <a href="chap3.html#X841ABAB38141572F">3.2-3</a><br />
+<code class="func">GurobiDeleteSingleConstraintWithName</code>  <a href="chap3.html#X7E2213B9791B56B6">3.2-1</a><br />
+<code class="func">GurobiDoubleAttribute</code>  <a href="chap3.html#X81B9A6EC80C1A48A">3.6-5</a><br />
+<code class="func">GurobiDoubleAttributeArray</code>  <a href="chap3.html#X846C09F57A2A2819">3.6-7</a><br />
 <code class="func">GurobiDoubleParameter</code>  <a href="chap3.html#X7CB77102788E9924">3.6-2</a><br />
 <code class="func">GurobiIntegerAttribute</code>  <a href="chap3.html#X7AF271328125ACAE">3.6-3</a><br />
-<code class="func">GurobiIntegerAttributeArray</code>  <a href="chap3.html#X7CDBE1727DD4EE7B">3.6-5</a><br />
+<code class="func">GurobiIntegerAttributeArray</code>  <a href="chap3.html#X7CDBE1727DD4EE7B">3.6-6</a><br />
 <code class="func">GurobiIntegerParameter</code>  <a href="chap3.html#X87FCA6DC7B5B91F5">3.6-1</a><br />
 <code class="func">GurobiIterationLimit</code>, for IsGurobiModel  <a href="chap3.html#X8466DB137CD0ACDF">3.5-12</a><br />
+<code class="func">GurobiLogToConsole</code>, for IsGurobiModel  <a href="chap3.html#X7A7293F67ABD4DAD">3.5-15</a><br />
 <code class="func">GurobiMaximiseModel</code>, for IsGurobiModel  <a href="chap3.html#X82CBDCEA8397AF0A">3.3-1</a><br />
 <code class="func">GurobiMinimiseModel</code>, for IsGurobiModel  <a href="chap3.html#X803628D383545D0E">3.3-2</a><br />
 <code class="func">GurobiMIPFocus</code>, for IsGurobiModel  <a href="chap3.html#X82B7CF1A836501A7">3.5-9</a><br />
@@ -64,6 +67,7 @@
 <code class="func">GurobiSetIntegerAttribute</code>  <a href="chap3.html#X84AC6D71849BC4FC">3.8-3</a><br />
 <code class="func">GurobiSetIntegerParameter</code>  <a href="chap3.html#X79A2BA9F845FBDC0">3.8-1</a><br />
 <code class="func">GurobiSetIterationLimit</code>, for IsGurobiModel, IsFloat  <a href="chap3.html#X87D6E1F782BBF4E8">3.7-8</a><br />
+<code class="func">GurobiSetLogToConsole</code>, for IsGurobiModel, IsBool  <a href="chap3.html#X7E11882884331F6D">3.7-10</a><br />
 <code class="func">GurobiSetMIPFocus</code>, for IsGurobiModel, IsInt  <a href="chap3.html#X7B63C89879B44787">3.7-5</a><br />
 <code class="func">GurobiSetNodeLimit</code>, for IsGurobiModel, IsFloat  <a href="chap3.html#X81E8087881289D77">3.7-9</a><br />
 <code class="func">GurobiSetNumericFocus</code>, for IsGurobiModel, IsInt  <a href="chap3.html#X80B873DC7D6A2208">3.7-4</a><br />
@@ -73,7 +77,8 @@
 <code class="func">GurobiSetVariableNames</code>, for IsGurobiModel, IsList  <a href="chap3.html#X7B690832842C6A40">3.1-4</a><br />
 <code class="func">GurobiSolution</code>, for IsGurobiModel  <a href="chap3.html#X848B53DF8794358C">3.4-4</a><br />
 <code class="func">GurobiSolutionLimit</code>, for IsGurobiModel  <a href="chap3.html#X78EAE2D87EE57C0C">3.5-11</a><br />
-<code class="func">GurobiStringAttributeArray</code>  <a href="chap3.html#X78575B84809DCBFC">3.6-7</a><br />
+<code class="func">GurobiStringAttributeArray</code>  <a href="chap3.html#X78575B84809DCBFC">3.6-8</a><br />
+<code class="func">GurobiStringAttributeElement</code>  <a href="chap3.html#X7D96CEB0821999AD">3.6-4</a><br />
 <code class="func">GurobiTimeLimit</code>, for IsGurobiModel  <a href="chap3.html#X84E732C6817D89E6">3.5-6</a><br />
 <code class="func">GurobiUpdateModel</code>  <a href="chap3.html#X7B4BFD4878C5D61A">3.4-3</a><br />
 <code class="func">GurobiVariableNames</code>, for IsGurobiModel  <a href="chap3.html#X827541CC821E642E">3.5-14</a><br />

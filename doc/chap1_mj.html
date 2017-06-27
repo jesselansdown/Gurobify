@@ -43,6 +43,9 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7C24864E7D6ABBD8">1.6 <span class="Heading">Loading Gurobify</span></a>
 </span>
 </div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X87891BE881E89935">1.7 <span class="Heading">Problems With The Installation</span></a>
+</span>
+</div>
 </div>
 
 <h3>1 <span class="Heading">Introduction</span></h3>
@@ -78,7 +81,7 @@
 @manual{gurobify,
 Author = {Lansdown, Jesse},
 Key = {gurobify},
-Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.0.0}},
+Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},
 Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
 Year = 2017}
 </pre></div>
@@ -89,7 +92,7 @@ Year = 2017}
 <div class="example"><pre>
 \bibitem[Gurobify]{gurobify}
 J.~Lansdown.
-\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.0.0, 2017.
+\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.1.0, 2017.
 </pre></div>
 
 <p><a id="X7C0B91E37C8FC531" name="X7C0B91E37C8FC531"></a></p>
@@ -150,7 +153,7 @@ J.~Lansdown.
 
 <div class="example"><pre>
 ./autogen.sh
-./congigure --with-gurobi=&lt;gurobi path&gt; [--with-gaproot=&lt;gap path&gt;]
+./configure --with-gurobi=&lt;gurobi path&gt; [--with-gaproot=&lt;gap path&gt;]
 make
 </pre></div>
 
@@ -186,7 +189,7 @@ gap makedoc.g
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"> LoadPackage("Gurobify");</span>
 -----------------------------------------------------------------------------
-Loading  Gurobify 1.0.0 (Gurobify provides an interface to Gurobi from GAP.)
+Loading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)
 by Jesse Lansdown (www.jesselansdown.com).
 Homepage: https://github.com/jesselansdown/Gurobify/
 -----------------------------------------------------------------------------
@@ -201,6 +204,12 @@ gap -l ";/alternative/path/to/Gurobify"
 </pre></div>
 
 <p>where <em>/alternative/path/to/Gurobify</em> is the path to the directory which contains <em>/pkg/Gurobify</em> as subdirectories.</p>
+
+<p><a id="X87891BE881E89935" name="X87891BE881E89935"></a></p>
+
+<h4>1.7 <span class="Heading">Problems With The Installation</span></h4>
+
+<p>Please ensure that all dependencies are present, the correct paths have been used, and the correct versions of software are being used. There is also a section in the Appendix, "Troubleshooting The Installation", which deals with a number of issues people face when installing Gurobify, and suggests solutions.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>

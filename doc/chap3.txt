@@ -67,21 +67,37 @@
   [33X[0;0YThis  section deals with adding linear constraints, both individually and in
   bulk, and also naming and deleting constraints.[133X
   
-  [1X3.2-1 GurobiDeleteAllConstraintsWithName[101X
+  [1X3.2-1 GurobiDeleteSingleConstraintWithName[101X
   
-  [29X[2XGurobiDeleteAllConstraintsWithName[102X( [3XModel[103X, [3XConstraintName[103X ) [32X function
+  [29X[2XGurobiDeleteSingleConstraintWithName[102X( [3XModel[103X, [3XConstraintName[103X ) [32X function
   [6XReturns:[106X  [33X[0;10Ytrue[133X
   
-  [33X[0;0YDeletes all constraints from a model with the name ConstraintName.[133X
+  [33X[0;0YDeletes  a  single  constraint from a model with the name ConstraintName. If
+  multiple constraints have this name, then one will be deleted at random.[133X
   
-  [1X3.2-2 GurobiAddConstraint[101X
+  [1X3.2-2 GurobiDeleteConstraints[101X
+  
+  [29X[2XGurobiDeleteConstraints[102X( [3XModel[103X, [3XConstraintName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YDeletes  all  constraints  from  a  model which are indexed by the values of
+  ConstraintList. Requires an update to the model to take effect.[133X
+  
+  [1X3.2-3 GurobiDeleteConstraintsWithName[101X
+  
+  [29X[2XGurobiDeleteConstraintsWithName[102X( [3XModel[103X, [3XConstraintName[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue/false[133X
+  
+  [33X[0;0YDeletes all constraints with the name ConstraintName[133X
+  
+  [1X3.2-4 GurobiAddConstraint[101X
   
   [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XConstraintEquation[103X, [3XConstraintSense[103X, [3XConstraintRHSValue[103X[, [3XConstraintName[103X] ) [32X operation
   [6XReturns:[106X  [33X[0;10Ytrue[133X
   
   [33X[0;0YSame as below, except that ConstraintRHS value takes an integer value.[133X
   
-  [1X3.2-3 GurobiAddConstraint[101X
+  [1X3.2-5 GurobiAddConstraint[101X
   
   [29X[2XGurobiAddConstraint[102X( [3XModel[103X, [3XConstraintEquation[103X, [3XConstraintSense[103X, [3XConstraintRHSValue[103X[, [3XConstraintName[103X] ) [32X operation
   [6XReturns:[106X  [33X[0;10Ytrue[133X
@@ -97,7 +113,7 @@
   Note  that  a  model  must  be  updated  or  optimised before any additional
   constraints become effective.[133X
   
-  [1X3.2-4 GurobiAddMultipleConstraints[101X
+  [1X3.2-6 GurobiAddMultipleConstraints[101X
   
   [29X[2XGurobiAddMultipleConstraints[102X( [3XModel[103X, [3XConstraintEquations[103X, [3XConstraintSenses[103X, [3XConstraintRHSValues[103X[, [3XConstraintNames[103X] ) [32X operation
   [6XReturns:[106X  [33X[0;10Ytrue[133X
@@ -340,6 +356,14 @@
   set  for  any lists of variable coefficients, such as in GurobiAddConstraint
   or GurobiSetObjectiveFunction.[133X
   
+  [1X3.5-15 GurobiLogToConsole[101X
+  
+  [29X[2XGurobiLogToConsole[102X( [3XModel[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue/false[133X
+  
+  [33X[0;0YReturns true if the Gurobi output is set to display to the screen, and false
+  if the output is supressed. Gurobify suppresses the output by default.[133X
+  
   
   [1X3.6 [33X[0;0YQuerying Other Attributes And Parameters[133X[101X
   
@@ -373,7 +397,17 @@
   [33X[0;0YTakes a Gurobi model and retrieves the value of an integer-valued attribute.
   Refer to the Gurobi documentation for a list of attributes and their types.[133X
   
-  [1X3.6-4 GurobiDoubleAttribute[101X
+  [1X3.6-4 GurobiStringAttributeElement[101X
+  
+  [29X[2XGurobiStringAttributeElement[102X( [3XModel[103X, [3Xposition[103X, [3XAttributeName[103X ) [32X function
+  [6XReturns:[106X  [33X[0;10Yattibute value[133X
+  
+  [33X[0;0YTakes  a  Gurobi model and retrieves the value of a string attribute element
+  at  a  given  position.  For  example  to  get the names of constraints with
+  "ConstrName". Refer to the Gurobi documentation for a list of attributes and
+  their types.[133X
+  
+  [1X3.6-5 GurobiDoubleAttribute[101X
   
   [29X[2XGurobiDoubleAttribute[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
   [6XReturns:[106X  [33X[0;10Yattibute value[133X
@@ -381,7 +415,7 @@
   [33X[0;0YTakes  a  Gurobi model and retrieves the value of a double-valued attribute.
   Refer to the Gurobi documentation for a list of attributes and their types.[133X
   
-  [1X3.6-5 GurobiIntegerAttributeArray[101X
+  [1X3.6-6 GurobiIntegerAttributeArray[101X
   
   [29X[2XGurobiIntegerAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
   [6XReturns:[106X  [33X[0;10Yattibute array[133X
@@ -390,7 +424,7 @@
   of  attributes  arrays  which  take  integer  values.  Refer  to  the Gurobi
   documentation for a list of attributes and their types.[133X
   
-  [1X3.6-6 GurobiDoubleAttributeArray[101X
+  [1X3.6-7 GurobiDoubleAttributeArray[101X
   
   [29X[2XGurobiDoubleAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
   [6XReturns:[106X  [33X[0;10Yattibute array[133X
@@ -399,7 +433,7 @@
   of  attributes  arrays  which  take  double  values.  Refer  to  the  Gurobi
   documentation for a list of attributes and their types.[133X
   
-  [1X3.6-7 GurobiStringAttributeArray[101X
+  [1X3.6-8 GurobiStringAttributeArray[101X
   
   [29X[2XGurobiStringAttributeArray[102X( [3XModel[103X, [3XAttributeName[103X ) [32X function
   [6XReturns:[106X  [33X[0;10Yattibute array[133X
@@ -498,6 +532,15 @@
   
   [33X[0;0YSet  the  limit  for  the  maximum number of MIP nodes explored. The default
   value is infinity.[133X
+  
+  [1X3.7-10 GurobiSetLogToConsole[101X
+  
+  [29X[2XGurobiSetLogToConsole[102X( [3XModel[103X, [3XSwitch[103X ) [32X operation
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YTurns console logging on or off. If Switch is true the output of Gurobi will
+  be  printed  to the screen, and if it is false the output will be supressed.
+  The default for Gurobify is to supress the output.[133X
   
   
   [1X3.8 [33X[0;0YModifying Other Attributes And Parameters[133X[101X

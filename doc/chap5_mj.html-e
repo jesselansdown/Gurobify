@@ -37,6 +37,14 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7FB642867EA9BDDC">5.4 <span class="Heading">Optimisation Status Codes</span></a>
 </span>
 </div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X868CA8638429A24E">5.5 <span class="Heading">Troubleshooting The Installation</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X81BB11CC7917EFD2">5.5-1 <span class="Heading">Typical Sources Of Error During Installation</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X79B4B31F854254C0">5.5-2 <span class="Heading">Specific Errors</span></a>
+</span>
+</div></div>
 </div>
 
 <h3>5 <span class="Heading">Appendix</span></h3>
@@ -145,6 +153,97 @@
 
 </li>
 </ul>
+<p><a id="X868CA8638429A24E" name="X868CA8638429A24E"></a></p>
+
+<h4>5.5 <span class="Heading">Troubleshooting The Installation</span></h4>
+
+<p><a id="X81BB11CC7917EFD2" name="X81BB11CC7917EFD2"></a></p>
+
+<h5>5.5-1 <span class="Heading">Typical Sources Of Error During Installation</span></h5>
+
+<p>Common sources of error during installation include:</p>
+
+
+<ul>
+<li><p>Forgetting to run ./autogen.sh</p>
+
+</li>
+<li><p>Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor.</p>
+
+</li>
+<li><p>Not putting the correct paths to Gurobi (or <strong class="pkg">GAP</strong> if not in the default "pkg" directory) when running "configure". Sometimes the paths are correct but incomplete, eg missing "linux64" or "mac64" at the end. Compare with the example paths given in the installation section of the manual.</p>
+
+</li>
+<li><p>Having incorrect versions of <strong class="pkg">GAP</strong> or Gurobi.</p>
+
+</li>
+</ul>
+<p><a id="X79B4B31F854254C0" name="X79B4B31F854254C0"></a></p>
+
+<h5>5.5-2 <span class="Heading">Specific Errors</span></h5>
+
+
+<ul>
+<li><p>The compiler gives warnings when running "make"</p>
+
+</li>
+</ul>
+<p>This seems to be due to the way <strong class="pkg">GAP</strong> stores integers, but it doesn't affect the function of the program. If no errors are given the installation is generally ok. Test the installation by loading Gurobify and running the test cases.</p>
+
+
+<ul>
+<li><p>Compilation is successful, but <strong class="pkg">GAP</strong> cannot load the package, giving an error such as:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage("Gurobify");</span>
+#W dlopen() error: libgurobi70.so: cannot open shared\
+object file: No such file or directory
+Error, module '/home/linux/gap4r8/pkg/Gurobify/bin\
+/x86_64-pc-linux-gnu-gcc-default64/Gurobify.so'
+</pre></div>
+
+<p>This is caused by <strong class="pkg">GAP</strong> not being able to find the Gurobi binary. When installing Gurobify, you were required to enter the path to Gurobi in the configure stage. If this path is "gurobi_path", then navigate to "gurobi_path/lib" in the terminal. You should now be able to load Gurobify when running <strong class="pkg">GAP</strong> from this location. It can be fixed by running the following:</p>
+
+
+<div class="example"><pre>
+LD_LIBRARY_PATH=gurobi_path/lib:$LD_LIBRARY_PATH
+</pre></div>
+
+<p>where "gurobi_path/lib" is as above. This will only be valid for the current session, to make this change permanent the line must be added to the .bash_profile file.</p>
+
+
+<ul>
+<li><p>Compilation is successful, but <strong class="pkg">GAP</strong> cannot load Gurobify, giving an error such as:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage("Gurobify");</span>
+dyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM
+  Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.1.0/bin\
+  /x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so
+  Expected in: flat namespace
+</pre></div>
+
+<p>Gurobify requires <strong class="pkg">GAP</strong> version 4.8 or higher.</p>
+
+
+<ul>
+<li><p>Gurobify will not compile, giving an error such as:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
+</pre></div>
+
+<p>Check that you have entered the correct path for Gurobi in the "configure" stage of installation.</p>
+
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
