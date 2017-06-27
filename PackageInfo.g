@@ -71,7 +71,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Gurobify provides an interface to Gurobi from GAP.",
+  LongTitle := "Gurobify provides an interface to Gurobi Optimizer from GAP.",
 ),
 
 Dependencies := rec(
