@@ -24,7 +24,7 @@ Persons := [
     PostalAddress := Concatenation(
                       "Jesse Lansdown\n",
                       "Lehrstuhl B für Mathematik\n",
-                      "RWTH Aachen\n",
+                      "RWTH Aachen University\n",
                       "Pontdriesch 10 - 16\n",
                       "52062 Aachen\n",
                       "Germany"
