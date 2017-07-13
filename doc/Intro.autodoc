@@ -14,7 +14,7 @@
 Gurobify is a &GAP;<Cite Key="GAP4"/> package which provides an interface to the optimisation software Gurobi<Cite Key="gurobi"/>.
 <Br/><Br/>
 Gurobify can be obtained from the Gurobify homepage:
-* https://jesselansdown.com/Gurobify
+* http://www.jesselansdown.com/Gurobify
 Please use the issue tracker to inform me of any bugs or suggestions:
 * https://github.com/jesselansdown/Gurobify/issues
 
@@ -28,7 +28,7 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 #!	Author = {Lansdown, Jesse},
 #!	Key = {gurobify},
 #!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},
-#!	Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
+#!	Url = {\verb+(http://www.jesselansdown/Gurobify/)+},
 #!	Year = 2017}
 @EndLog
 
@@ -140,7 +140,7 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 #! -----------------------------------------------------------------------------
 #! Loading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
-#! Homepage: https://github.com/jesselansdown/Gurobify/
+#! Homepage: http://www.jesselansdown.com/Gurobify/
 #! -----------------------------------------------------------------------------
 #! true
 @EndLog
@@ -224,7 +224,7 @@ This section contains a number of examples which are intended to illustrate the 
 
 	@Section Gurobify Links
 
-* Homepage: https://github.com/jesselansdown/Gurobify
+* Homepage: http://www.jesselansdown.com/Gurobify/
 * Issue tracker: https://github.com/jesselansdown/Gurobify/issues
 
 	@Section &GAP; Links
