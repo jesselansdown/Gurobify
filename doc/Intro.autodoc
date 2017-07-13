@@ -321,3 +321,22 @@ Gurobify requires &GAP; version 4.8 or higher.
 @EndLog
 
 Check that you have entered the correct path for Gurobi in the "configure" stage of installation.
+
+	@Section Example LP file
+
+Shown below is the LP file, "test.lp", written during the simple example in Section 1.
+
+@BeginLog
+#! \ LP format - for model browsing. Use MPS format to capture full model detail.
+#! Minimize
+#!   x + 2 y + z
+#! Subject To
+#!  UnNamedConstraint: 2 x + 2 y + 2 z <= 6
+#!  UnNamedConstraint: x + 2 y + 3 z >= 5
+#!  UnNamedConstraint: 2 x + 2 y + 2 z <= 6
+#!  UnNamedConstraint: x + 2 y + 3 z >= 5
+#! Bounds
+#! Binaries
+#!  x y z
+#! End
+@EndLog
