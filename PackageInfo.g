@@ -96,7 +96,7 @@ AutoDoc := rec(
                     "Public License, v. 2.0. If a copy of the MPL was not distributed ",
                     "with this file, You can obtain one at https://mozilla.org/MPL/2.0/.\n"),
         Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from &GAP;. ",
-          "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
+          "It enables the creation and modification of mixed integer and linear programming models which can be solved directly ",
           "by Gurobi from within the &GAP; environment."),
         Acknowledgements := Concatenation("I thank Sebastian Gutsche for generously taking the time ",
           "to explain the inner workings of &GAP; and &GAP; packages to me, and for pointing me towards examples. ",
