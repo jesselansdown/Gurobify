@@ -27,8 +27,10 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 #! @manual{gurobify,
 #!	Author = {Lansdown, Jesse},
 #!	Key = {gurobify},
-#!	Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.0}},
 #!	Url = {\verb+(http://www.jesselansdown/Gurobify/)+},
+#!  Note = {\verb+http://doi.org/10.5281/zenodo.891418+},
+#!	DOI={10.5281/zenodo.891418},
 #!	Year = 2017}
 @EndLog
 
@@ -37,7 +39,8 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 @BeginLog
 #! \bibitem[Gurobify]{gurobify}
 #!	J.~Lansdown.
-#!	\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.1.0, 2017.
+#!	\newblock Gurobify -- A {GAP} interface to Gurobi Optimizer, Version 1.1.0, 2017.
+#!	\newblock \verb+http://doi.org/10.5281/zenodo.891418+.
 @EndLog
 
 
@@ -55,7 +58,7 @@ Gurobify requires the following software to be installed.
 Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
 If you want to regenerate the documentation for any reason, then the following will also be required.
 
-* AutoDoc 2016.03.08 (or later)
+* AutoDoc 2017.09.08 (or later)
 
 * GAPDoc 1.5 (or later)
 
