@@ -23,26 +23,28 @@ Please use the issue tracker to inform me of any bugs or suggestions:
 I am interested to know who is using Gurobify! If you obtain a copy I would appreciate it if you sent me an email to let me know. 
 If Gurobify aids you in obtaining results that lead to a publication, please cite Gurobify as you would a paper. An example BibTeX entry for citing gurobify is given below. Please also send me an email informing me of the paper for my own interest.
 
+
 @BeginLog
-#! @manual{gurobify,
+#!	@article{gurobify,
 #!	Author = {Lansdown, Jesse},
+#!	Doi = {10.5281/zenodo.891418},
 #!	Key = {gurobify},
 #!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.0}},
-#!	Url = {\verb+(http://www.jesselansdown/Gurobify/)+},
-#!  Note = {\verb+http://doi.org/10.5281/zenodo.891418+},
-#!	DOI={10.5281/zenodo.891418},
-#!	Year = 2017}
+#!	Url = {http://doi.org/10.5281/zenodo.891418},
+#!	Year = 2017,
+#!	}
 @EndLog
 
 Here is the entry in the APA style which may be used directly in the bibliography environment of your LaTeX document.
 
 @BeginLog
-#! \bibitem[Gurobify]{gurobify}
-#!	J.~Lansdown.
-#!	\newblock Gurobify -- A {GAP} interface to Gurobi Optimizer, Version 1.1.0, 2017.
-#!	\newblock \verb+http://doi.org/10.5281/zenodo.891418+.
+#! \bibitem[Lansdown(2017)]{gurobify}
+#! J.~Lansdown.
+#! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.0}.
+#! \newblock 2017.
+#! \newblock \doi{10.5281/zenodo.891418}.
+#! \newblock URL \url{http://doi.org/10.5281/zenodo.891418}.
 @EndLog
-
 
 
 	@Section Dependencies
