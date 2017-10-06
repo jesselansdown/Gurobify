@@ -13,10 +13,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
 
 
 static GRBenv *env = NULL;
+static GRBmodel* current_active_gurobi_model;
 
+void gurobify_signal_handler( int signal ){
+	GRBterminate(current_active_gurobi_model);
+}
 
 Obj TheTypeGurobiModel;
 
@@ -229,7 +234,11 @@ Obj GurobiOptimiseModel(Obj self, Obj GAPmodel )
 //-------------------------------------------------------------------------------------
 // Optimise the model
 
+    current_active_gurobi_model = model;
+    void (*current_signal_handler)(int);
+    current_signal_handler = signal(SIGINT,gurobify_signal_handler);
     error = GRBoptimize(model);
+    signal(SIGINT,current_signal_handler);
 
     if (error)
         ErrorMayQuit( "Error: model was not able to be optimised", 0, 0 );
