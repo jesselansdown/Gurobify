@@ -470,6 +470,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 		result := GurobiOptimiseModel(model);
 		if result = 9 then
 			Print("timed out");
+			return fail;
 		fi;
 		count:=1;
 		Print("\b",1, "\c");
@@ -490,6 +491,47 @@ InstallMethod(GurobiFindAllSolutions, "",
 			od;
 			count:=count+1;
 			Print(count, "\c");
+		od;
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		return good;
+	end
+);
+
+InstallMethod(GurobiFindAllSolutions, "",
+		[IsGurobiModel, IsGroup],
+
+	function(model, gp)
+		local good, result, sol, count;
+		Print("Solutions found so far: 0\c");
+		good:=[];
+		GurobiSetTimeLimit(model, 100000000);
+		result := GurobiOptimiseModel(model);
+		if result = 9 then
+			Print("timed out");
+		fi;
+		count:=1;
+		Print("\b",1, "\c");
+		while result = 2 do
+			sol := GurobiSolution(model);
+			sol := List(sol, t -> Int(Round(t)));
+			solution_orbits := Orbit(gp, sol, Permuted);;
+			Append(good, solution_orbits);;
+			good:=AsSet(good);
+			for i in [1 .. Size(String(count))] do
+				Print("\b");
+			od;
+			count:=Size(good);
+			Print(count, "\c");
+			for sol in solution_orbits do
+				GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+			od;
+			GurobiUpdateModel(model);
+			GurobiReset(model);
+			result := GurobiOptimiseModel(model);
+			if result = 9 then
+				Print("timed out");
+				return fail;
+			fi;
 		od;
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
 		return good;
