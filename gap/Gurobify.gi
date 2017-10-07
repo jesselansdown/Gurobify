@@ -458,3 +458,34 @@ InstallMethod(GurobiDeleteConstraintsWithName, "",
 	return true;
 	end
 );
+
+InstallMethod(GurobiFindAllSolutions, "",
+		[IsGurobiModel],
+
+	function(model)
+		local good, result, sol;
+		good:=[];
+		GurobiSetTimeLimit(model, 100000000);
+		result := GurobiOptimiseModel(model);
+		if result = 9 then
+			Print("timed out");
+		fi;
+		Print(".\c");
+		while result = 2 do
+			sol := GurobiSolution(model);
+			sol := List(sol, t -> Int(Round(t)));
+			Add(good, sol);
+			GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+			GurobiUpdateModel(model);
+			GurobiReset(model);
+			result := GurobiOptimiseModel(model);
+			if result = 9 then
+				Print("timed out");
+				return fail;
+			fi;
+			Print(".\c");
+		od;
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		return good;
+	end
+);

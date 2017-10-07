@@ -425,4 +425,7 @@ DeclareOperation("GurobiSetLogToConsole",
 DeclareOperation("GurobiLogToConsole",
 	[IsGurobiModel]);
 
+DeclareOperation("GurobiFindAllSolutions",
+	[IsGurobiModel]);
+
 
