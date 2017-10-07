@@ -492,6 +492,9 @@ InstallMethod(GurobiFindAllSolutions, "",
 			count:=count+1;
 			Print(count, "\c");
 		od;
+		if GurobiOptimisationStatus(model) <> 3 then
+			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
+		fi;
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
 		return good;
 	end
@@ -533,6 +536,9 @@ InstallMethod(GurobiFindAllSolutions, "",
 				return fail;
 			fi;
 		od;
+		if GurobiOptimisationStatus(model) <> 3 then
+			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
+		fi;
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
 		return good;
 	end
