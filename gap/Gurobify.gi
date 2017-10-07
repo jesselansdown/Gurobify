@@ -463,7 +463,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 		[IsGurobiModel],
 
 	function(model)
-		local good, result, sol, count;
+		local good, result, sol, count, i;
 		Print("Solutions found so far: 0\c");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
@@ -490,11 +490,14 @@ InstallMethod(GurobiFindAllSolutions, "",
 				Print("\b");
 			od;
 			count:=count+1;
-			Print(count, "\c");
+			if result = 2 then
+				Print(count, "\c");
+			fi;
 		od;
 		if GurobiOptimisationStatus(model) <> 3 then
 			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
 		fi;
+		Print("\n");
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
 		return good;
 	end
@@ -504,7 +507,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 		[IsGurobiModel, IsGroup],
 
 	function(model, gp)
-		local good, result, sol, count;
+		local good, result, sol, count, solution_orbits, i;
 		Print("Solutions found so far: 0\c");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
@@ -518,7 +521,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
 			solution_orbits := Orbit(gp, sol, Permuted);;
-			Append(good, solution_orbits);;
+			good:=Concatenation(good, solution_orbits);;
 			good:=AsSet(good);
 			for i in [1 .. Size(String(count))] do
 				Print("\b");
@@ -536,6 +539,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 				return fail;
 			fi;
 		od;
+		Print("\n");
 		if GurobiOptimisationStatus(model) <> 3 then
 			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
 		fi;

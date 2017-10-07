@@ -425,9 +425,25 @@ DeclareOperation("GurobiSetLogToConsole",
 DeclareOperation("GurobiLogToConsole",
 	[IsGurobiModel]);
 
+#! @Chapter Using Gurobify
+#! @Section Optimising A Model
+#! @Arguments Model
+#! @Returns Set of all solutions.
+#! @Description
+#!	Takes a Gurobi model and repeatedly optimises it, each time adding the previous solution as a
+#!	constraint so that it isn't found again. This continues until all solutions are found, and
+#!	then they are returned as a set. During the process the number of found solutions is displayed.
 DeclareOperation("GurobiFindAllSolutions",
 	[IsGurobiModel]);
 
+#! @Chapter Using Gurobify
+#! @Section Optimising A Model
+#! @Arguments Model, Group
+#! @Returns Set of all solutions.
+#! @Description
+#!	Same as above, except that it also takes a permutation group acting on the index set of variables.
+#!	Instead of finding all solutions directly, the group is used to find the orbit of each new
+#!	solution, and these are then all returned at the end, and used as constraints until then.
 DeclareOperation("GurobiFindAllSolutions",
 	[IsGurobiModel, IsGroup]);
 
