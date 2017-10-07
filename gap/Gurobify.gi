@@ -463,14 +463,16 @@ InstallMethod(GurobiFindAllSolutions, "",
 		[IsGurobiModel],
 
 	function(model)
-		local good, result, sol;
+		local good, result, sol, count;
+		Print("Solutions found so far: 0\c");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
 		result := GurobiOptimiseModel(model);
 		if result = 9 then
 			Print("timed out");
 		fi;
-		Print(".\c");
+		count:=1;
+		Print("\b",1, "\c");
 		while result = 2 do
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
@@ -483,7 +485,11 @@ InstallMethod(GurobiFindAllSolutions, "",
 				Print("timed out");
 				return fail;
 			fi;
-			Print(".\c");
+			for i in [1 .. Size(String(count))] do
+				Print("\b");
+			od;
+			count:=count+1;
+			Print(count, "\c");
 		od;
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
 		return good;
