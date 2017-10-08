@@ -527,7 +527,6 @@ InstallMethod(GurobiFindAllSolutions, "",
 			else
 				good:=Concatenation(good, solution_orbits);;
 			fi;
-			good:=AsSet(good);
 			for i in [1 .. Size(String(count))] do
 				Print("\b");
 			od;
