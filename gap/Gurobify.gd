@@ -445,7 +445,8 @@ DeclareOperation("GurobiFindAllSolutions",
 #!	Instead of finding all solutions directly, the group is used to find the orbit of each new
 #!	solution, and these are then all returned at the end, and used as constraints until then.
 #!	An option value may also be given which will only return the representatives of each orbit of the
-#!	solutions. This saves on memory, and the remaing solutions may be generated again by finding the
+#!	solutions. Hence it returns all the unique solutions up to equivalence under the group.
+#!	This saves on memory, and the remaing solutions may be refound by generating the
 #!	orbit under the group. To invoke this option place a colon after the group argument and then put
 #!	representatives:=true so for example GurobiFindAllSolutions(model, gp : representatives:=true);
 DeclareOperation("GurobiFindAllSolutions",
