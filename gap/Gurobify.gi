@@ -507,7 +507,8 @@ InstallMethod(GurobiFindAllSolutions, "",
 		[IsGurobiModel, IsGroup],
 
 	function(model, gp)
-		local good, result, sol, count, solution_orbits, i;
+		local good, result, sol, count, solution_orbits, i, representatives;
+		representatives := ValueOption("representatives");
 		Print("Solutions found so far: 0\c");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
@@ -521,7 +522,11 @@ InstallMethod(GurobiFindAllSolutions, "",
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
 			solution_orbits := Orbit(gp, sol, Permuted);;
-			good:=Concatenation(good, solution_orbits);;
+			if representatives = true then
+				Add(good, sol);
+			else
+				good:=Concatenation(good, solution_orbits);;
+			fi;
 			good:=AsSet(good);
 			for i in [1 .. Size(String(count))] do
 				Print("\b");
