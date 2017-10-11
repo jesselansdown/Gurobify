@@ -453,3 +453,9 @@ DeclareOperation("GurobiFindAllSolutions",
 	[IsGurobiModel, IsGroup]);
 
 
+DeclareOperation("IndexSetToCharacteristicVector",
+	[IsSet, IsPosInt]);
+
+DeclareOperation("CharacteristicVectorToIndexSet",
+	[IsList, IsPosInt]);
+

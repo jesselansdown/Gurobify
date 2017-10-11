@@ -551,3 +551,25 @@ InstallMethod(GurobiFindAllSolutions, "",
 		return good;
 	end
 );
+
+
+InstallMethod(IndexSetToCharacteristicVector, "",
+		[IsSet, IsPosInt],
+
+	function(indexset, n);
+		local charvec;
+		charvec:=ListWithIdenticalEntries(n, 0);
+		charvec{indexset}:= ListWithIdenticalEntries(Size(indexset), 1)
+		return charvec;
+	end
+);
+
+InstallMethod(CharacteristicVectorToIndexSet, "",
+		[IsList, IsPosInt],
+
+	function(charvec, n)
+		local indexset
+		indexset:=Filtered([1 .. n], t -> charvec[t] <> 0);
+		return indexset;
+	end
+);
