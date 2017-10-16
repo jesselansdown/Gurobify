@@ -472,8 +472,10 @@ InstallMethod(GurobiFindAllSolutions, "",
 			Print("timed out");
 			return fail;
 		fi;
-		count:=1;
-		Print("\b",1, "\c");
+		if result = 2 then
+			count:=1;
+			Print("\b",1, "\c");
+		fi;
 		while result = 2 do
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
@@ -516,8 +518,10 @@ InstallMethod(GurobiFindAllSolutions, "",
 		if result = 9 then
 			Print("timed out");
 		fi;
-		count:=1;
-		Print("\b",1, "\c");
+		if result = 2 then
+			count:=1;
+			Print("\b",1, "\c");
+		fi;
 		while result = 2 do
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
@@ -554,12 +558,12 @@ InstallMethod(GurobiFindAllSolutions, "",
 
 
 InstallMethod(IndexSetToCharacteristicVector, "",
-		[IsSet, IsPosInt],
+		[IsList, IsPosInt],
 
-	function(indexset, n);
+	function(indexset, n)
 		local charvec;
 		charvec:=ListWithIdenticalEntries(n, 0);
-		charvec{indexset}:= ListWithIdenticalEntries(Size(indexset), 1)
+		charvec{indexset}:= ListWithIdenticalEntries(Size(indexset), 1);
 		return charvec;
 	end
 );
@@ -568,7 +572,7 @@ InstallMethod(CharacteristicVectorToIndexSet, "",
 		[IsList, IsPosInt],
 
 	function(charvec, n)
-		local indexset
+		local indexset;
 		indexset:=Filtered([1 .. n], t -> charvec[t] <> 0);
 		return indexset;
 	end
