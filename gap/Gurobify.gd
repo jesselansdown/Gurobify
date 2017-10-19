@@ -457,5 +457,5 @@ DeclareOperation("IndexSetToCharacteristicVector",
 	[IsList, IsPosInt]);
 
 DeclareOperation("CharacteristicVectorToIndexSet",
-	[IsList, IsPosInt]);
+	[IsList]);
 

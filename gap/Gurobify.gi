@@ -569,11 +569,11 @@ InstallMethod(IndexSetToCharacteristicVector, "",
 );
 
 InstallMethod(CharacteristicVectorToIndexSet, "",
-		[IsList, IsPosInt],
+		[IsList],
 
-	function(charvec, n)
+	function(charvec)
 		local indexset;
-		indexset:=Filtered([1 .. n], t -> charvec[t] <> 0);
+		indexset:=Filtered([1 .. Size(charvec)], t -> charvec[t] <> 0);
 		return indexset;
 	end
 );
