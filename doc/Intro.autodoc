@@ -220,6 +220,12 @@ The purpose of this example is to illustrate the use of Gurobify in a quick, sim
 	@Section Modifying Other Attributes And Parameters
 	In addition to these specific commands given in the previous section, other gurobi parameters and attributes of specific value types can be modified. The parameter or attribute name must be given as a strings exactly as stated in the Gurobi documentation. See the Appendix for links to the relevant documentation.
 
+	@Section Additional Functionality
+	This section provides information on some additional functionality which does
+	not directly relate to Gurobi but may assist in using the Gurobify package. In particular, it details 
+	functions which convert between characteristic vectors (which are more desirable for use with Gurobi) and sets (which may be more desirable for use in &GAP;).
+
+
 
 @Chapter Examples
 

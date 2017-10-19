@@ -577,3 +577,25 @@ InstallMethod(CharacteristicVectorToIndexSet, "",
 		return indexset;
 	end
 );
+
+
+InstallMethod(SubsetToCharacteristicVector, "",
+		[IsList, IsList],
+
+	function(indexset, actualset)
+		local indexset2;
+		indexset2 := List(indexset, t -> Position(actualset, t));
+		return IndexSetToCharacteristicVector(indexset2, Size(actualset));
+	end
+);
+
+InstallMethod(CharacteristicVectorToSubset, "",
+		[IsList, IsList],
+
+	function(charvec, actualset)
+		local indexset, subset;
+		indexset:= CharacteristicVectorToIndexSet(charvec);
+		subset := actualset{indexset};
+		return subset;
+	end
+);

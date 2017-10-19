@@ -480,3 +480,29 @@ DeclareOperation("IndexSetToCharacteristicVector",
 DeclareOperation("CharacteristicVectorToIndexSet",
 	[IsList]);
 
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments Subset, full set
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a subset of some set, and returns the characteristic vector where the entries of the characteristic
+#!	vector are indexed by the full set. For example, the subset ["c"] of ["a", "c", "n", "q"] would give the 
+#!	characteristic vector [0, 1, 0, 0]. This removes the need to first find the index set of the subset.
+DeclareOperation("SubsetToCharacteristicVector",
+	[IsList, IsList]);
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments Characteristic vector
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic 
+#!	vector. It then returns the subset of the full set corresponding to the non-zero entries of the characteristic 
+#!	vector. This is the reverse process to SubsetToCharacteristicVector. Note again that the characteristic vector 
+#!	is rounded to an integer before being compared to 0. As an example, the characteristic vector [0, 1, 0, 0] with 
+#!	the set ["a", "c", "n", "q"] would return ["c"]. This removes the need to first return an index set before 
+#!	finding the subset.
+DeclareOperation("CharacteristicVectorToSubset",
+	[IsList, IsList]);
+
