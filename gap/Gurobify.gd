@@ -452,10 +452,31 @@ DeclareOperation("GurobiFindAllSolutions",
 DeclareOperation("GurobiFindAllSolutions",
 	[IsGurobiModel, IsGroup]);
 
-
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments Index set, number of indices
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a list of integers which form a subset of the set [1 .. n], where n is the second argument,
+#!	and converts the set of indices to its characteristic vector. For example, if n = 5, the set
+#!	[1,3] would be converted to [1, 0, 1, 0, 0]. It is useful to be able to convert between the two,
+#!	since Gurobify always takes the characteristic vector (for example when taking constraints),
+#!	yet the set of indices is generally more helpful for the user.
 DeclareOperation("IndexSetToCharacteristicVector",
 	[IsList, IsPosInt]);
 
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments Characteristic vector
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the
+#!	process which occurs with IndexSetToCharacteristicVector. It is particularly useful to convert the
+#!	output of a Gurobi solution back in terms of the variables. For example, the characteristic vector
+#!	[1, 0, 1, 0, 0] would return the index set [1,3]. Note that since the function expects a characteristic 
+#!	vector it doesn't account for any weightings, and is only interested in whether or not the corresponding 
+#!	index is present, and as such it rounds each entry to the nearest integer and checks that it is non-zero.
+#!	Hence it is particularly suitable for use with binary variables. 
 DeclareOperation("CharacteristicVectorToIndexSet",
 	[IsList]);
 

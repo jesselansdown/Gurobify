@@ -573,7 +573,7 @@ InstallMethod(CharacteristicVectorToIndexSet, "",
 
 	function(charvec)
 		local indexset;
-		indexset:=Filtered([1 .. Size(charvec)], t -> charvec[t] <> 0);
+		indexset:=Filtered([1 .. Size(charvec)], t -> Int(Round(Float(charvec[t]))) <> 0);
 		return indexset;
 	end
 );
