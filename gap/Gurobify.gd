@@ -454,7 +454,7 @@ DeclareOperation("GurobiFindAllSolutions",
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
-#! @Arguments Index set, number of indices
+#! @Arguments IndexSet, NumberOfIndices
 #! @Returns Characterisitc vector
 #! @Description
 #!	Takes a list of integers which form a subset of the set [1 .. n], where n is the second argument,
@@ -467,7 +467,7 @@ DeclareOperation("IndexSetToCharacteristicVector",
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
-#! @Arguments Characteristic vector
+#! @Arguments CharacteristicVector
 #! @Returns Characterisitc vector
 #! @Description
 #!	Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the
@@ -483,7 +483,7 @@ DeclareOperation("CharacteristicVectorToIndexSet",
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
-#! @Arguments Subset, full set
+#! @Arguments Subset, FullSet
 #! @Returns Characterisitc vector
 #! @Description
 #!	Takes a subset of some set, and returns the characteristic vector where the entries of the characteristic
@@ -494,7 +494,7 @@ DeclareOperation("SubsetToCharacteristicVector",
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
-#! @Arguments Characteristic vector
+#! @Arguments CharacteristicVector
 #! @Returns Characterisitc vector
 #! @Description
 #!	Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic 
