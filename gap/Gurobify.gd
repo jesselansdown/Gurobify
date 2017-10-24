@@ -441,6 +441,8 @@ DeclareOperation("GurobiFindAllSolutions",
 #! @Arguments Model, Group
 #! @Returns Set of all solutions.
 #! @Description
+#!	(Caution: This function is intended for use with binary variables only and may behave unexpectedly
+#!	with other variable types).
 #!	Same as above, except that it also takes a permutation group acting on the index set of variables.
 #!	Instead of finding all solutions directly, the group is used to find the orbit of each new
 #!	solution, and these are then all returned at the end, and used as constraints until then.
