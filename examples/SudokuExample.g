@@ -51,17 +51,29 @@
 #! Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.
 
 #! @ExampleSession
-#! gap> ExampleFuncNamesToIndex := function( vari_names, var_included )
+#! gap> ExampleFuncNamesToIndex := function( var_names, var_included )
 #! >      local vars, ind;
 #! >      vars := ListWithIdenticalEntries( Size( var_names ), 0 );
 #! >      ind := List( var_included, t -> Position( var_names, t ));
 #! >      vars{ ind }:=ListWithIdenticalEntries( Size( var_included ), 1 );
 #! >      return vars;
 #! > end;
-#! function( vari_names, var_included ) ... end
-#! gap> 
-#! ExampleFuncIndexToNames := function( var_names, index_set )
-#! >   return Filtered( var_names, t -> index_set[Position( var_names, t )] = 1. );
+#! function( var_names, var_included ) ... end
+#! gap> ExampleFuncIndexToNames := function( var_names, index_set )
+#! >      local i, keep;
+#! >      keep := [];
+#! >      for i in var_names do
+#! >         if index_set[Position( var_names, i)] = 1. then
+#! >            Add(keep, i);
+#! >         fi;
+#! >      od;
+#! >      return keep;
+#
+#	This line has been replaced with a for loop, since in GAP there is a bug wich doesn't like
+#	the function inside Filtered. It gives a syntax warning, which then ruins the test command.
+#	This should be fixed in a future version of GAP, and then the Filtered code can be used again.
+#
+# >   return Filtered( var_names, t -> index_set[Position( var_names, t )] = 1. );
 #! > end;
 #! function( var_names, index_set ) ... end
 #! gap> 
@@ -220,7 +232,7 @@
 #! 2
 #! gap> sol := GurobiSolution(model2);;
 #! gap> sol2 := ExampleFuncIndexToNames(var_names2, sol);;
-#! ExampleFuncDisplaySudoku( sol2 );
+#! gap> ExampleFuncDisplaySudoku( sol2 );
 #! [ [  8,  4,  2,  5,  9,  1,  7,  3,  6 ],
 #!   [  9,  3,  1,  6,  2,  7,  5,  4,  8 ],
 #!   [  5,  6,  7,  8,  3,  4,  9,  1,  2 ],
@@ -250,7 +262,7 @@
 #! true
 #! gap> GurobiOptimiseModel( model3 );
 #! 2
-#! gap> number_of_solutions := 0;
+#! gap> number_of_solutions := 0;;
 #! gap> while GurobiOptimisationStatus( model3 ) = 2 do
 #! >       sol := GurobiSolution( model3 );;
 #! >       number_of_solutions := number_of_solutions + 1;
