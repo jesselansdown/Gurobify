@@ -425,4 +425,86 @@ DeclareOperation("GurobiSetLogToConsole",
 DeclareOperation("GurobiLogToConsole",
 	[IsGurobiModel]);
 
+#! @Chapter Using Gurobify
+#! @Section Optimising A Model
+#! @Arguments Model
+#! @Returns Set of all solutions.
+#! @Description
+#!	Takes a Gurobi model and repeatedly optimises it, each time adding the previous solution as a
+#!	constraint so that it isn't found again. This continues until all solutions are found, and
+#!	then they are returned as a set. During the process the number of found solutions is displayed.
+DeclareOperation("GurobiFindAllSolutions",
+	[IsGurobiModel]);
+
+#! @Chapter Using Gurobify
+#! @Section Optimising A Model
+#! @Arguments Model, Group
+#! @Returns Set of all solutions.
+#! @Description
+#!	(Caution: This function is intended for use with binary variables only and may behave unexpectedly
+#!	with other variable types).
+#!	Same as above, except that it also takes a permutation group acting on the index set of variables.
+#!	Instead of finding all solutions directly, the group is used to find the orbit of each new
+#!	solution, and these are then all returned at the end, and used as constraints until then.
+#!	An option value may also be given which will only return the representatives of each orbit of the
+#!	solutions. Hence it returns all the unique solutions up to equivalence under the group.
+#!	This saves on memory, and the remaing solutions may be refound by generating the
+#!	orbit under the group. To invoke this option place a colon after the group argument and then put
+#!	representatives:=true so for example GurobiFindAllSolutions(model, gp : representatives:=true);
+DeclareOperation("GurobiFindAllSolutions",
+	[IsGurobiModel, IsGroup]);
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments IndexSet, NumberOfIndices
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a list of integers which form a subset of the set [1 .. n], where n is the second argument,
+#!	and converts the set of indices to its characteristic vector. For example, if n = 5, the set
+#!	[1,3] would be converted to [1, 0, 1, 0, 0]. It is useful to be able to convert between the two,
+#!	since Gurobify always takes the characteristic vector (for example when taking constraints),
+#!	yet the set of indices is generally more helpful for the user.
+DeclareOperation("IndexSetToCharacteristicVector",
+	[IsList, IsPosInt]);
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments CharacteristicVector
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the
+#!	process which occurs with IndexSetToCharacteristicVector. It is particularly useful to convert the
+#!	output of a Gurobi solution back in terms of the variables. For example, the characteristic vector
+#!	[1, 0, 1, 0, 0] would return the index set [1,3]. Note that since the function expects a characteristic 
+#!	vector it doesn't account for any weightings, and is only interested in whether or not the corresponding 
+#!	index is present, and as such it rounds each entry to the nearest integer and checks that it is non-zero.
+#!	Hence it is particularly suitable for use with binary variables. 
+DeclareOperation("CharacteristicVectorToIndexSet",
+	[IsList]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments Subset, FullSet
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a subset of some set, and returns the characteristic vector where the entries of the characteristic
+#!	vector are indexed by the full set. For example, the subset ["c"] of ["a", "c", "n", "q"] would give the 
+#!	characteristic vector [0, 1, 0, 0]. This removes the need to first find the index set of the subset.
+DeclareOperation("SubsetToCharacteristicVector",
+	[IsList, IsList]);
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
+#! @Arguments CharacteristicVector
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic 
+#!	vector. It then returns the subset of the full set corresponding to the non-zero entries of the characteristic 
+#!	vector. This is the reverse process to SubsetToCharacteristicVector. Note again that the characteristic vector 
+#!	is rounded to an integer before being compared to 0. As an example, the characteristic vector [0, 1, 0, 0] with 
+#!	the set ["a", "c", "n", "q"] would return ["c"]. This removes the need to first return an index set before 
+#!	finding the subset.
+DeclareOperation("CharacteristicVectorToSubset",
+	[IsList, IsList]);
 

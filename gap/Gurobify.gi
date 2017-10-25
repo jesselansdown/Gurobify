@@ -458,3 +458,144 @@ InstallMethod(GurobiDeleteConstraintsWithName, "",
 	return true;
 	end
 );
+
+InstallMethod(GurobiFindAllSolutions, "",
+		[IsGurobiModel],
+
+	function(model)
+		local good, result, sol, count, i;
+		Print("Solutions found so far: 0\c");
+		good:=[];
+		GurobiSetTimeLimit(model, 100000000);
+		result := GurobiOptimiseModel(model);
+		if result = 9 then
+			Print("timed out");
+			return fail;
+		fi;
+		if result = 2 then
+			count:=1;
+			Print("\b",1, "\c");
+		fi;
+		while result = 2 do
+			sol := GurobiSolution(model);
+			sol := List(sol, t -> Int(Round(t)));
+			Add(good, sol);
+			GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+			GurobiUpdateModel(model);
+			GurobiReset(model);
+			result := GurobiOptimiseModel(model);
+			if result = 9 then
+				Print("timed out");
+				return fail;
+			fi;
+			for i in [1 .. Size(String(count))] do
+				Print("\b");
+			od;
+			count:=count+1;
+			if result = 2 then
+				Print(count, "\c");
+			fi;
+		od;
+		if GurobiOptimisationStatus(model) <> 3 then
+			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
+		fi;
+		Print("\n");
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		return good;
+	end
+);
+
+InstallMethod(GurobiFindAllSolutions, "",
+		[IsGurobiModel, IsGroup],
+
+	function(model, gp)
+		local good, result, sol, count, solution_orbits, i, representatives;
+		representatives := ValueOption("representatives");
+		Print("Solutions found so far: 0\c");
+		good:=[];
+		GurobiSetTimeLimit(model, 100000000);
+		result := GurobiOptimiseModel(model);
+		if result = 9 then
+			Print("timed out");
+		fi;
+		if result = 2 then
+			count:=1;
+			Print("\b",1, "\c");
+		fi;
+		while result = 2 do
+			sol := GurobiSolution(model);
+			sol := List(sol, t -> Int(Round(t)));
+			solution_orbits := Orbit(gp, sol, Permuted);;
+			if representatives = true then
+				Add(good, sol);
+			else
+				good:=Concatenation(good, solution_orbits);;
+			fi;
+			for i in [1 .. Size(String(count))] do
+				Print("\b");
+			od;
+			count:=Size(good);
+			Print(count, "\c");
+			for sol in solution_orbits do
+				GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+			od;
+			GurobiUpdateModel(model);
+			GurobiReset(model);
+			result := GurobiOptimiseModel(model);
+			if result = 9 then
+				Print("timed out");
+				return fail;
+			fi;
+		od;
+		Print("\n");
+		if GurobiOptimisationStatus(model) <> 3 then
+			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
+		fi;
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		return good;
+	end
+);
+
+
+InstallMethod(IndexSetToCharacteristicVector, "",
+		[IsList, IsPosInt],
+
+	function(indexset, n)
+		local charvec;
+		charvec:=ListWithIdenticalEntries(n, 0);
+		charvec{indexset}:= ListWithIdenticalEntries(Size(indexset), 1);
+		return charvec;
+	end
+);
+
+InstallMethod(CharacteristicVectorToIndexSet, "",
+		[IsList],
+
+	function(charvec)
+		local indexset;
+		indexset:=Filtered([1 .. Size(charvec)], t -> Int(Round(Float(charvec[t]))) <> 0);
+		return indexset;
+	end
+);
+
+
+InstallMethod(SubsetToCharacteristicVector, "",
+		[IsList, IsList],
+
+	function(indexset, actualset)
+		local indexset2;
+		indexset2 := List(indexset, t -> Position(actualset, t));
+		return IndexSetToCharacteristicVector(indexset2, Size(actualset));
+	end
+);
+
+InstallMethod(CharacteristicVectorToSubset, "",
+		[IsList, IsList],
+
+	function(charvec, actualset)
+		local indexset, subset;
+		indexset:= CharacteristicVectorToIndexSet(charvec);
+		subset := actualset{indexset};
+		return subset;
+	end
+);
