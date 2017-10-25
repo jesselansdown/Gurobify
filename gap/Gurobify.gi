@@ -509,7 +509,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 		[IsGurobiModel, IsGroup],
 
 	function(model, gp)
-		local good, result, sol, count, solution_orbits, i, representatives;
+		local good, result, sol, count, solution_orbits, i, representatives, all;
 		representatives := ValueOption("representatives");
 		Print("Solutions found so far: 0\c");
 		good:=[];
@@ -520,7 +520,12 @@ InstallMethod(GurobiFindAllSolutions, "",
 		fi;
 		if result = 2 then
 			count:=1;
-			Print("\b",1, "\c");
+			all := 1;
+			if representatives = true then
+				Print("\b",1, " (", 1, ")\c");
+			else
+				Print("\b",1, "\c");
+			fi;
 		fi;
 		while result = 2 do
 			sol := GurobiSolution(model);
@@ -528,14 +533,20 @@ InstallMethod(GurobiFindAllSolutions, "",
 			solution_orbits := Orbit(gp, sol, Permuted);;
 			if representatives = true then
 				Add(good, sol);
+				for i in [1 .. Size(String(count))+Size(String(all))+3] do
+					Print("\b");
+				od;
+				all:=all+Size(solution_orbits);
+				count:=Size(good);
+				Print(count, " (", all, ")\c");
 			else
 				good:=Concatenation(good, solution_orbits);;
+				for i in [1 .. Size(String(count))] do
+					Print("\b");
+				od;
+				count:=Size(good);
+				Print(count, "\c");
 			fi;
-			for i in [1 .. Size(String(count))] do
-				Print("\b");
-			od;
-			count:=Size(good);
-			Print(count, "\c");
 			for sol in solution_orbits do
 				GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
 			od;
