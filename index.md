@@ -12,7 +12,7 @@ There is also a [README](README.html) file.
 
 ## Dependencies
 
-This package requires [Gurobi](http://www.gurobi.com) version 7.0 and [GAP](https://www.gap-system.org) version {{site.data.package.GAP}}
+This package requires [Gurobi](http://www.gurobi.com) version >= 7.0 and [GAP](https://www.gap-system.org) version {{site.data.package.GAP}}
 {% if site.data.package.needed-pkgs %}
 The following other GAP packages are needed:
 {% for pkg in site.data.package.needed-pkgs %}
