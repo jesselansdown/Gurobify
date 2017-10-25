@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "Gurobify",
 Subtitle := "A GAP interface to Gurobi Optimizer.",
-Version := "1.1.0",
-Date := "27/06/2017", # dd/mm/yyyy format
+Version := "1.1.1",
+Date := "25/10/2017", # dd/mm/yyyy format
 
 Persons := [
   rec(

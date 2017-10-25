@@ -26,10 +26,10 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 @BeginLog
 #!	@article{gurobify,
 #!	Author = {Lansdown, Jesse},
-#!	Doi = {10.5281/zenodo.891418},
+#!	Doi = {10.5281/zenodo.1036626},
 #!	Key = {gurobify},
-#!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.0}},
-#!	Url = {http://doi.org/10.5281/zenodo.891418},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},
+#!	Url = {http://doi.org/10.5281/zenodo.1036626},
 #!	Year = 2017,
 #!	}
 @EndLog
@@ -39,10 +39,10 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 @BeginLog
 #! \bibitem[Lansdown(2017)]{gurobify}
 #! J.~Lansdown.
-#! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.0}.
+#! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.
 #! \newblock 2017.
-#! \newblock \doi{10.5281/zenodo.891418}.
-#! \newblock URL \url{http://doi.org/10.5281/zenodo.891418}.
+#! \newblock \doi{10.5281/zenodo.1036626}.
+#! \newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.
 @EndLog
 
 
@@ -52,14 +52,14 @@ Gurobify requires the following software to be installed.
 
 * &GAP; 4.8 (or later)
 
-* Gurobi 7.0
+* Gurobi 7.0 (or later)
 
 * Autotools
 
 Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
 If you want to regenerate the documentation for any reason, then the following will also be required.
 
-* AutoDoc 2017.09.08 (or later)
+* AutoDoc 2017.09.15 (or later)
 
 * GAPDoc 1.5 (or later)
 
@@ -142,7 +142,7 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 @BeginLog
  LoadPackage("Gurobify");
 #! -----------------------------------------------------------------------------
-#! Loading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)
+#! Loading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
 #! Homepage: http://www.jesselansdown.com/Gurobify/
 #! -----------------------------------------------------------------------------
