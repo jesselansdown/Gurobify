@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Gurobify) - Chapter 4: Examples</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -48,10 +48,10 @@
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for j in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         name := Concatenation("x", String(i), String(j), String(k));;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         Add(var_names, name);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         Add(var_names, name);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
 </pre></div>
 
 <p>Now create the model. We need to tell Gurobi that each variable is binary.</p>
@@ -67,27 +67,38 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncNamesToIndex := function( vari_names, var_included )</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncNamesToIndex := function( var_names, var_included )</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     local vars, ind;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     vars := ListWithIdenticalEntries( Size( var_names ), 0 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     ind := List( var_included, t -&gt; Position( var_names, t ));</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     vars{ ind }:=ListWithIdenticalEntries( Size( var_included ), 1 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     return vars;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">end;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     vars := ListWithIdenticalEntries( Size( var_names ), 0 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     ind := List( var_included, t -&gt; Position( var_names, t ));</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     vars{ ind }:=ListWithIdenticalEntries( Size( var_included ), 1 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     return vars;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;</span>
+function( var_names, var_included ) ... end
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncIndexToNames := function( var_names, index_set )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">  return Filtered( var_names, t -&gt; index_set[Position( var_names, t )] = 1. );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">end;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     local i, keep;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     keep := [];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     for i in var_names do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        if index_set[Position( var_names, i)] = 1. then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Add(keep, i);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     return keep;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;</span>
+function( var_names, index_set ) ... end
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"></span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncDisplaySudoku := function( sol2 )</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     local mat_sol, m, i, j, k;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       mat_sol := NullMat(9, 0);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       for m in sol2 do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       mat_sol := NullMat(9, 0);;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       for m in sol2 do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         i := EvalString( [m[2]] );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         j := EvalString( [m[3]] );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         k := EvalString( [m[4]] );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         mat_sol[i][j] := k;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     Display(mat_sol);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">end;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         j := EvalString( [m[3]] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         k := EvalString( [m[4]] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         mat_sol[i][j] := k;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Display(mat_sol);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  end;</span>
+function( sol2 ) ... end
 </pre></div>
 
 <p>Ensure that a square only takes a single value.</p>
@@ -97,14 +108,14 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for j in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       uniqueness_constr :=[];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         for k in [1 .. 9] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">           name := Concatenation("x", String(i), String(j), String(k));;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">           Add(uniqueness_constr, name);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         constr := ExampleFuncNamesToIndex( var_names, uniqueness_constr );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         GurobiAddConstraint( model, constr , "=", 1 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Add(uniqueness_constr, name);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         constr := ExampleFuncNamesToIndex( var_names, uniqueness_constr );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         GurobiAddConstraint( model, constr , "=", 1 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  od;</span>
 </pre></div>
 
 <p>Ensure that each value occurs exactly once per row.</p>
@@ -114,14 +125,14 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       row_constr :=[];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       for j in [1 .. 9] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       for j in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         name := Concatenation("x", String(i), String(j), String(k));;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         Add(row_constr, name );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, row_constr );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       GurobiAddConstraint( model, constr, "=", 1 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         Add(row_constr, name );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, row_constr );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       GurobiAddConstraint( model, constr, "=", 1 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  od;</span>
 </pre></div>
 
 <p>Ensure that each value occurs exactly once per column.</p>
@@ -131,14 +142,14 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for j in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       column_constr :=[];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       for i in [1 .. 9] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       for i in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         name := Concatenation("x", String(i), String(j), String(k));;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         Add(column_constr, name);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, column_constr );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       GurobiAddConstraint(model, constr, "=", 1);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         Add(column_constr, name);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, column_constr );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       GurobiAddConstraint(model, constr, "=", 1);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  od;</span>
 </pre></div>
 
 <p>Ensure that each value occurs exactly once per sub-square. We start at the top left corner of each square and work our way through them.</p>
@@ -150,18 +161,18 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for m in starter_points do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">     for k in [1 .. 9] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       square_constr := [];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       for i in [0 .. 2] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       for i in [0 .. 2] do</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">         for j in [0 .. 2] do</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">           name := Concatenation( </span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">           	  "x", String(m[1] + i), String(m[2] + j), String(k)</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">           	);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">           Add(square_constr, name);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">         od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, square_constr );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">       GurobiAddConstraint(model, constr, "=", 1);</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">     od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           name := Concatenation(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                "x", String(m[1] + i), String(m[2] + j), String(k)</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              );;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Add(square_constr, name);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       constr := ExampleFuncNamesToIndex( var_names, square_constr );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       GurobiAddConstraint(model, constr, "=", 1);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  od;</span>
 </pre></div>
 
 <p>The model now has constraints that will ensure that the Sudoku rules are obeyed. We can put in the inital Sudoku configuration by assigning values to certain entries of the sudoku matrix.</p>
@@ -174,7 +185,7 @@
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">"x894", "x942", "x986", "x998"];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">constr := ExampleFuncNamesToIndex(var_names, starter_squares);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiAddConstraint( model, constr , "=", Sum( constr ), "StarterSquares");</span>
-true;
+true
 </pre></div>
 
 <p>Now we optimise. Change the solution into the set of variable names, and then display the solution.</p>
@@ -182,9 +193,10 @@ true;
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel( model );</span>
+2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol := GurobiSolution( model );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sol2 := ExampleFuncIndexToNames( var_names, sol );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExampleFuncDisplaySudoku( sol2 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"> ExampleFuncDisplaySudoku( sol2 );</span>
 [ [  2,  3,  1,  6,  5,  4,  8,  9,  7 ],
   [  7,  9,  4,  8,  1,  2,  5,  3,  6 ],
   [  5,  6,  8,  3,  7,  9,  2,  4,  1 ],
@@ -252,19 +264,17 @@ true
 true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiOptimiseModel( model3 );</span>
 2
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if GurobiOptimisationStatus( model3 ) = 2 then</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 1;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">else</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">	number_of_solutions := 0;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fi;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">number_of_solutions := 0;;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">while GurobiOptimisationStatus( model3 ) = 2 do</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">	sol := GurobiSolution( model3 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	number_of_solutions := number_of_solutions + 1;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiAddConstraint( model3, sol , "&lt;", 80 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	GurobiOptimiseModel( model3 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      sol := GurobiSolution( model3 );;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      number_of_solutions := number_of_solutions + 1;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      GurobiAddConstraint( model3, sol , "&lt;", 80 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      GurobiUpdateModel( model3 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      GurobiReset(model3);</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      GurobiOptimiseModel( model3 );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">od;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( number_of_solutions, "\n");</span>
-67
+66
 </pre></div>
 
 

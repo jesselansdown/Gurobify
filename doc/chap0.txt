@@ -6,10 +6,10 @@
                      [1X A [5XGAP[105X interface to Gurobi Optimizer. [101X
   
   
-                                     1.1.0
+                                     1.1.1
   
   
-                                   27/06/2017
+                                25 October 2017
   
   
                                  Jesse Lansdown
@@ -21,7 +21,7 @@
       Homepage: [7Xhttp://www.jesselansdown.com[107X
       Address:  [33X[0;14YJesse Lansdown[133X
                 [33X[0;14YLehrstuhl B für Mathematik[133X
-                [33X[0;14YRWTH Aachen[133X
+                [33X[0;14YRWTH Aachen University[133X
                 [33X[0;14YPontdriesch 10 - 16[133X
                 [33X[0;14Y52062 Aachen[133X
                 [33X[0;14YGermany[133X
@@ -32,7 +32,7 @@
   [1XAbstract[101X
   [33X[0;0YGurobify provides an interface to the Gurobi Optimizer software from [5XGAP[105X. It
   enables   the   creation  and  modification  of  mixed  integer  and  linear
-  programmming  models  which can be solved directly by Gurobi from within the
+  programming  models  which  can be solved directly by Gurobi from within the
   [5XGAP[105X environment.[133X
   
   
@@ -51,8 +51,8 @@
   inner  workings  of  [5XGAP[105X and [5XGAP[105X packages to me, and for pointing me towards
   examples.  I  also  thank  John  Bamberg  for introducing me to both [5XGAP[105X and
   Gurobi and showing me how they can be used to so effectively complement each
-  other. I used the AutoDoc[autodoc] package to streamline the creation of the
-  documentation for this package, and PackageMaker[packagemaker] to generate a
+  other.  I  used  the AutoDoc[GH17] package to streamline the creation of the
+  documentation  for  this  package,  and  PackageMaker[Hor16]  to  generate a
   package  template.  I  would  also  like  to  acknowledge  the support of an
   Australian  Government  Research  Training  Program  (RTP) Scholarship while
   writing this software.[133X
@@ -151,6 +151,7 @@
     5.5 [33X[0;0YTroubleshooting The Installation[133X
       5.5-1 [33X[0;0YTypical Sources Of Error During Installation[133X
       5.5-2 [33X[0;0YSpecific Errors[133X
+    5.6 [33X[0;0YExample LP file[133X
   
   
   [32X

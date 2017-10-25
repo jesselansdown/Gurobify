@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Gurobify) - Chapter 5: Appendix</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -28,7 +28,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X78ED02E086FD61CC">5.1 <span class="Heading">Gurobify Links</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7CECA0458071F09B">5.2 <span class="Heading"><strong class="pkg">GAP</strong> Links</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X8122776087DEC60B">5.2 <span class="Heading"><strong class="pkg">GAP</strong> Links</span></a>
 </span>
 </div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X86F5635F87FF23D6">5.3 <span class="Heading">Gurobi Links</span></a>
@@ -45,6 +45,9 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X79B4B31F854254C0">5.5-2 <span class="Heading">Specific Errors</span></a>
 </span>
 </div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X80DBDA7179E9E200">5.6 <span class="Heading">Example LP file</span></a>
+</span>
+</div>
 </div>
 
 <h3>5 <span class="Heading">Appendix</span></h3>
@@ -55,14 +58,14 @@
 
 
 <ul>
-<li><p>Homepage: https://github.com/jesselansdown/Gurobify</p>
+<li><p>Homepage: http://www.jesselansdown.com/Gurobify/</p>
 
 </li>
 <li><p>Issue tracker: https://github.com/jesselansdown/Gurobify/issues</p>
 
 </li>
 </ul>
-<p><a id="X7CECA0458071F09B" name="X7CECA0458071F09B"></a></p>
+<p><a id="X8122776087DEC60B" name="X8122776087DEC60B"></a></p>
 
 <h4>5.2 <span class="Heading"><strong class="pkg">GAP</strong> Links</span></h4>
 
@@ -89,12 +92,21 @@
 <li><p>Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>Licencing: http://www.gurobi.com/products/licensing-pricing/licensing-overview</p>
 
 </li>
@@ -103,7 +115,7 @@
 
 <h4>5.4 <span class="Heading">Optimisation Status Codes</span></h4>
 
-<p>The information in this section on optimisation status codes is taken directly from the Gurobi website<a href="chapBib_mj.html#biBgurobiStatusCodes">[gurobiStatusCodes]</a>.</p>
+<p>The information in this section on optimisation status codes is taken directly from the Gurobi website<a href="chapBib_mj.html#biBgurobiStatusCodes">[gur16c]</a>.</p>
 
 
 <ul>
@@ -243,6 +255,28 @@ src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
 </pre></div>
 
 <p>Check that you have entered the correct path for Gurobi in the "configure" stage of installation.</p>
+
+<p><a id="X80DBDA7179E9E200" name="X80DBDA7179E9E200"></a></p>
+
+<h4>5.6 <span class="Heading">Example LP file</span></h4>
+
+<p>Shown below is the LP file, "test.lp", written during the simple example in Section 1.</p>
+
+
+<div class="example"><pre>
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize
+  x + 2 y + z
+Subject To
+ UnNamedConstraint: 2 x + 2 y + 2 z &lt;= 6
+ UnNamedConstraint: x + 2 y + 3 z &gt;= 5
+ UnNamedConstraint: 2 x + 2 y + 2 z &lt;= 6
+ UnNamedConstraint: x + 2 y + 3 z &gt;= 5
+Bounds
+Binaries
+ x y z
+End
+</pre></div>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>

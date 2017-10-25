@@ -2,28 +2,28 @@
   
   [1XReferences[101X
   
-  [[20XGAP[120X]  [17XGAP  --  Groups,  Algorithms,  and  Programming,  Version  4.8.6[117X, The
+  [[20XGAP16[120X]  [17XGAP  --  Groups,  Algorithms,  and  Programming, Version 4.8.6[117X, The
   GAP~Group (2016).
   
-  [[20XgurobiLicence1[120X]        [17XGurobi       Optimizer       Academic       Program[117X,
-  Gurobi~Optimization,~Inc.   (2016),  (([Online;  accessed  17-March-2017])),
+  [[20XGH17[120X]  [16XGutsche,  S.  and  Horn,  M.[116X,  [17XAutoDoc  --  a  GAP  package, Version
+  2017.09.15[117X (2017).
+  
+  [[20Xgur16a[120X]   [17XGurobi   Optimizer  Academic  Program[117X,  Gurobi~Optimization,~Inc.
+  (2016),            (([Online;           accessed           17-March-2017])),
   \url{http://www.gurobi.com/pdfs/Pricing-Academic.pdf}.
   
-  [[20Xgurobi[120X]   [17XGurobi   Optimizer  Reference  Manual[117X,  Gurobi~Optimization,~Inc.
-  (2016).
-  
-  [[20XgurobiLicence2[120X]   [17XLicensing   Overview[117X,  Gurobi~Optimization,~Inc.  (2016),
-  (([Online;                     accessed                    17-March-2017])),
+  [[20Xgur16b[120X]  [17XLicensing  Overview[117X,  Gurobi~Optimization,~Inc. (2016), (([Online;
+  accessed                                                   17-March-2017])),
   \url{http://www.gurobi.com/products/licensing-pricing/licensing-overview}.
   
-  [[20XgurobiStatusCodes[120X]  [17XOptimization  Status  Codes[117X,  Gurobi~Optimization,~Inc.
-  (2016),            (([Online;           accessed           21-March-2017])),
+  [[20Xgur16c[120X]   [17XOptimization   Status  Codes[117X,  Gurobi~Optimization,~Inc.  (2016),
+  (([Online;                     accessed                    21-March-2017])),
   \url{https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html}.
   
-  [[20Xautodoc[120X]  [16XGutsche,  S.  and  Horn,  M.[116X,  [17XAutoDoc  -- a GAP package, Version
-  2016.03.08[117X (2016).
+  [[20Xgur16d[120X]   [17XGurobi   Optimizer  Reference  Manual[117X,  Gurobi~Optimization,~Inc.
+  (2016).
   
-  [[20Xpackagemaker[120X] [16XHorn, M.[116X, [17XPackageMaker -- a GAP package, Version 0.8[117X (2016).
+  [[20XHor16[120X] [16XHorn, M.[116X, [17XPackageMaker -- a GAP package, Version 0.8[117X (2016).
   
   
   

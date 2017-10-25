@@ -4,11 +4,11 @@
   
   [1X1.1 [33X[0;0YWelcome to Gurobify[133X[101X
   
-  [33X[0;0YGurobify   is  a  [5XGAP[105X[GAP]  package  which  provides  an  interface  to  the
-  optimisation software Gurobi[gurobi].[133X
+  [33X[0;0YGurobify  is  a  [5XGAP[105X[GAP16]  package  which  provides  an  interface  to the
+  optimisation software Gurobi[gur16d].[133X
   [33X[0;0YGurobify can be obtained from the Gurobify homepage:[133X
   
-  [30X    [33X[0;6Yhttps://jesselansdown.com/Gurobify[133X
+  [30X    [33X[0;6Yhttp://www.jesselansdown.com/Gurobify[133X
   
   [33X[0;0YPlease use the issue tracker to inform me of any bugs or suggestions:[133X
   
@@ -17,28 +17,33 @@
   
   [1X1.2 [33X[0;0YCiting Gurobify[133X[101X
   
-  [33X[0;0YI  am interested to know who is using Gurobify! If you obtain a copy I would
-  appreciate  it  if you sent me an email to let me know. If Gurobify aids you
-  in obtaining results that lead to a publication, please cite Gurobify as you
-  would  a  paper. An example BibTeX entry for citing gurobify is given below.
-  Please also send me an email informing me of the paper for my own interest.[133X
+  [33X[0;0YIf Gurobify aids you in obtaining results that lead to a publication, please
+  cite  Gurobify  as  you  would  a  paper. An example BibTeX entry for citing
+  gurobify is given below. Check that the version number and doi correspond to
+  the  version  that  you  used in your research. Please also send me an email
+  informing me of the paper for my own interest![133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X@manual{gurobify,[128X[104X
+    [4X[28X@article{gurobify,[128X[104X
     [4X[28XAuthor = {Lansdown, Jesse},[128X[104X
+    [4X[28XDoi = {10.5281/zenodo.1036626},[128X[104X
     [4X[28XKey = {gurobify},[128X[104X
-    [4X[28XTitle = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},[128X[104X
-    [4X[28XUrl = {\verb+(https://github.com/jesselansdown/Gurobify/)+},[128X[104X
-    [4X[28XYear = 2017}[128X[104X
+    [4X[28XTitle = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},[128X[104X
+    [4X[28XUrl = {http://doi.org/10.5281/zenodo.1036626},[128X[104X
+    [4X[28XYear = 2017,[128X[104X
+    [4X[28X}[128X[104X
   [4X[32X[104X
   
   [33X[0;0YHere  is  the  entry  in  the  APA  style  which may be used directly in the
   bibliography environment of your LaTeX document.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X\bibitem[Gurobify]{gurobify}[128X[104X
+    [4X[28X\bibitem[Lansdown(2017)]{gurobify}[128X[104X
     [4X[28XJ.~Lansdown.[128X[104X
-    [4X[28X\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.1.0, 2017.[128X[104X
+    [4X[28X\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.[128X[104X
+    [4X[28X\newblock 2017.[128X[104X
+    [4X[28X\newblock \doi{10.5281/zenodo.1036626}.[128X[104X
+    [4X[28X\newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.[128X[104X
   [4X[32X[104X
   
   
@@ -48,7 +53,7 @@
   
   [30X    [33X[0;6Y[5XGAP[105X 4.8 (or later)[133X
   
-  [30X    [33X[0;6YGurobi 7.0[133X
+  [30X    [33X[0;6YGurobi 7.0 (or later)[133X
   
   [30X    [33X[0;6YAutotools[133X
   
@@ -56,7 +61,7 @@
   install  autoconf[113X  and  [13Xbrew install automake[113X. If you want to regenerate the
   documentation for any reason, then the following will also be required.[133X
   
-  [30X    [33X[0;6YAutoDoc 2016.03.08 (or later)[133X
+  [30X    [33X[0;6YAutoDoc 2017.09.15 (or later)[133X
   
   [30X    [33X[0;6YGAPDoc 1.5 (or later)[133X
   
@@ -64,11 +69,10 @@
   use. According to the Gurobi website,[133X
   
   
-        [33X[1;6Y[24X[124X[133X
-  
+  [24X[124X
   
   [33X[0;0Y"Gurobi  makes  most  of our solvers available to recognized degree-granting
-  academic institutions free of charge" [gurobiLicence2],[133X
+  academic institutions free of charge" [gur16b],[133X
   [33X[0;0Yand[133X
   [33X[0;0Y"The  free  Academic License for Gurobi has all the features and performance
   of the full Gurobi Optimizer. A free Academic License has no limits on model
@@ -84,7 +88,7 @@
   
   [33X[0;0YNote,  free  academic  licenses  expire twelve (12) months after the date on
   which  your  license was generated, but eligible faculty, students, or staff
-  can renew a license by repeating the above process" [gurobiLicence1].[133X
+  can renew a license by repeating the above process" [gur16a].[133X
   [33X[0;0YFor  up-to-date  information  on Gurobi licences, please refer to the Gurobi
   website.  A  link  can  be found in the Appendix, or through a simple search
   online.[133X
@@ -108,13 +112,18 @@
   
   [33X[0;0YThe  ‐-with-gurobi=<gurobi path> is a necessary argument, and normally looks
   something like this on MacOSX,[133X
+  
   [33X[0;0Y‐-with-gurobi=/Library/gurobi701/mac64[133X
+  
   [33X[0;0Yor something like this on Linux,[133X
+  
   [33X[0;0Y‐-with-gurobi=/opt/gurobi701/linux64[133X
+  
   [33X[0;0YThe [‐-with-gaproot=<gap path>] is an optional argument, and is not normally
   necessary  if  Gurobify  is  placed  in  the  pkg  directory of the [5XGAP[105X root
   directory.  If,  however,  Gurobify  is located in a non-root pkg directory,
   then this argument must be included. It normally looks something like this,[133X
+  
   [33X[0;0Y ‐-with-gaproot=/opt/gap4r8/[133X
   
   
@@ -153,9 +162,9 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27X LoadPackage("Gurobify");[127X[104X
     [4X[28X-----------------------------------------------------------------------------[128X[104X
-    [4X[28XLoading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)[128X[104X
+    [4X[28XLoading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)[128X[104X
     [4X[28Xby Jesse Lansdown (www.jesselansdown.com).[128X[104X
-    [4X[28XHomepage: https://github.com/jesselansdown/Gurobify/[128X[104X
+    [4X[28XHomepage: http://www.jesselansdown.com/Gurobify/[128X[104X
     [4X[28X-----------------------------------------------------------------------------[128X[104X
     [4X[28Xtrue[128X[104X
   [4X[32X[104X

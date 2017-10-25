@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "Gurobify",
 Subtitle := "A GAP interface to Gurobi Optimizer.",
-Version := "1.1.0",
-Date := "27/06/2017", # dd/mm/yyyy format
+Version := "1.1.1",
+Date := "25/10/2017", # dd/mm/yyyy format
 
 Persons := [
   rec(
@@ -24,7 +24,7 @@ Persons := [
     PostalAddress := Concatenation(
                       "Jesse Lansdown\n",
                       "Lehrstuhl B für Mathematik\n",
-                      "RWTH Aachen\n",
+                      "RWTH Aachen University\n",
                       "Pontdriesch 10 - 16\n",
                       "52062 Aachen\n",
                       "Germany"
@@ -96,7 +96,7 @@ AutoDoc := rec(
                     "Public License, v. 2.0. If a copy of the MPL was not distributed ",
                     "with this file, You can obtain one at https://mozilla.org/MPL/2.0/.\n"),
         Abstract := Concatenation("Gurobify provides an interface to the Gurobi Optimizer software from &GAP;. ",
-          "It enables the creation and modification of mixed integer and linear programmming models which can be solved directly ",
+          "It enables the creation and modification of mixed integer and linear programming models which can be solved directly ",
           "by Gurobi from within the &GAP; environment."),
         Acknowledgements := Concatenation("I thank Sebastian Gutsche for generously taking the time ",
           "to explain the inner workings of &GAP; and &GAP; packages to me, and for pointing me towards examples. ",

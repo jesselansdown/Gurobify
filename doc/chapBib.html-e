@@ -27,7 +27,7 @@
 
 <p><a id="biBGAP4" name="biBGAP4"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>GAP</span>]   
+[<span class='BibKey'>GAP16</span>]   
  <i class='BibTitle'>GAP -- Groups, Algorithms, and Programming,
                   Version 4.8.6</i>,
  <span class='BibOrganization'>The GAP~Group</span>
@@ -35,9 +35,17 @@
 </p>
 
 
+<p><a id="biBautodoc" name="biBautodoc"></a></p>
+<p class='BibEntry'>
+[<span class='BibKey'>GH17</span>]   <b class='BibAuthor'>Gutsche, S. and Horn, M.</b>,
+ <i class='BibTitle'>AutoDoc -- a GAP package, Version 2017.09.15</i>
+ (<span class='BibYear'>2017</span>).
+</p>
+
+
 <p><a id="biBgurobiLicence1" name="biBgurobiLicence1"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>gurobiLicence1</span>]   
+[<span class='BibKey'>gur16a</span>]   
  <i class='BibTitle'>Gurobi Optimizer Academic Program</i>,
  <span class='BibOrganization'>Gurobi~Optimization,~Inc.</span>
  (<span class='BibYear'>2016</span>)<br />
@@ -46,18 +54,9 @@
 </p>
 
 
-<p><a id="biBgurobi" name="biBgurobi"></a></p>
-<p class='BibEntry'>
-[<span class='BibKey'>gurobi</span>]   
- <i class='BibTitle'>Gurobi Optimizer Reference Manual</i>,
- <span class='BibOrganization'>Gurobi~Optimization,~Inc.</span>
- (<span class='BibYear'>2016</span>).
-</p>
-
-
 <p><a id="biBgurobiLicence2" name="biBgurobiLicence2"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>gurobiLicence2</span>]   
+[<span class='BibKey'>gur16b</span>]   
  <i class='BibTitle'>Licensing Overview</i>,
  <span class='BibOrganization'>Gurobi~Optimization,~Inc.</span>
  (<span class='BibYear'>2016</span>)<br />
@@ -68,7 +67,7 @@
 
 <p><a id="biBgurobiStatusCodes" name="biBgurobiStatusCodes"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>gurobiStatusCodes</span>]   
+[<span class='BibKey'>gur16c</span>]   
  <i class='BibTitle'>Optimization Status Codes</i>,
  <span class='BibOrganization'>Gurobi~Optimization,~Inc.</span>
  (<span class='BibYear'>2016</span>)<br />
@@ -77,17 +76,18 @@
 </p>
 
 
-<p><a id="biBautodoc" name="biBautodoc"></a></p>
+<p><a id="biBgurobi" name="biBgurobi"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>autodoc</span>]   <b class='BibAuthor'>Gutsche, S. and Horn, M.</b>,
- <i class='BibTitle'>AutoDoc -- a GAP package, Version 2016.03.08</i>
+[<span class='BibKey'>gur16d</span>]   
+ <i class='BibTitle'>Gurobi Optimizer Reference Manual</i>,
+ <span class='BibOrganization'>Gurobi~Optimization,~Inc.</span>
  (<span class='BibYear'>2016</span>).
 </p>
 
 
 <p><a id="biBpackagemaker" name="biBpackagemaker"></a></p>
 <p class='BibEntry'>
-[<span class='BibKey'>packagemaker</span>]   <b class='BibAuthor'>Horn, M.</b>,
+[<span class='BibKey'>Hor16</span>]   <b class='BibAuthor'>Horn, M.</b>,
  <i class='BibTitle'>PackageMaker -- a GAP package, Version 0.8</i>
  (<span class='BibYear'>2016</span>).
 </p>

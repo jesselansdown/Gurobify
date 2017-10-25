@@ -4,7 +4,7 @@
   
   [1X5.1 [33X[0;0YGurobify Links[133X[101X
   
-  [30X    [33X[0;6YHomepage: https://github.com/jesselansdown/Gurobify[133X
+  [30X    [33X[0;6YHomepage: http://www.jesselansdown.com/Gurobify/[133X
   
   [30X    [33X[0;6YIssue tracker: https://github.com/jesselansdown/Gurobify/issues[133X
   
@@ -37,7 +37,7 @@
   [1X5.4 [33X[0;0YOptimisation Status Codes[133X[101X
   
   [33X[0;0YThe  information  in  this  section  on  optimisation  status codes is taken
-  directly from the Gurobi website[gurobiStatusCodes].[133X
+  directly from the Gurobi website[gur16c].[133X
   
   [30X    [33X[0;6Y1 - Model is loaded, but no solution information is available.[133X
   
@@ -168,4 +168,25 @@
   
   [33X[0;0YCheck  that  you have entered the correct path for Gurobi in the "configure"
   stage of installation.[133X
+  
+  
+  [1X5.6 [33X[0;0YExample LP file[133X[101X
+  
+  [33X[0;0YShown  below is the LP file, "test.lp", written during the simple example in
+  Section 1.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X\ LP format - for model browsing. Use MPS format to capture full model detail.[128X[104X
+    [4X[28XMinimize[128X[104X
+    [4X[28X  x + 2 y + z[128X[104X
+    [4X[28XSubject To[128X[104X
+    [4X[28X UnNamedConstraint: 2 x + 2 y + 2 z <= 6[128X[104X
+    [4X[28X UnNamedConstraint: x + 2 y + 3 z >= 5[128X[104X
+    [4X[28X UnNamedConstraint: 2 x + 2 y + 2 z <= 6[128X[104X
+    [4X[28X UnNamedConstraint: x + 2 y + 3 z >= 5[128X[104X
+    [4X[28XBounds[128X[104X
+    [4X[28XBinaries[128X[104X
+    [4X[28X x y z[128X[104X
+    [4X[28XEnd[128X[104X
+  [4X[32X[104X
   

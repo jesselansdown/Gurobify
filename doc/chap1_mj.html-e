@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Gurobify) - Chapter 1: Introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -54,11 +54,11 @@
 
 <h4>1.1 <span class="Heading">Welcome to Gurobify</span></h4>
 
-<p>Gurobify is a <strong class="pkg">GAP</strong><a href="chapBib_mj.html#biBGAP4">[GAP]</a> package which provides an interface to the optimisation software Gurobi<a href="chapBib_mj.html#biBgurobi">[gurobi]</a>. <br /> <br /> Gurobify can be obtained from the Gurobify homepage:</p>
+<p>Gurobify is a <strong class="pkg">GAP</strong><a href="chapBib_mj.html#biBGAP4">[GAP16]</a> package which provides an interface to the optimisation software Gurobi<a href="chapBib_mj.html#biBgurobi">[gur16d]</a>. <br /> <br /> Gurobify can be obtained from the Gurobify homepage:</p>
 
 
 <ul>
-<li><p>https://jesselansdown.com/Gurobify</p>
+<li><p>http://www.jesselansdown.com/Gurobify</p>
 
 </li>
 </ul>
@@ -74,25 +74,30 @@
 
 <h4>1.2 <span class="Heading">Citing Gurobify</span></h4>
 
-<p>I am interested to know who is using Gurobify! If you obtain a copy I would appreciate it if you sent me an email to let me know. If Gurobify aids you in obtaining results that lead to a publication, please cite Gurobify as you would a paper. An example BibTeX entry for citing gurobify is given below. Please also send me an email informing me of the paper for my own interest.</p>
+<p>If Gurobify aids you in obtaining results that lead to a publication, please cite Gurobify as you would a paper. An example BibTeX entry for citing gurobify is given below. Check that the version number and doi correspond to the version that you used in your research. Please also send me an email informing me of the paper for my own interest!</p>
 
 
 <div class="example"><pre>
-@manual{gurobify,
+@article{gurobify,
 Author = {Lansdown, Jesse},
+Doi = {10.5281/zenodo.1036626},
 Key = {gurobify},
-Title = {{Gurobify -- A GAP interface to Gurobi, Version 1.1.0}},
-Url = {\verb+(https://github.com/jesselansdown/Gurobify/)+},
-Year = 2017}
+Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},
+Url = {http://doi.org/10.5281/zenodo.1036626},
+Year = 2017,
+}
 </pre></div>
 
 <p>Here is the entry in the APA style which may be used directly in the bibliography environment of your LaTeX document.</p>
 
 
 <div class="example"><pre>
-\bibitem[Gurobify]{gurobify}
+\bibitem[Lansdown(2017)]{gurobify}
 J.~Lansdown.
-\newblock Gurobify -- A {GAP} interface to Gurobi, version 1.1.0, 2017.
+\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.
+\newblock 2017.
+\newblock \doi{10.5281/zenodo.1036626}.
+\newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.
 </pre></div>
 
 <p><a id="X7C0B91E37C8FC531" name="X7C0B91E37C8FC531"></a></p>
@@ -106,9 +111,15 @@ J.~Lansdown.
 <li><p><strong class="pkg">GAP</strong> 4.8 (or later)</p>
 
 </li>
-<li><p>Gurobi 7.0</p>
+</ul>
+
+<ul>
+<li><p>Gurobi 7.0 (or later)</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>Autotools</p>
 
 </li>
@@ -117,9 +128,12 @@ J.~Lansdown.
 
 
 <ul>
-<li><p>AutoDoc 2016.03.08 (or later)</p>
+<li><p>AutoDoc 2017.09.15 (or later)</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>GAPDoc 1.5 (or later)</p>
 
 </li>
@@ -128,21 +142,27 @@ J.~Lansdown.
 
 <p class="center">\[ \]</p>
 
-<p>"Gurobi makes most of our solvers available to recognized degree-granting academic institutions free of charge" <a href="chapBib_mj.html#biBgurobiLicence2">[gurobiLicence2]</a>, <br /> <br /> and <br /> <br /> "The free Academic License for Gurobi has all the features and performance of the full Gurobi Optimizer. A free Academic License has no limits on model size. The only restrictions on the use of these licenses are:</p>
+<p>"Gurobi makes most of our solvers available to recognized degree-granting academic institutions free of charge" <a href="chapBib_mj.html#biBgurobiLicence2">[gur16b]</a>, <br /> <br /> and <br /> <br /> "The free Academic License for Gurobi has all the features and performance of the full Gurobi Optimizer. A free Academic License has no limits on model size. The only restrictions on the use of these licenses are:</p>
 
 
 <ul>
 <li><p>They can only be used by faculty, students, or staff of a degree-granting academic institution</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>They can only be used for research or educational purposes</p>
 
 </li>
+</ul>
+
+<ul>
 <li><p>They must be validated from a recognized academic domain, as described below.</p>
 
 </li>
 </ul>
-<p>Note, free academic licenses expire twelve (12) months after the date on which your license was generated, but eligible faculty, students, or staff can renew a license by repeating the above process" <a href="chapBib_mj.html#biBgurobiLicence1">[gurobiLicence1]</a>. <br /> <br /> For up-to-date information on Gurobi licences, please refer to the Gurobi website. A link can be found in the Appendix, or through a simple search online.</p>
+<p>Note, free academic licenses expire twelve (12) months after the date on which your license was generated, but eligible faculty, students, or staff can renew a license by repeating the above process" <a href="chapBib_mj.html#biBgurobiLicence1">[gur16a]</a>. <br /> <br /> For up-to-date information on Gurobi licences, please refer to the Gurobi website. A link can be found in the Appendix, or through a simple search online.</p>
 
 <p><a id="X8360C04082558A12" name="X8360C04082558A12"></a></p>
 
@@ -157,7 +177,25 @@ J.~Lansdown.
 make
 </pre></div>
 
-<p>The ‐-with-gurobi=&lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX, <br /> <br /> ‐-with-gurobi=/Library/gurobi701/mac64 <br /> <br /> or something like this on Linux, <br /> <br /> ‐-with-gurobi=/opt/gurobi701/linux64 <br /> <br /> The [‐-with-gaproot=&lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the <strong class="pkg">GAP</strong> root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this, <br /> <br />  ‐-with-gaproot=/opt/gap4r8/</p>
+<p>The ‐-with-gurobi=&lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX, <br /> <br /></p>
+
+<p>‐-with-gurobi=/Library/gurobi701/mac64</p>
+
+<p><br /> <br /></p>
+
+<p>or something like this on Linux,</p>
+
+<p><br /> <br /></p>
+
+<p>‐-with-gurobi=/opt/gurobi701/linux64</p>
+
+<p><br /> <br /></p>
+
+<p>The [‐-with-gaproot=&lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the <strong class="pkg">GAP</strong> root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this,</p>
+
+<p><br /> <br /></p>
+
+<p> ‐-with-gaproot=/opt/gap4r8/</p>
 
 <p><a id="X84A483B47DCD6909" name="X84A483B47DCD6909"></a></p>
 
@@ -189,9 +227,9 @@ gap makedoc.g
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"> LoadPackage("Gurobify");</span>
 -----------------------------------------------------------------------------
-Loading  Gurobify 1.1.0 (Gurobify provides an interface to Gurobi from GAP.)
+Loading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)
 by Jesse Lansdown (www.jesselansdown.com).
-Homepage: https://github.com/jesselansdown/Gurobify/
+Homepage: http://www.jesselansdown.com/Gurobify/
 -----------------------------------------------------------------------------
 true
 </pre></div>
