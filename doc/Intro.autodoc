@@ -224,7 +224,8 @@ The purpose of this example is to illustrate the use of Gurobify in a quick, sim
 	not directly relate to Gurobi but may assist in using the Gurobify package. In particular, it details 
 	functions which convert between characteristic vectors (which are more desirable for use with Gurobi) and sets (which may be more desirable for use in &GAP;).
 
-
+	@Section Other
+	This section documents Gurobify functionality not belonging in any of the other sections.
 
 @Chapter Examples
 

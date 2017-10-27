@@ -15,7 +15,6 @@
 #include <string.h>
 #include <signal.h>
 
-
 static GRBenv *env = NULL;
 static GRBmodel* current_active_gurobi_model;
 
@@ -1054,6 +1053,29 @@ Obj GurobiUpdateModel(Obj self, Obj GAPmodel){
 }
 
 
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Other
+	#! @Arguments 
+	#! @Returns [ major_version, minor_version, technical_version ]
+	#! @Description
+	#!	This function returns a list [ major_version, minor_version, technical_version ] which
+	#!	indicates the Gurobi library version. For example, if using Gurobi Version 7.5.1, then
+	#!	GurobiVersion() would return [ 7, 5, 1 ].
+	DeclareGlobalFunction("GurobiVersion");
+*/
+
+Obj GurobiVersion(Obj self){
+	int major, minor, technical;
+	GRBversion(&major, &minor, &technical);
+	Obj version = NEW_PLIST( T_PLIST , 3);
+	SET_LEN_PLIST( version , 3 );
+	SET_ELM_PLIST( version, 1 , INTOBJ_INT(major));
+	SET_ELM_PLIST( version , 2, INTOBJ_INT(minor));
+	SET_ELM_PLIST( version, 3, INTOBJ_INT(technical));
+
+	return version;
+}
 
 typedef Obj (* GVarFunc)(/*arguments*/);
 
@@ -1088,6 +1110,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttributeArray, 3, "model, AttributeName, AttributeArray"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiStringAttributeElement, 3, "model, position, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDeleteConstraints, 2, "model, ConstraintList"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiVersion, 0, ""),
 
   { 0 } /* Finish with an empty entry */
 
