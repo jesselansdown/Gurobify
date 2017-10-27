@@ -698,7 +698,7 @@ Obj GurobiSetDoubleAttribute(Obj self, Obj GAPmodel, Obj AttributeName, Obj Attr
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute value
+	#! @Returns attribute value
 	#! @Description
 	#!	Takes a Gurobi model and retrieves the value of an integer-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
@@ -731,7 +731,7 @@ Obj GurobiIntegerAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, position, AttributeName
-	#! @Returns attibute value
+	#! @Returns attribute value
 	#! @Description
 	#!	Takes a Gurobi model and retrieves the value of a string attribute element at a given position.
 	#!	For example to get the names of constraints with "ConstrName".
@@ -772,7 +772,7 @@ Obj GurobiStringAttributeElement( Obj self, Obj GAPmodel, Obj position, Obj Attr
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute value
+	#! @Returns attribute value
 	#! @Description
 	#!	Takes a Gurobi model and retrieves the value of a double-valued attribute.
 	#!	Refer to the Gurobi documentation for a list of attributes and their types.
@@ -806,7 +806,7 @@ Obj GurobiDoubleAttribute( Obj self, Obj GAPmodel, Obj AttributeName )
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute array
+	#! @Returns attribute array
 	#! @Description
 	#!	Takes a Gurobi model and retrieves an attribute array.
 	#!	Can only get values of attributes arrays which take integer values.
@@ -854,7 +854,7 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute array
+	#! @Returns attribute array
 	#! @Description
 	#!	Takes a Gurobi model and retrieves an attribute array.
 	#!	Can only get values of attributes arrays which take double values.
@@ -901,7 +901,7 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	#! @Chapter Using Gurobify
 	#! @Section Querying Other Attributes And Parameters
 	#! @Arguments Model, AttributeName
-	#! @Returns attibute array
+	#! @Returns attribute array
 	#! @Description
 	#! @Description
 	#!	Takes a Gurobi model and retrieves an attribute array.
@@ -976,7 +976,7 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	int i;
 	for (i = 0; i < length; i = i+1 ){
 		if (! IS_MACFLOAT(ELM_PLIST(GAParray, i+1))){
-	    	ErrorMayQuit( "Error: Attibute must be a list of floats.", 0, 0 );		
+	    	ErrorMayQuit( "Error: attribute must be a list of floats.", 0, 0 );		
 		}
 		else{
 			vals[i] = VAL_MACFLOAT(ELM_PLIST(GAParray,i+1));

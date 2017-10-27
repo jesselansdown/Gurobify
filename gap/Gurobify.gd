@@ -219,7 +219,7 @@ DeclareOperation("GurobiOptimisationStatus",
 #! @Returns numeric focus
 #! @Description
 #!	Returns the numeric focus value of the model. The numeric focus is a value in the set [0,1,2,3]. A numeric focus of $0$ sets the
-#!	numeric focus automatically, preferancing speed. Values between 1 and 3 increase the care taken in computations 
+#!	numeric focus automatically, preferencing speed. Values between 1 and 3 increase the care taken in computations 
 #!	as the value increases, but also take longer. The default value is 0.
 DeclareOperation("GurobiNumericFocus",
 	[IsGurobiModel]);
@@ -230,7 +230,7 @@ DeclareOperation("GurobiNumericFocus",
 #! @Returns true
 #! @Description
 #!	Set the numeric focus for a model. Numeric focus must be in the set [0,1,2,3]. A numeric focus of $0$ sets the
-#!	numeric focus automatically, preferancing speed. Values between 1 and 3 increase the care taken in computations 
+#!	numeric focus automatically, preferencing speed. Values between 1 and 3 increase the care taken in computations 
 #!	as the value increases, but also take longer. The default value is 0.
 DeclareOperation( "GurobiSetNumericFocus",
 	[ IsGurobiModel, IsInt] );
