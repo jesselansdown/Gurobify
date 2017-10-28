@@ -1020,7 +1020,11 @@ Obj GurobiWriteToFile(Obj self, Obj GAPmodel, Obj FileName)
 
 	char *file_name = CSTR_STRING(FileName);
 
-	int error = GRBwrite(model, file_name);
+	int error = GRBsetstrattr(model, "ModelName", "created with Gurobify - A GAP interface to Gurobi Optimizer.");
+	if (error)
+		ErrorMayQuit( "Error: Unable to set model name.", 0, 0 );
+
+	error = GRBwrite(model, file_name);
 	if (error)
 		ErrorMayQuit( "Error: Unable to write model.", 0, 0 );
 
