@@ -427,7 +427,7 @@ DeclareOperation("GurobiLogToConsole",
 
 #! @Chapter Using Gurobify
 #! @Section Optimising A Model
-#! @Arguments Model
+#! @Arguments Model, Size
 #! @Returns Set of all solutions.
 #! @Description
 #!	This function finds all possible solutions of a given size, for a model with only binary variables.
@@ -442,7 +442,7 @@ DeclareOperation("GurobiFindAllBinarySolutions",
 
 #! @Chapter Using Gurobify
 #! @Section Optimising A Model
-#! @Arguments Model, Group
+#! @Arguments Model, Size, Group
 #! @Returns Set of all solutions.
 #! @Description
 #!	This function finds all possible solutions of a given size, for a model with only binary variables.
