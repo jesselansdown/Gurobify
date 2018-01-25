@@ -430,19 +430,22 @@ DeclareOperation("GurobiLogToConsole",
 #! @Arguments Model
 #! @Returns Set of all solutions.
 #! @Description
+#!	This function finds all possible solutions of a given size, for a model with only binary variables.
 #!	Takes a Gurobi model and repeatedly optimises it, each time adding the previous solution as a
 #!	constraint so that it isn't found again. This continues until all solutions are found, and
 #!	then they are returned as a set. During the process the number of found solutions is displayed.
-DeclareOperation("GurobiFindAllSolutions",
-	[IsGurobiModel]);
+#!	Note:
+#!		- Only for models where every variable is a binary variable.
+#!		- Only finds solution sets of a given size.
+DeclareOperation("GurobiFindAllBinarySolutions",
+	[IsGurobiModel, IsPosInt]);
 
 #! @Chapter Using Gurobify
 #! @Section Optimising A Model
 #! @Arguments Model, Group
 #! @Returns Set of all solutions.
 #! @Description
-#!	(Caution: This function is intended for use with binary variables only and may behave unexpectedly
-#!	with other variable types).
+#!	This function finds all possible solutions of a given size, for a model with only binary variables.
 #!	Same as above, except that it also takes a permutation group acting on the index set of variables.
 #!	Instead of finding all solutions directly, the group is used to find the orbit of each new
 #!	solution, and these are then all returned at the end, and used as constraints until then.
@@ -450,9 +453,9 @@ DeclareOperation("GurobiFindAllSolutions",
 #!	solutions. Hence it returns all the unique solutions up to equivalence under the group.
 #!	This saves on memory, and the remaing solutions may be refound by generating the
 #!	orbit under the group. To invoke this option place a colon after the group argument and then put
-#!	representatives:=true so for example GurobiFindAllSolutions(model, gp : representatives:=true);
-DeclareOperation("GurobiFindAllSolutions",
-	[IsGurobiModel, IsGroup]);
+#!	representatives:=true so for example GurobiFindAllSolutions(model, size, gp : representatives:=true);
+DeclareOperation("GurobiFindAllBinarySolutions",
+	[IsGurobiModel, IsPosInt, IsGroup]);
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
@@ -508,3 +511,12 @@ DeclareOperation("SubsetToCharacteristicVector",
 DeclareOperation("CharacteristicVectorToSubset",
 	[IsList, IsList]);
 
+
+#! @Chapter Using Gurobify
+#! @Section Querying Attributes And Parameters
+#! @Arguments Model
+#! @Returns 
+#! @Description
+#!	Returns the types of the variables in the model.
+DeclareOperation("GurobiVariableTypes",
+	[IsGurobiModel]);

@@ -459,12 +459,17 @@ InstallMethod(GurobiDeleteConstraintsWithName, "",
 	end
 );
 
-InstallMethod(GurobiFindAllSolutions, "",
-		[IsGurobiModel],
+InstallMethod(GurobiFindAllBinarySolutions, "",
+		[IsGurobiModel, IsPosInt],
 
-	function(model)
+	function(model, size)
 		local good, result, sol, count, i;
+		if Set(GurobiVariableTypes(model)) <> [ "B" ] then
+			Print("Error: Model must only have binary variables.\n");
+			return fail;
+		fi;
 		Print("Solutions found so far: 0\c");
+		GurobiAddConstraint(model, ListWithIdenticalEntries(GurobiNumberOfVariables(model),1) , "=", size, "FindAllSolutionsSizeConstr");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
 		result := GurobiOptimiseModel(model);
@@ -501,16 +506,22 @@ InstallMethod(GurobiFindAllSolutions, "",
 		fi;
 		Print("\n");
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsSizeConstr");
 		return good;
 	end
 );
 
-InstallMethod(GurobiFindAllSolutions, "",
-		[IsGurobiModel, IsGroup],
+InstallMethod(GurobiFindAllBinarySolutions, "",
+		[IsGurobiModel, IsPosInt, IsGroup],
 
-	function(model, gp)
+	function(model, size, gp)
 		local good, result, sol, count, solution_orbits, i, representatives, all;
 		representatives := ValueOption("representatives");
+		if Set(GurobiVariableTypes(model)) <> [ "B" ] then
+			Print("Error: Model must only have binary variables.\n");
+			return fail;
+		fi;
+		GurobiAddConstraint(model, ListWithIdenticalEntries(GurobiNumberOfVariables(model),1) , "=", size, "FindAllSolutionsSizeConstr");
 		Print("Solutions found so far: 0\c");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
@@ -563,6 +574,7 @@ InstallMethod(GurobiFindAllSolutions, "",
 			Print("\nWarning! Optimisation terminated with status code: ", GurobiOptimisationStatus(model), "\n");
 		fi;
 		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsConstr");
+		GurobiDeleteConstraintsWithName(model, "FindAllSolutionsSizeConstr");
 		return good;
 	end
 );
@@ -608,5 +620,14 @@ InstallMethod(CharacteristicVectorToSubset, "",
 		indexset:= CharacteristicVectorToIndexSet(charvec);
 		subset := actualset{indexset};
 		return subset;
+	end
+);
+
+
+InstallMethod( GurobiVariableTypes, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiCharAttributeArray(model, "VType");
 	end
 );

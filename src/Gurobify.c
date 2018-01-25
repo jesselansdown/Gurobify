@@ -993,6 +993,60 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	return 0;
 }
 
+
+
+/*
+	#! @Chapter Using Gurobify
+	#! @Section Querying Other Attributes And Parameters
+	#! @Arguments Model, AttributeName
+	#! @Returns attribute array
+	#! @Description
+	#! @Description
+	#!	Takes a Gurobi model and retrieves an attribute array.
+	#!	Can only get values of attributes arrays which have char values.
+	#!	Refer to the Gurobi documentation for a list of attributes and their types.
+		DeclareGlobalFunction("GurobiCharAttributeArray");
+*/
+Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
+{
+
+	if (! IS_MODEL(GAPmodel))
+        ErrorMayQuit( "Error: Must pass a valid Gurobi model", 0, 0 );
+
+	GRBmodel *model = GET_MODEL(GAPmodel);
+
+	int i;
+	int error;
+	int number_of_variables;
+    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+    	if (error)
+	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
+
+	char attrvals[number_of_variables];
+
+	if (! IS_STRING(AttributeName))
+        ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
+
+	error = GRBgetcharattrarray(model, CSTR_STRING(AttributeName), 0, number_of_variables, attrvals );
+    if (error)
+		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
+
+	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
+	SET_LEN_PLIST( solution , number_of_variables );
+
+	for (i = 0; i < number_of_variables; i = i+1 ){
+		Obj name;
+		name = NEW_STRING(1);
+		SET_LEN_STRING(name,1);
+		COPY_CHARS(name,&attrvals[i],1);
+		SET_ELM_PLIST(solution, i+1, name);
+	}
+	return solution;
+
+}
+
+
+
 /*
 	#! @Chapter Using Gurobify
 	#! @Section Creating Or Reading A Model
@@ -1109,6 +1163,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiIntegerAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiDoubleAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiStringAttributeArray, 2, "model, AttributeName"),
+    GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiCharAttributeArray, 2, "model, AttributeName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiWriteToFile, 2, "model, FileName"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiUpdateModel, 1, "model"),
     GVAR_FUNC_TABLE_ENTRY("Gurobify.c", GurobiSetDoubleAttributeArray, 3, "model, AttributeName, AttributeArray"),
