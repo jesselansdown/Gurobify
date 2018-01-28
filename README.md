@@ -6,7 +6,7 @@ Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http
 
 Gurobify has the following dependencies:
 * GAP 4.8 (or later)
-* Gurobi 7.0
+* Gurobi 7.0 (or later)
 * AutoTools
 
 Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
