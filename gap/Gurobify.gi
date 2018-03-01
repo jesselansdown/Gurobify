@@ -485,7 +485,7 @@ InstallMethod(GurobiFindAllBinarySolutions, "",
 			sol := GurobiSolution(model);
 			sol := List(sol, t -> Int(Round(t)));
 			Add(good, sol);
-			GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+			GurobiAddConstraint(model, sol, "<",size-1, "FindAllSolutionsConstr");
 			GurobiUpdateModel(model);
 			GurobiReset(model);
 			result := GurobiOptimiseModel(model);
@@ -559,7 +559,7 @@ InstallMethod(GurobiFindAllBinarySolutions, "",
 				Print(count, "\c");
 			fi;
 			for sol in solution_orbits do
-				GurobiAddConstraint(model, sol, "<", Sum(sol)-1, "FindAllSolutionsConstr");
+				GurobiAddConstraint(model, sol, "<", size-1, "FindAllSolutionsConstr");
 			od;
 			GurobiUpdateModel(model);
 			GurobiReset(model);
