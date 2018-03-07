@@ -7,6 +7,7 @@ Changes from Version 1.1.1 to 1.2.0
 	* Added SubsetToCharacteristicVector
 	* Added CharacteristicVectorToSubset
 	* Minor bug fix for installation process
+	* Added GurobiVersion
 
 Changes from Version 1.1.0 to Version 1.1.1
 	* Changed make process to allow for different versions of Gurobi to be handled automatically
