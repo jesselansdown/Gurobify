@@ -295,7 +295,7 @@ InstallMethod( GurobiBestObjectiveBoundStop, "",
 	end
 );
 
-InstallOtherMethod( GurobiSetNumericFocus, "",
+InstallOtherMethod( GurobiSetMIPFocus, "",
 	[ IsGurobiModel, IsInt ] ,
 	function(model, MIPFocus)
 
@@ -468,7 +468,7 @@ InstallMethod(GurobiFindAllBinarySolutions, "",
 			Print("Error: Model must only have binary variables.\n");
 			return fail;
 		fi;
-		Print("Solutions found so far: 0\c");
+		Print("Solutions found so far: 0\r");
 		GurobiAddConstraint(model, ListWithIdenticalEntries(GurobiNumberOfVariables(model),1) , "=", size, "FindAllSolutionsSizeConstr");
 		good:=[];
 		GurobiSetTimeLimit(model, 100000000);
@@ -479,7 +479,6 @@ InstallMethod(GurobiFindAllBinarySolutions, "",
 		fi;
 		if result = 2 then
 			count:=1;
-			Print("\b",1, "\c");
 		fi;
 		while result = 2 do
 			sol := GurobiSolution(model);
@@ -493,12 +492,9 @@ InstallMethod(GurobiFindAllBinarySolutions, "",
 				Print("timed out");
 				return fail;
 			fi;
-			for i in [1 .. Size(String(count))] do
-				Print("\b");
-			od;
 			count:=count+1;
 			if result = 2 then
-				Print(count, "\c");
+				Print("Solutions found so far: ", count, "\r");
 			fi;
 		od;
 		if GurobiOptimisationStatus(model) <> 3 then
