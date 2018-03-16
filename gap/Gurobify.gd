@@ -520,3 +520,31 @@ DeclareOperation("CharacteristicVectorToSubset",
 #!	Returns the types of the variables in the model.
 DeclareOperation("GurobiVariableTypes",
 	[IsGurobiModel]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Modifying Attributes And Parameters
+#! @Arguments Model, MethodType
+#! @Returns true
+#! @Description
+#!	Set the method used to solve a model. 
+#!	-1=automatic (this is the default),
+#!	0=primal simplex,
+#!	1=dual simplex,
+#!	2=barrier,
+#!	3=concurrent,
+#!	4=deterministic concurrent,
+#!	5=deterministic concurrent simplex.
+#!	See the Gurobi documentation for more details.
+
+DeclareOperation( "GurobiSetMethod",
+	[ IsGurobiModel, IsInt] );
+
+#! @Chapter Using Gurobify
+#! @Section Querying Attributes And Parameters
+#! @Arguments Model
+#! @Returns MethodType
+#! @Description
+#!	Returns the method used to solve a model. See the Gurobi documentation for more details.
+DeclareOperation("GurobiMethod",
+	[IsGurobiModel]);

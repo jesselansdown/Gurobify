@@ -6,6 +6,8 @@ Changes from Version 1.1.1 to 1.2.0
 	* Added CharacteristicVectorToIndexSet
 	* Added SubsetToCharacteristicVector
 	* Added CharacteristicVectorToSubset
+	* Added GurobiSetMethod
+	* Added GurobiMethod
 	* Minor bug fix for installation process
 	* Bug fix for GurobiSetMIPFocus not being defined
 	* Added GurobiVersion

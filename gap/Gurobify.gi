@@ -627,3 +627,27 @@ InstallMethod( GurobiVariableTypes, "",
 	return GurobiCharAttributeArray(model, "VType");
 	end
 );
+
+
+InstallOtherMethod( GurobiSetMethod, "",
+	[ IsGurobiModel, IsInt ] ,
+	function(model, MethodType)
+
+	if not MethodType in [-1, 1,2,3,4,5] then
+		Print("Error: MethodType must be an integer in [-1,1,2,3,4,5]");
+		return fail;
+	fi;
+
+	GurobiSetIntegerParameter(model, "method", MethodType);
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiMethod, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "method");
+	end
+);
