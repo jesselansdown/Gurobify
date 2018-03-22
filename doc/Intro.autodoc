@@ -145,6 +145,7 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 #! Loading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
 #! Homepage: http://www.jesselansdown.com/Gurobify/
+#!      Currently running Gurobi Optimizer 7.5.1
 #! -----------------------------------------------------------------------------
 #! true
 @EndLog
