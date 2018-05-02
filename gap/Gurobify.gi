@@ -651,3 +651,26 @@ InstallMethod( GurobiMethod, "",
 	return GurobiIntegerParameter(model, "method");
 	end
 );
+
+InstallOtherMethod( GurobiSetThreads, "",
+	[ IsGurobiModel, IsInt ] ,
+	function(model, ThreadCount)
+
+	if ThreadCount < 0 then
+		Print("Error: ThreadCount must be non-negative integer");
+		return fail;
+	fi;
+
+	GurobiSetIntegerParameter(model, "threads", ThreadCount);
+
+	return true;
+	end
+);
+
+InstallMethod( GurobiThreads, "",
+	[ IsGurobiModel ] ,
+	function(model)
+
+	return GurobiIntegerParameter(model, "threads");
+	end
+);

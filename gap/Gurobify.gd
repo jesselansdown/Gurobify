@@ -548,3 +548,26 @@ DeclareOperation( "GurobiSetMethod",
 #!	Returns the method used to solve a model. See the Gurobi documentation for more details.
 DeclareOperation("GurobiMethod",
 	[IsGurobiModel]);
+
+
+
+
+#! @Chapter Using Gurobify
+#! @Section Modifying Attributes And Parameters
+#! @Arguments Model, ThreadCount
+#! @Returns true
+#! @Description
+#!	Set the number of threads Gurobi is allowed to use. The default value is 0,
+#!	which will use as many cores as it wants. See the Gurobi documentation for more details.
+
+DeclareOperation( "GurobiSetThreads",
+	[ IsGurobiModel, IsInt] );
+
+#! @Chapter Using Gurobify
+#! @Section Querying Attributes And Parameters
+#! @Arguments Model
+#! @Returns ThreadCount
+#! @Description
+#!	Returns number of threads Gurobi is allowed to use. See the Gurobi documentation for more details.
+DeclareOperation("GurobiThreads",
+	[IsGurobiModel]);
