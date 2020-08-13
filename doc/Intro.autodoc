@@ -92,8 +92,12 @@ To install Gurobify, first extract it in the pkg directory of the &GAP; installa
 @BeginLog
 #! ./autogen.sh
 #! ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
+#! ./autogen.sh
+#! ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
 #! make
 @EndLog
+
+Note that ./autogen.sh and ./configure are run twice. This is because the first run identifies the version of Gurobi installed at &lt;gurobi path&gt;, and the second run through configures for this version.
 
 The &#8208;-with-gurobi=&lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX,
 <Br/><Br/>
@@ -287,12 +291,24 @@ Common sources of error during installation include:
 * Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor. 
 * Not putting the correct paths to Gurobi (or &GAP; if not in the default "pkg" directory) when running "configure". Sometimes the paths are correct but incomplete, eg missing "linux64" or "mac64" at the end. Compare with the example paths given in the installation section of the manual.
 * Having incorrect versions of &GAP; or Gurobi.
+* Default GUROBIVERSION differs from installed version. Fix by running ./autogen.sh and ./configure twice before make.
 
 	@Subsection Specific Errors
 
 * The compiler gives warnings when running "make"
 
 This seems to be due to the way &GAP; stores integers, but it doesn't affect the function of the program. If no errors are given the installation is generally ok. Test the installation by loading Gurobify and running the test cases.
+
+* Compilation is unsuccessful, terminating with an error such as:
+
+@BeginLog
+#! /usr/bin/ld: cannot find -lgurobi70
+#! collect2: error: ld returned 1 exit status
+#! Makefile:473: recipe for target 'Gurobify.la' failed
+#! make: *** [Gurobify.la] Error 1
+@EndLog
+
+Gurobify has a GUROBIVERSION file which indicates the version of Gurobi being used, which is updated to match the installed version during ./autogen. However, ./configure will use the old GUROBIVERSION before it is updated. To fix this, run ./autogen and ./configure a second time.
 
 * Compilation is successful, but &GAP; cannot load the package, giving an error such as:
 
