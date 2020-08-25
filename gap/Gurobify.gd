@@ -536,7 +536,6 @@ DeclareOperation("GurobiVariableTypes",
 #!	4=deterministic concurrent,
 #!	5=deterministic concurrent simplex.
 #!	See the Gurobi documentation for more details.
-
 DeclareOperation( "GurobiSetMethod",
 	[ IsGurobiModel, IsInt] );
 
@@ -559,7 +558,6 @@ DeclareOperation("GurobiMethod",
 #! @Description
 #!	Set the number of threads Gurobi is allowed to use. The default value is 0,
 #!	which will use as many cores as it wants. See the Gurobi documentation for more details.
-
 DeclareOperation( "GurobiSetThreads",
 	[ IsGurobiModel, IsInt] );
 

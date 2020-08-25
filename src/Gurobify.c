@@ -763,7 +763,7 @@ Obj GurobiStringAttributeElement( Obj self, Obj GAPmodel, Obj position, Obj Attr
 	}
 
 	Obj name;
-	C_NEW_STRING_DYN(name, cname);
+    name = MakeString(cname);
 
 	return name;
 }
@@ -924,7 +924,7 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	char ** attrvals[number_of_variables];
+	char * attrvals[number_of_variables];
 
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
@@ -938,7 +938,7 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 
 	for (i = 0; i < number_of_variables; i = i+1 ){
 		Obj name;
-		C_NEW_STRING_DYN(name, attrvals[i]);
+        name = MakeString(attrvals[i]);
 		SET_ELM_PLIST(solution, i+1, name);
 	}
 	return solution;
