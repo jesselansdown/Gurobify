@@ -17,6 +17,16 @@ InstallMethod(GurobiNewModel, "",
 	end
 );
 
+InstallOtherMethod(GurobiNewModel, "",
+	[ IsPosInt, IsString] ,
+	function(n, VariableType)
+		local model;
+		model := GUROBINEWMODEL(List([1 .. n], t -> UppercaseString(VariableType)));
+		GurobiUpdateModel(model);
+		return model;
+	end
+);
+
 InstallMethod(GurobiAddConstraint, "",
 	[ IsGurobiModel, IsList, IsString, IsFloat, IsString],
 	function(Model, ConstraintEquation, ConstraintSense, ConstraintRHSValue, ConstraintName)
@@ -80,6 +90,58 @@ InstallOtherMethod(GurobiAddMultipleConstraints, "",
 			GUROBIADDCONSTRAINT(Model, List(ConstraintEquations[i], t -> Float(t)), ConstraintSenses[i],
 				Float(ConstraintRHSValues[i]), "UnNamedConstraint");
 		od;
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsString, IsFloat],
+	function(Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue)
+		# Add error checks
+		local senses, rhs;
+		senses := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintSense);
+		rhs := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintRHSValue);
+		GurobiAddMultipleConstraints(Model, ConstraintEquations, senses, rhs);;
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsString, IsInt],
+	function(Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue)
+		# Add error checks
+		local senses, rhs, r;
+		r := Float(ConstraintRHSValue);
+		senses := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintSense);
+		rhs := ListWithIdenticalEntries(Size(ConstraintEquations), r);
+		GurobiAddMultipleConstraints(Model, ConstraintEquations, senses, rhs);;
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsString, IsFloat, IsString],
+	function(Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue, ConstraintName)
+		# Add error checks
+		local senses, rhs, names;
+		senses := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintSense);
+		rhs := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintRHSValue);
+		names := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintName);
+		GurobiAddMultipleConstraints(Model, ConstraintEquations, senses, rhs, names);;
+		return true;
+	end
+);
+
+InstallOtherMethod(GurobiAddMultipleConstraints, "",
+	[ IsGurobiModel, IsList, IsString, IsInt, IsString],
+	function(Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue, ConstraintName)
+		# Add error checks
+		local senses, rhs, names, r;
+		r := Float(ConstraintRHSValue);
+		senses := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintSense);
+		rhs := ListWithIdenticalEntries(Size(ConstraintEquations), r);
+		names := ListWithIdenticalEntries(Size(ConstraintEquations), ConstraintName);
+		GurobiAddMultipleConstraints(Model, ConstraintEquations, senses, rhs, names);;
 		return true;
 	end
 );
