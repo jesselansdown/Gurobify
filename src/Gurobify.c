@@ -1,7 +1,7 @@
 /*
  * Gurobify: Gurobify provides an interface to Gurobi from GAP.
  *
- * Copyright (c) 2017 Jesse Lansdown
+ * Copyright (c) 2017 - 2021 Jesse Lansdown
  *
  * This Source Code Form is subject to the terms of the Mozilla
  * Public License, v. 2.0. If a copy of the MPL was not distributed
