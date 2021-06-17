@@ -76,6 +76,8 @@ DeclareOperation( "GurobiAddConstraint",
 #!	are lists, such that the i-th entries of each list determine a single constraint in
 #!	the same manner as for the operation GurobiAddConstraint. ConstraintNames is an optional argument,
 #!	and must be given for all constraints, or not at all.
+#!  If ConstraintSenses and ConstraintRHSValues are all the same, then rather than providing a list, one may
+#!  simply provide a single string for the constraint sense and a single float or integer for the right hand side.
 DeclareOperation( "GurobiAddMultipleConstraints",
 	[ IsGurobiModel, IsList, IsList, IsList, IsList] );
 
@@ -387,6 +389,8 @@ DeclareOperation("GurobiVariableNames",
 #!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT". The variable types are not case sensitive.
 #!  Refer to the Gurobi documentation for more information on the variable types.
 #!  Optionally takes the names of the variables as a list of strings.
+#!  If all variables are of the same type, then you may instead give arguments n, v, where n is the number
+#!  of variables and v is the variable type.
 DeclareOperation( "GurobiNewModel",
 	[IsList, IsList]);
 
