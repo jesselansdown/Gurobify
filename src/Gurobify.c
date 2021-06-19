@@ -839,12 +839,8 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 	
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
 	for (i = 0; i < number_of_variables; i = i+1 ){
-				SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));
+				ASS_LIST(solution, i+1, INTOBJ_INT(sol[i]));
 	}
 	return solution;
 }
@@ -887,12 +883,8 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 	
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
 	for (i = 0; i < number_of_variables; i = i+1 ){
-				SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));
+				ASS_LIST(solution, i+1, NEW_MACFLOAT(sol[i]));
 	}
 	return solution;
 }
@@ -934,12 +926,11 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );
 
 	for (i = 0; i < number_of_variables; i = i+1 ){
 		Obj name;
         name = MakeString(attrvals[i]);
-		SET_ELM_PLIST(solution, i+1, name);
+		ASS_LIST(solution, i+1, name);
 	}
 	return solution;
 
@@ -1032,14 +1023,13 @@ Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );
 
 	for (i = 0; i < number_of_variables; i = i+1 ){
 		Obj name;
 		name = NEW_STRING(1);
 		SET_LEN_STRING(name,1);
 		COPY_CHARS(name,&attrvals[i],1);
-		SET_ELM_PLIST(solution, i+1, name);
+		ASS_LIST(solution, i+1, name);
 	}
 	return solution;
 
@@ -1127,10 +1117,9 @@ Obj GurobiVersion(Obj self){
 	int major, minor, technical;
 	GRBversion(&major, &minor, &technical);
 	Obj version = NEW_PLIST( T_PLIST , 3);
-	SET_LEN_PLIST( version , 3 );
-	SET_ELM_PLIST( version, 1 , INTOBJ_INT(major));
-	SET_ELM_PLIST( version , 2, INTOBJ_INT(minor));
-	SET_ELM_PLIST( version, 3, INTOBJ_INT(technical));
+	ASS_LIST( version, 1 , INTOBJ_INT(major));
+	ASS_LIST( version , 2, INTOBJ_INT(minor));
+	ASS_LIST( version, 3, INTOBJ_INT(technical));
 
 	return version;
 }
