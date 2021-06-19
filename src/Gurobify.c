@@ -467,8 +467,8 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 		ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be an integer or a double.", 0, 0 );
 	}
 
-    int constraint_index[number_of_variables];
-	double constraint_value[number_of_variables];
+   	int* constraint_index = (int*) malloc(number_of_variables*sizeof(int));
+   	double* constraint_value = (double*) malloc(number_of_variables*sizeof(double));
 	int non_zero_constraints = 0;
 	int index = 0;
 	int j = 0;
@@ -476,7 +476,7 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	non_zero_constraints = 0;
 	index = 0;
 	for (j = 0; j < number_of_variables; j = j+1){
-		Obj CurrentEntry = ELM_PLIST(AdditionalConstraintEquations, j+1);
+			Obj CurrentEntry = ELM_PLIST(AdditionalConstraintEquations, j+1);
 		if ( ! (IS_MACFLOAT(CurrentEntry) ||  IS_INTOBJ(CurrentEntry) ) )
 			ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
 		else{
@@ -524,6 +524,9 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	}
 	else
 			ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
+
+	free(constraint_index);
+	free(constraint_value);
 
 	return 0;
 }
@@ -829,7 +832,7 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	int sol[number_of_variables];
+	int* sol = (int*) malloc(number_of_variables*sizeof(int));
 
 	if (! IS_STRING(AttributeName))
 	    ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
@@ -842,6 +845,7 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	for (i = 0; i < number_of_variables; i = i+1 ){
 				ASS_LIST(solution, i+1, INTOBJ_INT(sol[i]));
 	}
+	free(sol);
 	return solution;
 }
 
@@ -869,11 +873,12 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	int i;
 	int error;
 	int number_of_variables;
-    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+        error = GRBgetintattr(model, "NumVars", &number_of_variables);
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	double sol[number_of_variables];
+/*	double sol[number_of_variables]; */
+	double* sol = (double*) malloc(number_of_variables*sizeof(double));
 
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
@@ -886,6 +891,7 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	for (i = 0; i < number_of_variables; i = i+1 ){
 				ASS_LIST(solution, i+1, NEW_MACFLOAT(sol[i]));
 	}
+	free(sol);
 	return solution;
 }
 
@@ -917,7 +923,7 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
 	char * attrvals[number_of_variables];
-
+	
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
@@ -963,7 +969,7 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	int error;
 	int length;
 	length = LEN_PLIST(GAParray);
-	double vals[length];
+	double* vals = (double*) malloc(length*sizeof(double));
 	int i;
 	for (i = 0; i < length; i = i+1 ){
 		if (! IS_MACFLOAT(ELM_PLIST(GAParray, i+1))){
@@ -980,7 +986,8 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	error = GRBsetdblattrarray(model, CSTR_STRING(AttributeName), 0, length, vals);
 	if (error)
     	ErrorMayQuit( "Error: Unable to set attribute array.", 0, 0 );
-
+	free(vals);
+	
 	return 0;
 }
 
@@ -1013,8 +1020,8 @@ Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	char attrvals[number_of_variables];
-
+	char* attrvals = (char*) malloc(number_of_variables*sizeof(char));
+	
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
@@ -1031,6 +1038,8 @@ Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 		COPY_CHARS(name,&attrvals[i],1);
 		ASS_LIST(solution, i+1, name);
 	}
+	free(attrvals);
+	
 	return solution;
 
 }
