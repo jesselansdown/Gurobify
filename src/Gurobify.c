@@ -467,8 +467,8 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 		ErrorMayQuit( "Error: AdditionalConstraintRHSValue must be an integer or a double.", 0, 0 );
 	}
 
-    int constraint_index[number_of_variables];
-	double constraint_value[number_of_variables];
+   	int* constraint_index = (int*) malloc(number_of_variables*sizeof(int));
+   	double* constraint_value = (double*) malloc(number_of_variables*sizeof(double));
 	int non_zero_constraints = 0;
 	int index = 0;
 	int j = 0;
@@ -476,7 +476,7 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	non_zero_constraints = 0;
 	index = 0;
 	for (j = 0; j < number_of_variables; j = j+1){
-		Obj CurrentEntry = ELM_PLIST(AdditionalConstraintEquations, j+1);
+			Obj CurrentEntry = ELM_PLIST(AdditionalConstraintEquations, j+1);
 		if ( ! (IS_MACFLOAT(CurrentEntry) ||  IS_INTOBJ(CurrentEntry) ) )
 			ErrorMayQuit( "Error: AdditionalConstraintEquations must contain integer or double entries!", 0, 0 );
 		else{
@@ -524,6 +524,9 @@ Obj GUROBIADDCONSTRAINT(Obj self, Obj GAPmodel, Obj AdditionalConstraintEquation
 	}
 	else
 			ErrorMayQuit( "Error:  sense must be <,> or = ", 0, 0 );
+
+	free(constraint_index);
+	free(constraint_value);
 
 	return 0;
 }
@@ -829,7 +832,7 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	int sol[number_of_variables];
+	int* sol = (int*) malloc(number_of_variables*sizeof(int));
 
 	if (! IS_STRING(AttributeName))
 	    ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
@@ -839,13 +842,10 @@ Obj GurobiIntegerAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 	
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
 	for (i = 0; i < number_of_variables; i = i+1 ){
-				SET_ELM_PLIST(solution, i+1, INTOBJ_INT(sol[i]));
+				ASS_LIST(solution, i+1, INTOBJ_INT(sol[i]));
 	}
+	free(sol);
 	return solution;
 }
 
@@ -873,11 +873,12 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	int i;
 	int error;
 	int number_of_variables;
-    error = GRBgetintattr(model, "NumVars", &number_of_variables);
+        error = GRBgetintattr(model, "NumVars", &number_of_variables);
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	double sol[number_of_variables];
+/*	double sol[number_of_variables]; */
+	double* sol = (double*) malloc(number_of_variables*sizeof(double));
 
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
@@ -887,13 +888,10 @@ Obj GurobiDoubleAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 			ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 	
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );				// For some reason this gives a warning. 
-																		// When number of variables is replaced by
-																		// the actual number it gives no warning and
-																		// causes no trouble
 	for (i = 0; i < number_of_variables; i = i+1 ){
-				SET_ELM_PLIST(solution, i+1, NEW_MACFLOAT(sol[i]));
+				ASS_LIST(solution, i+1, NEW_MACFLOAT(sol[i]));
 	}
+	free(sol);
 	return solution;
 }
 
@@ -925,7 +923,7 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
 	char * attrvals[number_of_variables];
-
+	
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
@@ -934,12 +932,11 @@ Obj GurobiStringAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );
 
 	for (i = 0; i < number_of_variables; i = i+1 ){
 		Obj name;
         name = MakeString(attrvals[i]);
-		SET_ELM_PLIST(solution, i+1, name);
+		ASS_LIST(solution, i+1, name);
 	}
 	return solution;
 
@@ -972,7 +969,7 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	int error;
 	int length;
 	length = LEN_PLIST(GAParray);
-	double vals[length];
+	double* vals = (double*) malloc(length*sizeof(double));
 	int i;
 	for (i = 0; i < length; i = i+1 ){
 		if (! IS_MACFLOAT(ELM_PLIST(GAParray, i+1))){
@@ -989,7 +986,8 @@ Obj GurobiSetDoubleAttributeArray(Obj self, Obj GAPmodel, Obj AttributeName, Obj
 	error = GRBsetdblattrarray(model, CSTR_STRING(AttributeName), 0, length, vals);
 	if (error)
     	ErrorMayQuit( "Error: Unable to set attribute array.", 0, 0 );
-
+	free(vals);
+	
 	return 0;
 }
 
@@ -1022,8 +1020,8 @@ Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
     	if (error)
 	        ErrorMayQuit( "Error: unable to obtain number of variables", 0, 0 );
 
-	char attrvals[number_of_variables];
-
+	char* attrvals = (char*) malloc(number_of_variables*sizeof(char));
+	
 	if (! IS_STRING(AttributeName))
         ErrorMayQuit( "Error: AttributeName must be a string.", 0, 0 );
 
@@ -1032,15 +1030,16 @@ Obj GurobiCharAttributeArray( Obj self, Obj GAPmodel, Obj AttributeName)
 		ErrorMayQuit( "Error: Unable to get attribute array. Check attribute type and name.", 0, 0 );
 
 	Obj solution = NEW_PLIST( T_PLIST , number_of_variables);
-	SET_LEN_PLIST( solution , number_of_variables );
 
 	for (i = 0; i < number_of_variables; i = i+1 ){
 		Obj name;
 		name = NEW_STRING(1);
 		SET_LEN_STRING(name,1);
 		COPY_CHARS(name,&attrvals[i],1);
-		SET_ELM_PLIST(solution, i+1, name);
+		ASS_LIST(solution, i+1, name);
 	}
+	free(attrvals);
+	
 	return solution;
 
 }
@@ -1127,10 +1126,9 @@ Obj GurobiVersion(Obj self){
 	int major, minor, technical;
 	GRBversion(&major, &minor, &technical);
 	Obj version = NEW_PLIST( T_PLIST , 3);
-	SET_LEN_PLIST( version , 3 );
-	SET_ELM_PLIST( version, 1 , INTOBJ_INT(major));
-	SET_ELM_PLIST( version , 2, INTOBJ_INT(minor));
-	SET_ELM_PLIST( version, 3, INTOBJ_INT(technical));
+	ASS_LIST( version, 1 , INTOBJ_INT(major));
+	ASS_LIST( version , 2, INTOBJ_INT(minor));
+	ASS_LIST( version, 3, INTOBJ_INT(technical));
 
 	return version;
 }

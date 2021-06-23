@@ -100,3 +100,11 @@ toggless.css
 chap5.html
 _Chapter_Getting_Started.xml
 toggless.js
+doc/_*.xml
+doc/chap*.html
+doc/chap*.txt
+doc/*.css
+doc/*.js
+/autom4te.cache/
+/cnf/
+bin/x86_64-pc-linux-gnu-default64-kv7/Gurobify.so
