@@ -670,6 +670,14 @@ InstallMethod(SubsetToCharacteristicVector, "",
 	end
 );
 
+InstallMethod(SubsetToIndexSet, "",
+		[IsList, IsList],
+
+	function(subset, actualset)
+		return Filtered([1 .. Size(actualset)], t -> actualset[t] in subset);;
+	end
+);
+
 InstallMethod(CharacteristicVectorToSubset, "",
 		[IsList, IsList],
 

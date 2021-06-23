@@ -503,6 +503,18 @@ DeclareOperation("SubsetToCharacteristicVector",
 
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
+#! @Arguments Subset, FullSet
+#! @Returns Characterisitc vector
+#! @Description
+#!	Takes a subset of some set, and returns the set of indices corresponding to it. For example, the subset ["a", "d"]
+#!  of the set ["a", "b", "c", "d", "e"], would return the index set [1,4]. Note that since the method expects a subset (not a multiset) 
+#!	vector it doesn't account for any weightings or repetition.
+DeclareOperation("SubsetToIndexSet",
+	[IsList, IsList]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Additional Functionality
 #! @Arguments CharacteristicVector
 #! @Returns Characterisitc vector
 #! @Description
