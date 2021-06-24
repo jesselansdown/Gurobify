@@ -26,10 +26,10 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 @BeginLog
 #!	@article{gurobify,
 #!	Author = {Lansdown, Jesse},
-#!	Doi = {10.5281/zenodo.1036626},
+#!	Doi = {10.5281/zenodo.5025558},
 #!	Key = {gurobify},
 #!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}},
-#!	Url = {http://doi.org/10.5281/zenodo.1036626},
+#!	Url = {http://doi.org/10.5281/zenodo.5025558},
 #!	Year = 2021,
 #!	}
 @EndLog
@@ -41,8 +41,8 @@ Here is the entry in the APA style which may be used directly in the bibliograph
 #! J.~Lansdown.
 #! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}.
 #! \newblock 2021.
-#! \newblock \doi{10.5281/zenodo.1036626}.
-#! \newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.
+#! \newblock \doi{10.5281/zenodo.5025558}.
+#! \newblock URL \url{http://doi.org/10.5281/zenodo.5025558}.
 @EndLog
 
 

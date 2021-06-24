@@ -26,10 +26,10 @@
   [4X[32X  Example  [32X[104X
     [4X[28X@article{gurobify,[128X[104X
     [4X[28XAuthor = {Lansdown, Jesse},[128X[104X
-    [4X[28XDoi = {10.5281/zenodo.1036626},[128X[104X
+    [4X[28XDoi = {10.5281/zenodo.5025558},[128X[104X
     [4X[28XKey = {gurobify},[128X[104X
     [4X[28XTitle = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}},[128X[104X
-    [4X[28XUrl = {http://doi.org/10.5281/zenodo.1036626},[128X[104X
+    [4X[28XUrl = {http://doi.org/10.5281/zenodo.5025558},[128X[104X
     [4X[28XYear = 2021,[128X[104X
     [4X[28X}[128X[104X
   [4X[32X[104X
@@ -42,8 +42,8 @@
     [4X[28XJ.~Lansdown.[128X[104X
     [4X[28X\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}.[128X[104X
     [4X[28X\newblock 2021.[128X[104X
-    [4X[28X\newblock \doi{10.5281/zenodo.1036626}.[128X[104X
-    [4X[28X\newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.[128X[104X
+    [4X[28X\newblock \doi{10.5281/zenodo.5025558}.[128X[104X
+    [4X[28X\newblock URL \url{http://doi.org/10.5281/zenodo.5025558}.[128X[104X
   [4X[32X[104X
   
   
