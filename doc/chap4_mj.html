@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Gurobify) - Chapter 4: Examples</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -60,7 +60,7 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_types := ListWithIdenticalEntries( Size( var_names ), "Binary" );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model := GurobiNewModel( var_types, var_names );</span>
-&lt;object&gt;
+Gurobi model
 </pre></div>
 
 <p>Here we define a few basic functions which are purely for the purpose of this example. Firstly a way to go from the names of a subset of the variables to the corresponding index set. Secondly, a way of going back from the index set to identify the variable name. Lastly, a method of displaying the Sudoku board from the names of the variables which are in the solution set.</p>
@@ -223,7 +223,7 @@ true
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model2 := GurobiReadModel( "SudokuSolver.lp" );</span>
-&lt;object&gt;
+Gurobi model
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names2 := GurobiVariableNames(model2);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>
@@ -253,7 +253,7 @@ true
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model3 := GurobiReadModel( "SudokuSolver.lp" );</span>
-&lt;object&gt;
+Gurobi model
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">var_names3 := GurobiVariableNames(model3);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", </span>

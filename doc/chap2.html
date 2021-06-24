@@ -88,7 +88,7 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">model := GurobiNewModel(["BINARY", "BINARY", "BINARY"], ["x", "y", "z"]);</span>
-&lt;object&gt;
+Gurobi model
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiSetObjectiveFunction( model, [1.,2.,1.] );</span>
 true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GurobiMaximiseModel(model);</span>
@@ -172,7 +172,7 @@ true
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">re_model := GurobiReadModel("test.lp");</span>
-&lt;object&gt;
+Gurobi model
 </pre></div>
 
 <p>We now add another constraint, <span class="Math">x + y + z &gt; 3</span>, to the model. Since we may want to remove this constraint later we give it the name "Other Constraint". We optimise the model and since it returns a feasible optimisation status we return the solution.</p>

@@ -55,7 +55,7 @@
 
 
 <ul>
-<li><p>http://www.jesselansdown.com/Gurobify</p>
+<li><p>https://www.jesselansdown.com/Gurobify</p>
 
 </li>
 </ul>
@@ -77,11 +77,11 @@
 <div class="example"><pre>
 @article{gurobify,
 Author = {Lansdown, Jesse},
-Doi = {10.5281/zenodo.1036626},
+Doi = {10.5281/zenodo.5025558},
 Key = {gurobify},
-Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},
-Url = {http://doi.org/10.5281/zenodo.1036626},
-Year = 2017,
+Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}},
+Url = {http://doi.org/10.5281/zenodo.5025558},
+Year = 2021,
 }
 </pre></div>
 
@@ -89,12 +89,12 @@ Year = 2017,
 
 
 <div class="example"><pre>
-\bibitem[Lansdown(2017)]{gurobify}
+\bibitem[Lansdown(2021)]{gurobify}
 J.~Lansdown.
-\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.
-\newblock 2017.
-\newblock \doi{10.5281/zenodo.1036626}.
-\newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.
+\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}.
+\newblock 2021.
+\newblock \doi{10.5281/zenodo.5025558}.
+\newblock URL \url{http://doi.org/10.5281/zenodo.5025558}.
 </pre></div>
 
 <p><a id="X7C0B91E37C8FC531" name="X7C0B91E37C8FC531"></a></p>
@@ -125,13 +125,13 @@ J.~Lansdown.
 
 
 <ul>
-<li><p>AutoDoc 2017.09.15 (or later)</p>
+<li><p>AutoDoc 2020.08.11 (or later)</p>
 
 </li>
 </ul>
 
 <ul>
-<li><p>GAPDoc 1.5 (or later)</p>
+<li><p>GAPDoc 1.6.4 (or later)</p>
 
 </li>
 </ul>
@@ -165,18 +165,18 @@ J.~Lansdown.
 
 <h4>1.4 <span class="Heading">Installation</span></h4>
 
-<p>To install Gurobify, first extract it in the pkg directory of the <strong class="pkg">GAP</strong> installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the <strong class="pkg">GAP</strong> root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the <strong class="pkg">GAP</strong> root directory. Next run the following commands in the terminal from within the Gurobify directory.</p>
+<p>To install Gurobify, first extract it in the pkg directory of the <strong class="pkg">GAP</strong> installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the <strong class="pkg">GAP</strong> root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the <strong class="pkg">GAP</strong> root directory. Next run the following command in the terminal from within the Gurobify directory.</p>
 
 
 <div class="example"><pre>
-./autogen.sh
-./configure --with-gurobi=&lt;gurobi path&gt; [--with-gaproot=&lt;gap path&gt;]
-make
+./install.sh -g &lt;gurobi path&gt; [-r &lt;gap path&gt;]
 </pre></div>
 
-<p>The ‐-with-gurobi=&lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX, <br /> <br /></p>
+<p>The ‐g &lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX,</p>
 
-<p>‐-with-gurobi=/Library/gurobi701/mac64</p>
+<p><br /> <br /></p>
+
+<p>‐g /Library/gurobi701/mac64/</p>
 
 <p><br /> <br /></p>
 
@@ -184,15 +184,15 @@ make
 
 <p><br /> <br /></p>
 
-<p>‐-with-gurobi=/opt/gurobi701/linux64</p>
+<p>‐g /opt/gurobi701/linux64/</p>
 
 <p><br /> <br /></p>
 
-<p>The [‐-with-gaproot=&lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the <strong class="pkg">GAP</strong> root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this,</p>
+<p>The [‐r &lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the <strong class="pkg">GAP</strong> root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this,</p>
 
 <p><br /> <br /></p>
 
-<p> ‐-with-gaproot=/opt/gap4r8/</p>
+<p> ‐r /opt/gap4r8/</p>
 
 <p><a id="X84A483B47DCD6909" name="X84A483B47DCD6909"></a></p>
 
@@ -224,9 +224,10 @@ gap makedoc.g
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput"> LoadPackage("Gurobify");</span>
 -----------------------------------------------------------------------------
-Loading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)
+Loading  Gurobify 2.0.0 (Gurobify provides an interface to Gurobi from GAP.)
 by Jesse Lansdown (www.jesselansdown.com).
-Homepage: http://www.jesselansdown.com/Gurobify/
+Homepage: https://www.jesselansdown.com/Gurobify/
+     Currently running Gurobi Optimizer 9.1.0
 -----------------------------------------------------------------------------
 true
 </pre></div>

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (Gurobify) - Chapter 5: Appendix</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -58,7 +58,7 @@
 
 
 <ul>
-<li><p>Homepage: http://www.jesselansdown.com/Gurobify/</p>
+<li><p>Homepage: https://www.jesselansdown.com/Gurobify/</p>
 
 </li>
 <li><p>Issue tracker: https://github.com/jesselansdown/Gurobify/issues</p>
@@ -177,7 +177,7 @@
 
 
 <ul>
-<li><p>Forgetting to run ./autogen.sh</p>
+<li><p>Forgetting to run ./install.sh</p>
 
 </li>
 <li><p>Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor.</p>
@@ -254,7 +254,27 @@ dyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM
 src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
 </pre></div>
 
-<p>Check that you have entered the correct path for Gurobi in the "configure" stage of installation.</p>
+<p>Check that you have entered the correct path for Gurobi during installation.</p>
+
+
+<ul>
+<li><p>Gap gives an error like the following when trying to load Gurobify:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage("Gurobify");</span>
+Error, Error: failed to create new environment. in
+  if not LOAD_DYN( arg[1], false ) then
+    Error( "no support for dynamic loading" );
+fi; at /usr/local/lib/gap-4.10.0/lib/files.gd:583 called from 
+&lt;function "LoadDynamicModule"&gt;( &lt;arguments&gt; )
+ called from read-eval loop at /usr/local/lib/gap-4.10.0/pkg/Gurobify/init.g:8
+type 'quit;' to quit to outer loop
+</pre></div>
+
+<p>Check that Gurobi's licese is up-to-date.</p>
 
 <p><a id="X80DBDA7179E9E200" name="X80DBDA7179E9E200"></a></p>
 
@@ -264,6 +284,7 @@ src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
 
 
 <div class="example"><pre>
+\ Model created with Gurobify - A GAP interface to Gurobi Optimizer.
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Minimize
   x + 2 y + z

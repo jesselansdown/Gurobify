@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "Gurobify",
 Subtitle := "A GAP interface to Gurobi Optimizer.",
-Version := "1.1.1",
-Date := "25/10/2017", # dd/mm/yyyy format
+Version := "2.0.0",
+Date := "24/06/2021", # dd/mm/yyyy format
 
 Persons := [
   rec(
@@ -19,18 +19,17 @@ Persons := [
     IsMaintainer := true,
     FirstNames := "Jesse",
     LastName := "Lansdown",
-    WWWHome := "http://www.jesselansdown.com",
-    Email := "jesse.lansdown@research.uwa.edu.au",
+    WWWHome := "https://www.jesselansdown.com",
+    Email := "jesse.lansdown@uwa.edu.au",
     PostalAddress := Concatenation(
-                      "Jesse Lansdown\n",
-                      "Lehrstuhl B für Mathematik\n",
-                      "RWTH Aachen University\n",
-                      "Pontdriesch 10 - 16\n",
-                      "52062 Aachen\n",
-                      "Germany"
-                      ),
-    Place := "Aachen",
-    Institution := "The University of Western Australia/RWTH Aachen University",
+               "Jesse Lansdown\n",
+               "Centre for the Mathematics of Symmetry and Computation\n",
+               "The University of Western Australia\n",
+               "35 Stirling Highway\n",
+               "PERTH WA 6009\n",
+               "Australia" ),
+    Place := "Perth",
+    Institution := "The University of Western Australia",
   ),
 ],
 
@@ -43,7 +42,7 @@ SourceRepository := rec(
 ),
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( "http://www.jesselansdown.com/", ~.PackageName ),
+PackageWWWHome  := Concatenation( "https://www.jesselansdown.com/", ~.PackageName ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
@@ -76,8 +75,8 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">= 4.8",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
-  SuggestedOtherPackages := [ ],
+  NeededOtherPackages := [  ],
+  SuggestedOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
   ExternalConditions := [ "Gurobi", "=7.0" ],
 ),
 
@@ -91,7 +90,7 @@ TestFile := "tst/testall.g",
 
 AutoDoc := rec(
     TitlePage := rec(
-        Copyright := Concatenation("&copyright; 2017 Jesse Lansdown<P/>\n\n",
+        Copyright := Concatenation("&copyright; 2017 - 2021 Jesse Lansdown<P/>\n\n",
                     "Gurobify is subject to the terms of the Mozilla ",
                     "Public License, v. 2.0. If a copy of the MPL was not distributed ",
                     "with this file, You can obtain one at https://mozilla.org/MPL/2.0/.\n"),

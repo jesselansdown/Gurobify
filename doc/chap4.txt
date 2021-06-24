@@ -44,7 +44,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xvar_types := ListWithIdenticalEntries( Size( var_names ), "Binary" );;[127X[104X
     [4X[25Xgap>[125X [27Xmodel := GurobiNewModel( var_types, var_names );[127X[104X
-    [4X[28X<object>[128X[104X
+    [4X[28XGurobi model[128X[104X
   [4X[32X[104X
   
   [33X[0;0YHere  we  define  a  few basic functions which are purely for the purpose of
@@ -218,7 +218,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xmodel2 := GurobiReadModel( "SudokuSolver.lp" );[127X[104X
-    [4X[28X<object>[128X[104X
+    [4X[28XGurobi model[128X[104X
     [4X[25Xgap>[125X [27Xvar_names2 := GurobiVariableNames(model2);;[127X[104X
     [4X[25Xgap>[125X [27Xstarter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",[127X[104X
     [4X[25X>[125X [27X "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", [127X[104X
@@ -252,7 +252,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xmodel3 := GurobiReadModel( "SudokuSolver.lp" );[127X[104X
-    [4X[28X<object>[128X[104X
+    [4X[28XGurobi model[128X[104X
     [4X[25Xgap>[125X [27Xvar_names3 := GurobiVariableNames(model3);;[127X[104X
     [4X[25Xgap>[125X [27Xstarter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",[127X[104X
     [4X[25X>[125X [27X "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", [127X[104X

@@ -50,7 +50,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xmodel := GurobiNewModel(["BINARY", "BINARY", "BINARY"], ["x", "y", "z"]);[127X[104X
-    [4X[28X<object>[128X[104X
+    [4X[28XGurobi model[128X[104X
     [4X[25Xgap>[125X [27XGurobiSetObjectiveFunction( model, [1.,2.,1.] );[127X[104X
     [4X[28Xtrue[128X[104X
     [4X[25Xgap>[125X [27XGurobiMaximiseModel(model);[127X[104X
@@ -149,7 +149,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xre_model := GurobiReadModel("test.lp");[127X[104X
-    [4X[28X<object>[128X[104X
+    [4X[28XGurobi model[128X[104X
   [4X[32X[104X
   
   [33X[0;0YWe  now  add  another  constraint, [23Xx + y + z > 3[123X, to the model. Since we may

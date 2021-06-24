@@ -4,7 +4,7 @@
   
   [1X5.1 [33X[0;0YGurobify Links[133X[101X
   
-  [30X    [33X[0;6YHomepage: http://www.jesselansdown.com/Gurobify/[133X
+  [30X    [33X[0;6YHomepage: https://www.jesselansdown.com/Gurobify/[133X
   
   [30X    [33X[0;6YIssue tracker: https://github.com/jesselansdown/Gurobify/issues[133X
   
@@ -97,7 +97,7 @@
   
   [33X[0;0YCommon sources of error during installation include:[133X
   
-  [30X    [33X[0;6YForgetting to run ./autogen.sh[133X
+  [30X    [33X[0;6YForgetting to run ./install.sh[133X
   
   [30X    [33X[0;6YNot  having autotools installed. On a mac this can be done using brew,
         and  checking  all  necessary  dependencies  are  available  with Brew
@@ -166,8 +166,22 @@
     [4X[28Xsrc/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YCheck  that  you have entered the correct path for Gurobi in the "configure"
-  stage of installation.[133X
+  [33X[0;0YCheck that you have entered the correct path for Gurobi during installation.[133X
+  
+  [30X    [33X[0;6YGap gives an error like the following when trying to load Gurobify:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("Gurobify");[127X[104X
+    [4X[28XError, Error: failed to create new environment. in[128X[104X
+    [4X[28X  if not LOAD_DYN( arg[1], false ) then[128X[104X
+    [4X[28X    Error( "no support for dynamic loading" );[128X[104X
+    [4X[28Xfi; at /usr/local/lib/gap-4.10.0/lib/files.gd:583 called from [128X[104X
+    [4X[28X<function "LoadDynamicModule">( <arguments> )[128X[104X
+    [4X[28X called from read-eval loop at /usr/local/lib/gap-4.10.0/pkg/Gurobify/init.g:8[128X[104X
+    [4X[28Xtype 'quit;' to quit to outer loop[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCheck that Gurobi's licese is up-to-date.[133X
   
   
   [1X5.6 [33X[0;0YExample LP file[133X[101X
@@ -176,6 +190,7 @@
   Section 1.[133X
   
   [4X[32X  Example  [32X[104X
+    [4X[28X\ Model created with Gurobify - A GAP interface to Gurobi Optimizer.[128X[104X
     [4X[28X\ LP format - for model browsing. Use MPS format to capture full model detail.[128X[104X
     [4X[28XMinimize[128X[104X
     [4X[28X  x + 2 y + z[128X[104X

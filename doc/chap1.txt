@@ -8,7 +8,7 @@
   optimisation software Gurobi[gur16d].[133X
   [33X[0;0YGurobify can be obtained from the Gurobify homepage:[133X
   
-  [30X    [33X[0;6Yhttp://www.jesselansdown.com/Gurobify[133X
+  [30X    [33X[0;6Yhttps://www.jesselansdown.com/Gurobify[133X
   
   [33X[0;0YPlease use the issue tracker to inform me of any bugs or suggestions:[133X
   
@@ -26,11 +26,11 @@
   [4X[32X  Example  [32X[104X
     [4X[28X@article{gurobify,[128X[104X
     [4X[28XAuthor = {Lansdown, Jesse},[128X[104X
-    [4X[28XDoi = {10.5281/zenodo.1036626},[128X[104X
+    [4X[28XDoi = {10.5281/zenodo.5025558},[128X[104X
     [4X[28XKey = {gurobify},[128X[104X
-    [4X[28XTitle = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},[128X[104X
-    [4X[28XUrl = {http://doi.org/10.5281/zenodo.1036626},[128X[104X
-    [4X[28XYear = 2017,[128X[104X
+    [4X[28XTitle = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}},[128X[104X
+    [4X[28XUrl = {http://doi.org/10.5281/zenodo.5025558},[128X[104X
+    [4X[28XYear = 2021,[128X[104X
     [4X[28X}[128X[104X
   [4X[32X[104X
   
@@ -38,12 +38,12 @@
   bibliography environment of your LaTeX document.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X\bibitem[Lansdown(2017)]{gurobify}[128X[104X
+    [4X[28X\bibitem[Lansdown(2021)]{gurobify}[128X[104X
     [4X[28XJ.~Lansdown.[128X[104X
-    [4X[28X\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.[128X[104X
-    [4X[28X\newblock 2017.[128X[104X
-    [4X[28X\newblock \doi{10.5281/zenodo.1036626}.[128X[104X
-    [4X[28X\newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.[128X[104X
+    [4X[28X\newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}.[128X[104X
+    [4X[28X\newblock 2021.[128X[104X
+    [4X[28X\newblock \doi{10.5281/zenodo.5025558}.[128X[104X
+    [4X[28X\newblock URL \url{http://doi.org/10.5281/zenodo.5025558}.[128X[104X
   [4X[32X[104X
   
   
@@ -61,9 +61,9 @@
   install  autoconf[113X  and  [13Xbrew install automake[113X. If you want to regenerate the
   documentation for any reason, then the following will also be required.[133X
   
-  [30X    [33X[0;6YAutoDoc 2017.09.15 (or later)[133X
+  [30X    [33X[0;6YAutoDoc 2020.08.11 (or later)[133X
   
-  [30X    [33X[0;6YGAPDoc 1.5 (or later)[133X
+  [30X    [33X[0;6YGAPDoc 1.6.4 (or later)[133X
   
   [33X[0;0YAlthough  Gurobi  is proprietary software, it is available free for academic
   use. According to the Gurobi website,[133X
@@ -101,30 +101,28 @@
   long as its parent directory is called "pkg". Installing Gurobify outside of
   the  [5XGAP[105X  root  pkg  directory is not recommended, but is useful for example
   when  administrative privileges are needed to access the [5XGAP[105X root directory.
-  Next  run  the  following  commands in the terminal from within the Gurobify
+  Next  run  the  following  command  in the terminal from within the Gurobify
   directory.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X./autogen.sh[128X[104X
-    [4X[28X./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>][128X[104X
-    [4X[28Xmake[128X[104X
+    [4X[28X./install.sh -g <gurobi path> [-r <gap path>][128X[104X
   [4X[32X[104X
   
-  [33X[0;0YThe  ‐-with-gurobi=<gurobi path> is a necessary argument, and normally looks
-  something like this on MacOSX,[133X
+  [33X[0;0YThe  ‐g  <gurobi path> is a necessary argument, and normally looks something
+  like this on MacOSX,[133X
   
-  [33X[0;0Y‐-with-gurobi=/Library/gurobi701/mac64[133X
+  [33X[0;0Y‐g /Library/gurobi701/mac64/[133X
   
   [33X[0;0Yor something like this on Linux,[133X
   
-  [33X[0;0Y‐-with-gurobi=/opt/gurobi701/linux64[133X
+  [33X[0;0Y‐g /opt/gurobi701/linux64/[133X
   
-  [33X[0;0YThe [‐-with-gaproot=<gap path>] is an optional argument, and is not normally
-  necessary  if  Gurobify  is  placed  in  the  pkg  directory of the [5XGAP[105X root
-  directory.  If,  however,  Gurobify  is located in a non-root pkg directory,
-  then this argument must be included. It normally looks something like this,[133X
+  [33X[0;0YThe  [‐r  <gap path>] is an optional argument, and is not normally necessary
+  if  Gurobify  is  placed in the pkg directory of the [5XGAP[105X root directory. If,
+  however, Gurobify is located in a non-root pkg directory, then this argument
+  must be included. It normally looks something like this,[133X
   
-  [33X[0;0Y ‐-with-gaproot=/opt/gap4r8/[133X
+  [33X[0;0Y ‐r /opt/gap4r8/[133X
   
   
   [1X1.5 [33X[0;0YTesting And Documentation[133X[101X
@@ -162,9 +160,10 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27X LoadPackage("Gurobify");[127X[104X
     [4X[28X-----------------------------------------------------------------------------[128X[104X
-    [4X[28XLoading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)[128X[104X
+    [4X[28XLoading  Gurobify 2.0.0 (Gurobify provides an interface to Gurobi from GAP.)[128X[104X
     [4X[28Xby Jesse Lansdown (www.jesselansdown.com).[128X[104X
-    [4X[28XHomepage: http://www.jesselansdown.com/Gurobify/[128X[104X
+    [4X[28XHomepage: https://www.jesselansdown.com/Gurobify/[128X[104X
+    [4X[28X     Currently running Gurobi Optimizer 9.1.0[128X[104X
     [4X[28X-----------------------------------------------------------------------------[128X[104X
     [4X[28Xtrue[128X[104X
   [4X[32X[104X
