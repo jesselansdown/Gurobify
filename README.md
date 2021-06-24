@@ -1,6 +1,6 @@
 # Gurobify
 Jesse Lansdown (jesse.lansdown@uwa.edu.au)
-[View the manual for Gurobify here.](http://www.jesselansdown.com/Gurobify/doc/manual.pdf)
+[View the manual for Gurobify here.](https://www.jesselansdown.com/Gurobify/doc/manual.pdf)
 
 Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http://www.gurobi.com).
 
