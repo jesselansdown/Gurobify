@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Appendix">
+<Heading>Appendix</Heading>
+
+<P/>
+<Section Label="Chapter_Appendix_Section_Gurobify_Links">
+<Heading>Gurobify Links</Heading>
+
+<P/>
+<List>
+<Item>
+Homepage: https://www.jesselansdown.com/Gurobify/
+</Item>
+<Item>
+Issue tracker: https://github.com/jesselansdown/Gurobify/issues
+</Item>
+</List>
+<P/>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_GAP_Links">
+<Heading>&GAP; Links</Heading>
+
+<P/>
+<List>
+<Item>
+Homepage: http://gap-system.org/
+</Item>
+</List>
+<P/>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Gurobi_Links">
+<Heading>Gurobi Links</Heading>
+
+<P/>
+<List>
+<Item>
+Homepage: http://gurobi.com/
+</Item>
+</List>
+<P/>
+For more information on Gurobi parameters, attributes, and status codes, see the following links:
+<P/>
+<List>
+<Item>
+Attributes: http://www.gurobi.com/documentation/7.0/refman/attributes.html
+</Item>
+</List>
+<P/>
+<List>
+<Item>
+Parameters: http://www.gurobi.com/documentation/7.0/refman/parameters.html
+</Item>
+</List>
+<P/>
+<List>
+<Item>
+Status codes: https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html
+</Item>
+</List>
+<P/>
+<List>
+<Item>
+Licencing: http://www.gurobi.com/products/licensing-pricing/licensing-overview
+</Item>
+</List>
+<P/>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Optimisation_Status_Codes">
+<Heading>Optimisation Status Codes</Heading>
+
+<P/>
+The information in this section on optimisation status codes is taken directly from the Gurobi website<Cite Key="gurobiStatusCodes"/>.
+<P/>
+<List>
+<Item>
+1 -	Model is loaded, but no solution information is available.
+</Item>
+<Item>
+2 - Model was solved to optimality (subject to tolerances), and an optimal solution is available.
+</Item>
+<Item>
+3 - Model was proven to be infeasible.
+</Item>
+<Item>
+4 -	Model was proven to be either infeasible or unbounded. To obtain a more definitive conclusion, set the DualReductions parameter to 0 and reoptimize.
+</Item>
+<Item>
+5 - Model was proven to be unbounded. Important note: an unbounded status indicates the presence of an unbounded ray that allows the objective to improve without limit. It says nothing about whether the model has a feasible solution. If you require information on feasibility, you should set the objective to zero and reoptimize.
+</Item>
+<Item>
+6 - Optimal objective for model was proven to be worse than the value specified in the Cutoff parameter. No solution information is available.
+</Item>
+<Item>
+7 - Optimization terminated because the total number of simplex iterations performed exceeded the value specified in the IterationLimit parameter, or because the total number of barrier iterations exceeded the value specified in the BarIterLimit parameter.
+</Item>
+<Item>
+8 - Optimization terminated because the total number of branch-and-cut nodes explored exceeded the value specified in the NodeLimit parameter.
+</Item>
+<Item>
+9 - Optimization terminated because the time expended exceeded the value specified in the TimeLimit parameter.
+</Item>
+<Item>
+10 - Optimization terminated because the number of solutions found reached the value specified in the SolutionLimit parameter.
+</Item>
+<Item>
+11 - Optimization was terminated by the user.
+</Item>
+<Item>
+12 - Optimization was terminated due to unrecoverable numerical difficulties.
+</Item>
+<Item>
+13 - Unable to satisfy optimality tolerances; a sub-optimal solution is available.
+</Item>
+<Item>
+14 - An asynchronous optimization call was made, but the associated optimization run is not yet complete.
+</Item>
+<Item>
+15 - User specified an objective limit (a bound on either the best objective or the best bound), and that limit has been reached.
+</Item>
+</List>
+<P/>
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Troubleshooting_The_Installation">
+<Heading>Troubleshooting The Installation</Heading>
+
+<P/>
+<Subsection Label="Chapter_Appendix_Section_Troubleshooting_The_Installation_Subsection_Typical_Sources_Of_Error_During_Installation">
+<Heading>Typical Sources Of Error During Installation</Heading>
+
+<P/>
+Common sources of error during installation include:
+<List>
+<Item>
+Forgetting to run ./install.sh
+</Item>
+<Item>
+Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor. 
+</Item>
+<Item>
+Not putting the correct paths to Gurobi (or &GAP; if not in the default "pkg" directory) when running "configure". Sometimes the paths are correct but incomplete, eg missing "linux64" or "mac64" at the end. Compare with the example paths given in the installation section of the manual.
+</Item>
+<Item>
+Having incorrect versions of &GAP; or Gurobi.
+</Item>
+</List>
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_Appendix_Section_Troubleshooting_The_Installation_Subsection_Specific_Errors">
+<Heading>Specific Errors</Heading>
+
+<P/>
+<List>
+<Item>
+The compiler gives warnings when running "make"
+</Item>
+</List>
+<P/>
+This seems to be due to the way &GAP; stores integers, but it doesn't affect the function of the program. If no errors are given the installation is generally ok. Test the installation by loading Gurobify and running the test cases.
+<P/>
+<List>
+<Item>
+Compilation is successful, but &GAP; cannot load the package, giving an error such as:
+</Item>
+</List>
+<P/>
+<Log><![CDATA[
+gap> LoadPackage("Gurobify");
+#W dlopen() error: libgurobi70.so: cannot open shared\
+object file: No such file or directory
+Error, module '/home/linux/gap4r8/pkg/Gurobify/bin\
+/x86_64-pc-linux-gnu-gcc-default64/Gurobify.so'
+]]></Log>
+
+
+<P/>
+This is caused by &GAP; not being able to find the Gurobi binary.
+When installing Gurobify, you were required to enter the path to Gurobi in the configure stage. If this path is "gurobi_path", then navigate to "gurobi_path/lib" in the terminal. You should now be able to load Gurobify when running &GAP; from this location. It can be fixed by running the following:
+<P/>
+<Log><![CDATA[
+LD_LIBRARY_PATH=gurobi_path/lib:$LD_LIBRARY_PATH
+]]></Log>
+
+
+<P/>
+where "gurobi_path/lib" is as above. This will only be valid for the current session, to make this change permanent the line must be added to the .bash_profile file.
+<P/>
+<List>
+<Item>
+Compilation is successful, but &GAP; cannot load Gurobify, giving an error such as:
+</Item>
+</List>
+<P/>
+<Log><![CDATA[
+gap> LoadPackage("Gurobify");
+dyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM
+  Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.1.0/bin\
+  /x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so
+  Expected in: flat namespace
+]]></Log>
+
+
+<P/>
+Gurobify requires &GAP; version 4.8 or higher.
+<P/>
+<List>
+<Item>
+Gurobify will not compile, giving an error such as:
+</Item>
+</List>
+<P/>
+<Log><![CDATA[
+src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
+]]></Log>
+
+
+<P/>
+Check that you have entered the correct path for Gurobi during installation.
+<P/>
+</Subsection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Appendix_Section_Example_LP_file">
+<Heading>Example LP file</Heading>
+
+<P/>
+Shown below is the LP file, "test.lp", written during the simple example in Section 1.
+<P/>
+<Log><![CDATA[
+\ Model created with Gurobify - A GAP interface to Gurobi Optimizer.
+\ LP format - for model browsing. Use MPS format to capture full model detail.
+Minimize
+  x + 2 y + z
+Subject To
+ UnNamedConstraint: 2 x + 2 y + 2 z <= 6
+ UnNamedConstraint: x + 2 y + 3 z >= 5
+ UnNamedConstraint: 2 x + 2 y + 2 z <= 6
+ UnNamedConstraint: x + 2 y + 3 z >= 5
+Bounds
+Binaries
+ x y z
+End
+]]></Log>
+
+
+</Section>
+
+
+</Chapter>
+

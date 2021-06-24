@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (Gurobify) - Chapter 3: Using Gurobify</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3.html">[MathJax off]</a></p>
+<p><a id="X80B2C5E2806A42D0" name="X80B2C5E2806A42D0"></a></p>
+<div class="ChapSects"><a href="chap3_mj.html#X80B2C5E2806A42D0">3 <span class="Heading">Using Gurobify</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X877FB4F48578544E">3.1 <span class="Heading">Creating Or Reading A Model</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7CA6505A838C9F1B">3.1-1 GurobiReadModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7831FAF781F23D29">3.1-2 GurobiWriteToFile</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A1E18B57D975687">3.1-3 GurobiNewModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B690832842C6A40">3.1-4 GurobiSetVariableNames</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7C005CF27BE32A57">3.2 <span class="Heading">Adding And Deleting Constraints</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E2213B9791B56B6">3.2-1 GurobiDeleteSingleConstraintWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X818D5BCD7E92B747">3.2-2 GurobiDeleteConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X841ABAB38141572F">3.2-3 GurobiDeleteConstraintsWithName</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X80DAC59A855C49B4">3.2-4 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83AB24597DEC03F2">3.2-5 GurobiAddConstraint</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X804B714384F12A4C">3.2-6 GurobiAddMultipleConstraints</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X813E985F7A2CF730">3.3 <span class="Heading">Adding And Modifying Objective Functions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X82CBDCEA8397AF0A">3.3-1 GurobiMaximiseModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X803628D383545D0E">3.3-2 GurobiMinimiseModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83A23C757B5BF985">3.3-3 GurobiSetObjectiveFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X815D981A82AA744D">3.3-4 GurobiObjectiveFunction</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X84F40F007DC59A4A">3.4 <span class="Heading">Optimising A Model</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X79B36E398480D014">3.4-1 GurobiOptimiseModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A6D43D1797E8C42">3.4-2 GurobiReset</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B4BFD4878C5D61A">3.4-3 GurobiUpdateModel</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X848B53DF8794358C">3.4-4 GurobiSolution</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85B8DBF882D458FF">3.4-5 GurobiObjectiveValue</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A5ACCC385FCAD05">3.4-6 GurobiOptimisationStatus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8288D7A78419D415">3.4-7 GurobiFindAllBinarySolutions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83E3BD4883163CEE">3.4-8 GurobiFindAllBinarySolutions</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7C6728BE7BB441E4">3.5 <span class="Heading">Querying Attributes And Parameters</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X81FBE98F84413201">3.5-1 GurobiNumberOfVariables</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87042E1F86357576">3.5-2 GurobiNumberOfConstraints</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8658BCCD85405DAE">3.5-3 GurobiObjectiveBound</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85C998A78508B506">3.5-4 GurobiRunTime</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7D71837B85A49586">3.5-5 GurobiNumericFocus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84E732C6817D89E6">3.5-6 GurobiTimeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X874CA3997B6F23C5">3.5-7 GurobiCutOff</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7DB8505D7A85E7B3">3.5-8 GurobiBestObjectiveBoundStop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X82B7CF1A836501A7">3.5-9 GurobiMIPFocus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X86E147B28494D228">3.5-10 GurobiBestBoundStop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X78EAE2D87EE57C0C">3.5-11 GurobiSolutionLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8466DB137CD0ACDF">3.5-12 GurobiIterationLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B9C3B937BEBAE23">3.5-13 GurobiNodeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X827541CC821E642E">3.5-14 GurobiVariableNames</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A7293F67ABD4DAD">3.5-15 GurobiLogToConsole</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83888FAB792503B0">3.5-16 GurobiVariableTypes</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7F267BC67EFDCCD4">3.5-17 GurobiMethod</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X79E9FC0C865F5B8C">3.5-18 GurobiThreads</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7FFA259B78D1DC6E">3.6 <span class="Heading">Querying Other Attributes And Parameters</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87FCA6DC7B5B91F5">3.6-1 GurobiIntegerParameter</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7CB77102788E9924">3.6-2 GurobiDoubleParameter</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7AF271328125ACAE">3.6-3 GurobiIntegerAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7D96CEB0821999AD">3.6-4 GurobiStringAttributeElement</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X81B9A6EC80C1A48A">3.6-5 GurobiDoubleAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7CDBE1727DD4EE7B">3.6-6 GurobiIntegerAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X846C09F57A2A2819">3.6-7 GurobiDoubleAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X78575B84809DCBFC">3.6-8 GurobiStringAttributeArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X857E974985686C61">3.6-9 GurobiCharAttributeArray</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X85C908697CD13F5A">3.7 <span class="Heading">Modifying Attributes And Parameters</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85E68BC885719368">3.7-1 GurobiSetTimeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X79EF71797A6C9E69">3.7-2 GurobiSetBestObjectiveBoundStop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E1EA2E77F92F218">3.7-3 GurobiSetCutOff</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X80B873DC7D6A2208">3.7-4 GurobiSetNumericFocus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7B63C89879B44787">3.7-5 GurobiSetMIPFocus</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X86E95F37810B6E4D">3.7-6 GurobiSetBestBoundStop</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87C7D6E6845FF8D3">3.7-7 GurobiSetSolutionLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87D6E1F782BBF4E8">3.7-8 GurobiSetIterationLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X81E8087881289D77">3.7-9 GurobiSetNodeLimit</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E11882884331F6D">3.7-10 GurobiSetLogToConsole</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7CCDDEA77EA6AE46">3.7-11 GurobiSetMethod</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84B370517F4E4A62">3.7-12 GurobiSetThreads</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7A7ED7598622FB73">3.8 <span class="Heading">Modifying Other Attributes And Parameters</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X79A2BA9F845FBDC0">3.8-1 GurobiSetIntegerParameter</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7FF0D28E7B816B40">3.8-2 GurobiSetDoubleParameter</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X84AC6D71849BC4FC">3.8-3 GurobiSetIntegerAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X82FE05608499E42C">3.8-4 GurobiSetDoubleAttribute</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X780967D07B6FA8CF">3.8-5 GurobiSetDoubleAttributeArray</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X86A8102686209CC6">3.9 <span class="Heading">Additional Functionality</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7A3570C285B99F30">3.9-1 IndexSetToCharacteristicVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87BE4F2D8546AB10">3.9-2 CharacteristicVectorToIndexSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7EAF65FB8698B9E6">3.9-3 SubsetToCharacteristicVector</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7ADB7EAF7EA0ACBE">3.9-4 SubsetToIndexSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X802F993384BC85BC">3.9-5 CharacteristicVectorToSubset</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X8632804D8232228D">3.10 <span class="Heading">Other</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X85ED3B967A02C72F">3.10-1 GurobiVersion</a></span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">Using Gurobify</span></h3>
+
+<p>This chapter documents the various commands available in Gurobify. Each command begins with "Gurobi", which in some instances helps to avoid conflict with other <strong class="pkg">GAP</strong> commands, and is used for consistancy in other instances. It is important to note that many changes to a model do not become active until the model is updated. This can be done by either optimising the model, or calling GurobiUpdateModel. It is often unnecessary to update the model if it will later be optimised, and in fact can be more efficient to only update when necessary. However, one may occasionally wish to perform a command which is dependent on previous changes to the model. In this case it is necessary to call the update command first.</p>
+
+<p><a id="X877FB4F48578544E" name="X877FB4F48578544E"></a></p>
+
+<h4>3.1 <span class="Heading">Creating Or Reading A Model</span></h4>
+
+<p>This section deals with reading, writing, and creating models, as well as working with the model variables.</p>
+
+<p><a id="X7CA6505A838C9F1B" name="X7CA6505A838C9F1B"></a></p>
+
+<h5>3.1-1 GurobiReadModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiReadModel</code>( <var class="Arg">ModelFile</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a Gurobi model.</p>
+
+<p>Takes a model file, reads it and creates a Gurobi model from it. ModelFile is the name of the file as a string, with the appropriate extension, and including the path if the file is not located in the current GAP working directory. Gurobi accepts files of type .mps, .rew, .lp, .rlp, .ilp, or .opb. Refer to the gurobi documentation for more infomation on which file types can be read.</p>
+
+<p><a id="X7831FAF781F23D29" name="X7831FAF781F23D29"></a></p>
+
+<h5>3.1-2 GurobiWriteToFile</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiWriteToFile</code>( <var class="Arg">Model</var>, <var class="Arg">FileName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Takes a model and writes it to a file. File type written is determined by the FileName suffix. File types include .mps, .rew, .lp, .rlp, .ilp, .sol, or .prm. Refer to the gurobi documentation for more infomation on which file types can be written.</p>
+
+<p><a id="X7A1E18B57D975687" name="X7A1E18B57D975687"></a></p>
+
+<h5>3.1-3 GurobiNewModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiNewModel</code>( <var class="Arg">VariableTypes</var>[, <var class="Arg">VariableNames</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: A Gurobi model</p>
+
+<p>Creates a gurobi model with variables defined by VariableTypes. VariableTypes must be a list of strings, where each entry is the type of the corresponding variable. Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT". The variable types are not case sensitive. Refer to the Gurobi documentation for more information on the variable types. Optionally takes the names of the variables as a list of strings. If all variables are of the same type, then you may instead give arguments n, v, where n is the number of variables and v is the variable type.</p>
+
+<p><a id="X7B690832842C6A40" name="X7B690832842C6A40"></a></p>
+
+<h5>3.1-4 GurobiSetVariableNames</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetVariableNames</code>( <var class="Arg">Model</var>, <var class="Arg">VariableNames</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Assigns each variable a new name from a list of names. The names must be strings.</p>
+
+<p><a id="X7C005CF27BE32A57" name="X7C005CF27BE32A57"></a></p>
+
+<h4>3.2 <span class="Heading">Adding And Deleting Constraints</span></h4>
+
+<p>This section deals with adding linear constraints, both individually and in bulk, and also naming and deleting constraints.</p>
+
+<p><a id="X7E2213B9791B56B6" name="X7E2213B9791B56B6"></a></p>
+
+<h5>3.2-1 GurobiDeleteSingleConstraintWithName</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteSingleConstraintWithName</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Deletes a single constraint from a model with the name ConstraintName. If multiple constraints have this name, then one will be deleted at random.</p>
+
+<p><a id="X818D5BCD7E92B747" name="X818D5BCD7E92B747"></a></p>
+
+<h5>3.2-2 GurobiDeleteConstraints</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteConstraints</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Deletes all constraints from a model which are indexed by the values of ConstraintList. Requires an update to the model to take effect.</p>
+
+<p><a id="X841ABAB38141572F" name="X841ABAB38141572F"></a></p>
+
+<h5>3.2-3 GurobiDeleteConstraintsWithName</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDeleteConstraintsWithName</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintName</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true/false</p>
+
+<p>Deletes all constraints with the name ConstraintName</p>
+
+<p><a id="X80DAC59A855C49B4" name="X80DAC59A855C49B4"></a></p>
+
+<h5>3.2-4 GurobiAddConstraint</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddConstraint</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquation</var>, <var class="Arg">ConstraintSense</var>, <var class="Arg">ConstraintRHSValue</var>[, <var class="Arg">ConstraintName</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Same as below, except that ConstraintRHS value takes an integer value.</p>
+
+<p><a id="X83AB24597DEC03F2" name="X83AB24597DEC03F2"></a></p>
+
+<h5>3.2-5 GurobiAddConstraint</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddConstraint</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquation</var>, <var class="Arg">ConstraintSense</var>, <var class="Arg">ConstraintRHSValue</var>[, <var class="Arg">ConstraintName</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Adds a constraint to a gurobi model. ConstraintEquation must be a list, such that each entry is the coefficient (including <span class="SimpleMath">\(0\)</span> coefficents) of the corresponding variable in the constraint equation. The ConstraintSense must be one of "&lt;", "&gt;" or "=", where Gurobi interprets &lt; as &lt;= and &gt; as &gt;=. The ConstraintRHSValue is the value on the right hand side of the constraint. A constraint may optionally be given a name, which helps to identify the constraint if it is to be deleted at some point. If no constraint name is given, then a constraint is simply assigned the name "UnNamedConstraint". Note that a model must be updated or optimised before any additional constraints become effective.</p>
+
+<p><a id="X804B714384F12A4C" name="X804B714384F12A4C"></a></p>
+
+<h5>3.2-6 GurobiAddMultipleConstraints</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiAddMultipleConstraints</code>( <var class="Arg">Model</var>, <var class="Arg">ConstraintEquations</var>, <var class="Arg">ConstraintSenses</var>, <var class="Arg">ConstraintRHSValues</var>[, <var class="Arg">ConstraintNames</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Add multiple constraints to a model at one time. The arguments (except Model) are lists, such that the i-th entries of each list determine a single constraint in the same manner as for the operation GurobiAddConstraint. ConstraintNames is an optional argument, and must be given for all constraints, or not at all. If ConstraintSenses and ConstraintRHSValues are all the same, then rather than providing a list, one may simply provide a single string for the constraint sense and a single float or integer for the right hand side.</p>
+
+<p><a id="X813E985F7A2CF730" name="X813E985F7A2CF730"></a></p>
+
+<h4>3.3 <span class="Heading">Adding And Modifying Objective Functions</span></h4>
+
+<p>This section deals with adding and modifying objective functions to a model, and changing between maximising and minimising objective functions.</p>
+
+<p><a id="X82CBDCEA8397AF0A" name="X82CBDCEA8397AF0A"></a></p>
+
+<h5>3.3-1 GurobiMaximiseModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiMaximiseModel</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Sets the model sense to maximise. When the model is optimised, it will try to maximise the objective function.</p>
+
+<p><a id="X803628D383545D0E" name="X803628D383545D0E"></a></p>
+
+<h5>3.3-2 GurobiMinimiseModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiMinimiseModel</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Sets the model sense to minimise. When the model is optimised, it will try to minimise the objective function.</p>
+
+<p><a id="X83A23C757B5BF985" name="X83A23C757B5BF985"></a></p>
+
+<h5>3.3-3 GurobiSetObjectiveFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetObjectiveFunction</code>( <var class="Arg">Model</var>, <var class="Arg">ObjectiveValues</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the objective function for a model. ObjectiveValues is a list of coefficients (including <span class="SimpleMath">\(0\)</span> coefficeints) corresponding to each of the variables</p>
+
+<p><a id="X815D981A82AA744D" name="X815D981A82AA744D"></a></p>
+
+<h5>3.3-4 GurobiObjectiveFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiObjectiveFunction</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: List of coefficients of the objective function</p>
+
+<p>View the objective function for a model.</p>
+
+<p><a id="X84F40F007DC59A4A" name="X84F40F007DC59A4A"></a></p>
+
+<h4>3.4 <span class="Heading">Optimising A Model</span></h4>
+
+<p>This section deals with optimising a model, and handling solution information.</p>
+
+<p><a id="X79B36E398480D014" name="X79B36E398480D014"></a></p>
+
+<h5>3.4-1 GurobiOptimiseModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiOptimiseModel</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: Optimisation status code.</p>
+
+<p>Takes a Gurobi model and optimises it. Returns the optimisation status code which indicates the outcome of the optimisation. A status code of 2 indicates that a feasible solution was found, a status code of 3 indicates the model is infeasible. There a number of other status codes. Refer to the Gurobi documentation for more information about status codes, or alternatively see the Appendix of this manual. The model itself is altered to reflect the optimisation, and more information about it can be obatained using other commands, in particular the GurobiSolution and GurobiObjectiveValue functions.</p>
+
+<p><a id="X7A6D43D1797E8C42" name="X7A6D43D1797E8C42"></a></p>
+
+<h5>3.4-2 GurobiReset</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiReset</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Reset all information associated with an optimisation of the model, such as the optimisation status, the solution and the objective value.</p>
+
+<p><a id="X7B4BFD4878C5D61A" name="X7B4BFD4878C5D61A"></a></p>
+
+<h5>3.4-3 GurobiUpdateModel</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiUpdateModel</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Takes a model and updates it. Changes to a model (such as changes to parameters or constraints) are not processed until the model is either updated or optimised.</p>
+
+<p><a id="X848B53DF8794358C" name="X848B53DF8794358C"></a></p>
+
+<h5>3.4-4 GurobiSolution</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSolution</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Solution</p>
+
+<p>Display the solution found for a successfuly optimised model. Note that if a solution has not been optimised, is infeasible, or the optimisation was not completed, then this will return an error. Thus it is advisable to first check the optimisation status.</p>
+
+<p><a id="X85B8DBF882D458FF" name="X85B8DBF882D458FF"></a></p>
+
+<h5>3.4-5 GurobiObjectiveValue</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiObjectiveValue</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: objective value</p>
+
+<p>Returns the objective value of the current solution.</p>
+
+<p><a id="X7A5ACCC385FCAD05" name="X7A5ACCC385FCAD05"></a></p>
+
+<h5>3.4-6 GurobiOptimisationStatus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiOptimisationStatus</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: optimisation status code</p>
+
+<p>Returns the optimisation status code of the most recent optimisation. Refer to the Gurobi documentation for more on the optimisation statuses, or alternatively refer to the Appendix of this manual.</p>
+
+<p><a id="X8288D7A78419D415" name="X8288D7A78419D415"></a></p>
+
+<h5>3.4-7 GurobiFindAllBinarySolutions</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiFindAllBinarySolutions</code>( <var class="Arg">Model</var>, <var class="Arg">Size</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Set of all solutions.</p>
+
+<p>This function finds all possible solutions of a given size, for a model with only binary variables. Takes a Gurobi model and repeatedly optimises it, each time adding the previous solution as a constraint so that it isn't found again. This continues until all solutions are found, and then they are returned as a set. During the process the number of found solutions is displayed. Note: - Only for models where every variable is a binary variable. - Only finds solution sets of a given size.</p>
+
+<p><a id="X83E3BD4883163CEE" name="X83E3BD4883163CEE"></a></p>
+
+<h5>3.4-8 GurobiFindAllBinarySolutions</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiFindAllBinarySolutions</code>( <var class="Arg">Model</var>, <var class="Arg">Size</var>, <var class="Arg">Group</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Set of all solutions.</p>
+
+<p>This function finds all possible solutions of a given size, for a model with only binary variables. Same as above, except that it also takes a permutation group acting on the index set of variables. Instead of finding all solutions directly, the group is used to find the orbit of each new solution, and these are then all returned at the end, and used as constraints until then. An option value may also be given which will only return the representatives of each orbit of the solutions. Hence it returns all the unique solutions up to equivalence under the group. This saves on memory, and the remaing solutions may be refound by generating the orbit under the group. To invoke this option place a colon after the group argument and then put representatives:=true so for example GurobiFindAllSolutions(model, size, gp : representatives:=true);</p>
+
+<p><a id="X7C6728BE7BB441E4" name="X7C6728BE7BB441E4"></a></p>
+
+<h4>3.5 <span class="Heading">Querying Attributes And Parameters</span></h4>
+
+<p>This section deals with obtaining information about attributes and parameters of a Gurobi model. Note that a model must be updated or optimised before parameters and attributes are updated - any queries will return the values at the time the model was last updated or optimised. Note also that the attributes are Gurobi attributes, and are not true attributes in the <strong class="pkg">GAP</strong> sense. Crucially, attributes for a model constantly change, either as a result of optimisation or from manually setting them. Thus attributes for Gurobi models are approximated by Gurobify using <strong class="pkg">GAP</strong> operations or functions. Their usage should still be comfortable for users familiar with <strong class="pkg">GAP</strong> attributes.</p>
+
+<p><a id="X81FBE98F84413201" name="X81FBE98F84413201"></a></p>
+
+<h5>3.5-1 GurobiNumberOfVariables</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiNumberOfVariables</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Number of variables</p>
+
+<p>Returns the number of variables in the model.</p>
+
+<p><a id="X87042E1F86357576" name="X87042E1F86357576"></a></p>
+
+<h5>3.5-2 GurobiNumberOfConstraints</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiNumberOfConstraints</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Number of linear constraints</p>
+
+<p>Returns the number of linear constraints in the model.</p>
+
+<p><a id="X8658BCCD85405DAE" name="X8658BCCD85405DAE"></a></p>
+
+<h5>3.5-3 GurobiObjectiveBound</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiObjectiveBound</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: objective bound</p>
+
+<p>Returns the best known bound on the objective value of the model.</p>
+
+<p><a id="X85C998A78508B506" name="X85C998A78508B506"></a></p>
+
+<h5>3.5-4 GurobiRunTime</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiRunTime</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: run time of optimisation</p>
+
+<p>Returns the wall clock runtime in seconds for the most recent optimisation.</p>
+
+<p><a id="X7D71837B85A49586" name="X7D71837B85A49586"></a></p>
+
+<h5>3.5-5 GurobiNumericFocus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiNumericFocus</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: numeric focus</p>
+
+<p>Returns the numeric focus value of the model. The numeric focus is a value in the set [0,1,2,3]. A numeric focus of <span class="SimpleMath">\(0\)</span> sets the numeric focus automatically, preferencing speed. Values between 1 and 3 increase the care taken in computations as the value increases, but also take longer. The default value is 0.</p>
+
+<p><a id="X84E732C6817D89E6" name="X84E732C6817D89E6"></a></p>
+
+<h5>3.5-6 GurobiTimeLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiTimeLimit</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: time limit</p>
+
+<p>Returns the time limit for the model. The default value is infinity.</p>
+
+<p><a id="X874CA3997B6F23C5" name="X874CA3997B6F23C5"></a></p>
+
+<h5>3.5-7 GurobiCutOff</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiCutOff</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: cutoff value</p>
+
+<p>Returns the cutoff value for the model. Optimisation will terminate if the objective value is worse than CutOff. The default value is infinity for minimisation, and negative infinity for maximisation.</p>
+
+<p><a id="X7DB8505D7A85E7B3" name="X7DB8505D7A85E7B3"></a></p>
+
+<h5>3.5-8 GurobiBestObjectiveBoundStop</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiBestObjectiveBoundStop</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: best objective bound limit value</p>
+
+<p>Returns the best objective bound limit value for the model. Optimisation will terminate if a feasible solution is found with objective value at least as good as the best objective bound. The default value is negative infinity.</p>
+
+<p><a id="X82B7CF1A836501A7" name="X82B7CF1A836501A7"></a></p>
+
+<h5>3.5-9 GurobiMIPFocus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiMIPFocus</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: MIP focus</p>
+
+<p>Returns the MIP focus value for the model. The mip focus must be in the set [0,1,2,3], and the default value is 0. The MIP focus alows you to prioritise finding solutions or proving their optimality. See the Gurobi documentation for more information.</p>
+
+<p><a id="X86E147B28494D228" name="X86E147B28494D228"></a></p>
+
+<h5>3.5-10 GurobiBestBoundStop</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiBestBoundStop</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Best bound stopping value</p>
+
+<p>Returns the best bound stopping value for the model. Optimisation terminates as soon as the value of the best bound is determined to be at least as good as the best bound stopping value. Default value is infinity.</p>
+
+<p><a id="X78EAE2D87EE57C0C" name="X78EAE2D87EE57C0C"></a></p>
+
+<h5>3.5-11 GurobiSolutionLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSolutionLimit</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: solution limit value</p>
+
+<p>Returns the solution limit value for the model. This value limits the maximum number of MIP solutions that will be found. Default value is <span class="SimpleMath">\(2,000,000,000\)</span>.</p>
+
+<p><a id="X8466DB137CD0ACDF" name="X8466DB137CD0ACDF"></a></p>
+
+<h5>3.5-12 GurobiIterationLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIterationLimit</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Iteration limit</p>
+
+<p>Returns the iteration limit value for the model, which limits the number of simplex iterations performed during optimisation. Default value is infinity.</p>
+
+<p><a id="X7B9C3B937BEBAE23" name="X7B9C3B937BEBAE23"></a></p>
+
+<h5>3.5-13 GurobiNodeLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiNodeLimit</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Node limit</p>
+
+<p>Returns the node limit value for the model, which limits the number of MIP nodes explored during optimisation. The default value is infinity.</p>
+
+<p><a id="X827541CC821E642E" name="X827541CC821E642E"></a></p>
+
+<h5>3.5-14 GurobiVariableNames</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiVariableNames</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns the names of the variables in the model. This list acts as the index set for any lists of variable coefficients, such as in GurobiAddConstraint or GurobiSetObjectiveFunction.</p>
+
+<p><a id="X7A7293F67ABD4DAD" name="X7A7293F67ABD4DAD"></a></p>
+
+<h5>3.5-15 GurobiLogToConsole</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiLogToConsole</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true/false</p>
+
+<p>Returns true if the Gurobi output is set to display to the screen, and false if the output is supressed. Gurobify suppresses the output by default.</p>
+
+<p><a id="X83888FAB792503B0" name="X83888FAB792503B0"></a></p>
+
+<h5>3.5-16 GurobiVariableTypes</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiVariableTypes</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns the types of the variables in the model.</p>
+
+<p><a id="X7F267BC67EFDCCD4" name="X7F267BC67EFDCCD4"></a></p>
+
+<h5>3.5-17 GurobiMethod</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiMethod</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: MethodType</p>
+
+<p>Returns the method used to solve a model. See the Gurobi documentation for more details.</p>
+
+<p><a id="X79E9FC0C865F5B8C" name="X79E9FC0C865F5B8C"></a></p>
+
+<h5>3.5-18 GurobiThreads</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiThreads</code>( <var class="Arg">Model</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: ThreadCount</p>
+
+<p>Returns number of threads Gurobi is allowed to use. See the Gurobi documentation for more details.</p>
+
+<p><a id="X7FFA259B78D1DC6E" name="X7FFA259B78D1DC6E"></a></p>
+
+<h4>3.6 <span class="Heading">Querying Other Attributes And Parameters</span></h4>
+
+<p>In addition to the specific queries given in the previous section, other gurobi parameters and attributes of specific value types can also be queried. The parameter or attribute name must be given as a string exactly as stated in the Gurobi documentation. See the Appendix for links to the relevant documentation.</p>
+
+<p><a id="X87FCA6DC7B5B91F5" name="X87FCA6DC7B5B91F5"></a></p>
+
+<h5>3.6-1 GurobiIntegerParameter</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIntegerParameter</code>( <var class="Arg">Model</var>, <var class="Arg">ParameterName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: parameter value</p>
+
+<p>Takes a Gurobi model and retrieves the value of a integer-valued parameter. Refer to the Gurobi documentation for a list of parameters and their types.</p>
+
+<p><a id="X7CB77102788E9924" name="X7CB77102788E9924"></a></p>
+
+<h5>3.6-2 GurobiDoubleParameter</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleParameter</code>( <var class="Arg">Model</var>, <var class="Arg">ParameterName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: parameter value</p>
+
+<p>Takes a Gurobi model and retrieves the value of a double-valued parameter. Refer to the Gurobi documentation for a list of parameters and their types.</p>
+
+<p><a id="X7AF271328125ACAE" name="X7AF271328125ACAE"></a></p>
+
+<h5>3.6-3 GurobiIntegerAttribute</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIntegerAttribute</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute value</p>
+
+<p>Takes a Gurobi model and retrieves the value of an integer-valued attribute. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X7D96CEB0821999AD" name="X7D96CEB0821999AD"></a></p>
+
+<h5>3.6-4 GurobiStringAttributeElement</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStringAttributeElement</code>( <var class="Arg">Model</var>, <var class="Arg">position</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute value</p>
+
+<p>Takes a Gurobi model and retrieves the value of a string attribute element at a given position. For example to get the names of constraints with "ConstrName". Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X81B9A6EC80C1A48A" name="X81B9A6EC80C1A48A"></a></p>
+
+<h5>3.6-5 GurobiDoubleAttribute</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleAttribute</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute value</p>
+
+<p>Takes a Gurobi model and retrieves the value of a double-valued attribute. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X7CDBE1727DD4EE7B" name="X7CDBE1727DD4EE7B"></a></p>
+
+<h5>3.6-6 GurobiIntegerAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiIntegerAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute array</p>
+
+<p>Takes a Gurobi model and retrieves an attribute array. Can only get values of attributes arrays which take integer values. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X846C09F57A2A2819" name="X846C09F57A2A2819"></a></p>
+
+<h5>3.6-7 GurobiDoubleAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiDoubleAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute array</p>
+
+<p>Takes a Gurobi model and retrieves an attribute array. Can only get values of attributes arrays which take double values. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X78575B84809DCBFC" name="X78575B84809DCBFC"></a></p>
+
+<h5>3.6-8 GurobiStringAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiStringAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute array</p>
+
+<p>Takes a Gurobi model and retrieves an attribute array. Can only get values of attributes arrays which have string values. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X857E974985686C61" name="X857E974985686C61"></a></p>
+
+<h5>3.6-9 GurobiCharAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiCharAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: attribute array</p>
+
+<p>Takes a Gurobi model and retrieves an attribute array. Can only get values of attributes arrays which have char values. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X85C908697CD13F5A" name="X85C908697CD13F5A"></a></p>
+
+<h4>3.7 <span class="Heading">Modifying Attributes And Parameters</span></h4>
+
+<p>This section deals with modifying the values of attributes and parameters of Gurobi models. Note that a model must be updated or optimised before parameters and attributes are updated. Any queries or commands which depend on these values will use the values at the time the model was last updated or optimised, even if the values have since been modified.</p>
+
+<p><a id="X85E68BC885719368" name="X85E68BC885719368"></a></p>
+
+<h5>3.7-1 GurobiSetTimeLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetTimeLimit</code>( <var class="Arg">Model</var>, <var class="Arg">TimeLimit</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set a time limit for a Gurobi model. Note that TimeLimit should be a float, however an integer value can be given which will be automatically converted to a float.</p>
+
+<p><a id="X79EF71797A6C9E69" name="X79EF71797A6C9E69"></a></p>
+
+<h5>3.7-2 GurobiSetBestObjectiveBoundStop</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetBestObjectiveBoundStop</code>( <var class="Arg">Model</var>, <var class="Arg">BestObjectiveBoundStop</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Optimisation will terminate if a feasible solution is found with objective value at least as good as BestObjectiveBoundStop. Note that BestObjectiveBoundStop should be a float, however an integer value can be given which will be automatically converted to a float.</p>
+
+<p><a id="X7E1EA2E77F92F218" name="X7E1EA2E77F92F218"></a></p>
+
+<h5>3.7-3 GurobiSetCutOff</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetCutOff</code>( <var class="Arg">Model</var>, <var class="Arg">CutOff</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Optimisation will terminate if the objective value is worse than CutOff. Note that CutOff should be a float, an integer value can be given which will be automatically converted to a float.</p>
+
+<p><a id="X80B873DC7D6A2208" name="X80B873DC7D6A2208"></a></p>
+
+<h5>3.7-4 GurobiSetNumericFocus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetNumericFocus</code>( <var class="Arg">Model</var>, <var class="Arg">NumericFocus</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the numeric focus for a model. Numeric focus must be in the set [0,1,2,3]. A numeric focus of <span class="SimpleMath">\(0\)</span> sets the numeric focus automatically, preferencing speed. Values between 1 and 3 increase the care taken in computations as the value increases, but also take longer. The default value is 0.</p>
+
+<p><a id="X7B63C89879B44787" name="X7B63C89879B44787"></a></p>
+
+<h5>3.7-5 GurobiSetMIPFocus</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetMIPFocus</code>( <var class="Arg">Model</var>, <var class="Arg">MIPFocus</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the MIP focus for a model. The mip focus must be in the set [0,1,2,3], and the default value is 0. The MIP focus alows you to prioritise finding solutions or proving their optimality. See the Gurobi documentation for more information.</p>
+
+<p><a id="X86E95F37810B6E4D" name="X86E95F37810B6E4D"></a></p>
+
+<h5>3.7-6 GurobiSetBestBoundStop</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetBestBoundStop</code>( <var class="Arg">Model</var>, <var class="Arg">BestBdStop</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the best bound stopping value for a model. Terminates optimisation as soon as the value of the best bound is determined to be at least as good as the best bound stopping value. Default value is infinity.</p>
+
+<p><a id="X87C7D6E6845FF8D3" name="X87C7D6E6845FF8D3"></a></p>
+
+<h5>3.7-7 GurobiSetSolutionLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetSolutionLimit</code>( <var class="Arg">Model</var>, <var class="Arg">BestBdStop</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the limit for the maximum number of MIP solutions to find. Default value is <span class="SimpleMath">\(2,000,000,000\)</span>.</p>
+
+<p><a id="X87D6E1F782BBF4E8" name="X87D6E1F782BBF4E8"></a></p>
+
+<h5>3.7-8 GurobiSetIterationLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetIterationLimit</code>( <var class="Arg">Model</var>, <var class="Arg">IterationLimit</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the limit for the maximum number of simplex iterations performed. Default value is infinity.</p>
+
+<p><a id="X81E8087881289D77" name="X81E8087881289D77"></a></p>
+
+<h5>3.7-9 GurobiSetNodeLimit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetNodeLimit</code>( <var class="Arg">Model</var>, <var class="Arg">NodeLimit</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the limit for the maximum number of MIP nodes explored. The default value is infinity.</p>
+
+<p><a id="X7E11882884331F6D" name="X7E11882884331F6D"></a></p>
+
+<h5>3.7-10 GurobiSetLogToConsole</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetLogToConsole</code>( <var class="Arg">Model</var>, <var class="Arg">Switch</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Turns console logging on or off. If Switch is true the output of Gurobi will be printed to the screen, and if it is false the output will be supressed. The default for Gurobify is to supress the output.</p>
+
+<p><a id="X7CCDDEA77EA6AE46" name="X7CCDDEA77EA6AE46"></a></p>
+
+<h5>3.7-11 GurobiSetMethod</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetMethod</code>( <var class="Arg">Model</var>, <var class="Arg">MethodType</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the method used to solve a model. -1=automatic (this is the default), 0=primal simplex, 1=dual simplex, 2=barrier, 3=concurrent, 4=deterministic concurrent, 5=deterministic concurrent simplex. See the Gurobi documentation for more details.</p>
+
+<p><a id="X84B370517F4E4A62" name="X84B370517F4E4A62"></a></p>
+
+<h5>3.7-12 GurobiSetThreads</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetThreads</code>( <var class="Arg">Model</var>, <var class="Arg">ThreadCount</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: true</p>
+
+<p>Set the number of threads Gurobi is allowed to use. The default value is 0, which will use as many cores as it wants. See the Gurobi documentation for more details.</p>
+
+<p><a id="X7A7ED7598622FB73" name="X7A7ED7598622FB73"></a></p>
+
+<h4>3.8 <span class="Heading">Modifying Other Attributes And Parameters</span></h4>
+
+<p>In addition to these specific commands given in the previous section, other gurobi parameters and attributes of specific value types can be modified. The parameter or attribute name must be given as a strings exactly as stated in the Gurobi documentation. See the Appendix for links to the relevant documentation.</p>
+
+<p><a id="X79A2BA9F845FBDC0" name="X79A2BA9F845FBDC0"></a></p>
+
+<h5>3.8-1 GurobiSetIntegerParameter</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetIntegerParameter</code>( <var class="Arg">Model</var>, <var class="Arg">ParameterName</var>, <var class="Arg">ParameterValue</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Takes a Gurobi model and assigns a value to a given integer-valued parameter. ParameterValue must be a integer value. Refer to the Gurobi documentation for a list of parameters and their types.</p>
+
+<p><a id="X7FF0D28E7B816B40" name="X7FF0D28E7B816B40"></a></p>
+
+<h5>3.8-2 GurobiSetDoubleParameter</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetDoubleParameter</code>( <var class="Arg">Model</var>, <var class="Arg">ParameterName</var>, <var class="Arg">ParameterValue</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Takes a Gurobi model and assigns a value to a given double-valued parameter. ParameterValue must be a double value. Refer to the Gurobi documentation for a list of parameters and their types.</p>
+
+<p><a id="X84AC6D71849BC4FC" name="X84AC6D71849BC4FC"></a></p>
+
+<h5>3.8-3 GurobiSetIntegerAttribute</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetIntegerAttribute</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var>, <var class="Arg">AttributeValue</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Takes a Gurobi model and assigns a value to a given integer-valued attribute. AttributeValue must be a double value. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X82FE05608499E42C" name="X82FE05608499E42C"></a></p>
+
+<h5>3.8-4 GurobiSetDoubleAttribute</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetDoubleAttribute</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var>, <var class="Arg">AttributeValue</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Takes a Gurobi model and assigns a value to a given double-valued attribute. AttributeValue must be a double value. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X780967D07B6FA8CF" name="X780967D07B6FA8CF"></a></p>
+
+<h5>3.8-5 GurobiSetDoubleAttributeArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiSetDoubleAttributeArray</code>( <var class="Arg">Model</var>, <var class="Arg">AttributeName</var>, <var class="Arg">AttributeValueArray</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Takes a Gurobi model and assigns a value to a given attribute which takes an array of floats. AttributeValue must be an array of floats. Refer to the Gurobi documentation for a list of attributes and their types.</p>
+
+<p><a id="X86A8102686209CC6" name="X86A8102686209CC6"></a></p>
+
+<h4>3.9 <span class="Heading">Additional Functionality</span></h4>
+
+<p>This section provides information on some additional functionality which does not directly relate to Gurobi but may assist in using the Gurobify package. In particular, it details functions which convert between characteristic vectors (which are more desirable for use with Gurobi) and sets (which may be more desirable for use in <strong class="pkg">GAP</strong>).</p>
+
+<p><a id="X7A3570C285B99F30" name="X7A3570C285B99F30"></a></p>
+
+<h5>3.9-1 IndexSetToCharacteristicVector</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IndexSetToCharacteristicVector</code>( <var class="Arg">IndexSet</var>, <var class="Arg">NumberOfIndices</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Characterisitc vector</p>
+
+<p>Takes a list of integers which form a subset of the set [1 .. n], where n is the second argument, and converts the set of indices to its characteristic vector. For example, if n = 5, the set [1,3] would be converted to [1, 0, 1, 0, 0]. It is useful to be able to convert between the two, since Gurobify always takes the characteristic vector (for example when taking constraints), yet the set of indices is generally more helpful for the user.</p>
+
+<p><a id="X87BE4F2D8546AB10" name="X87BE4F2D8546AB10"></a></p>
+
+<h5>3.9-2 CharacteristicVectorToIndexSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacteristicVectorToIndexSet</code>( <var class="Arg">CharacteristicVector</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Characterisitc vector</p>
+
+<p>Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the process which occurs with IndexSetToCharacteristicVector. It is particularly useful to convert the output of a Gurobi solution back in terms of the variables. For example, the characteristic vector [1, 0, 1, 0, 0] would return the index set [1,3]. Note that since the function expects a characteristic vector it doesn't account for any weightings, and is only interested in whether or not the corresponding index is present, and as such it rounds each entry to the nearest integer and checks that it is non-zero. Hence it is particularly suitable for use with binary variables.</p>
+
+<p><a id="X7EAF65FB8698B9E6" name="X7EAF65FB8698B9E6"></a></p>
+
+<h5>3.9-3 SubsetToCharacteristicVector</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubsetToCharacteristicVector</code>( <var class="Arg">Subset</var>, <var class="Arg">FullSet</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Characterisitc vector</p>
+
+<p>Takes a subset of some set, and returns the characteristic vector where the entries of the characteristic vector are indexed by the full set. For example, the subset ["c"] of ["a", "c", "n", "q"] would give the characteristic vector [0, 1, 0, 0]. This removes the need to first find the index set of the subset.</p>
+
+<p><a id="X7ADB7EAF7EA0ACBE" name="X7ADB7EAF7EA0ACBE"></a></p>
+
+<h5>3.9-4 SubsetToIndexSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubsetToIndexSet</code>( <var class="Arg">Subset</var>, <var class="Arg">FullSet</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Characterisitc vector</p>
+
+<p>Takes a subset of some set, and returns the set of indices corresponding to it. For example, the subset ["a", "d"] of the set ["a", "b", "c", "d", "e"], would return the index set [1,4]. Note that since the method expects a subset (not a multiset) vector it doesn't account for any weightings or repetition.</p>
+
+<p><a id="X802F993384BC85BC" name="X802F993384BC85BC"></a></p>
+
+<h5>3.9-5 CharacteristicVectorToSubset</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacteristicVectorToSubset</code>( <var class="Arg">CharacteristicVector</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: Characterisitc vector</p>
+
+<p>Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic vector. It then returns the subset of the full set corresponding to the non-zero entries of the characteristic vector. This is the reverse process to SubsetToCharacteristicVector. Note again that the characteristic vector is rounded to an integer before being compared to 0. As an example, the characteristic vector [0, 1, 0, 0] with the set ["a", "c", "n", "q"] would return ["c"]. This removes the need to first return an index set before finding the subset.</p>
+
+<p><a id="X8632804D8232228D" name="X8632804D8232228D"></a></p>
+
+<h4>3.10 <span class="Heading">Other</span></h4>
+
+<p>This section documents Gurobify functionality not belonging in any of the other sections.</p>
+
+<p><a id="X85ED3B967A02C72F" name="X85ED3B967A02C72F"></a></p>
+
+<h5>3.10-1 GurobiVersion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GurobiVersion</code>(  )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: [ major_version, minor_version, technical_version ]</p>
+
+<p>This function returns a list [ major_version, minor_version, technical_version ] which indicates the Gurobi library version. For example, if using Gurobi Version 7.5.1, then GurobiVersion() would return [ 7, 5, 1 ].</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

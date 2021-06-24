@@ -1,0 +1,192 @@
+  
+  [1X5 [33X[0;0YAppendix[133X[101X
+  
+  
+  [1X5.1 [33X[0;0YGurobify Links[133X[101X
+  
+  [30X    [33X[0;6YHomepage: https://www.jesselansdown.com/Gurobify/[133X
+  
+  [30X    [33X[0;6YIssue tracker: https://github.com/jesselansdown/Gurobify/issues[133X
+  
+  
+  [1X5.2 [33X[0;0Y[5XGAP[105X[101X[1X Links[133X[101X
+  
+  [30X    [33X[0;6YHomepage: http://gap-system.org/[133X
+  
+  
+  [1X5.3 [33X[0;0YGurobi Links[133X[101X
+  
+  [30X    [33X[0;6YHomepage: http://gurobi.com/[133X
+  
+  [33X[0;0YFor more information on Gurobi parameters, attributes, and status codes, see
+  the following links:[133X
+  
+  [30X    [33X[0;6YAttributes:
+        http://www.gurobi.com/documentation/7.0/refman/attributes.html[133X
+  
+  [30X    [33X[0;6YParameters:
+        http://www.gurobi.com/documentation/7.0/refman/parameters.html[133X
+  
+  [30X    [33X[0;6YStatus                                                          codes:
+        https://www.gurobi.com/documentation/7.0/refman/optimization_status_codes.html[133X
+  
+  [30X    [33X[0;6YLicencing:
+        http://www.gurobi.com/products/licensing-pricing/licensing-overview[133X
+  
+  
+  [1X5.4 [33X[0;0YOptimisation Status Codes[133X[101X
+  
+  [33X[0;0YThe  information  in  this  section  on  optimisation  status codes is taken
+  directly from the Gurobi website[gur16c].[133X
+  
+  [30X    [33X[0;6Y1 - Model is loaded, but no solution information is available.[133X
+  
+  [30X    [33X[0;6Y2  -  Model  was  solved to optimality (subject to tolerances), and an
+        optimal solution is available.[133X
+  
+  [30X    [33X[0;6Y3 - Model was proven to be infeasible.[133X
+  
+  [30X    [33X[0;6Y4 - Model was proven to be either infeasible or unbounded. To obtain a
+        more  definitive conclusion, set the DualReductions parameter to 0 and
+        reoptimize.[133X
+  
+  [30X    [33X[0;6Y5  -  Model  was  proven to be unbounded. Important note: an unbounded
+        status  indicates  the  presence  of  an unbounded ray that allows the
+        objective  to improve without limit. It says nothing about whether the
+        model   has  a  feasible  solution.  If  you  require  information  on
+        feasibility, you should set the objective to zero and reoptimize.[133X
+  
+  [30X    [33X[0;6Y6  - Optimal objective for model was proven to be worse than the value
+        specified   in  the  Cutoff  parameter.  No  solution  information  is
+        available.[133X
+  
+  [30X    [33X[0;6Y7  -  Optimization  terminated  because  the  total  number of simplex
+        iterations   performed   exceeded   the   value   specified   in   the
+        IterationLimit  parameter,  or  because  the  total  number of barrier
+        iterations exceeded the value specified in the BarIterLimit parameter.[133X
+  
+  [30X    [33X[0;6Y8 - Optimization terminated because the total number of branch-and-cut
+        nodes   explored   exceeded  the  value  specified  in  the  NodeLimit
+        parameter.[133X
+  
+  [30X    [33X[0;6Y9  -  Optimization  terminated  because the time expended exceeded the
+        value specified in the TimeLimit parameter.[133X
+  
+  [30X    [33X[0;6Y10  -  Optimization  terminated  because the number of solutions found
+        reached the value specified in the SolutionLimit parameter.[133X
+  
+  [30X    [33X[0;6Y11 - Optimization was terminated by the user.[133X
+  
+  [30X    [33X[0;6Y12  -  Optimization  was  terminated  due  to  unrecoverable numerical
+        difficulties.[133X
+  
+  [30X    [33X[0;6Y13  -  Unable to satisfy optimality tolerances; a sub-optimal solution
+        is available.[133X
+  
+  [30X    [33X[0;6Y14  -  An  asynchronous optimization call was made, but the associated
+        optimization run is not yet complete.[133X
+  
+  [30X    [33X[0;6Y15  -  User  specified  an objective limit (a bound on either the best
+        objective or the best bound), and that limit has been reached.[133X
+  
+  
+  [1X5.5 [33X[0;0YTroubleshooting The Installation[133X[101X
+  
+  
+  [1X5.5-1 [33X[0;0YTypical Sources Of Error During Installation[133X[101X
+  
+  [33X[0;0YCommon sources of error during installation include:[133X
+  
+  [30X    [33X[0;6YForgetting to run ./install.sh[133X
+  
+  [30X    [33X[0;6YNot  having autotools installed. On a mac this can be done using brew,
+        and  checking  all  necessary  dependencies  are  available  with Brew
+        Doctor.[133X
+  
+  [30X    [33X[0;6YNot  putting the correct paths to Gurobi (or [5XGAP[105X if not in the default
+        "pkg"  directory)  when  running  "configure". Sometimes the paths are
+        correct  but  incomplete,  eg missing "linux64" or "mac64" at the end.
+        Compare  with  the  example paths given in the installation section of
+        the manual.[133X
+  
+  [30X    [33X[0;6YHaving incorrect versions of [5XGAP[105X or Gurobi.[133X
+  
+  
+  [1X5.5-2 [33X[0;0YSpecific Errors[133X[101X
+  
+  [30X    [33X[0;6YThe compiler gives warnings when running "make"[133X
+  
+  [33X[0;0YThis  seems  to be due to the way [5XGAP[105X stores integers, but it doesn't affect
+  the  function  of  the  program.  If no errors are given the installation is
+  generally ok. Test the installation by loading Gurobify and running the test
+  cases.[133X
+  
+  [30X    [33X[0;6YCompilation  is successful, but [5XGAP[105X cannot load the package, giving an
+        error such as:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("Gurobify");[127X[104X
+    [4X[28X#W dlopen() error: libgurobi70.so: cannot open shared\[128X[104X
+    [4X[28Xobject file: No such file or directory[128X[104X
+    [4X[28XError, module '/home/linux/gap4r8/pkg/Gurobify/bin\[128X[104X
+    [4X[28X/x86_64-pc-linux-gnu-gcc-default64/Gurobify.so'[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  is  caused  by  [5XGAP[105X  not  being  able  to find the Gurobi binary. When
+  installing  Gurobify,  you  were required to enter the path to Gurobi in the
+  configure   stage.   If   this  path  is  "gurobi_path",  then  navigate  to
+  "gurobi_path/lib"  in  the terminal. You should now be able to load Gurobify
+  when  running  [5XGAP[105X  from  this  location.  It  can  be  fixed by running the
+  following:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XLD_LIBRARY_PATH=gurobi_path/lib:$LD_LIBRARY_PATH[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhere "gurobi_path/lib" is as above. This will only be valid for the current
+  session,  to  make  this  change  permanent  the  line  must be added to the
+  .bash_profile file.[133X
+  
+  [30X    [33X[0;6YCompilation  is  successful,  but  [5XGAP[105X cannot load Gurobify, giving an
+        error such as:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("Gurobify");[127X[104X
+    [4X[28Xdyld: lazy symbol binding failed: Symbol not found: _RegisterPackageTNUM[128X[104X
+    [4X[28X  Referenced from: /usr/local/lib/gap4r7/pkg/Gurobify-1.1.0/bin\[128X[104X
+    [4X[28X  /x86_64-apple-darwin14.3.0-gcc-default64/Gurobify.so[128X[104X
+    [4X[28X  Expected in: flat namespace[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YGurobify requires [5XGAP[105X version 4.8 or higher.[133X
+  
+  [30X    [33X[0;6YGurobify will not compile, giving an error such as:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xsrc/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCheck that you have entered the correct path for Gurobi during installation.[133X
+  
+  
+  [1X5.6 [33X[0;0YExample LP file[133X[101X
+  
+  [33X[0;0YShown  below is the LP file, "test.lp", written during the simple example in
+  Section 1.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X\ Model created with Gurobify - A GAP interface to Gurobi Optimizer.[128X[104X
+    [4X[28X\ LP format - for model browsing. Use MPS format to capture full model detail.[128X[104X
+    [4X[28XMinimize[128X[104X
+    [4X[28X  x + 2 y + z[128X[104X
+    [4X[28XSubject To[128X[104X
+    [4X[28X UnNamedConstraint: 2 x + 2 y + 2 z <= 6[128X[104X
+    [4X[28X UnNamedConstraint: x + 2 y + 3 z >= 5[128X[104X
+    [4X[28X UnNamedConstraint: 2 x + 2 y + 2 z <= 6[128X[104X
+    [4X[28X UnNamedConstraint: x + 2 y + 3 z >= 5[128X[104X
+    [4X[28XBounds[128X[104X
+    [4X[28XBinaries[128X[104X
+    [4X[28X x y z[128X[104X
+    [4X[28XEnd[128X[104X
+  [4X[32X[104X
+  

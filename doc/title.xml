@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    Gurobify
+  </Title>
+  <Subtitle>
+    A &GAP; interface to Gurobi Optimizer.
+  </Subtitle>
+  <Version>
+    2.0.0
+  </Version>
+  <Author>
+    Jesse Lansdown<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Jesse Lansdown<Br/>
+Centre for the Mathematics of Symmetry and Computation<Br/>
+The University of Western Australia<Br/>
+35 Stirling Highway<Br/>
+PERTH WA 6009<Br/>
+Australia<Br/>
+</Address>
+<Email>jesse.lansdown@uwa.edu.au</Email>
+<Homepage>https://www.jesselansdown.com</Homepage>
+
+  </Author>
+  <Date>
+    24 June 2021
+  </Date>
+  <Abstract>
+    Gurobify provides an interface to the Gurobi Optimizer software from &GAP;. It enables the creation and modification of mixed integer and linear programming models which can be solved directly by Gurobi from within the &GAP; environment.
+  </Abstract>
+  <Copyright>
+    &copyright; 2017 - 2021 Jesse Lansdown<P/>
+
+Gurobify is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+  </Copyright>
+  <Acknowledgements>
+    I thank Sebastian Gutsche for generously taking the time to explain the inner workings of &GAP; and &GAP; packages to me, and for pointing me towards examples. I also thank John Bamberg for introducing me to both &GAP; and Gurobi and showing me how they can be used to so effectively complement each other. I used the AutoDoc<Cite Key="autodoc"/> package to streamline the creation of the documentation for this package, and PackageMaker<Cite Key="packagemaker"/> to generate a package template. I would also like to acknowledge the support of an Australian Government Research Training Program (RTP) Scholarship while writing this software.
+  </Acknowledgements>
+  </TitlePage>
