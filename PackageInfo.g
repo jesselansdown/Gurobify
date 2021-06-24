@@ -76,7 +76,7 @@ PackageDoc := rec(
 Dependencies := rec(
   GAP := ">= 4.8",
   NeededOtherPackages := [  ],
-  SuggestedOtherPackages := [ [ "GAPDoc", ">= 1.5" ] ],
+  SuggestedOtherPackages := [ [ "GAPDoc", ">= 1.6.4" ] ],
   ExternalConditions := [ "Gurobi", "=7.0" ],
 ),
 

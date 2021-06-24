@@ -7,7 +7,7 @@ layout: default
 {{site.data.package.abstract}}
 
 The current version of this package is version {{site.data.package.version}}.
-For more information, please refer to the package manual in either [pdf format](http://www.jesselansdown.com/Gurobify/doc/manual.pdf) or  [html format]({{site.data.package.doc-html}}).
+For more information, please refer to the package manual in either [pdf format](https://www.jesselansdown.com/Gurobify/doc/manual.pdf) or  [html format]({{site.data.package.doc-html}}).
 There is also a [README](README.html) file.
 
 ## Dependencies

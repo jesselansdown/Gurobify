@@ -15,7 +15,7 @@ GAP: ">= 4.8"
 
 suggested-pkgs:
     - name: "GAPDoc"
-      version: ">= 1.5"
+      version: ">= 1.6.4"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
 
 www: https://www.jesselansdown.com/Gurobify
@@ -24,7 +24,7 @@ packageinfo: https://www.jesselansdown.com/Gurobify/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/jesselansdown/Gurobify/releases/download/v2.0.0/Gurobify-2.0.0.tar.gz
+      url: https://zenodo.org/record/5025558/files/Gurobify-2.0.0.tar.gz?download=1
 
 abstract: 
 
