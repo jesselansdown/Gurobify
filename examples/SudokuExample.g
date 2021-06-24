@@ -42,7 +42,7 @@
 #! @ExampleSession
 #! gap> var_types := ListWithIdenticalEntries( Size( var_names ), "Binary" );;
 #! gap> model := GurobiNewModel( var_types, var_names );
-#! <object>
+#! Gurobi model
 #! @EndExampleSession
 
 #! Here we define a few basic functions which are purely for the purpose of this example.
@@ -219,7 +219,7 @@
 
 #! @ExampleSession
 #! gap> model2 := GurobiReadModel( "SudokuSolver.lp" );
-#! <object>
+#! Gurobi model
 #! gap> var_names2 := GurobiVariableNames(model2);;
 #! gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 #! >  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 
@@ -251,7 +251,7 @@
 
 #! @ExampleSession
 #! gap> model3 := GurobiReadModel( "SudokuSolver.lp" );
-#! <object>
+#! Gurobi model
 #! gap> var_names3 := GurobiVariableNames(model3);;
 #! gap> starter_squares := ["x118", "x124", "x132", "x145", "x161", "x219",
 #! >  "x337", "x353", "x414", "x425", "x441", "x539", "x544", "x562", 

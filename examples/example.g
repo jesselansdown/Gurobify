@@ -19,7 +19,7 @@
 
 #! @BeginExample
 model := GurobiNewModel(["BINARY", "BINARY", "BINARY"], ["x", "y", "z"]);
-#! <object>
+#! Gurobi model
 GurobiSetObjectiveFunction( model, [1.,2.,1.] );
 #! true
 GurobiMaximiseModel(model);
@@ -107,7 +107,7 @@ GurobiWriteToFile(model, "test.lp");
 
 #! @BeginExample
 re_model := GurobiReadModel("test.lp");
-#! <object>
+#! Gurobi model
 #! @EndExample
 
 #! We now add another constraint, $x + y + z &gt; 3$, to the model. Since we may want to remove this constraint later we give
