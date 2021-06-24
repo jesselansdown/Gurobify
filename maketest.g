@@ -4,7 +4,7 @@
 
 LoadPackage( "Gurobify" );
 
-AUTODOC_file_scan_list := [ "../PackageInfo.g", "../examples/SudokuExample.g", "../examples/example.g", "../gap/Gurobify.gd", "../gap/Gurobify.gi", "../init.g", "../makedoc.g", "../read.g", "/home/jl/Documents/GitHub/pkg/Gurobify/doc/_Chunks.xml" ];
+AUTODOC_file_scan_list := [ "../PackageInfo.g", "../examples/SudokuExample.g", "../examples/example.g", "../gap/Gurobify.gd", "../gap/Gurobify.gi", "../init.g", "../makedoc.g", "../maketest.g", "../read.g", "/Users/jesselansdown/GitHub/pkg/Gurobify/doc/_Chunks.xml" ];
 
 LoadPackage( "GAPDoc" );
 
