@@ -23,7 +23,7 @@ To install Gurobify:
 2. Open the terminal in the Gurobify directory.
 3. Run the following commands.
 
-		./install.sh -g \<gurobi path> [-r \<gap path>]
+		./install.sh -g <gurobi path> [-r <gap path>]
 
 If you wish to regenerate the documentation do
 
