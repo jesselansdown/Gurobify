@@ -1,4 +1,6 @@
-Changes from Version 1.1.1 to 1.2.0
+Changes from Version 1.1.1 to 2.0.0
+	* Added method for GurobiNewModel taking the number of variables n, all of a given type
+	* Added method for GurobiAddMultipleConstraints, where constraints have repeated values for sense or rhs
 	* Added GurobiSetThreads
 	* Added GurobiThreads
 	* Added GurobiFindAllBinarySolutions
@@ -6,8 +8,9 @@ Changes from Version 1.1.1 to 1.2.0
 	* Added GurobiCharAttributeArray
 	* Added IndexSetToCharacteristicVector
 	* Added CharacteristicVectorToIndexSet
-	* Added SubsetToCharacteristicVector
 	* Added CharacteristicVectorToSubset
+	* Added SubsetToCharacteristicVector
+	* Added SubsetToIndexSet
 	* Added GurobiSetMethod
 	* Added GurobiMethod
 	* Minor bug fixes for installation process
