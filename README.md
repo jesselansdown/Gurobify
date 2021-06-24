@@ -14,7 +14,7 @@ Gurobi is proprietary software, however it has free academic licences. Please re
 
 If you want to regenerate the documentation for any reason, then the following will also be required.
 
-* AutoDoc 2016.03.08 (or later)
+* AutoDoc 2017.09.15 (or later)
 * GAPDoc 1.5 (or later)
 
 To install Gurobify:
