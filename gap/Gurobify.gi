@@ -402,7 +402,7 @@ InstallOtherMethod( GurobiSetSolutionLimit, "",
 	[ IsGurobiModel, IsInt ] ,
 	function(model, SolutionLimit )
 
-	GurobiSetIntegerParameter(model, "SoluitionLimit", SolutionLimit );
+	GurobiSetIntegerParameter(model, "SolutionLimit", SolutionLimit );
 
 	return true;
 	end
@@ -744,3 +744,70 @@ InstallMethod( GurobiThreads, "",
 	return GurobiIntegerParameter(model, "threads");
 	end
 );
+
+InstallMethod( ViewObj, "", 
+ 	[ IsGurobiModel],
+	function( model )
+ 			Print("Gurobi model");
+ 	end
+ );
+
+
+InstallMethod( Display, "",
+	[ IsGurobiModel],
+	function( model )
+	Print("Gurobi model\n");
+	Print("	Optimisation status: ", GurobiOptimisationStatus(model), "\n");
+	if GurobiOptimisationStatus(model) = 2 then
+		Print("	    Objective value: ", GurobiObjectiveValue(model), "\n");
+	fi;
+	Print("	Run time: ", GurobiRunTime(model), " seconds\n");
+	Print("\n");
+	Print("	Number of variables: ", GurobiNumberOfVariables(model), "\n");
+	Print("	Types of Variables: ", Collected(GurobiVariableTypes(model)), "\n");
+	Print("	Number of constraints: ", GurobiNumberOfConstraints(model), "\n");
+	if GurobiIntegerAttribute(model, "ModelSense") = -1 then
+		Print("	Model is set to maximise\n\n");
+	else
+		Print("	Model is set to minimise\n\n");
+	fi;
+	if GurobiTimeLimit(model)< 1.e+100 then
+		Print("	Time limit: ", GurobiTimeLimit(model), " seconds\n");
+	fi;
+	if GurobiNumericFocus(model) <> 0 then
+		Print("	Numeric focus: ", GurobiNumericFocus(model), "\n");
+	fi;
+	if GurobiMIPFocus(model) <> 0 then
+		Print("	MIP focus: ", GurobiMIPFocus(model), "\n");
+	fi;
+	if GurobiCutOff(model) < 1.e+100 then
+		Print("	Cut off: ", GurobiCutOff(model), "\n");
+	fi;
+	if GurobiBestObjectiveBoundStop(model) > -1.e+100 then
+		Print("	Best objective bound stop: ", GurobiBestObjectiveBoundStop(model), "\n");
+	fi;
+	if GurobiBestBoundStop(model) < 1.e+100 then
+		Print("	Best bound stop: ", GurobiBestBoundStop(model), "\n");
+	fi;
+	if GurobiSolutionLimit(model) <> 2000000000 then
+		Print("	Solution limit: ", GurobiSolutionLimit(model), "\n");
+	fi;
+	if GurobiIterationLimit(model) < 1.e+100 then
+		Print("	Iteration limit: ", GurobiIterationLimit(model), "\n");
+	fi;
+	if GurobiNodeLimit(model) < 1.e+100 then
+		Print("	Node limit: ", GurobiNodeLimit(model), "\n");
+	fi;
+	if GurobiMethod(model) <> -1 then
+		Print("	Method: ", GurobiMethod(model), "\n");;
+	fi;
+	if GurobiThreads(model) <> 0 then
+		Print("	Threads: ", GurobiThreads(model), "\n");
+	fi;
+	if GurobiLogToConsole(model) then
+		Print("	Gurobi is set to log to console for this model\n");
+	fi;
+	Print("    Other settings are currently default.\n    Model may need to be updated for changes to take effect.\n");
+	end
+);
+
