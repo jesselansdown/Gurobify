@@ -76,10 +76,20 @@ DeclareOperation( "GurobiAddConstraint",
 #!	are lists, such that the i-th entries of each list determine a single constraint in
 #!	the same manner as for the operation GurobiAddConstraint. ConstraintNames is an optional argument,
 #!	and must be given for all constraints, or not at all.
-#!  If ConstraintSenses and ConstraintRHSValues are all the same, then rather than providing a list, one may
-#!  simply provide a single string for the constraint sense and a single float or integer for the right hand side.
 DeclareOperation( "GurobiAddMultipleConstraints",
 	[ IsGurobiModel, IsList, IsList, IsList, IsList] );
+
+#! @Chapter Using Gurobify
+#! @Section Adding And Deleting Constraints
+#! @Arguments Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue[, ConstraintName]
+#! @Returns true
+#! @Description
+#!	Add multiple constraints to a model at one time, where the sense, rhs, and optionally name, of 
+#!  each constraint is the same. ConstraintEquations must be a list of constraints, ConstraintSense must
+#!  be a string, ConstraintRHSValue must be a float or an integer. 
+#!  ConstraintName is an optional argument, which if given, must be a string.
+DeclareOperation( "GurobiAddMultipleConstraints",
+	[ IsGurobiModel, IsList, IsString, IsFloat] );
 
 #! @Chapter Using Gurobify
 #! @Section Optimising A Model
@@ -389,10 +399,20 @@ DeclareOperation("GurobiVariableNames",
 #!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT". The variable types are not case sensitive.
 #!  Refer to the Gurobi documentation for more information on the variable types.
 #!  Optionally takes the names of the variables as a list of strings.
-#!  If all variables are of the same type, then you may instead give arguments n, v, where n is the number
-#!  of variables and v is the variable type.
 DeclareOperation( "GurobiNewModel",
 	[IsList, IsList]);
+
+
+#! @Chapter Using Gurobify
+#! @Section Creating Or Reading A Model
+#! @Arguments n, VariableType
+#! @Returns A Gurobi model
+#! @Description
+#!  Creates a new Gurobi model, with n variables, all of type VariableType.
+#!  Accepted variable types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT", or "SEMIINT". The variable types are not case sensitive.
+#!  Refer to the Gurobi documentation for more information on the variable types.
+DeclareOperation( "GurobiNewModel",
+	[IsPosInt, IsString]);
 
 
 

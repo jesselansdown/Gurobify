@@ -51,11 +51,19 @@
   "INTEGER",  "SEMICONT",  or  "SEMIINT".  The  variable  types  are  not case
   sensitive.  Refer  to  the  Gurobi documentation for more information on the
   variable  types.  Optionally  takes  the names of the variables as a list of
-  strings.  If  all  variables are of the same type, then you may instead give
-  arguments  n,  v,  where  n is the number of variables and v is the variable
-  type.[133X
+  strings.[133X
   
-  [1X3.1-4 GurobiSetVariableNames[101X
+  [1X3.1-4 GurobiNewModel[101X
+  
+  [33X[1;0Y[29X[2XGurobiNewModel[102X( [3Xn[103X, [3XVariableType[103X ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10YA Gurobi model[133X
+  
+  [33X[0;0YCreates  a  new  Gurobi  model,  with n variables, all of type VariableType.
+  Accepted  variable  types are "CONTINUOUS", "BINARY", "INTEGER", "SEMICONT",
+  or "SEMIINT". The variable types are not case sensitive. Refer to the Gurobi
+  documentation for more information on the variable types.[133X
+  
+  [1X3.1-5 GurobiSetVariableNames[101X
   
   [33X[1;0Y[29X[2XGurobiSetVariableNames[102X( [3XModel[103X, [3XVariableNames[103X ) [32X operation[133X
   [6XReturns:[106X  [33X[0;10Ytrue[133X
@@ -124,10 +132,18 @@
   Model) are lists, such that the i-th entries of each list determine a single
   constraint  in  the  same  manner  as for the operation GurobiAddConstraint.
   ConstraintNames  is  an  optional  argument,  and  must  be  given  for  all
-  constraints,  or not at all. If ConstraintSenses and ConstraintRHSValues are
-  all  the  same,  then rather than providing a list, one may simply provide a
-  single string for the constraint sense and a single float or integer for the
-  right hand side.[133X
+  constraints, or not at all.[133X
+  
+  [1X3.2-7 GurobiAddMultipleConstraints[101X
+  
+  [33X[1;0Y[29X[2XGurobiAddMultipleConstraints[102X( [3XModel[103X, [3XConstraintEquations[103X, [3XConstraintSense[103X, [3XConstraintRHSValue[103X[, [3XConstraintName[103X] ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Ytrue[133X
+  
+  [33X[0;0YAdd  multiple  constraints to a model at one time, where the sense, rhs, and
+  optionally name, of each constraint is the same. ConstraintEquations must be
+  a  list of constraints, ConstraintSense must be a string, ConstraintRHSValue
+  must be a float or an integer. ConstraintName is an optional argument, which
+  if given, must be a string.[133X
   
   
   [1X3.3 [33X[0;0YAdding And Modifying Objective Functions[133X[101X

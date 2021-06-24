@@ -43,13 +43,15 @@
 \makelabel{gurobify:GurobiReadModel}{3.1.1}{X7CA6505A838C9F1B}
 \makelabel{gurobify:GurobiWriteToFile}{3.1.2}{X7831FAF781F23D29}
 \makelabel{gurobify:GurobiNewModel for islist, islist}{3.1.3}{X7A1E18B57D975687}
-\makelabel{gurobify:GurobiSetVariableNames for isgurobimodel, islist}{3.1.4}{X7B690832842C6A40}
+\makelabel{gurobify:GurobiNewModel for isposint, isstring}{3.1.4}{X7EE54D617DD33A8C}
+\makelabel{gurobify:GurobiSetVariableNames for isgurobimodel, islist}{3.1.5}{X7B690832842C6A40}
 \makelabel{gurobify:GurobiDeleteSingleConstraintWithName}{3.2.1}{X7E2213B9791B56B6}
 \makelabel{gurobify:GurobiDeleteConstraints}{3.2.2}{X818D5BCD7E92B747}
 \makelabel{gurobify:GurobiDeleteConstraintsWithName for isgurobimodel, isstring}{3.2.3}{X841ABAB38141572F}
 \makelabel{gurobify:GurobiAddConstraint for isgurobimodel, islist, isstring, isint, isstring}{3.2.4}{X80DAC59A855C49B4}
 \makelabel{gurobify:GurobiAddConstraint for isgurobimodel, islist, isstring, isfloat, isstring}{3.2.5}{X83AB24597DEC03F2}
 \makelabel{gurobify:GurobiAddMultipleConstraints for isgurobimodel, islist, islist, islist, islist}{3.2.6}{X804B714384F12A4C}
+\makelabel{gurobify:GurobiAddMultipleConstraints for isgurobimodel, islist, isstring, isfloat}{3.2.7}{X85E5ED4B7CBCB382}
 \makelabel{gurobify:GurobiMaximiseModel for isgurobimodel}{3.3.1}{X82CBDCEA8397AF0A}
 \makelabel{gurobify:GurobiMinimiseModel for isgurobimodel}{3.3.2}{X803628D383545D0E}
 \makelabel{gurobify:GurobiSetObjectiveFunction for isgurobimodel, islist}{3.3.3}{X83A23C757B5BF985}

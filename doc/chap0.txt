@@ -79,7 +79,8 @@
       3.1-1 GurobiReadModel
       3.1-2 GurobiWriteToFile
       3.1-3 GurobiNewModel
-      3.1-4 GurobiSetVariableNames
+      3.1-4 GurobiNewModel
+      3.1-5 GurobiSetVariableNames
     3.2 [33X[0;0YAdding And Deleting Constraints[133X
       3.2-1 GurobiDeleteSingleConstraintWithName
       3.2-2 GurobiDeleteConstraints
@@ -87,6 +88,7 @@
       3.2-4 GurobiAddConstraint
       3.2-5 GurobiAddConstraint
       3.2-6 GurobiAddMultipleConstraints
+      3.2-7 GurobiAddMultipleConstraints
     3.3 [33X[0;0YAdding And Modifying Objective Functions[133X
       3.3-1 GurobiMaximiseModel
       3.3-2 GurobiMinimiseModel

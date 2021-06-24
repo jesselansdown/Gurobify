@@ -17,7 +17,7 @@ InstallMethod(GurobiNewModel, "",
 	end
 );
 
-InstallOtherMethod(GurobiNewModel, "",
+InstallMethod(GurobiNewModel, "",
 	[ IsPosInt, IsString] ,
 	function(n, VariableType)
 		local model;
@@ -94,7 +94,7 @@ InstallOtherMethod(GurobiAddMultipleConstraints, "",
 	end
 );
 
-InstallOtherMethod(GurobiAddMultipleConstraints, "",
+InstallMethod(GurobiAddMultipleConstraints, "",
 	[ IsGurobiModel, IsList, IsString, IsFloat],
 	function(Model, ConstraintEquations, ConstraintSense, ConstraintRHSValue)
 		# Add error checks
