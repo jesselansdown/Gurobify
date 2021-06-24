@@ -332,6 +332,21 @@ Gurobify requires &GAP; version 4.8 or higher.
 
 Check that you have entered the correct path for Gurobi during installation.
 
+* Gap gives an error like the following when trying to load Gurobify:
+
+@BeginLog
+#! gap> LoadPackage("Gurobify");
+#! Error, Error: failed to create new environment. in
+#!   if not LOAD_DYN( arg[1], false ) then
+#!     Error( "no support for dynamic loading" );
+#! fi; at /usr/local/lib/gap-4.10.0/lib/files.gd:583 called from 
+#! <function "LoadDynamicModule">( <arguments> )
+#!  called from read-eval loop at /usr/local/lib/gap-4.10.0/pkg/Gurobify/init.g:8
+#! type 'quit;' to quit to outer loop
+@EndLog
+
+Check that Gurobi's licese is up-to-date.
+
 	@Section Example LP file
 
 Shown below is the LP file, "test.lp", written during the simple example in Section 1.

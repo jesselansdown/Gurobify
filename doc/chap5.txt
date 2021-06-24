@@ -168,6 +168,21 @@
   
   [33X[0;0YCheck that you have entered the correct path for Gurobi during installation.[133X
   
+  [30X    [33X[0;6YGap gives an error like the following when trying to load Gurobify:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage("Gurobify");[127X[104X
+    [4X[28XError, Error: failed to create new environment. in[128X[104X
+    [4X[28X  if not LOAD_DYN( arg[1], false ) then[128X[104X
+    [4X[28X    Error( "no support for dynamic loading" );[128X[104X
+    [4X[28Xfi; at /usr/local/lib/gap-4.10.0/lib/files.gd:583 called from [128X[104X
+    [4X[28X<function "LoadDynamicModule">( <arguments> )[128X[104X
+    [4X[28X called from read-eval loop at /usr/local/lib/gap-4.10.0/pkg/Gurobify/init.g:8[128X[104X
+    [4X[28Xtype 'quit;' to quit to outer loop[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCheck that Gurobi's licese is up-to-date.[133X
+  
   
   [1X5.6 [33X[0;0YExample LP file[133X[101X
   

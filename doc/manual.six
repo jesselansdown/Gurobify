@@ -62,7 +62,7 @@ entries :=
       [ 5, 5, 1 ], 95, 33, "typical sources of error during installation", "X81BB11CC7917EFD2" ], 
   [ "\033[1X\033[33X\033[0;-2YSpecific Errors\033[133X\033[101X", "5.5-2", [ 5, 5, 2 ], 114, 34, "specific errors",
       "X79B4B31F854254C0" ], [ "\033[1X\033[33X\033[0;-2YExample LP file\033[133X\033[101X", "5.6", [ 5, 6, 0 ], 
-      171, 34, "example lp file", "X80DBDA7179E9E200" ], 
+      186, 35, "example lp file", "X80DBDA7179E9E200" ], 
   [ "Bibliography", "bib", [ "Bib", 0, 0 ], 1, 36, "bibliography", "X7A6F98FD85F02BFE" ], 
   [ "References", "bib", [ "Bib", 0, 0 ], 1, 36, "references", "X7A6F98FD85F02BFE" ], 
   [ "Index", "ind", [ "Ind", 0, 0 ], 1, 37, "index", "X83A0356F839C696F" ], 
