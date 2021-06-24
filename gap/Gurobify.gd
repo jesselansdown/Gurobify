@@ -477,7 +477,7 @@ DeclareOperation("IndexSetToCharacteristicVector",
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
 #! @Arguments CharacteristicVector
-#! @Returns Characterisitc vector
+#! @Returns Index set
 #! @Description
 #!	Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the
 #!	process which occurs with IndexSetToCharacteristicVector. It is particularly useful to convert the
@@ -504,7 +504,7 @@ DeclareOperation("SubsetToCharacteristicVector",
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
 #! @Arguments Subset, FullSet
-#! @Returns Characterisitc vector
+#! @Returns Index set
 #! @Description
 #!	Takes a subset of some set, and returns the set of indices corresponding to it. For example, the subset ["a", "d"]
 #!  of the set ["a", "b", "c", "d", "e"], would return the index set [1,4]. Note that since the method expects a subset (not a multiset) 
@@ -516,7 +516,7 @@ DeclareOperation("SubsetToIndexSet",
 #! @Chapter Using Gurobify
 #! @Section Additional Functionality
 #! @Arguments CharacteristicVector
-#! @Returns Characterisitc vector
+#! @Returns Subset
 #! @Description
 #!	Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic 
 #!	vector. It then returns the subset of the full set corresponding to the non-zero entries of the characteristic 

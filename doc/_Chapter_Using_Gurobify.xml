@@ -856,7 +856,7 @@
 
 <ManSection>
   <Oper Arg="CharacteristicVector" Name="CharacteristicVectorToIndexSet" Label="for IsList"/>
- <Returns>Characterisitc vector
+ <Returns>Index set
 </Returns>
  <Description>
 	Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the
@@ -884,7 +884,7 @@
 
 <ManSection>
   <Oper Arg="Subset, FullSet" Name="SubsetToIndexSet" Label="for IsList, IsList"/>
- <Returns>Characterisitc vector
+ <Returns>Index set
 </Returns>
  <Description>
 	Takes a subset of some set, and returns the set of indices corresponding to it. For example, the subset ["a", "d"]
@@ -896,7 +896,7 @@
 
 <ManSection>
   <Oper Arg="CharacteristicVector" Name="CharacteristicVectorToSubset" Label="for IsList, IsList"/>
- <Returns>Characterisitc vector
+ <Returns>Subset
 </Returns>
  <Description>
 	Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic 

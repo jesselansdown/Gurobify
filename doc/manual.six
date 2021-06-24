@@ -17,7 +17,7 @@ entries :=
   [ "\033[1X\033[33X\033[0;-2YInstallation\033[133X\033[101X", "1.4", [ 1, 4, 0 ], 96, 7, "installation", 
       "X8360C04082558A12" ], [ "\033[1X\033[33X\033[0;-2YTesting And Documentation\033[133X\033[101X", "1.5", 
       [ 1, 5, 0 ], 127, 7, "testing and documentation", "X84A483B47DCD6909" ], 
-  [ "\033[1X\033[33X\033[0;-2YLoading Gurobify\033[133X\033[101X", "1.6", [ 1, 6, 0 ], 154, 8, "loading gurobify", 
+  [ "\033[1X\033[33X\033[0;-2YLoading Gurobify\033[133X\033[101X", "1.6", [ 1, 6, 0 ], 154, 7, "loading gurobify", 
       "X7C24864E7D6ABBD8" ], [ "\033[1X\033[33X\033[0;-2YProblems With The Installation\033[133X\033[101X", "1.7", 
       [ 1, 7, 0 ], 182, 8, "problems with the installation", "X87891BE881E89935" ], 
   [ "\033[1X\033[33X\033[0;-2YGetting Started\033[133X\033[101X", "2", [ 2, 0, 0 ], 1, 9, "getting started", 

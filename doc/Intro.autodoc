@@ -94,6 +94,7 @@ To install Gurobify, first extract it in the pkg directory of the &GAP; installa
 @EndLog
 
 The &#8208;g &lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX,
+
 <Br/><Br/>
 
 &#8208;g /Library/gurobi701/mac64/

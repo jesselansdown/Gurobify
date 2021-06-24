@@ -701,7 +701,7 @@
   [1X3.9-2 CharacteristicVectorToIndexSet[101X
   
   [33X[1;0Y[29X[2XCharacteristicVectorToIndexSet[102X( [3XCharacteristicVector[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10YCharacterisitc vector[133X
+  [6XReturns:[106X  [33X[0;10YIndex set[133X
   
   [33X[0;0YTakes  a  characteristic vector and returns the set of indices corresponding
   to     it.     This    reverses    the    process    which    occurs    with
@@ -728,7 +728,7 @@
   [1X3.9-4 SubsetToIndexSet[101X
   
   [33X[1;0Y[29X[2XSubsetToIndexSet[102X( [3XSubset[103X, [3XFullSet[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10YCharacterisitc vector[133X
+  [6XReturns:[106X  [33X[0;10YIndex set[133X
   
   [33X[0;0YTakes  a subset of some set, and returns the set of indices corresponding to
   it. For example, the subset ["a", "d"] of the set ["a", "b", "c", "d", "e"],
@@ -739,7 +739,7 @@
   [1X3.9-5 CharacteristicVectorToSubset[101X
   
   [33X[1;0Y[29X[2XCharacteristicVectorToSubset[102X( [3XCharacteristicVector[103X ) [32X operation[133X
-  [6XReturns:[106X  [33X[0;10YCharacterisitc vector[133X
+  [6XReturns:[106X  [33X[0;10YSubset[133X
   
   [33X[0;0YTakes a characteristic vector and some set which it takes to be indexing the
   entries of the characteristic vector. It then returns the subset of the full

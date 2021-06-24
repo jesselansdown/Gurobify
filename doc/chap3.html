@@ -788,7 +788,7 @@
 <h5>3.9-2 CharacteristicVectorToIndexSet</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacteristicVectorToIndexSet</code>( <var class="Arg">CharacteristicVector</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Characterisitc vector</p>
+<p>Returns: Index set</p>
 
 <p>Takes a characteristic vector and returns the set of indices corresponding to it. This reverses the process which occurs with IndexSetToCharacteristicVector. It is particularly useful to convert the output of a Gurobi solution back in terms of the variables. For example, the characteristic vector [1, 0, 1, 0, 0] would return the index set [1,3]. Note that since the function expects a characteristic vector it doesn't account for any weightings, and is only interested in whether or not the corresponding index is present, and as such it rounds each entry to the nearest integer and checks that it is non-zero. Hence it is particularly suitable for use with binary variables.</p>
 
@@ -806,7 +806,7 @@
 <h5>3.9-4 SubsetToIndexSet</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubsetToIndexSet</code>( <var class="Arg">Subset</var>, <var class="Arg">FullSet</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Characterisitc vector</p>
+<p>Returns: Index set</p>
 
 <p>Takes a subset of some set, and returns the set of indices corresponding to it. For example, the subset ["a", "d"] of the set ["a", "b", "c", "d", "e"], would return the index set [1,4]. Note that since the method expects a subset (not a multiset) vector it doesn't account for any weightings or repetition.</p>
 
@@ -815,7 +815,7 @@
 <h5>3.9-5 CharacteristicVectorToSubset</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacteristicVectorToSubset</code>( <var class="Arg">CharacteristicVector</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns: Characterisitc vector</p>
+<p>Returns: Subset</p>
 
 <p>Takes a characteristic vector and some set which it takes to be indexing the entries of the characteristic vector. It then returns the subset of the full set corresponding to the non-zero entries of the characteristic vector. This is the reverse process to SubsetToCharacteristicVector. Note again that the characteristic vector is rounded to an integer before being compared to 0. As an example, the characteristic vector [0, 1, 0, 0] with the set ["a", "c", "n", "q"] would return ["c"]. This removes the need to first return an index set before finding the subset.</p>
 
