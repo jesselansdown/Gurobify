@@ -1,6 +1,6 @@
 # Gurobify: Gurobify provides an interface to Gurobi from GAP.
 #
-# Copyright (c) 2017 Jesse Lansdown
+# Copyright (c) 2017 - 2021 Jesse Lansdown
 #
 # This Source Code Form is subject to the terms of the Mozilla
 # Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -14,7 +14,7 @@
 Gurobify is a &GAP;<Cite Key="GAP4"/> package which provides an interface to the optimisation software Gurobi<Cite Key="gurobi"/>.
 <Br/><Br/>
 Gurobify can be obtained from the Gurobify homepage:
-* http://www.jesselansdown.com/Gurobify
+* https://www.jesselansdown.com/Gurobify
 Please use the issue tracker to inform me of any bugs or suggestions:
 * https://github.com/jesselansdown/Gurobify/issues
 
@@ -28,19 +28,19 @@ If Gurobify aids you in obtaining results that lead to a publication, please cit
 #!	Author = {Lansdown, Jesse},
 #!	Doi = {10.5281/zenodo.1036626},
 #!	Key = {gurobify},
-#!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}},
+#!	Title = {{Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}},
 #!	Url = {http://doi.org/10.5281/zenodo.1036626},
-#!	Year = 2017,
+#!	Year = 2021,
 #!	}
 @EndLog
 
 Here is the entry in the APA style which may be used directly in the bibliography environment of your LaTeX document.
 
 @BeginLog
-#! \bibitem[Lansdown(2017)]{gurobify}
+#! \bibitem[Lansdown(2021)]{gurobify}
 #! J.~Lansdown.
-#! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 1.1.1}.
-#! \newblock 2017.
+#! \newblock {Gurobify -- A GAP interface to Gurobi Optimizer, Version 2.0.0}.
+#! \newblock 2021.
 #! \newblock \doi{10.5281/zenodo.1036626}.
 #! \newblock URL \url{http://doi.org/10.5281/zenodo.1036626}.
 @EndLog
@@ -59,9 +59,9 @@ Gurobify requires the following software to be installed.
 Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
 If you want to regenerate the documentation for any reason, then the following will also be required.
 
-* AutoDoc 2017.09.15 (or later)
+* AutoDoc 2020.08.11 (or later)
 
-* GAPDoc 1.5 (or later)
+* GAPDoc 1.6.4 (or later)
 
 Although Gurobi is proprietary software, it is available free for academic use. According to the Gurobi website, 
 $$ $$
@@ -87,22 +87,16 @@ For up-to-date information on Gurobi licences, please refer to the Gurobi websit
 
 	@Section Installation
 
-To install Gurobify, first extract it in the pkg directory of the &GAP; installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the &GAP; root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the &GAP; root directory. Next run the following commands in the terminal from within the Gurobify directory.
+To install Gurobify, first extract it in the pkg directory of the &GAP; installation directory. You may place Gurobify in a different location, so long as its parent directory is called "pkg". Installing Gurobify outside of the &GAP; root pkg directory is not recommended, but is useful for example when administrative privileges are needed to access the &GAP; root directory. Next run the following command in the terminal from within the Gurobify directory.
 
 @BeginLog
-#! ./autogen.sh
-#! ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
-#! ./autogen.sh
-#! ./configure --with-gurobi=<gurobi path> [--with-gaproot=<gap path>]
-#! make
+#! ./install.sh -g <gurobi path> [-r <gap path>]
 @EndLog
 
-Note that ./autogen.sh and ./configure are run twice. This is because the first run identifies the version of Gurobi installed at &lt;gurobi path&gt;, and the second run through configures for this version.
-
-The &#8208;-with-gurobi=&lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX,
+The &#8208;g &lt;gurobi path&gt; is a necessary argument, and normally looks something like this on MacOSX,
 <Br/><Br/>
 
-&#8208;-with-gurobi=/Library/gurobi701/mac64
+&#8208;g /Library/gurobi701/mac64/
 
 <Br/><Br/>
 
@@ -110,15 +104,15 @@ or something like this on Linux,
 
 <Br/><Br/>
 
-&#8208;-with-gurobi=/opt/gurobi701/linux64
+&#8208;g /opt/gurobi701/linux64/
 
 <Br/><Br/>
 
-The [&#8208;-with-gaproot=&lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the &GAP; root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this,
+The [&#8208;r &lt;gap path&gt;] is an optional argument, and is not normally necessary if Gurobify is placed in the pkg directory of the &GAP; root directory. If, however, Gurobify is located in a non-root pkg directory, then this argument must be included. It normally looks something like this,
 
 <Br/><Br/>
 
-&nbsp;&#8208;-with-gaproot=/opt/gap4r8/
+&nbsp;&#8208;r /opt/gap4r8/
 
 
 	@Section Testing And Documentation
@@ -146,10 +140,10 @@ Open &GAP; and load Gurobify with the command **LoadPackage("Gurobify");**. You 
 @BeginLog
  LoadPackage("Gurobify");
 #! -----------------------------------------------------------------------------
-#! Loading  Gurobify 1.1.1 (Gurobify provides an interface to Gurobi from GAP.)
+#! Loading  Gurobify 2.0.0 (Gurobify provides an interface to Gurobi from GAP.)
 #! by Jesse Lansdown (www.jesselansdown.com).
-#! Homepage: http://www.jesselansdown.com/Gurobify/
-#!      Currently running Gurobi Optimizer 7.5.1
+#! Homepage: https://www.jesselansdown.com/Gurobify/
+#!      Currently running Gurobi Optimizer 9.1.0
 #! -----------------------------------------------------------------------------
 #! true
 @EndLog
@@ -240,7 +234,7 @@ This section contains a number of examples which are intended to illustrate the 
 
 	@Section Gurobify Links
 
-* Homepage: http://www.jesselansdown.com/Gurobify/
+* Homepage: https://www.jesselansdown.com/Gurobify/
 * Issue tracker: https://github.com/jesselansdown/Gurobify/issues
 
 	@Section &GAP; Links
@@ -287,28 +281,16 @@ The information in this section on optimisation status codes is taken directly f
 	@Subsection Typical Sources Of Error During Installation
 
 Common sources of error during installation include:
-* Forgetting to run ./autogen.sh
+* Forgetting to run ./install.sh
 * Not having autotools installed. On a mac this can be done using brew, and checking all necessary dependencies are available with Brew Doctor. 
 * Not putting the correct paths to Gurobi (or &GAP; if not in the default "pkg" directory) when running "configure". Sometimes the paths are correct but incomplete, eg missing "linux64" or "mac64" at the end. Compare with the example paths given in the installation section of the manual.
 * Having incorrect versions of &GAP; or Gurobi.
-* Default GUROBIVERSION differs from installed version. Fix by running ./autogen.sh and ./configure twice before make.
 
 	@Subsection Specific Errors
 
 * The compiler gives warnings when running "make"
 
 This seems to be due to the way &GAP; stores integers, but it doesn't affect the function of the program. If no errors are given the installation is generally ok. Test the installation by loading Gurobify and running the test cases.
-
-* Compilation is unsuccessful, terminating with an error such as:
-
-@BeginLog
-#! /usr/bin/ld: cannot find -lgurobi70
-#! collect2: error: ld returned 1 exit status
-#! Makefile:473: recipe for target 'Gurobify.la' failed
-#! make: *** [Gurobify.la] Error 1
-@EndLog
-
-Gurobify has a GUROBIVERSION file which indicates the version of Gurobi being used, which is updated to match the installed version during ./autogen. However, ./configure will use the old GUROBIVERSION before it is updated. To fix this, run ./autogen and ./configure a second time.
 
 * Compilation is successful, but &GAP; cannot load the package, giving an error such as:
 
@@ -348,13 +330,14 @@ Gurobify requires &GAP; version 4.8 or higher.
 #! src/Gurobify.c:12:10: fatal error: 'gurobi_c.h' file not found
 @EndLog
 
-Check that you have entered the correct path for Gurobi in the "configure" stage of installation.
+Check that you have entered the correct path for Gurobi during installation.
 
 	@Section Example LP file
 
 Shown below is the LP file, "test.lp", written during the simple example in Section 1.
 
 @BeginLog
+#! \ Model created with Gurobify - A GAP interface to Gurobi Optimizer.
 #! \ LP format - for model browsing. Use MPS format to capture full model detail.
 #! Minimize
 #!   x + 2 y + z
