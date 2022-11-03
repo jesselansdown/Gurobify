@@ -43,7 +43,7 @@ LT_INIT([disable-static dlopen win32-dll])
 dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
-AC_FIND_GAP
+FIND_GAP
 
 dnl ##
 dnl ## Detect pointer size to distinguish 32 and 64 bit builds
@@ -74,11 +74,6 @@ case $host_os in
          * ) CYGWIN=no;;
 esac
 AM_CONDITIONAL([SYS_IS_CYGWIN], [test "$CYGWIN" = "yes"])
-if test "$CYGWIN" = "yes"; then
-  AC_DEFINE(SYS_IS_CYGWIN32, 1, are we on CYGWIN?)
-else
-  AC_DEFINE(SYS_IS_CYGWIN32, 0, are we on CYGWIN?)
-fi
 
 dnl ##
 dnl ## Rebuild configure if VERSION file changes
