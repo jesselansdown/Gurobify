@@ -8,7 +8,7 @@
  * with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-#include "src/compiled.h"          /* GAP headers */
+#include "compiled.h"          /* GAP headers */
 #include "gurobi_c.h"
 #include <stdlib.h>
 #include <stdio.h>
