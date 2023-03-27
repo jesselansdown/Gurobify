@@ -8,6 +8,3 @@ if fail = LoadPackage("AutoDoc", "2016.02.16") then
 fi;
 
 AutoDoc( rec( maketest := rec( commands := [ "LoadPackage( \"Gurobify\" );"]), scaffold := true, autodoc := rec( files := [ "doc/Intro.autodoc", "src/Gurobify.c"] ) ) );
-
-PrintTo("VERSION", PackageInfo("Gurobify")[1].Version);
-
