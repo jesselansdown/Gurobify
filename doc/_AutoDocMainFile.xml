@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- This is an automatically generated file. -->
-<#Include SYSTEM "_Chapter_Introduction.xml">
-<#Include SYSTEM "_Chapter_Getting_Started.xml">
-<#Include SYSTEM "_Chapter_Using_Gurobify.xml">
-<#Include SYSTEM "_Chapter_Examples.xml">
-<#Include SYSTEM "_Chapter_Appendix.xml">
