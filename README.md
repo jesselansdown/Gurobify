@@ -5,8 +5,8 @@ Jesse Lansdown (jesse.lansdown@uwa.edu.au)
 Gurobify provides a [GAP](https://www.gap-system.org) interface to [Gurobi](http://www.gurobi.com).
 
 Gurobify has the following dependencies:
-* GAP 4.8 (or later)
-* Gurobi 7.0 (or later)
+* GAP 4.12 (or later)
+* Gurobi 12.0 (or later)
 * AutoTools
 
 Autotools may be installed on MacOSX using homebrew with the commands **brew install autoconf** and **brew install automake**.
@@ -23,7 +23,7 @@ To install Gurobify:
 2. Open the terminal in the Gurobify directory.
 3. Run the following commands.
 
-		./install.sh -g <gurobi path> [-r <gap path>]
+		./install.sh -g <gurobi path> -v <Gurobi version> [-r <gap path>]
 
 If you wish to regenerate the documentation do
 
