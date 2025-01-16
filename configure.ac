@@ -57,7 +57,6 @@ AC_ARG_WITH([gurobi],
 GUROBI_CPPFLAGS="-I$GUROBI/include"
 GUROBI_LDPATH="$GUROBI/lib"
 GUROBI_LDFLAGS="-L$GUROBI_LDPATH"
-AC_CONFIG_COMMANDS([GUROBIVERSION], [ls $GUROBI_LDPATH/*.so | grep "libgurobi" | xargs basename | tr -d 'libgurobi.so' > GUROBIVERSION], [GUROBI_LDPATH=$GUROBI_LDPATH])
 
 GUROBI_VERSION=m4_esyscmd([tr -d '\n' < GUROBIVERSION])
 
